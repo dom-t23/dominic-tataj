@@ -1,0 +1,896 @@
+<title>Dominic Tataj Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Engineering portfolio of Dominic Tataj, MEng Mechanical Engineering student at UCL.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: an engineering drawing set. A drawing register up front, then one sheet per
+   project, each opened by a title block, with figures captioned like plates. */
+:root {
+  --paper: #FFFFFF;
+  --panel: #F6F6F6;
+  --grid: #F1F1F1;
+  --rule: #D9D9D9;
+  --ink: #111111;
+  --ink-2: #4A4A4A;
+  --muted: #707070;
+  --signal: #FF4F00;   /* marks: squares, bars, focus */
+  --link: #C23A00;     /* text in the accent hue, AA on paper */
+  --screen: #0E0F10;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #111214; --panel: #18191C; --grid: #1B1C1F; --rule: #2E2F33;
+    --ink: #ECECEC; --ink-2: #B4B4B4; --muted: #8C8C8C;
+    --signal: #FF5A14; --link: #FF8048; --screen: #0A0B0C;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #111214; --panel: #18191C; --grid: #1B1C1F; --rule: #2E2F33;
+  --ink: #ECECEC; --ink-2: #B4B4B4; --muted: #8C8C8C;
+  --signal: #FF5A14; --link: #FF8048; --screen: #0A0B0C;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(72px + env(safe-area-inset-top, 0px)); }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 17px/1.6 var(--font-body);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+::selection { background: var(--signal); color: #FFFFFF; }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+img, svg, canvas { max-width: 100%; }
+
+.wrap {
+  max-width: 1240px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+@media (min-width: 720px) {
+  .wrap { padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+}
+
+.mono { font-family: var(--font-data); letter-spacing: 0.08em; }
+.label { font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+.eyebrow { font: 400 13px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
+.eyebrow::before { content: ""; width: 12px; height: 12px; background: var(--signal); flex: none; }
+h1, h2, h3 { text-wrap: balance; margin: 0; color: var(--ink); }
+.display { font-family: var(--font-display); font-weight: 500; }
+p { margin: 0; }
+
+/* ---------- nav ---------- */
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+  background: var(--paper); border-bottom: 1px solid var(--rule);
+}
+.nav .wrap { min-height: 64px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 24px; padding-block: 10px; }
+.nav .name { font: 500 20px/1.2 var(--font-display); color: var(--ink); }
+.nav .name:hover { text-decoration: none; }
+.nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 28px; }
+.nav ul a { font: 400 13px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--ink); padding-block: 6px 4px; border-bottom: 2px solid transparent; transition: color 150ms var(--ease), border-color 150ms var(--ease); }
+.nav ul a:hover { color: var(--link); text-decoration: none; border-bottom-color: var(--signal); }
+@media (max-width: 520px) { .nav ul { gap: 4px 18px; } .nav ul a { font-size: 12px; } }
+
+/* ---------- hero ---------- */
+.hero { border-bottom: 1px solid var(--rule); }
+.hero .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 48px 64px; padding-block: clamp(48px, 8vw, 96px); align-items: start; }
+.hero-text { display: grid; gap: 24px; min-width: 0; }
+.hero h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(38px, 4.8vw, 62px); line-height: 1.04; letter-spacing: -0.01em; }
+.hero h1 em { font-style: italic; font-weight: 400; }
+.hero .lede { font-size: 18px; color: var(--ink-2); max-width: 34em; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.btn {
+  display: inline-block; border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+  padding: 13px 22px; font: 400 13px/1.4 var(--font-data); letter-spacing: 0.08em;
+  transition: border-color 150ms var(--ease);
+}
+.btn:hover { border-color: var(--ink); text-decoration: none; }
+.btn.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.btn.primary:hover { background: var(--signal); border-color: var(--signal); color: #FFFFFF; }
+
+/* drawing register (parts list) */
+.register { border: 1px solid var(--rule); min-width: 0; }
+.register header { display: flex; justify-content: space-between; gap: 12px; padding: 10px 14px; background: var(--panel); border-bottom: 1px solid var(--rule); }
+.register ol { list-style: none; margin: 0; padding: 0; }
+.register li + li { border-top: 1px solid var(--rule); }
+.register a {
+  display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; gap: 4px 14px; align-items: baseline;
+  padding: 16px 14px; color: var(--ink); transition: background 150ms var(--ease);
+}
+.register a:hover { background: var(--panel); text-decoration: none; }
+.register a:hover .r-title { color: var(--link); }
+.register .r-no { font: 500 13px/1.4 var(--font-data); letter-spacing: 0.08em; }
+.register .r-title { font: 600 17px/1.3 var(--font-body); transition: color 150ms var(--ease); }
+.register .r-key { font: 500 13px/1.4 var(--font-data); letter-spacing: 0.04em; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.register .r-meta { grid-column: 2 / 4; font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+@media (max-width: 440px) { .register a { grid-template-columns: 44px minmax(0, 1fr); } .register .r-key { grid-column: 2; text-align: left; } .register .r-meta { grid-column: 2; } }
+
+/* ---------- sections ---------- */
+.section { padding-block: clamp(64px, 9vw, 112px); }
+.section + .section { border-top: 1px solid var(--rule); }
+.section-head { display: grid; gap: 12px; max-width: 68ch; }
+.section-head h2 { font-family: var(--font-display); font-weight: 500; font-size: clamp(32px, 4vw, 44px); line-height: 1.1; }
+.section-head p { color: var(--ink-2); }
+
+/* project sheet */
+.sheet { border: 1px solid var(--rule); margin-top: 48px; background: var(--paper); }
+.sheet + .sheet { margin-top: 64px; }
+.tblock { display: flex; flex-wrap: wrap; gap: 1px; background: var(--rule); border-bottom: 1px solid var(--rule); }
+.tblock > div { background: var(--panel); padding: 12px 16px; flex: 1 1 150px; min-width: 0; }
+.tblock .v { font: 500 13px/1.4 var(--font-data); letter-spacing: 0.06em; color: var(--ink); margin-top: 4px; text-transform: uppercase; overflow-wrap: anywhere; }
+.tblock .wide { flex-basis: 260px; }
+
+.sheet-body { padding: clamp(24px, 5vw, 56px); display: grid; gap: 48px; }
+.sheet-title { display: grid; gap: 14px; max-width: 70ch; }
+.sheet-title h3 { font-family: var(--font-display); font-weight: 500; font-size: clamp(28px, 3.4vw, 38px); line-height: 1.12; }
+.sheet-title .summary { font-size: 19px; color: var(--ink-2); }
+
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 40px 56px; align-items: start; }
+.prose { display: grid; gap: 32px; min-width: 0; max-width: 68ch; }
+.prose h4 { font-family: var(--font-display); font-weight: 500; font-size: 24px; line-height: 1.2; margin: 0 0 10px; }
+.prose p + p { margin-top: 12px; }
+.prose strong { font-weight: 600; }
+
+/* spec strip */
+.specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.specs > div { background: var(--paper); padding: 14px 16px; display: grid; gap: 6px; align-content: start; }
+.specs .n { font: 500 26px/1.1 var(--font-data); letter-spacing: -0.01em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.specs .n small { font-size: 14px; letter-spacing: 0.04em; color: var(--ink-2); margin-left: 3px; }
+
+/* figures */
+figure { margin: 0; border: 1px solid var(--rule); min-width: 0; }
+figure .plate { position: relative; background: var(--paper); }
+figcaption { border-top: 1px solid var(--rule); padding: 10px 12px; font: 400 12px/1.5 var(--font-data); letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+figcaption b { color: var(--ink); font-weight: 500; }
+.fig-stack { display: grid; gap: 24px; min-width: 0; }
+.drawing { display: block; width: 100%; height: auto; }
+.drawing text { font-family: var(--font-data); letter-spacing: 0.06em; }
+.slot {
+  aspect-ratio: 3 / 2; max-width: 100%; display: grid; place-items: center; text-align: center; padding: 16px;
+  background-color: var(--panel);
+  background-image: repeating-linear-gradient(135deg, transparent 0 11px, var(--rule) 11px 12px);
+  font: 400 11px/1.5 var(--font-data); letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase;
+}
+.slot span { background: var(--panel); padding: 6px 10px; border: 1px solid var(--rule); }
+
+/* replay player */
+.player { border: 1px solid var(--rule); min-width: 0; }
+.player-stage { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 3fr); gap: 1px; background: var(--rule); }
+@media (max-width: 760px) { .player-stage { grid-template-columns: minmax(0, 1fr); } }
+.pv { position: relative; background: var(--screen); aspect-ratio: 4 / 3; max-width: 100%; }
+.pv.map { background-color: var(--paper); background-image: repeating-linear-gradient(0deg, var(--grid) 0 1px, transparent 1px 32px), repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 32px); }
+.pv canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.pv .tag { position: absolute; left: 10px; top: 10px; z-index: 2; background: var(--paper); border: 1px solid var(--rule); padding: 3px 7px; font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--ink); text-transform: uppercase; }
+.pv .rest { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 14px; padding: 24px; text-align: center; color: #D7D9DA; font: 400 12px/1.5 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; }
+.pv .rest .btn { background: var(--signal); color: #FFFFFF; border-color: var(--signal); cursor: pointer; }
+.pv .rest .btn:hover { background: #FFFFFF; color: #111111; border-color: #FFFFFF; }
+.pv.map .rest { color: var(--muted); }
+.pv .legend { position: absolute; left: 10px; bottom: 8px; z-index: 2; display: flex; flex-wrap: wrap; gap: 4px 12px; font: 400 11px/1.4 var(--font-data); letter-spacing: 0.06em; color: var(--muted); }
+.pv .legend i { display: inline-block; width: 14px; height: 3px; vertical-align: middle; margin-right: 5px; }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 12px 14px; border-top: 1px solid var(--rule); background: var(--panel); }
+.seg { display: flex; flex-wrap: wrap; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.seg button, .ctl {
+  font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase;
+  background: var(--paper); color: var(--muted); border: none; padding: 8px 11px; cursor: pointer;
+  transition: color 150ms var(--ease);
+}
+.seg button[aria-pressed="true"] { color: var(--ink); box-shadow: inset 0 -2px 0 var(--signal); }
+.seg button:hover, .ctl:hover { color: var(--ink); }
+.ctl { border: 1px solid var(--rule); color: var(--ink); min-width: 72px; }
+.controls input[type=range] { flex: 1 1 180px; min-width: 0; accent-color: var(--signal); }
+.clock { font: 500 13px/1 var(--font-data); font-variant-numeric: tabular-nums; min-width: 7ch; color: var(--ink); }
+.controls[aria-disabled="true"] { opacity: 0.55; pointer-events: none; }
+.readout { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 130px), 1fr)); gap: 1px; background: var(--rule); border-top: 1px solid var(--rule); }
+.readout > div { background: var(--paper); padding: 10px 14px; display: grid; gap: 4px; }
+.readout b { font: 500 16px/1.2 var(--font-data); font-variant-numeric: tabular-nums; }
+.pill { display: inline-block; font: 500 11px/1 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 6px; border: 1px solid currentColor; }
+.pill.ok { color: #2F7D4F; } .pill.bad { color: #B3362A; }
+
+.bench { width: 100%; border-collapse: collapse; font: 400 13px/1.4 var(--font-data); font-variant-numeric: tabular-nums; }
+.bench th, .bench td { text-align: left; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--rule); white-space: nowrap; }
+.bench th { font-weight: 400; font-size: 11px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+.bench tr.pooled td { font-weight: 500; color: var(--ink); border-bottom-color: var(--ink); }
+.tablebox { overflow-x: auto; }
+.note { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+.steps { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 14px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font: 500 12px/1.9 var(--font-data); letter-spacing: 0.08em; color: var(--link); }
+
+.equation { font-family: var(--font-display); font-style: italic; font-size: clamp(40px, 5vw, 56px); line-height: 1; color: var(--ink); padding: 28px 24px; }
+.equation sup { font-size: 0.5em; font-style: normal; font-family: var(--font-data); vertical-align: 1.1em; margin-left: 2px; }
+
+/* photography */
+.photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 24px; margin-top: 40px; }
+.photo-grid figure .slot { aspect-ratio: 3 / 2; }
+.photo-stats { display: flex; flex-wrap: wrap; gap: 8px 32px; margin-top: 4px; }
+.photo-stats div { display: flex; align-items: baseline; gap: 8px; }
+.photo-stats b { font: 500 20px/1.2 var(--font-data); font-variant-numeric: tabular-nums; }
+
+/* about */
+.about { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 48px 64px; margin-top: 48px; align-items: start; }
+.about .prose p { color: var(--ink); }
+.facts { border-top: 1px solid var(--rule); margin: 0; }
+.facts > div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 4px 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+.facts dt { font: 400 11px/1.9 var(--font-data); letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+.facts dd { margin: 0; font-size: 16px; line-height: 1.5; }
+.facts dd span { color: var(--ink-2); }
+@media (max-width: 440px) { .facts > div { grid-template-columns: minmax(0, 1fr); } }
+
+/* contact */
+.contact { display: grid; gap: 24px; margin-top: 40px; }
+.contact-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: stretch; }
+.email { font: 500 clamp(17px, 2.6vw, 26px)/1.3 var(--font-data); letter-spacing: 0.02em; color: var(--ink); border: 1px solid var(--rule); padding: 14px 18px; user-select: all; overflow-wrap: anywhere; min-width: 0; }
+.copy-btn { cursor: pointer; }
+
+/* footer title block */
+.foot { border-top: 1px solid var(--rule); }
+.foot .tblock { border: 1px solid var(--rule); margin-block: 32px 40px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+</style>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="name" href="#top">Dominic Tataj</a>
+    <ul>
+      <li><a href="#work">WORK</a></li>
+      <li><a href="#photography">PHOTOGRAPHY</a></li>
+      <li><a href="#about">ABOUT</a></li>
+      <li><a href="#contact">CONTACT</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-text">
+      <div class="eyebrow">Engineering portfolio</div>
+      <h1>Mechanical engineering student at UCL</h1>
+      <p class="lede">Second year of an MEng, graduating in 2029. My projects cover structural design, dynamic modelling, computer vision and data analysis.</p>
+      <p class="lede">Looking for a summer 2027 internship or a 2027–28 placement year in the UK.</p>
+      <div class="actions">
+        <a class="btn primary" href="#work">VIEW PROJECTS</a>
+        <a class="btn" href="#contact">CONTACT</a>
+      </div>
+    </div>
+
+    <div class="register" aria-label="Project register">
+      <header><span class="label">Projects</span></header>
+      <ol>
+        <li><a href="#e-04">
+          <span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span><span class="r-key">98.0% gates</span>
+          <span class="r-meta">Python · OpenCV · 2026-08 → 2026-10</span>
+        </a></li>
+        <li><a href="#e-03">
+          <span class="r-no">E-03</span><span class="r-title">Generative FPV drone frame</span><span class="r-key">36% lighter</span>
+          <span class="r-meta">Fusion · Ansys · 2026-07 → 2026-09</span>
+        </a></li>
+        <li><a href="#e-02">
+          <span class="r-no">E-02</span><span class="r-title">Pipe-climbing robot, IMechE Design Challenge</span><span class="r-key">−16% climb time</span>
+          <span class="r-meta">Excel model · Fusion CAD · 2026-02 → 2026-04</span>
+        </a></li>
+        <li><a href="#e-01">
+          <span class="r-no">E-01</span><span class="r-title">AI training-cost analysis</span><span class="r-key">P ∝ N<sup>0.55</sup></span>
+          <span class="r-meta">MATLAB · 2025-10</span>
+        </a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WORK ============ -->
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Newest first</div>
+      <h2>Projects</h2>
+    </div>
+
+    <!-- E-04 DRONE -->
+    <article class="sheet" id="e-04" aria-labelledby="e04-h">
+      <div class="tblock">
+        <div><div class="label">Project no.</div><div class="v">E-04</div></div>
+        <div class="wide"><div class="label">Title</div><div class="v">Vision-based autonomous drone racing</div></div>
+        <div><div class="label">Role</div><div class="v">Individual project</div></div>
+        <div><div class="label">Tools</div><div class="v">Python · OpenCV · NumPy</div></div>
+        <div><div class="label">Date</div><div class="v">2026-08 → 2026-10</div></div>
+        <div><div class="label">Status</div><div class="v">In development</div></div>
+      </div>
+      <div class="sheet-body">
+        <div class="sheet-title">
+          <h3 id="e04-h">A simulated racing drone that flies through gates using only its onboard camera</h3>
+          <p class="summary">There is no GPS, depth sensor or map of the gate positions. The drone detects each gate in its camera image, estimates its position relative to the gate and flies through.</p>
+        </div>
+
+        <div class="player" aria-label="Recorded flight replay">
+          <div class="player-stage">
+            <div class="pv" id="pv-fpv">
+              <span class="tag">Onboard camera · detector output</span>
+              <canvas id="fpv" width="640" height="480" aria-label="Onboard camera view"></canvas>
+              <div class="rest" id="rest">
+                <span>Six recorded flights · 8 gates · about 8 m/s</span>
+                <button class="btn" id="load" type="button">LOAD REPLAY</button>
+                <span id="load-note">6.8 MB of recorded camera frames</span>
+              </div>
+            </div>
+            <div class="pv map" id="pv-map">
+              <span class="tag">Top view · from the recording</span>
+              <canvas id="map" width="640" height="480" aria-label="Top-down course view"></canvas>
+              <div class="rest"><span>Course plot appears with the replay</span></div>
+              <div class="legend"><span><i style="background:#2C6E9C"></i>true path</span><span><i style="background:var(--signal)"></i>drone's estimate</span><span><i style="background:var(--muted)"></i>gates</span></div>
+            </div>
+          </div>
+          <div class="controls" id="controls" aria-disabled="true">
+            <div class="seg" id="seeds" role="group" aria-label="Course" hidden></div>
+            <div class="seg" id="methods" role="group" aria-label="Sensing" hidden></div>
+            <button class="ctl" id="play" type="button">PLAY</button>
+            <input id="scrub" type="range" min="0" max="0" value="0" step="1" aria-label="Flight time">
+            <span class="clock" id="clock">0.00 s</span>
+          </div>
+          <div class="readout">
+            <div><span class="label">Result</span><b id="r-out">–</b></div>
+            <div><span class="label">Gates passed</span><b id="r-gates">–</b></div>
+            <div><span class="label">Speed</span><b id="r-speed">–</b></div>
+            <div><span class="label">Estimate error</span><b id="r-err">–</b></div>
+          </div>
+        </div>
+
+        <div class="cols">
+          <div class="prose">
+            <div>
+              <h4>Approach</h4>
+              <ol class="steps">
+                <li><span><strong>Detect.</strong> Threshold the gate colour and fit a four-cornered outline to each gate and to its opening.</span></li>
+                <li><span><strong>Measure.</strong> The gate's known size and its four image corners give its pose relative to the camera, using OpenCV solvePnP with IPPE_SQUARE.</span></li>
+                <li><span><strong>Fuse.</strong> An error-state Kalman filter tracks position, velocity and attitude in the frame of the next gate, so no map is needed. A chi-squared test rejects outlier detections.</span></li>
+                <li><span><strong>Fly.</strong> Guidance aims through the gate centre and is converted into thrust and body-rate commands, the way an FPV pilot flies in acro mode.</span></li>
+              </ol>
+            </div>
+            <div>
+              <h4>Testing</h4>
+              <p>I built a deterministic regression harness, with lockstep simulation over UDP, which runs every change across 50 repeated runs and reports the gate pass rate. Over development the pass rate on that set rose from 48% to 79%.</p>
+              <p>One bug came from the simulator itself: its sign convention was the reverse of what its documentation said. I found it by comparing commanded inputs against logged attitude, confirmed it with single-axis tests, and corrected the controller.</p>
+            </div>
+          </div>
+          <div class="fig-stack">
+            <figure>
+              <div class="plate" style="padding: 8px 16px 4px">
+                <div class="tablebox">
+                  <table class="bench">
+                    <thead><tr><th>Course set</th><th>Camera + IMU</th><th>Camera only</th></tr></thead>
+                    <tbody>
+                      <tr><td>0–49</td><td>96.8%</td><td>98.0%</td></tr>
+                      <tr><td>1000–1049</td><td>100.0%</td><td>96.8%</td></tr>
+                      <tr><td>2000–2049</td><td>97.2%</td><td>89.5%</td></tr>
+                      <tr><td>3000–3049</td><td>98.0%</td><td>92.2%</td></tr>
+                      <tr class="pooled"><td>Pooled</td><td>98.0%</td><td>94.1%</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <figcaption><b>Fig. 01</b> — Gate pass rate, latest build, 13 Oct 2026. 50 random 8-gate courses per set; a run ends at the first crash or missed gate.</figcaption>
+            </figure>
+            <p class="note">Single sets of 50 courses move by a few points from noise alone, so the pooled row is the one to compare. "Camera only" drops the IMU and predicts motion between frames from the drone's own commands.</p>
+            <p class="note">Source code: <a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">github.com/dom-t23/vision-drone-racing ↗</a></p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- E-03 FRAME -->
+    <article class="sheet" id="e-03" aria-labelledby="e03-h">
+      <div class="tblock">
+        <div><div class="label">Project no.</div><div class="v">E-03</div></div>
+        <div class="wide"><div class="label">Title</div><div class="v">Generative FPV drone frame</div></div>
+        <div><div class="label">Role</div><div class="v">Design, analysis &amp; build</div></div>
+        <div><div class="label">Tools</div><div class="v">Fusion generative · Ansys Mechanical</div></div>
+        <div><div class="label">Date</div><div class="v">2026-07 → 2026-09</div></div>
+        <div><div class="label">Status</div><div class="v">Built &amp; tested</div></div>
+      </div>
+      <div class="sheet-body">
+        <div class="sheet-title">
+          <h3 id="e03-h">A generatively designed 3-inch FPV drone frame</h3>
+          <p class="summary">The frame needed to survive crashes and avoid resonance with the motors, while keeping the complete drone under the UK CAA's 250 g threshold.</p>
+        </div>
+
+        <div class="specs" aria-label="Key figures">
+          <div><span class="label">Load cases</span><span class="n">8</span></div>
+          <div><span class="label">Safety factor</span><span class="n">1.5</span></div>
+          <div><span class="label">Modal constraint</span><span class="n">&gt;300<small>Hz</small></span></div>
+          <div><span class="label">Vs plate design</span><span class="n">−36%<small>mass</small></span></div>
+          <div><span class="label">Printed frame</span><span class="n">38<small>g</small></span></div>
+          <div><span class="label">FEA agreement</span><span class="n">≤18%</span></div>
+        </div>
+
+        <div class="cols">
+          <div class="prose">
+            <div>
+              <h4>Approach</h4>
+              <p>I derived eight operational load cases, including maximum thrust, arm collision and battery impact, to define the design envelope and starting geometry.</p>
+              <p>I then ran Fusion's generative optimisation under those loads with buckling, modal frequency (above 300 Hz) and 1.5 safety-factor constraints. The selected topology is 36% lighter than a comparable plate-based frame.</p>
+            </div>
+            <div>
+              <h4>Build and testing</h4>
+              <p>I printed the frame in PC/ABS for impact toughness. It weighs 38 g, and the fully assembled drone comes to 246 g, under the 250 g threshold.</p>
+              <p>I measured arm deflection at maximum thrust and compared it with Ansys Mechanical; the two agreed to within 18%.</p>
+            </div>
+          </div>
+          <div class="fig-stack">
+            <figure>
+              <div class="plate">
+                <svg class="drawing" viewBox="0 0 520 170" role="img" aria-label="Mass budget: 246 grams all-up against a 250 gram limit, of which the frame is 38 grams">
+                  <!-- scale: 0 g at x=20, 260 g at x=500 → 1.846 px/g -->
+                  <line x1="20" y1="96" x2="500" y2="96" stroke="var(--rule)" stroke-width="1"/>
+                  <rect x="20" y="62" width="70.2" height="28" fill="var(--signal)"/>
+                  <rect x="90.2" y="62" width="384" height="28" fill="var(--ink)" opacity="0.82"/>
+                  <line x1="481.5" y1="40" x2="481.5" y2="104" stroke="var(--link)" stroke-width="2" stroke-dasharray="4 3"/>
+                  <text x="512" y="32" text-anchor="end" font-size="11" fill="var(--link)">CAA LIMIT 250 G</text>
+                  <text x="20" y="52" font-size="11" fill="var(--ink)">FRAME 38 G</text>
+                  <text x="470" y="56" text-anchor="end" font-size="11" fill="var(--ink)">ALL-UP 246 G</text>
+                  <g font-size="10" fill="var(--muted)">
+                    <line x1="20" y1="96" x2="20" y2="102" stroke="var(--muted)"/><text x="20" y="118" text-anchor="middle">0</text>
+                    <line x1="112.3" y1="96" x2="112.3" y2="102" stroke="var(--muted)"/><text x="112.3" y="118" text-anchor="middle">50</text>
+                    <line x1="204.6" y1="96" x2="204.6" y2="102" stroke="var(--muted)"/><text x="204.6" y="118" text-anchor="middle">100</text>
+                    <line x1="296.9" y1="96" x2="296.9" y2="102" stroke="var(--muted)"/><text x="296.9" y="118" text-anchor="middle">150</text>
+                    <line x1="389.2" y1="96" x2="389.2" y2="102" stroke="var(--muted)"/><text x="389.2" y="118" text-anchor="middle">200</text>
+                    <text x="500" y="118" text-anchor="end">G</text>
+                  </g>
+                  <text x="20" y="150" font-size="11" fill="var(--muted)">MARGIN TO LIMIT: 4 G</text>
+                </svg>
+              </div>
+              <figcaption><b>Fig. 02</b> — Mass budget. Frame vs. complete drone, against the CAA 250 g threshold.</figcaption>
+            </figure>
+            <figure>
+              <div class="slot"><span>Fig. 03 — generative render or printed frame photo to add</span></div>
+              <figcaption><b>Fig. 03</b> — Generative topology and printed part.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- E-02 ROBOT -->
+    <article class="sheet" id="e-02" aria-labelledby="e02-h">
+      <div class="tblock">
+        <div><div class="label">Project no.</div><div class="v">E-02</div></div>
+        <div class="wide"><div class="label">Title</div><div class="v">External pipe-climbing robot</div></div>
+        <div><div class="label">Role</div><div class="v">Team of 6 · model &amp; CAD</div></div>
+        <div><div class="label">Tools</div><div class="v">Excel · Fusion CAD</div></div>
+        <div><div class="label">Date</div><div class="v">2026-02 → 2026-04</div></div>
+        <div><div class="label">Context</div><div class="v">IMechE Design Challenge</div></div>
+      </div>
+      <div class="sheet-body">
+        <div class="sheet-title">
+          <h3 id="e02-h">A pole-climbing robot with its drivetrain chosen by simulation</h3>
+          <p class="summary">The robot had to climb a 2 m pole while dragging a chain whose load grows as it climbs, inside a 400 × 300 mm envelope, on a £50 budget, within 3 minutes.</p>
+        </div>
+
+        <div class="specs" aria-label="Constraints and results">
+          <div><span class="label">Pole height</span><span class="n">2<small>m</small></span></div>
+          <div><span class="label">Envelope</span><span class="n">400×300<small>mm</small></span></div>
+          <div><span class="label">Budget</span><span class="n">£50</span></div>
+          <div><span class="label">Time step</span><span class="n">10<small>ms</small></span></div>
+          <div><span class="label">Setups simulated</span><span class="n">20+</span></div>
+          <div><span class="label">Measured gain</span><span class="n">−16%<small>time</small></span></div>
+        </div>
+
+        <div class="cols">
+          <div class="prose">
+            <div>
+              <h4>Approach</h4>
+              <p>I built the team's dynamic performance model in Excel. It combines the motor and vehicle equations of motion and integrates them with explicit Euler at a 10 ms time step. Each step checks for slip, so the model only accepts a setup if the wheels have enough friction to carry the drive force.</p>
+              <p>I used it to simulate more than 20 combinations of gear ratio, motor torque, wheel radius and normal force, and picked the drivetrain with the fastest predicted climb.</p>
+            </div>
+            <div>
+              <h4>Result</h4>
+              <p>The chosen setup cut predicted climb time by 22%. In real runs it cut climb time by 16%.</p>
+              <p>I also produced the full Fusion CAD assembly across two design iterations, including a working geartrain.</p>
+            </div>
+          </div>
+          <div class="fig-stack">
+            <figure>
+              <div class="plate">
+                <svg class="drawing" viewBox="0 0 520 250" role="img" aria-label="Simulation loop: state, motor torque at current speed, drive force, slip check, acceleration, integrate over 10 milliseconds, repeat">
+                  <defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--ink)"/></marker></defs>
+                  <g font-size="11" fill="var(--ink)" text-anchor="middle">
+                    <rect x="16" y="24" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
+                    <text x="86" y="44">STATE</text><text x="86" y="58" fill="var(--muted)" font-size="10">x, v at step n</text>
+                    <rect x="190" y="24" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
+                    <text x="260" y="44">MOTOR TORQUE</text><text x="260" y="58" fill="var(--muted)" font-size="10">at current speed</text>
+                    <rect x="364" y="24" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
+                    <text x="434" y="44">DRIVE FORCE</text><text x="434" y="58" fill="var(--muted)" font-size="10">via gears and wheel</text>
+                    <rect x="364" y="120" width="140" height="44" fill="var(--paper)" stroke="var(--signal)" stroke-width="1.5"/>
+                    <text x="434" y="140">SLIP CHECK</text><text x="434" y="154" fill="var(--muted)" font-size="10">μN ≥ drive force?</text>
+                    <rect x="190" y="120" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
+                    <text x="260" y="140">NET ACCELERATION</text><text x="260" y="154" fill="var(--muted)" font-size="10">minus weight &amp; chain</text>
+                    <rect x="16" y="120" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
+                    <text x="86" y="140">EXPLICIT EULER</text><text x="86" y="154" fill="var(--muted)" font-size="10">Δt = 10 ms</text>
+                  </g>
+                  <g stroke="var(--ink)" stroke-width="1.2" fill="none" marker-end="url(#ah)">
+                    <line x1="156" y1="46" x2="186" y2="46"/>
+                    <line x1="330" y1="46" x2="360" y2="46"/>
+                    <line x1="434" y1="68" x2="434" y2="116"/>
+                    <line x1="364" y1="142" x2="334" y2="142"/>
+                    <line x1="190" y1="142" x2="160" y2="142"/>
+                    <path d="M86 120 L86 72"/>
+                  </g>
+                  <g stroke="var(--link)" stroke-width="1.2" fill="none" marker-end="url(#ah)">
+                    <path d="M434 164 L434 196 L300 196"/>
+                  </g>
+                  <text x="292" y="200" font-size="10" fill="var(--link)" text-anchor="end">SLIPS → SETUP REJECTED</text>
+                  <text x="16" y="232" font-size="10" fill="var(--muted)">REPEAT UNTIL TOP OF POLE OR 3 MIN</text>
+                </svg>
+              </div>
+              <figcaption><b>Fig. 04</b> — One step of the Excel model, repeated every 10 ms.</figcaption>
+            </figure>
+            <figure>
+              <div class="plate">
+                <svg class="drawing" viewBox="0 0 520 132" role="img" aria-label="Climb time reduction: 22 percent predicted, 16 percent measured">
+                  <!-- scale: 0% at x=118, 25% at x=498 → 15.2 px per % -->
+                  <g font-size="11">
+                    <text x="16" y="38" fill="var(--ink)">PREDICTED</text>
+                    <rect x="118" y="24" width="334.4" height="22" fill="var(--ink)" opacity="0.82"/>
+                    <text x="460" y="40" fill="var(--ink)">22%</text>
+                    <text x="16" y="78" fill="var(--ink)">MEASURED</text>
+                    <rect x="118" y="64" width="243.2" height="22" fill="var(--signal)"/>
+                    <text x="369" y="80" fill="var(--ink)">16%</text>
+                  </g>
+                  <line x1="118" y1="98" x2="498" y2="98" stroke="var(--rule)"/>
+                  <g font-size="10" fill="var(--muted)" text-anchor="middle">
+                    <text x="118" y="116">0</text><text x="194" y="116">5</text><text x="270" y="116">10</text><text x="346" y="116">15</text><text x="422" y="116">20</text><text x="498" y="116">25%</text>
+                  </g>
+                </svg>
+              </div>
+              <figcaption><b>Fig. 05</b> — Cut in climb time for the chosen drivetrain, model vs. real runs.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- E-01 AI COST -->
+    <article class="sheet" id="e-01" aria-labelledby="e01-h">
+      <div class="tblock">
+        <div><div class="label">Project no.</div><div class="v">E-01</div></div>
+        <div class="wide"><div class="label">Title</div><div class="v">AI training-cost analysis</div></div>
+        <div><div class="label">Role</div><div class="v">Analysis &amp; report</div></div>
+        <div><div class="label">Tools</div><div class="v">MATLAB</div></div>
+        <div><div class="label">Date</div><div class="v">2025-10</div></div>
+        <div><div class="label">Status</div><div class="v">Complete</div></div>
+      </div>
+      <div class="sheet-body">
+        <div class="sheet-title">
+          <h3 id="e01-h">How AI training power scales with model size</h3>
+          <p class="summary">Statistical analysis of training data for 358 AI models across nine domains, used to fit a scaling law and estimate the training power of a frontier model.</p>
+        </div>
+
+        <div class="cols">
+          <div class="prose">
+            <div>
+              <h4>Approach</h4>
+              <p>I summarised each domain with mean, median, standard deviation, skewness and quartiles. The data was heavily right-skewed, with skewness up to 6.1.</p>
+              <p>A log₁₀ transformation cut skewness to below 0.9, which made the nine domains comparable and the boxplots readable.</p>
+              <p>I fitted a power law of training power against parameter count. Higher-order fits gave no meaningful improvement or overfitted, so I kept the simpler model.</p>
+            </div>
+            <div>
+              <h4>Result</h4>
+              <p>The fit gives P ∝ N<sup>0.55</sup> with R² = 0.44, so parameter count explains a little under half the variation in training power. I used it to estimate GPT-5's training power draw at about 590 kW, and wrote a report on the social, environmental and economic effects of rapid AI training.</p>
+            </div>
+          </div>
+          <div class="fig-stack">
+            <figure>
+              <div class="plate">
+                <div class="equation">P ∝ N<sup>0.55</sup></div>
+                <div class="specs" style="border-width: 1px 0 0">
+                  <div><span class="label">Models</span><span class="n">358</span></div>
+                  <div><span class="label">Domains</span><span class="n">9</span></div>
+                  <div><span class="label">Fit R²</span><span class="n">0.44</span></div>
+                  <div><span class="label">GPT-5 estimate</span><span class="n">≈590<small>kW</small></span></div>
+                </div>
+              </div>
+              <figcaption><b>Fig. 06</b> — Fitted scaling law, training power against parameter count.</figcaption>
+            </figure>
+            <figure>
+              <div class="plate">
+                <svg class="drawing" viewBox="0 0 520 132" role="img" aria-label="Maximum skewness: 6.1 before the log transform, below 0.9 after">
+                  <!-- scale: 0 at x=118, 7 at x=498 → 54.29 px per unit -->
+                  <g font-size="11">
+                    <text x="16" y="38" fill="var(--ink)">RAW DATA</text>
+                    <rect x="118" y="24" width="331.2" height="22" fill="var(--ink)" opacity="0.82"/>
+                    <text x="457" y="40" fill="var(--ink)">6.1</text>
+                    <text x="16" y="78" fill="var(--ink)">LOG₁₀</text>
+                    <rect x="118" y="64" width="48.9" height="22" fill="var(--signal)"/>
+                    <text x="175" y="80" fill="var(--ink)">&lt; 0.9</text>
+                  </g>
+                  <line x1="118" y1="98" x2="498" y2="98" stroke="var(--rule)"/>
+                  <g font-size="10" fill="var(--muted)" text-anchor="middle">
+                    <text x="118" y="116">0</text><text x="226.6" y="116">2</text><text x="335.1" y="116">4</text><text x="443.7" y="116">6</text>
+                  </g>
+                </svg>
+              </div>
+              <figcaption><b>Fig. 07</b> — Worst-case skewness across domains, before and after the log transform.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ PHOTOGRAPHY ============ -->
+<section class="section" id="photography">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Outside engineering</div>
+      <h2>Photography</h2>
+      <p>Landscape and city photography. I publish on Unsplash, where my architecture and landscape work is free to use.</p>
+      <div class="photo-stats">
+        <div><b>390,000+</b><span class="label">views</span></div>
+        <div><b>5,000+</b><span class="label">downloads</span></div>
+        <div><b>2024</b><span class="label">contributing since</span></div>
+      </div>
+    </div>
+    <div class="photo-grid">
+      <figure><div class="slot"><span>Photograph to add</span></div><figcaption><b>P-01</b> — Location · camera settings</figcaption></figure>
+      <figure><div class="slot"><span>Photograph to add</span></div><figcaption><b>P-02</b> — Location · camera settings</figcaption></figure>
+      <figure><div class="slot"><span>Photograph to add</span></div><figcaption><b>P-03</b> — Location · camera settings</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>About</h2>
+    </div>
+    <div class="about">
+      <div class="prose">
+        <p>I'm a second-year MEng Mechanical Engineering student at UCL, graduating in 2029. Most of my project work uses CAD and FEA, dynamic modelling, and Python for computer vision and data analysis.</p>
+        <p>Outside engineering I photograph landscapes and cities, fly FPV drones and boulder.</p>
+      </div>
+      <dl class="facts">
+        <div><dt>Education</dt><dd>MEng Mechanical Engineering, UCL<br><span>2025 – 2029 · predicted 2:1</span></dd></div>
+        <div><dt>School</dt><dd>IB Diploma, 42/45<br><span>HL Mathematics, Physics, Economics</span></dd></div>
+        <div><dt>Engineering</dt><dd>Fusion (generative design, CAD), Ansys Mechanical FEA, dynamic modelling in Excel</dd></div>
+        <div><dt>Programming</dt><dd>Python (NumPy, pandas, OpenCV, Matplotlib), MATLAB</dd></div>
+        <div><dt>Leadership</dt><dd>NASA Space Center University, Houston, 2024<br><span>Led a 4-person team designing a Mars habitat; 3rd of 20 teams</span></dd></div>
+        <div><dt>Languages</dt><dd>German and Spanish (intermediate), Mandarin (beginner)</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Contact</h2>
+      <p>Open to summer 2027 internships and a 2027–28 placement year in the UK.</p>
+    </div>
+    <div class="contact">
+      <div class="contact-row">
+        <span class="email" id="email">dominic_tataj@icloud.com</span>
+        <button class="btn copy-btn" id="copy" type="button">COPY EMAIL</button>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LINKEDIN ↗</a>
+        <a class="btn" href="https://github.com/dom-t23" target="_blank" rel="noopener">GITHUB ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="tblock">
+      <div><div class="label">Name</div><div class="v">Dominic Tataj</div></div>
+      <div><div class="label">Course</div><div class="v">MEng Mech. Eng., UCL</div></div>
+      <div><div class="label">Updated</div><div class="v">October 2026</div></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ---------- copy email ---------- */
+  $("copy").addEventListener("click", function () {
+    var btn = this, text = $("email").textContent.trim();
+    function selectIt() {
+      var r = document.createRange(); r.selectNodeContents($("email"));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = "SELECTED — PRESS COPY";
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { btn.textContent = "COPIED"; }, selectIt);
+    } catch (e) { selectIt(); }
+    setTimeout(function () { btn.textContent = "COPY EMAIL"; }, 2400);
+  });
+
+  /* ---------- drone replay ---------- */
+  var fpv = $("fpv"), fctx = fpv.getContext("2d"), map = $("map"), mctx = map.getContext("2d");
+  var css = function (n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); };
+  var TRUTH = "#2C6E9C";
+  var FL = [], seeds = [], methods = [], cur = {}, flight = null, idx = 0, playing = false, t0 = 0, tStart = 0, imgs = [], bounds = null;
+
+  $("load").addEventListener("click", function () {
+    var btn = this;
+    btn.disabled = true; btn.textContent = "LOADING…";
+    var s = document.createElement("script");
+    s.src = "flights.js";
+    s.onload = function () {
+      FL = window.FLIGHTS || [];
+      if (!FL.length) { btn.textContent = "REPLAY UNAVAILABLE"; return; }
+      document.querySelectorAll(".pv .rest").forEach(function (el) { el.hidden = true; });
+      $("controls").setAttribute("aria-disabled", "false"); $("seeds").hidden = false; $("methods").hidden = false;
+      FL.forEach(function (f) {
+        if (seeds.indexOf(f.seed) < 0) seeds.push(f.seed);
+        if (!methods.some(function (m) { return m.id === f.method; })) methods.push({ id: f.method, label: f.method === "default" ? "Camera + IMU" : "Camera only" });
+      });
+      cur = { seed: seeds[0], method: methods[0].id };
+      renderSeg(); load(); play();
+    };
+    s.onerror = function () { btn.disabled = false; btn.textContent = "RETRY"; $("load-note").textContent = "The recording could not be loaded."; };
+    document.body.appendChild(s);
+  });
+
+  function seg(el, items, key) {
+    el.innerHTML = "";
+    items.forEach(function (it) {
+      var b = document.createElement("button");
+      b.type = "button"; b.textContent = it.label;
+      b.setAttribute("aria-pressed", String(cur[key] === it.id));
+      b.addEventListener("click", function () { cur[key] = it.id; renderSeg(); load(); play(); });
+      el.appendChild(b);
+    });
+  }
+  function renderSeg() {
+    seg($("seeds"), seeds.map(function (s, i) { return { id: s, label: "Course " + (i + 1) }; }), "seed");
+    seg($("methods"), methods, "method");
+  }
+
+  function load() {
+    flight = FL.filter(function (f) { return f.seed === cur.seed && f.method === cur.method; })[0] || null;
+    stop(); idx = 0;
+    if (!flight) return;
+    imgs = flight.frames.map(function (fr) { var im = new Image(); im.src = "data:image/jpeg;base64," + fr.img; return im; });
+    var xs = [flight.start[0]], ys = [flight.start[1]];
+    flight.gates.forEach(function (g) { xs.push(g.c[0]); ys.push(g.c[1]); });
+    flight.frames.forEach(function (fr) { xs.push(fr.p[0]); ys.push(fr.p[1]); });
+    bounds = { x0: Math.min.apply(null, xs) - 3, x1: Math.max.apply(null, xs) + 3, y0: Math.min.apply(null, ys) - 3, y1: Math.max.apply(null, ys) + 3 };
+    $("scrub").max = String(flight.frames.length - 1);
+    var ok = flight.outcome === "completed";
+    $("r-out").innerHTML = '<span class="pill ' + (ok ? "ok" : "bad") + '">' + (ok ? "Completed" : "Crashed") + "</span>" +
+      (ok && flight.time ? " " + flight.time.toFixed(2) + " s" : "");
+    imgs[0].onload = draw;
+    draw();
+  }
+
+  function toMap(x, y) {
+    var w = map.width, h = map.height, pad = 28;
+    var s = Math.min((w - 2 * pad) / (bounds.x1 - bounds.x0), (h - 2 * pad) / (bounds.y1 - bounds.y0));
+    var cx = (bounds.x0 + bounds.x1) / 2, cy = (bounds.y0 + bounds.y1) / 2;
+    return [w / 2 + (x - cx) * s, h / 2 - (y - cy) * s];
+  }
+
+  function drawMap() {
+    var c = mctx, fr = flight.frames, g = fr[idx].g;
+    c.clearRect(0, 0, map.width, map.height);
+    flight.gates.forEach(function (gt, k) {
+      var half = flight.gate_outer / 2, ly = Math.cos(gt.yaw), lx = -Math.sin(gt.yaw);
+      var p = toMap(gt.c[0] + lx * half, gt.c[1] + ly * half), q = toMap(gt.c[0] - lx * half, gt.c[1] - ly * half);
+      c.strokeStyle = k < g ? css("--muted") : css("--signal"); c.lineWidth = k === g ? 6 : 3; c.lineCap = "butt";
+      c.beginPath(); c.moveTo(p[0], p[1]); c.lineTo(q[0], q[1]); c.stroke();
+      var m = toMap(gt.c[0], gt.c[1]);
+      c.fillStyle = css("--muted"); c.font = "13px " + css("--font-data"); c.fillText(String(k + 1), m[0] + 8, m[1] - 8);
+    });
+    function path(key, color, dash) {
+      c.strokeStyle = color; c.lineWidth = 2; c.setLineDash(dash); c.beginPath();
+      var started = false;
+      for (var i = 0; i <= idx; i++) {
+        var v = fr[i][key]; if (!v) { started = false; continue; }
+        var pt = toMap(v[0], v[1]);
+        if (!started) { c.moveTo(pt[0], pt[1]); started = true; } else c.lineTo(pt[0], pt[1]);
+      }
+      c.stroke(); c.setLineDash([]);
+    }
+    path("p", TRUTH, []);
+    path("e", css("--signal"), [5, 4]);
+    var now = toMap(fr[idx].p[0], fr[idx].p[1]);
+    c.fillStyle = TRUTH; c.beginPath(); c.arc(now[0], now[1], 5, 0, 2 * Math.PI); c.fill();
+    if (fr[idx].e) { var en = toMap(fr[idx].e[0], fr[idx].e[1]); c.strokeStyle = css("--signal"); c.lineWidth = 2; c.beginPath(); c.arc(en[0], en[1], 7, 0, 2 * Math.PI); c.stroke(); }
+  }
+
+  function drawFpv() {
+    var c = fctx, fr = flight.frames[idx], im = imgs[idx], W = fpv.width, H = fpv.height, s = W / flight.image_size[0];
+    c.fillStyle = "#000"; c.fillRect(0, 0, W, H);
+    if (im.complete && im.naturalWidth) c.drawImage(im, 0, 0, W, H);
+    fr.q.forEach(function (q) {
+      c.strokeStyle = q.k === "o" ? "#4CF08F" : "#FFE14D"; c.lineWidth = 2; c.setLineDash(q.k === "o" ? [] : [6, 4]);
+      c.beginPath();
+      for (var i = 0; i < 4; i++) { var x = q.c[2 * i] * s, y = q.c[2 * i + 1] * s; if (i === 0) c.moveTo(x, y); else c.lineTo(x, y); }
+      c.closePath(); c.stroke(); c.setLineDash([]);
+    });
+    c.font = "500 16px " + css("--font-data"); c.textBaseline = "bottom";
+    c.fillStyle = "rgba(0,0,0,.55)"; c.fillRect(0, H - 30, W, 30);
+    c.fillStyle = "#F1F4F2";
+    c.fillText([fr.t.toFixed(2) + " s", speedAt(idx).toFixed(1) + " m/s", "gate " + Math.min(fr.g + 1, flight.n_gates) + "/" + flight.n_gates].join("    "), 12, H - 7);
+  }
+
+  function speedAt(i) {
+    var fr = flight.frames, a = Math.max(0, i - 1), b = Math.min(fr.length - 1, i + 1);
+    if (a === b) return 0;
+    var dx = fr[b].p[0] - fr[a].p[0], dy = fr[b].p[1] - fr[a].p[1], dz = fr[b].p[2] - fr[a].p[2];
+    return Math.sqrt(dx * dx + dy * dy + dz * dz) / (fr[b].t - fr[a].t);
+  }
+
+  function draw() {
+    if (!flight) return;
+    drawFpv(); drawMap();
+    var fr = flight.frames[idx];
+    $("scrub").value = String(idx);
+    $("clock").textContent = fr.t.toFixed(2) + " s";
+    $("r-gates").textContent = Math.min(fr.g, flight.n_gates) + " / " + flight.n_gates;
+    $("r-speed").textContent = speedAt(idx).toFixed(1) + " m/s";
+    if (fr.e) { var dx = fr.e[0] - fr.p[0], dy = fr.e[1] - fr.p[1], dz = fr.e[2] - fr.p[2]; $("r-err").textContent = Math.sqrt(dx * dx + dy * dy + dz * dz).toFixed(2) + " m"; }
+    else $("r-err").textContent = "–";
+  }
+
+  function tick(now) {
+    if (!playing) return;
+    var fr = flight.frames, t = tStart + (now - t0) / 1000;
+    while (idx < fr.length - 1 && fr[idx + 1].t <= t) idx++;
+    draw();
+    if (idx >= fr.length - 1) { stop(); return; }
+    requestAnimationFrame(tick);
+  }
+  function play() {
+    if (!flight) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) { draw(); return; }
+    if (idx >= flight.frames.length - 1) idx = 0;
+    playing = true; $("play").textContent = "PAUSE"; t0 = performance.now(); tStart = flight.frames[idx].t;
+    requestAnimationFrame(tick);
+  }
+  function stop() { playing = false; $("play").textContent = "PLAY"; }
+  $("play").addEventListener("click", function () {
+    if (!flight) return;
+    if (playing) { stop(); return; }
+    if (idx >= flight.frames.length - 1) idx = 0;
+    playing = true; this.textContent = "PAUSE"; t0 = performance.now(); tStart = flight.frames[idx].t;
+    requestAnimationFrame(tick);
+  });
+  $("scrub").addEventListener("input", function () {
+    if (!flight) return;
+    idx = parseInt(this.value, 10) || 0;
+    if (playing) { t0 = performance.now(); tStart = flight.frames[idx].t; }
+    draw();
+  });
+
+  var redraw = function () { if (flight) draw(); };
+  if (window.matchMedia) { var mq = window.matchMedia("(prefers-color-scheme: dark)"); if (mq.addEventListener) mq.addEventListener("change", redraw); }
+  new MutationObserver(redraw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+})();
+</script>
