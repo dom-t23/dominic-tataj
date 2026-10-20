@@ -187,13 +187,6 @@ figcaption b { color: var(--ink); font-weight: 500; }
 .render { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; max-width: 100%; object-fit: cover; background: var(--panel); }
 .drawing { display: block; width: 100%; height: auto; }
 .drawing text { font-family: var(--font-data); letter-spacing: 0.06em; }
-.slot {
-  aspect-ratio: 3 / 2; max-width: 100%; display: grid; place-items: center; text-align: center; padding: 16px;
-  background-color: var(--panel);
-  background-image: repeating-linear-gradient(135deg, transparent 0 11px, var(--rule) 11px 12px);
-  font: 400 11px/1.5 var(--font-data); letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase;
-}
-.slot span { background: var(--panel); padding: 6px 10px; border: 1px solid var(--rule); }
 
 /* replay player */
 .player { border: 1px solid var(--rule); min-width: 0; }
@@ -243,9 +236,9 @@ figcaption b { color: var(--ink); font-weight: 500; }
 .steps li::before { content: counter(s, decimal-leading-zero); font: 500 12px/1.9 var(--font-data); letter-spacing: 0.08em; color: var(--link); }
 
 
-/* photography */
-.photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 24px; margin-top: 40px; }
-.photo-grid figure .slot { aspect-ratio: 3 / 2; }
+/* about: outside engineering */
+.outside { display: grid; gap: 14px; }
+.outside h4 { margin: 0; }
 .photo-stats { display: flex; flex-wrap: wrap; gap: 8px 32px; margin-top: 4px; }
 .photo-stats div { display: flex; align-items: baseline; gap: 8px; }
 .photo-stats b { font: 500 20px/1.2 var(--font-data); font-variant-numeric: tabular-nums; }
@@ -258,6 +251,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
 .facts dt { font: 400 11px/1.9 var(--font-data); letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
 .facts dd { margin: 0; font-size: 16px; line-height: 1.5; }
 .facts dd span { color: var(--ink-2); }
+.facts dd > div + div { margin-top: 10px; }
 @media (max-width: 440px) { .facts > div { grid-template-columns: minmax(0, 1fr); } }
 
 /* contact */
@@ -284,7 +278,6 @@ figcaption b { color: var(--ink); font-weight: 500; }
     <a class="name" href="#top">Dominic Tataj</a>
     <ul>
       <li><a href="#work">WORK</a></li>
-      <li><a href="#photography">PHOTOGRAPHY</a></li>
       <li><a href="#about">ABOUT</a></li>
       <li><a href="#contact">CONTACT</a></li>
       <li><button class="theme-btn" id="theme" type="button" hidden>DARK</button></li>
@@ -649,31 +642,6 @@ figcaption b { color: var(--ink); font-weight: 500; }
   </div>
 </section>
 
-<!-- ============ PHOTOGRAPHY ============ -->
-<section class="section" id="photography">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Outside engineering</div>
-      <h2>Photography</h2>
-      <p>Landscape and city photography. I publish on Unsplash, where my architecture and landscape work is free to use.</p>
-      <div class="photo-stats">
-        <div><b>390,000+</b><span class="label">views</span></div>
-        <div><b>5,000+</b><span class="label">downloads</span></div>
-        <div><b>2024</b><span class="label">contributing since</span></div>
-      </div>
-      <div class="actions">
-        <a class="btn" href="https://unsplash.com/@dominic_t" target="_blank" rel="noopener">UNSPLASH ↗</a>
-        <a class="btn" href="https://www.instagram.com/dt___xt/" target="_blank" rel="noopener">INSTAGRAM ↗</a>
-      </div>
-    </div>
-    <div class="photo-grid">
-      <figure><div class="slot"><span>Photograph to add</span></div><figcaption><b>P-01</b> — Location · camera settings</figcaption></figure>
-      <figure><div class="slot"><span>Photograph to add</span></div><figcaption><b>P-02</b> — Location · camera settings</figcaption></figure>
-      <figure><div class="slot"><span>Photograph to add</span></div><figcaption><b>P-03</b> — Location · camera settings</figcaption></figure>
-    </div>
-  </div>
-</section>
-
 <!-- ============ ABOUT ============ -->
 <section class="section" id="about">
   <div class="wrap">
@@ -683,11 +651,23 @@ figcaption b { color: var(--ink); font-weight: 500; }
     <div class="about">
       <div class="prose">
         <p>I'm a second-year MEng Mechanical Engineering student at UCL, graduating in 2029. Most of my project work uses CAD and FEA, dynamic modelling, and Python for computer vision and data analysis.</p>
-        <p>Outside engineering I photograph landscapes and cities, fly FPV drones and boulder.</p>
+        <div class="outside">
+          <h4>Outside engineering</h4>
+          <p>I fly FPV drones, boulder, and photograph landscapes and cities. I publish on Unsplash, where my architecture and landscape work is free to use.</p>
+          <div class="photo-stats">
+            <div><b>390,000+</b><span class="label">views</span></div>
+            <div><b>5,000+</b><span class="label">downloads</span></div>
+          </div>
+          <div class="actions">
+            <a class="btn" href="https://unsplash.com/@dominic_t" target="_blank" rel="noopener">UNSPLASH ↗</a>
+            <a class="btn" href="https://www.instagram.com/dt___xt/" target="_blank" rel="noopener">INSTAGRAM ↗</a>
+          </div>
+        </div>
       </div>
       <dl class="facts">
         <div><dt>Education</dt><dd>MEng Mechanical Engineering, UCL<br><span>2025 – 2029 · predicted 2:1</span></dd></div>
         <div><dt>School</dt><dd>IB Diploma, 42/45<br><span>HL Mathematics, Physics, Economics</span></dd></div>
+        <div><dt>Experience</dt><dd><div>Lifeguard, Virgin Active<br><span>2025 – present · supervising a pool serving 300+ members</span></div><div>Stock photo contributor, Unsplash<br><span>2024 – present · architecture and landscape portfolio</span></div></dd></div>
         <div><dt>Engineering</dt><dd>Fusion (generative design, CAD), Ansys Mechanical FEA, dynamic modelling in Excel</dd></div>
         <div><dt>Programming</dt><dd>Python (NumPy, pandas, OpenCV, Matplotlib), MATLAB</dd></div>
         <div><dt>Leadership</dt><dd>NASA Space Center University, Houston, 2024<br><span>Led a 4-person team designing a Mars habitat; 3rd of 20 teams</span></dd></div>

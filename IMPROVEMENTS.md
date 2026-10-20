@@ -26,8 +26,8 @@ roles first, software and autonomy roles too.
    analysis), with figures renumbered in page order.
 3. [x] AI-cost analysis shortened to a summary card.
 4. [x] Replay shows a still camera frame and course plot before LOAD.
-5. [ ] Photography folded into About; nav is Work / About / Contact.
-6. [ ] Work experience in About (Virgin Active lifeguard, Unsplash contributor).
+5. [x] Photography folded into About; nav is Work / About / Contact.
+6. [x] Work experience in About (Virgin Active lifeguard, Unsplash contributor).
 7. [~] Exact availability dates (internship window, placement start and length).
 8. [~] Pipe-climbing robot's result at the IMechE Design Challenge.
 9. [~] Hardware photos: printed frame, assembled drone, robot on the pipe, Fusion geartrain,
