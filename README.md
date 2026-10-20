@@ -1,6 +1,6 @@
 # Dominic Tataj — portfolio
 
-Engineering portfolio site, hosted with GitHub Pages.
+Engineering portfolio site, hosted with GitHub Pages: https://dom-t23.github.io/dominic-tataj/
 
 - `index.html` — the whole site (HTML, CSS and JS in one file)
 - `flights.js` — recorded flights for the drone-racing replay, loaded on demand
