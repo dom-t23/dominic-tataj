@@ -307,7 +307,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
       <header><span class="label">Projects</span></header>
       <ol>
         <li><a href="#e-04">
-          <span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span><span class="r-key">98.0% gates</span>
+          <span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span><span class="r-key">99.5% gates</span>
           <span class="r-meta">Python · OpenCV · 2026-08 → 2026-10</span>
         </a></li>
         <li><a href="#e-03">
@@ -390,14 +390,14 @@ figcaption b { color: var(--ink); font-weight: 500; }
               <h4>Approach</h4>
               <ol class="steps">
                 <li><span><strong>Detect.</strong> Threshold the gate colour and fit a four-cornered outline to each gate and to its opening.</span></li>
-                <li><span><strong>Measure.</strong> The gate's known size and its four image corners give its pose relative to the camera, using OpenCV solvePnP with IPPE_SQUARE.</span></li>
+                <li><span><strong>Measure.</strong> The gate's known size and its four image corners give its pose relative to the camera, using OpenCV solvePnP with IPPE_SQUARE. Gates stand upright, so the pose is then refined for position and yaw only, with the up direction taken from gravity.</span></li>
                 <li><span><strong>Fuse.</strong> An error-state Kalman filter tracks position, velocity and attitude in the frame of the next gate, so no map is needed. A chi-squared test rejects outlier detections.</span></li>
                 <li><span><strong>Fly.</strong> Guidance aims through the gate centre and is converted into thrust and body-rate commands, the way an FPV pilot flies in acro mode.</span></li>
               </ol>
             </div>
             <div>
               <h4>Testing</h4>
-              <p>I built a deterministic regression harness, with lockstep simulation over UDP, which runs every change across 50 repeated runs and reports the gate pass rate. Over development the pass rate on that set rose from 48% to 79%.</p>
+              <p>I built a deterministic regression harness, with lockstep simulation over UDP, which flies every change on the same seeded courses and reports the gate pass rate. On the first set of 50 courses the pass rate rose from 89.2% at the first committed baseline to 100%. Because one set moves by a few points from noise alone, a change is kept only if it helps pooled over 300 courses, where the pass rate now stands at 99.5%.</p>
               <p>One bug came from the simulator itself: its sign convention was the reverse of what its documentation said. I found it by comparing commanded inputs against logged attitude, confirmed it with single-axis tests, and corrected the controller.</p>
             </div>
           </div>
@@ -408,16 +408,18 @@ figcaption b { color: var(--ink); font-weight: 500; }
                   <table class="bench">
                     <thead><tr><th>Course set</th><th>Camera + IMU</th><th>Camera only</th></tr></thead>
                     <tbody>
-                      <tr><td>0–49</td><td>96.8%</td><td>98.0%</td></tr>
-                      <tr><td>1000–1049</td><td>100.0%</td><td>96.8%</td></tr>
-                      <tr><td>2000–2049</td><td>97.2%</td><td>89.5%</td></tr>
-                      <tr><td>3000–3049</td><td>98.0%</td><td>92.2%</td></tr>
-                      <tr class="pooled"><td>Pooled</td><td>98.0%</td><td>94.1%</td></tr>
+                      <tr><td>0–49</td><td>100.0%</td><td>97.2%</td></tr>
+                      <tr><td>1000–1049</td><td>99.0%</td><td>99.0%</td></tr>
+                      <tr><td>2000–2049</td><td>100.0%</td><td>99.0%</td></tr>
+                      <tr><td>3000–3049</td><td>100.0%</td><td>96.5%</td></tr>
+                      <tr><td>4000–4049</td><td>100.0%</td><td>100.0%</td></tr>
+                      <tr><td>5000–5049</td><td>98.2%</td><td>100.0%</td></tr>
+                      <tr class="pooled"><td>Pooled</td><td>99.5%</td><td>98.6%</td></tr>
                     </tbody>
                   </table>
                 </div>
               </div>
-              <figcaption><b>Fig. 01</b> — Gate pass rate, latest build, 13 Oct 2026. 50 random 8-gate courses per set; a run ends at the first crash or missed gate.</figcaption>
+              <figcaption><b>Fig. 01</b> — Gate pass rate, latest build, 20 Oct 2026. 50 random 8-gate courses per set; a run ends at the first crash or missed gate.</figcaption>
             </figure>
             <p class="note">Single sets of 50 courses move by a few points from noise alone, so the pooled row is the one to compare. "Camera only" drops the IMU and predicts motion between frames from the drone's own commands.</p>
             <p class="note">Source code: <a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">github.com/dom-t23/vision-drone-racing ↗</a></p>
@@ -679,6 +681,10 @@ figcaption b { color: var(--ink); font-weight: 500; }
         <div><b>5,000+</b><span class="label">downloads</span></div>
         <div><b>2024</b><span class="label">contributing since</span></div>
       </div>
+      <div class="actions">
+        <a class="btn" href="https://unsplash.com/@dominic_t" target="_blank" rel="noopener">UNSPLASH ↗</a>
+        <a class="btn" href="https://www.instagram.com/dt___xt/" target="_blank" rel="noopener">INSTAGRAM ↗</a>
+      </div>
     </div>
     <div class="photo-grid">
       <figure><div class="slot"><span>Photograph to add</span></div><figcaption><b>P-01</b> — Location · camera settings</figcaption></figure>
@@ -784,6 +790,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
   var fpv = $("fpv"), fctx = fpv.getContext("2d"), map = $("map"), mctx = map.getContext("2d");
   var css = function (n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); };
   var TRUTH = "#2C6E9C";
+  var OUTCOMES = { completed: "Completed", crash_gate: "Crashed", missed_gate: "Missed gate", wrong_gate: "Wrong gate", timeout: "Timed out" };
   var FL = [], seeds = [], methods = [], cur = {}, flight = null, idx = 0, playing = false, t0 = 0, tStart = 0, imgs = [], bounds = null;
   var cache = {}, want = null;
 
@@ -862,7 +869,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
     bounds = { x0: Math.min.apply(null, xs) - 3, x1: Math.max.apply(null, xs) + 3, y0: Math.min.apply(null, ys) - 3, y1: Math.max.apply(null, ys) + 3 };
     $("scrub").max = String(flight.frames.length - 1);
     var ok = flight.outcome === "completed";
-    $("r-out").innerHTML = '<span class="pill ' + (ok ? "ok" : "bad") + '">' + (ok ? "Completed" : "Crashed") + "</span>" +
+    $("r-out").innerHTML = '<span class="pill ' + (ok ? "ok" : "bad") + '">' + (OUTCOMES[flight.outcome] || flight.outcome.replace(/_/g, " ")) + "</span>" +
       (ok && flight.time ? " " + flight.time.toFixed(2) + " s" : "");
     imgs[0].onload = draw;
     draw();
