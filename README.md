@@ -3,8 +3,8 @@
 Engineering portfolio site, hosted with GitHub Pages: https://dom-t23.github.io/dominic-tataj/
 
 - `index.html` — the whole site (HTML, CSS and JS in one file)
-- `flights/` — recorded flights for the drone-racing replay: `index.js` lists them, and each
-  flight's frames (about 1 MB) load only when it is picked
+- `flights/` — recorded flights for the drone-racing replay: `index.js` lists them and holds
+  the still shown before LOAD, and each flight's frames (about 1 MB) load only when it is picked
 - `og-image.png`, `favicon.svg`, `apple-touch-icon.png` — link preview and icons
 
 To update the replay, regenerate `flights.js` in the drone-racing repo (`python -m vdr.demo`),

@@ -25,7 +25,7 @@ roles first, software and autonomy roles too.
 2. [x] Projects ordered by relevance (frame, drone racing, pipe-climbing robot, AI-cost
    analysis), with figures renumbered in page order.
 3. [x] AI-cost analysis shortened to a summary card.
-4. [ ] Replay shows a still camera frame and course plot before LOAD.
+4. [x] Replay shows a still camera frame and course plot before LOAD.
 5. [ ] Photography folded into About; nav is Work / About / Contact.
 6. [ ] Work experience in About (Virgin Active lifeguard, Unsplash contributor).
 7. [~] Exact availability dates (internship window, placement start and length).

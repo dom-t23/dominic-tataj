@@ -199,11 +199,14 @@ figcaption b { color: var(--ink); font-weight: 500; }
 .player { border: 1px solid var(--rule); min-width: 0; }
 .player-stage { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 3fr); gap: 1px; background: var(--rule); }
 @media (max-width: 760px) { .player-stage { grid-template-columns: minmax(0, 1fr); } }
+/* side by side, the narrower map panel fills the camera's height; its canvas keeps 4:3 */
+@media (min-width: 761px) { .pv.map { align-self: stretch; aspect-ratio: auto; } .pv.map canvas { object-fit: contain; } }
 .pv { position: relative; background: var(--screen); aspect-ratio: 4 / 3; max-width: 100%; }
 .pv.map { background-color: var(--paper); background-image: repeating-linear-gradient(0deg, var(--grid) 0 1px, transparent 1px 32px), repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 32px); }
 .pv canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .pv .tag { position: absolute; left: 10px; top: 10px; z-index: 2; background: var(--paper); border: 1px solid var(--rule); padding: 3px 7px; font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--ink); text-transform: uppercase; }
 .pv .rest { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; gap: 14px; padding: 24px; text-align: center; color: #D7D9DA; font: 400 12px/1.5 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; }
+#pv-fpv .rest { background: rgba(10, 11, 12, 0.62); }
 .pv .rest .btn { background: var(--signal); color: #FFFFFF; border-color: var(--signal); cursor: pointer; }
 .pv .rest .btn:hover { background: #FFFFFF; color: #111111; border-color: #FFFFFF; }
 .pv.map .rest { color: var(--muted); }
@@ -832,7 +835,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
   var TRUTH = "#2C6E9C";
   var OUTCOMES = { completed: "Completed", crash_gate: "Crashed", missed_gate: "Missed gate", wrong_gate: "Wrong gate", timeout: "Timed out" };
   var FL = [], seeds = [], methods = [], cur = {}, flight = null, idx = 0, playing = false, t0 = 0, tStart = 0, imgs = [], bounds = null;
-  var cache = {}, want = null;
+  var cache = {}, want = null, posterMode = false, idxWait = null;
 
   function loadScript(src, ok, fail) {
     var s = document.createElement("script");
@@ -853,26 +856,57 @@ figcaption b { color: var(--ink); font-weight: 500; }
     }, function () { if (want === id) fail(); });
   }
 
-  $("load").addEventListener("click", function () {
-    var btn = this;
-    btn.disabled = true; btn.textContent = "LOADING…";
-    function failed() { btn.disabled = false; btn.textContent = "RETRY"; $("load-note").textContent = "The recording could not be loaded."; }
+  // The poster and the LOAD button can both ask for index.js; it is fetched once.
+  function withIndex(ok, fail) {
+    if (FL.length) { ok(); return; }
+    if (idxWait) { idxWait.push([ok, fail]); return; }
+    idxWait = [[ok, fail]];
     loadScript("flights/index.js", function () {
       FL = window.FLIGHT_INDEX || [];
-      if (!FL.length) { btn.textContent = "REPLAY UNAVAILABLE"; return; }
       seeds = []; methods = [];
       FL.forEach(function (f) {
         if (seeds.indexOf(f.seed) < 0) seeds.push(f.seed);
         if (!methods.some(function (m) { return m.id === f.method; })) methods.push({ id: f.method, label: f.method === "default" ? "Camera + IMU" : "Camera only" });
       });
+      var w = idxWait; idxWait = null;
+      w.forEach(function (cb) { cb[0](); });
+    }, function () {
+      var w = idxWait; idxWait = null;
+      w.forEach(function (cb) { cb[1](); });
+    });
+  }
+
+  $("load").addEventListener("click", function () {
+    var btn = this;
+    btn.disabled = true; btn.textContent = "LOADING…";
+    function failed() { btn.disabled = false; btn.textContent = "RETRY"; $("load-note").textContent = "The recording could not be loaded."; }
+    withIndex(function () {
+      if (!FL.length) { btn.textContent = "REPLAY UNAVAILABLE"; return; }
       cur = { seed: seeds[0], method: methods[0].id };
       fetchFlight(function (f) {
+        posterMode = false;
         document.querySelectorAll(".pv .rest").forEach(function (el) { el.hidden = true; });
         $("controls").setAttribute("aria-disabled", "false"); $("seeds").hidden = false; $("methods").hidden = false;
         renderSeg(); load(f); play(true);
       }, failed);
     }, failed);
   });
+
+  // Before LOAD, draw one recorded moment of course 1 (a camera frame and the path so far)
+  // from the small poster in index.js, once the player is close to the viewport.
+  function showPoster() {
+    var P = window.FLIGHT_POSTER, e = P && FL.filter(function (f) { return f.id === P.id; })[0];
+    if (!e || (flight && !posterMode)) return;
+    posterMode = true;
+    load(Object.assign({}, e, { frames: P.frames }), P.idx);
+    $("pv-map").querySelector(".rest").hidden = true;
+  }
+  if (window.IntersectionObserver) {
+    var io = new IntersectionObserver(function (es) {
+      if (es.some(function (en) { return en.isIntersecting; })) { io.disconnect(); withIndex(showPoster, function () {}); }
+    }, { rootMargin: "600px 0px" });
+    io.observe(document.querySelector(".player"));
+  }
 
   function seg(el, items, key) {
     el.innerHTML = "";
@@ -899,20 +933,22 @@ figcaption b { color: var(--ink); font-weight: 500; }
     seg($("methods"), methods, "method");
   }
 
-  function load(f) {
+  // at: frame to show first (the poster's frame; 0 for a full flight).
+  function load(f, at) {
     flight = f;
-    stop(); idx = 0;
-    imgs = flight.frames.map(function (fr) { var im = new Image(); im.src = "data:image/jpeg;base64," + fr.img; return im; });
+    stop(); idx = at || 0;
+    imgs = flight.frames.map(function (fr) { if (!fr.img) return null; var im = new Image(); im.src = "data:image/jpeg;base64," + fr.img; return im; });
     var xs = [flight.start[0]], ys = [flight.start[1]];
     flight.gates.forEach(function (g) { xs.push(g.c[0]); ys.push(g.c[1]); });
     flight.frames.forEach(function (fr) { xs.push(fr.p[0]); ys.push(fr.p[1]); });
     bounds = { x0: Math.min.apply(null, xs) - 3, x1: Math.max.apply(null, xs) + 3, y0: Math.min.apply(null, ys) - 3, y1: Math.max.apply(null, ys) + 3 };
+    if (imgs[idx]) imgs[idx].onload = draw;
+    draw();
+    if (posterMode) return;
     $("scrub").max = String(flight.frames.length - 1);
     var ok = flight.outcome === "completed";
     $("r-out").innerHTML = '<span class="pill ' + (ok ? "ok" : "bad") + '">' + (OUTCOMES[flight.outcome] || flight.outcome.replace(/_/g, " ")) + "</span>" +
       (ok && flight.time ? " " + flight.time.toFixed(2) + " s" : "");
-    imgs[0].onload = draw;
-    draw();
   }
 
   function toMap(x, y) {
@@ -953,7 +989,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
   function drawFpv() {
     var c = fctx, fr = flight.frames[idx], im = imgs[idx], W = fpv.width, H = fpv.height, s = W / flight.image_size[0];
     c.fillStyle = "#000"; c.fillRect(0, 0, W, H);
-    if (im.complete && im.naturalWidth) c.drawImage(im, 0, 0, W, H);
+    if (im && im.complete && im.naturalWidth) c.drawImage(im, 0, 0, W, H);
     fr.q.forEach(function (q) {
       c.strokeStyle = q.k === "o" ? "#4CF08F" : "#FFE14D"; c.lineWidth = 2; c.setLineDash(q.k === "o" ? [] : [6, 4]);
       c.beginPath();
@@ -976,6 +1012,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
   function draw() {
     if (!flight) return;
     drawFpv(); drawMap();
+    if (posterMode) return;   // the readouts and scrubber wait for LOAD
     var fr = flight.frames[idx];
     $("scrub").value = String(idx);
     $("clock").textContent = fr.t.toFixed(2) + " s";
