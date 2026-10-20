@@ -154,6 +154,8 @@ figure .plate { position: relative; background: var(--paper); }
 figcaption { border-top: 1px solid var(--rule); padding: 10px 12px; font: 400 12px/1.5 var(--font-data); letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
 figcaption b { color: var(--ink); font-weight: 500; }
 .fig-stack { display: grid; gap: 24px; min-width: 0; }
+.fig-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; }
+.render { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; max-width: 100%; object-fit: cover; background: var(--panel); }
 .drawing { display: block; width: 100%; height: auto; }
 .drawing text { font-family: var(--font-data); letter-spacing: 0.06em; }
 .slot {
@@ -411,6 +413,17 @@ figcaption b { color: var(--ink); font-weight: 500; }
           <p class="summary">The frame needed to survive crashes and avoid resonance with the motors, while keeping the complete drone under the UK CAA's 250 g threshold.</p>
         </div>
 
+        <div class="fig-row">
+          <figure>
+            <img class="render" src="images/frame-render-three-quarter.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone on cracked ground, three-quarter view, showing the white generatively designed frame with four motors and the battery mounted on top">
+            <figcaption><b>Fig. 02</b> — Fusion render of the assembled drone, three-quarter view.</figcaption>
+          </figure>
+          <figure>
+            <img class="render" src="images/frame-render-top.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone from above, showing the organic X-shaped frame arms and the battery on the centre line">
+            <figcaption><b>Fig. 03</b> — Top view, showing the generated arm geometry.</figcaption>
+          </figure>
+        </div>
+
         <div class="specs" aria-label="Key figures">
           <div><span class="label">Load cases</span><span class="n">8</span></div>
           <div><span class="label">Safety factor</span><span class="n">1.5</span></div>
@@ -456,11 +469,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
                   <text x="20" y="150" font-size="11" fill="var(--muted)">MARGIN TO LIMIT: 4 G</text>
                 </svg>
               </div>
-              <figcaption><b>Fig. 02</b> — Mass budget. Frame vs. complete drone, against the CAA 250 g threshold.</figcaption>
-            </figure>
-            <figure>
-              <div class="slot"><span>Fig. 03 — generative render or printed frame photo to add</span></div>
-              <figcaption><b>Fig. 03</b> — Generative topology and printed part.</figcaption>
+              <figcaption><b>Fig. 04</b> — Mass budget. Frame vs. complete drone, against the CAA 250 g threshold.</figcaption>
             </figure>
           </div>
         </div>
@@ -539,7 +548,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
                   <text x="16" y="232" font-size="10" fill="var(--muted)">REPEAT UNTIL TOP OF POLE OR 3 MIN</text>
                 </svg>
               </div>
-              <figcaption><b>Fig. 04</b> — One step of the Excel model, repeated every 10 ms.</figcaption>
+              <figcaption><b>Fig. 05</b> — One step of the Excel model, repeated every 10 ms.</figcaption>
             </figure>
             <figure>
               <div class="plate">
@@ -559,7 +568,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
                   </g>
                 </svg>
               </div>
-              <figcaption><b>Fig. 05</b> — Cut in climb time for the chosen drivetrain, model vs. real runs.</figcaption>
+              <figcaption><b>Fig. 06</b> — Cut in climb time for the chosen drivetrain, model vs. real runs.</figcaption>
             </figure>
           </div>
         </div>
@@ -606,7 +615,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
                   <div><span class="label">GPT-5 estimate</span><span class="n">≈590<small>kW</small></span></div>
                 </div>
               </div>
-              <figcaption><b>Fig. 06</b> — Fitted scaling law, training power against parameter count.</figcaption>
+              <figcaption><b>Fig. 07</b> — Fitted scaling law, training power against parameter count.</figcaption>
             </figure>
             <figure>
               <div class="plate">
@@ -626,7 +635,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
                   </g>
                 </svg>
               </div>
-              <figcaption><b>Fig. 07</b> — Worst-case skewness across domains, before and after the log transform.</figcaption>
+              <figcaption><b>Fig. 08</b> — Worst-case skewness across domains, before and after the log transform.</figcaption>
             </figure>
           </div>
         </div>
