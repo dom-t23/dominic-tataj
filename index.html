@@ -1,6 +1,28 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dominic Tataj Portfolio</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Engineering portfolio of Dominic Tataj, MEng Mechanical Engineering student at UCL.">
+<link rel="canonical" href="https://dom-t23.github.io/dominic-tataj/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Dominic Tataj — Engineering portfolio">
+<meta property="og:description" content="MEng Mechanical Engineering at UCL. Projects in structural design, dynamic modelling, computer vision and data analysis.">
+<meta property="og:url" content="https://dom-t23.github.io/dominic-tataj/">
+<meta property="og:image" content="https://dom-t23.github.io/dominic-tataj/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Dominic Tataj, engineering portfolio: list of four projects">
+<meta name="twitter:card" content="summary_large_image">
+<script>
+  // Apply a saved theme before first paint so the page doesn't flash.
+  try { var t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
@@ -18,6 +40,8 @@
   --signal: #FF4F00;   /* marks: squares, bars, focus */
   --link: #C23A00;     /* text in the accent hue, AA on paper */
   --screen: #0E0F10;
+  --ok: #2F7D4F;
+  --bad: #B3362A;
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
@@ -28,6 +52,7 @@
     --paper: #111214; --panel: #18191C; --grid: #1B1C1F; --rule: #2E2F33;
     --ink: #ECECEC; --ink-2: #B4B4B4; --muted: #8C8C8C;
     --signal: #FF5A14; --link: #FF8048; --screen: #0A0B0C;
+    --ok: #4CB97A; --bad: #F0705F;
     color-scheme: dark;
   }
 }
@@ -35,6 +60,7 @@
   --paper: #111214; --panel: #18191C; --grid: #1B1C1F; --rule: #2E2F33;
   --ink: #ECECEC; --ink-2: #B4B4B4; --muted: #8C8C8C;
   --signal: #FF5A14; --link: #FF8048; --screen: #0A0B0C;
+  --ok: #4CB97A; --bad: #F0705F;
   color-scheme: dark;
 }
 
@@ -80,7 +106,9 @@ p { margin: 0; }
 .nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 28px; }
 .nav ul a { font: 400 13px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--ink); padding-block: 6px 4px; border-bottom: 2px solid transparent; transition: color 150ms var(--ease), border-color 150ms var(--ease); }
 .nav ul a:hover { color: var(--link); text-decoration: none; border-bottom-color: var(--signal); }
-@media (max-width: 520px) { .nav ul { gap: 4px 18px; } .nav ul a { font-size: 12px; } }
+.theme-btn { font: 400 13px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--muted); background: none; border: none; border-bottom: 2px solid transparent; padding: 6px 0 4px; cursor: pointer; transition: color 150ms var(--ease), border-color 150ms var(--ease); }
+.theme-btn:hover { color: var(--ink); border-bottom-color: var(--signal); }
+@media (max-width: 520px) { .nav ul { gap: 4px 18px; } .nav ul a, .theme-btn { font-size: 12px; } }
 
 /* ---------- hero ---------- */
 .hero { border-bottom: 1px solid var(--rule); }
@@ -197,7 +225,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
 .readout > div { background: var(--paper); padding: 10px 14px; display: grid; gap: 4px; }
 .readout b { font: 500 16px/1.2 var(--font-data); font-variant-numeric: tabular-nums; }
 .pill { display: inline-block; font: 500 11px/1 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 6px; border: 1px solid currentColor; }
-.pill.ok { color: #2F7D4F; } .pill.bad { color: #B3362A; }
+.pill.ok { color: var(--ok); } .pill.bad { color: var(--bad); }
 
 .bench { width: 100%; border-collapse: collapse; font: 400 13px/1.4 var(--font-data); font-variant-numeric: tabular-nums; }
 .bench th, .bench td { text-align: left; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--rule); white-space: nowrap; }
@@ -235,6 +263,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
 .contact-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: stretch; }
 .email { font: 500 clamp(17px, 2.6vw, 26px)/1.3 var(--font-data); letter-spacing: 0.02em; color: var(--ink); border: 1px solid var(--rule); padding: 14px 18px; user-select: all; overflow-wrap: anywhere; min-width: 0; }
 .copy-btn { cursor: pointer; }
+.burst { position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; z-index: 100; pointer-events: none; }
 
 /* footer title block */
 .foot { border-top: 1px solid var(--rule); }
@@ -245,6 +274,8 @@ figcaption b { color: var(--ink); font-weight: 500; }
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
 </style>
+</head>
+<body>
 
 <nav class="nav" aria-label="Main">
   <div class="wrap">
@@ -254,6 +285,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
       <li><a href="#photography">PHOTOGRAPHY</a></li>
       <li><a href="#about">ABOUT</a></li>
       <li><a href="#contact">CONTACT</a></li>
+      <li><button class="theme-btn" id="theme" type="button" hidden>DARK</button></li>
     </ul>
   </div>
 </nav>
@@ -278,7 +310,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
       <header><span class="label">Projects</span></header>
       <ol>
         <li><a href="#e-04">
-          <span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span><span class="r-key">98.0% gates</span>
+          <span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span><span class="r-key">99.5% gates</span>
           <span class="r-meta">Python · OpenCV · 2026-08 → 2026-10</span>
         </a></li>
         <li><a href="#e-03">
@@ -328,9 +360,9 @@ figcaption b { color: var(--ink); font-weight: 500; }
               <span class="tag">Onboard camera · detector output</span>
               <canvas id="fpv" width="640" height="480" aria-label="Onboard camera view"></canvas>
               <div class="rest" id="rest">
-                <span>Six recorded flights · 8 gates · about 8 m/s</span>
+                <span>Six recorded flights · 8 gates · about 6 m/s</span>
                 <button class="btn" id="load" type="button">LOAD REPLAY</button>
-                <span id="load-note">6.8 MB of recorded camera frames</span>
+                <span id="load-note">About 1 MB of camera frames per flight</span>
               </div>
             </div>
             <div class="pv map" id="pv-map">
@@ -361,14 +393,14 @@ figcaption b { color: var(--ink); font-weight: 500; }
               <h4>Approach</h4>
               <ol class="steps">
                 <li><span><strong>Detect.</strong> Threshold the gate colour and fit a four-cornered outline to each gate and to its opening.</span></li>
-                <li><span><strong>Measure.</strong> The gate's known size and its four image corners give its pose relative to the camera, using OpenCV solvePnP with IPPE_SQUARE.</span></li>
+                <li><span><strong>Measure.</strong> The gate's known size and its four image corners give its pose relative to the camera, using OpenCV solvePnP with IPPE_SQUARE. Gates stand upright, so the pose is then refined for position and yaw only, with the up direction taken from gravity.</span></li>
                 <li><span><strong>Fuse.</strong> An error-state Kalman filter tracks position, velocity and attitude in the frame of the next gate, so no map is needed. A chi-squared test rejects outlier detections.</span></li>
                 <li><span><strong>Fly.</strong> Guidance aims through the gate centre and is converted into thrust and body-rate commands, the way an FPV pilot flies in acro mode.</span></li>
               </ol>
             </div>
             <div>
               <h4>Testing</h4>
-              <p>I built a deterministic regression harness, with lockstep simulation over UDP, which runs every change across 50 repeated runs and reports the gate pass rate. Over development the pass rate on that set rose from 48% to 79%.</p>
+              <p>I built a deterministic regression harness, with lockstep simulation over UDP, which flies every change on the same seeded courses and reports the gate pass rate. On the first set of 50 courses the pass rate rose from 89.2% at the first committed baseline to 100%. Because one set moves by a few points from noise alone, a change is kept only if it helps pooled over 300 courses, where the pass rate now stands at 99.5%.</p>
               <p>One bug came from the simulator itself: its sign convention was the reverse of what its documentation said. I found it by comparing commanded inputs against logged attitude, confirmed it with single-axis tests, and corrected the controller.</p>
             </div>
           </div>
@@ -379,16 +411,18 @@ figcaption b { color: var(--ink); font-weight: 500; }
                   <table class="bench">
                     <thead><tr><th>Course set</th><th>Camera + IMU</th><th>Camera only</th></tr></thead>
                     <tbody>
-                      <tr><td>0–49</td><td>96.8%</td><td>98.0%</td></tr>
-                      <tr><td>1000–1049</td><td>100.0%</td><td>96.8%</td></tr>
-                      <tr><td>2000–2049</td><td>97.2%</td><td>89.5%</td></tr>
-                      <tr><td>3000–3049</td><td>98.0%</td><td>92.2%</td></tr>
-                      <tr class="pooled"><td>Pooled</td><td>98.0%</td><td>94.1%</td></tr>
+                      <tr><td>0–49</td><td>100.0%</td><td>97.2%</td></tr>
+                      <tr><td>1000–1049</td><td>99.0%</td><td>99.0%</td></tr>
+                      <tr><td>2000–2049</td><td>100.0%</td><td>99.0%</td></tr>
+                      <tr><td>3000–3049</td><td>100.0%</td><td>96.5%</td></tr>
+                      <tr><td>4000–4049</td><td>100.0%</td><td>100.0%</td></tr>
+                      <tr><td>5000–5049</td><td>98.2%</td><td>100.0%</td></tr>
+                      <tr class="pooled"><td>Pooled</td><td>99.5%</td><td>98.6%</td></tr>
                     </tbody>
                   </table>
                 </div>
               </div>
-              <figcaption><b>Fig. 01</b> — Gate pass rate, latest build, 13 Oct 2026. 50 random 8-gate courses per set; a run ends at the first crash or missed gate.</figcaption>
+              <figcaption><b>Fig. 01</b> — Gate pass rate, latest build, 20 Oct 2026. 50 random 8-gate courses per set; a run ends at the first crash or missed gate.</figcaption>
             </figure>
             <p class="note">Single sets of 50 courses move by a few points from noise alone, so the pooled row is the one to compare. "Camera only" drops the IMU and predicts motion between frames from the drone's own commands.</p>
             <p class="note">Source code: <a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">github.com/dom-t23/vision-drone-racing ↗</a></p>
@@ -488,12 +522,12 @@ figcaption b { color: var(--ink); font-weight: 500; }
       </div>
       <div class="sheet-body">
         <div class="sheet-title">
-          <h3 id="e02-h">A pole-climbing robot with its drivetrain chosen by simulation</h3>
-          <p class="summary">The robot had to climb a 2 m pole while dragging a chain whose load grows as it climbs, inside a 400 × 300 mm envelope, on a £50 budget, within 3 minutes.</p>
+          <h3 id="e02-h">A pipe-climbing robot with its drivetrain chosen by simulation</h3>
+          <p class="summary">The robot had to climb a 2 m pipe while dragging a chain whose load grows as it climbs, inside a 400 × 300 mm envelope, on a £50 budget, within 3 minutes.</p>
         </div>
 
         <div class="specs" aria-label="Constraints and results">
-          <div><span class="label">Pole height</span><span class="n">2<small>m</small></span></div>
+          <div><span class="label">Pipe height</span><span class="n">2<small>m</small></span></div>
           <div><span class="label">Envelope</span><span class="n">400×300<small>mm</small></span></div>
           <div><span class="label">Budget</span><span class="n">£50</span></div>
           <div><span class="label">Time step</span><span class="n">10<small>ms</small></span></div>
@@ -545,7 +579,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
                     <path d="M434 164 L434 196 L300 196"/>
                   </g>
                   <text x="292" y="200" font-size="10" fill="var(--link)" text-anchor="end">SLIPS → SETUP REJECTED</text>
-                  <text x="16" y="232" font-size="10" fill="var(--muted)">REPEAT UNTIL TOP OF POLE OR 3 MIN</text>
+                  <text x="16" y="232" font-size="10" fill="var(--muted)">REPEAT UNTIL TOP OF PIPE OR 3 MIN</text>
                 </svg>
               </div>
               <figcaption><b>Fig. 05</b> — One step of the Excel model, repeated every 10 ms.</figcaption>
@@ -602,6 +636,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
             <div>
               <h4>Result</h4>
               <p>The fit gives P ∝ N<sup>0.55</sup> with R² = 0.44, so parameter count explains a little under half the variation in training power. I used it to estimate GPT-5's training power draw at about 590 kW, and wrote a report on the social, environmental and economic effects of rapid AI training.</p>
+              <p>With R² this low, and GPT-5's parameter count not public, the estimate is an order of magnitude rather than a prediction.</p>
             </div>
           </div>
           <div class="fig-stack">
@@ -655,6 +690,10 @@ figcaption b { color: var(--ink); font-weight: 500; }
         <div><b>390,000+</b><span class="label">views</span></div>
         <div><b>5,000+</b><span class="label">downloads</span></div>
         <div><b>2024</b><span class="label">contributing since</span></div>
+      </div>
+      <div class="actions">
+        <a class="btn" href="https://unsplash.com/@dominic_t" target="_blank" rel="noopener">UNSPLASH ↗</a>
+        <a class="btn" href="https://www.instagram.com/dt___xt/" target="_blank" rel="noopener">INSTAGRAM ↗</a>
       </div>
     </div>
     <div class="photo-grid">
@@ -734,36 +773,138 @@ figcaption b { color: var(--ink); font-weight: 500; }
       btn.textContent = "SELECTED — PRESS COPY";
     }
     try {
-      navigator.clipboard.writeText(text).then(function () { btn.textContent = "COPIED"; }, selectIt);
+      navigator.clipboard.writeText(text).then(function () { btn.textContent = "COPIED"; burst(btn); }, selectIt);
     } catch (e) { selectIt(); }
     setTimeout(function () { btn.textContent = "COPY EMAIL"; }, 2400);
   });
+
+  /* ---------- theme toggle ---------- */
+  var root = document.documentElement, sysDark = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+  function isDark() { var t = root.getAttribute("data-theme"); return t ? t === "dark" : !!(sysDark && sysDark.matches); }
+  function syncThemeBtn() {
+    var d = isDark();
+    $("theme").textContent = d ? "LIGHT" : "DARK";
+    $("theme").setAttribute("aria-label", d ? "Switch to light theme" : "Switch to dark theme");
+  }
+  $("theme").addEventListener("click", function () {
+    var t = isDark() ? "light" : "dark", sys = sysDark && sysDark.matches ? "dark" : "light";
+    // Choosing the system theme clears the override, so the page follows the system again.
+    if (t === sys) root.removeAttribute("data-theme"); else root.setAttribute("data-theme", t);
+    try { if (t === sys) localStorage.removeItem("theme"); else localStorage.setItem("theme", t); } catch (e) {}
+    syncThemeBtn();
+  });
+  if (sysDark && sysDark.addEventListener) sysDark.addEventListener("change", syncThemeBtn);
+  syncThemeBtn(); $("theme").hidden = false;
+
+  /* ---------- copy burst ---------- */
+  // Squares, outlines and drafting crosses fly from the button to the screen edges, behind square rings.
+  var DRAG = 3, GRAV = 380, bctx = null, parts = [], rings = [], bLast = 0;
+  function burst(el) {
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var r = el.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2, W = innerWidth, H = innerHeight;
+    var far = Math.max(Math.hypot(x, y), Math.hypot(W - x, y), Math.hypot(x, H - y), Math.hypot(W - x, H - y));
+    var st = getComputedStyle(root), sig = st.getPropertyValue("--signal").trim(), ink = st.getPropertyValue("--ink").trim();
+    if (!bctx) {
+      var cv = document.createElement("canvas"), dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.className = "burst"; cv.setAttribute("aria-hidden", "true");
+      cv.width = W * dpr; cv.height = H * dpr;
+      document.body.appendChild(cv);
+      bctx = cv.getContext("2d"); bctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      bLast = performance.now(); requestAnimationFrame(bTick);
+    }
+    rings.push({ x: x, y: y, far: far, t: 0, life: 0.75, color: sig, lw: 2 }, { x: x, y: y, far: far, t: -0.1, life: 0.9, color: ink, lw: 1 });
+    var n = Math.round(Math.min(220, Math.max(90, W * H / 8000)));
+    for (var i = 0; i < n; i++) {
+      // With drag k, a particle launched at k * d coasts to a stop about d away.
+      var a = Math.random() * 2 * Math.PI, d = far * (0.2 + Math.random() * 0.9), k = Math.random();
+      parts.push({
+        x: x, y: y, vx: Math.cos(a) * d * DRAG, vy: Math.sin(a) * d * DRAG - 120 * Math.random(),
+        rot: Math.random() * Math.PI, spin: (Math.random() - 0.5) * 16, t: 0, life: 1 + Math.random() * 0.7,
+        kind: k < 0.75 ? "sq" : k < 0.9 ? "ol" : "x", color: k < 0.55 || (k >= 0.75 && k < 0.9) ? sig : ink,
+        size: k < 0.75 ? 4 + Math.random() * 6 : 8 + Math.random() * 8
+      });
+    }
+  }
+  function bTick(now) {
+    var dt = Math.min(0.05, (now - bLast) / 1000), c = bctx, f = Math.exp(-DRAG * dt);
+    bLast = now;
+    c.clearRect(0, 0, innerWidth, innerHeight);
+    rings = rings.filter(function (g) {
+      g.t += dt;
+      if (g.t < 0) return true;
+      var p = g.t / g.life, s = g.far * (1 - Math.pow(1 - p, 3));
+      if (p >= 1) return false;
+      c.globalAlpha = 1 - p; c.strokeStyle = g.color; c.lineWidth = g.lw;
+      c.strokeRect(g.x - s, g.y - s, 2 * s, 2 * s);
+      return true;
+    });
+    parts = parts.filter(function (q) {
+      q.t += dt;
+      var p = q.t / q.life, h = q.size / 2;
+      if (p >= 1) return false;
+      q.vx *= f; q.vy = q.vy * f + GRAV * dt; q.x += q.vx * dt; q.y += q.vy * dt; q.rot += q.spin * dt * (1 - p);
+      c.globalAlpha = 1 - p * p;
+      c.save(); c.translate(q.x, q.y); c.rotate(q.rot);
+      if (q.kind === "sq") { c.fillStyle = q.color; c.fillRect(-h, -h, q.size, q.size); }
+      else {
+        c.strokeStyle = q.color; c.lineWidth = 1.5;
+        if (q.kind === "ol") c.strokeRect(-h, -h, q.size, q.size);
+        else { c.beginPath(); c.moveTo(-h, 0); c.lineTo(h, 0); c.moveTo(0, -h); c.lineTo(0, h); c.stroke(); }
+      }
+      c.restore();
+      return true;
+    });
+    c.globalAlpha = 1;
+    if (parts.length || rings.length) requestAnimationFrame(bTick);
+    else { c.canvas.remove(); bctx = null; }
+  }
 
   /* ---------- drone replay ---------- */
   var fpv = $("fpv"), fctx = fpv.getContext("2d"), map = $("map"), mctx = map.getContext("2d");
   var css = function (n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); };
   var TRUTH = "#2C6E9C";
+  var OUTCOMES = { completed: "Completed", crash_gate: "Crashed", missed_gate: "Missed gate", wrong_gate: "Wrong gate", timeout: "Timed out" };
   var FL = [], seeds = [], methods = [], cur = {}, flight = null, idx = 0, playing = false, t0 = 0, tStart = 0, imgs = [], bounds = null;
+  var cache = {}, want = null;
+
+  function loadScript(src, ok, fail) {
+    var s = document.createElement("script");
+    s.src = src; s.onload = ok; s.onerror = fail;
+    document.body.appendChild(s);
+  }
+
+  // flights/index.js lists the flights; each flight's frames (about 1 MB) load when it is picked.
+  function fetchFlight(ok, fail) {
+    var e = FL.filter(function (f) { return f.seed === cur.seed && f.method === cur.method; })[0];
+    if (!e) { fail(); return; }
+    var id = e.id; want = id;
+    if (cache[id]) { ok(cache[id]); return; }
+    loadScript("flights/" + id + ".js", function () {
+      cache[id] = window.FLIGHT_DATA && window.FLIGHT_DATA[id];
+      if (want !== id) return;   // a later pick replaced this one
+      if (cache[id]) ok(cache[id]); else fail();
+    }, function () { if (want === id) fail(); });
+  }
 
   $("load").addEventListener("click", function () {
     var btn = this;
     btn.disabled = true; btn.textContent = "LOADING…";
-    var s = document.createElement("script");
-    s.src = "flights.js";
-    s.onload = function () {
-      FL = window.FLIGHTS || [];
+    function failed() { btn.disabled = false; btn.textContent = "RETRY"; $("load-note").textContent = "The recording could not be loaded."; }
+    loadScript("flights/index.js", function () {
+      FL = window.FLIGHT_INDEX || [];
       if (!FL.length) { btn.textContent = "REPLAY UNAVAILABLE"; return; }
-      document.querySelectorAll(".pv .rest").forEach(function (el) { el.hidden = true; });
-      $("controls").setAttribute("aria-disabled", "false"); $("seeds").hidden = false; $("methods").hidden = false;
+      seeds = []; methods = [];
       FL.forEach(function (f) {
         if (seeds.indexOf(f.seed) < 0) seeds.push(f.seed);
         if (!methods.some(function (m) { return m.id === f.method; })) methods.push({ id: f.method, label: f.method === "default" ? "Camera + IMU" : "Camera only" });
       });
       cur = { seed: seeds[0], method: methods[0].id };
-      renderSeg(); load(); play();
-    };
-    s.onerror = function () { btn.disabled = false; btn.textContent = "RETRY"; $("load-note").textContent = "The recording could not be loaded."; };
-    document.body.appendChild(s);
+      fetchFlight(function (f) {
+        document.querySelectorAll(".pv .rest").forEach(function (el) { el.hidden = true; });
+        $("controls").setAttribute("aria-disabled", "false"); $("seeds").hidden = false; $("methods").hidden = false;
+        renderSeg(); load(f); play(true);
+      }, failed);
+    }, failed);
   });
 
   function seg(el, items, key) {
@@ -772,7 +913,17 @@ figcaption b { color: var(--ink); font-weight: 500; }
       var b = document.createElement("button");
       b.type = "button"; b.textContent = it.label;
       b.setAttribute("aria-pressed", String(cur[key] === it.id));
-      b.addEventListener("click", function () { cur[key] = it.id; renderSeg(); load(); play(); });
+      b.addEventListener("click", function () {
+        var prev = cur[key];
+        cur[key] = it.id; renderSeg(); stop();
+        $("controls").setAttribute("aria-disabled", "true");
+        fetchFlight(function (f) {
+          $("controls").setAttribute("aria-disabled", "false"); load(f); play(true);
+        }, function () {
+          cur[key] = prev; renderSeg();
+          $("controls").setAttribute("aria-disabled", "false"); $("r-out").textContent = "Could not load that flight";
+        });
+      });
       el.appendChild(b);
     });
   }
@@ -781,10 +932,9 @@ figcaption b { color: var(--ink); font-weight: 500; }
     seg($("methods"), methods, "method");
   }
 
-  function load() {
-    flight = FL.filter(function (f) { return f.seed === cur.seed && f.method === cur.method; })[0] || null;
+  function load(f) {
+    flight = f;
     stop(); idx = 0;
-    if (!flight) return;
     imgs = flight.frames.map(function (fr) { var im = new Image(); im.src = "data:image/jpeg;base64," + fr.img; return im; });
     var xs = [flight.start[0]], ys = [flight.start[1]];
     flight.gates.forEach(function (g) { xs.push(g.c[0]); ys.push(g.c[1]); });
@@ -792,7 +942,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
     bounds = { x0: Math.min.apply(null, xs) - 3, x1: Math.max.apply(null, xs) + 3, y0: Math.min.apply(null, ys) - 3, y1: Math.max.apply(null, ys) + 3 };
     $("scrub").max = String(flight.frames.length - 1);
     var ok = flight.outcome === "completed";
-    $("r-out").innerHTML = '<span class="pill ' + (ok ? "ok" : "bad") + '">' + (ok ? "Completed" : "Crashed") + "</span>" +
+    $("r-out").innerHTML = '<span class="pill ' + (ok ? "ok" : "bad") + '">' + (OUTCOMES[flight.outcome] || flight.outcome.replace(/_/g, " ")) + "</span>" +
       (ok && flight.time ? " " + flight.time.toFixed(2) + " s" : "");
     imgs[0].onload = draw;
     draw();
@@ -876,21 +1026,16 @@ figcaption b { color: var(--ink); font-weight: 500; }
     if (idx >= fr.length - 1) { stop(); return; }
     requestAnimationFrame(tick);
   }
-  function play() {
+  // auto: started by loading a flight rather than the PLAY button, so it respects reduced motion.
+  function play(auto) {
     if (!flight) return;
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) { draw(); return; }
+    if (auto && window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     if (idx >= flight.frames.length - 1) idx = 0;
     playing = true; $("play").textContent = "PAUSE"; t0 = performance.now(); tStart = flight.frames[idx].t;
     requestAnimationFrame(tick);
   }
   function stop() { playing = false; $("play").textContent = "PLAY"; }
-  $("play").addEventListener("click", function () {
-    if (!flight) return;
-    if (playing) { stop(); return; }
-    if (idx >= flight.frames.length - 1) idx = 0;
-    playing = true; this.textContent = "PAUSE"; t0 = performance.now(); tStart = flight.frames[idx].t;
-    requestAnimationFrame(tick);
-  });
+  $("play").addEventListener("click", function () { if (playing) stop(); else play(false); });
   $("scrub").addEventListener("input", function () {
     if (!flight) return;
     idx = parseInt(this.value, 10) || 0;
@@ -899,7 +1044,9 @@ figcaption b { color: var(--ink); font-weight: 500; }
   });
 
   var redraw = function () { if (flight) draw(); };
-  if (window.matchMedia) { var mq = window.matchMedia("(prefers-color-scheme: dark)"); if (mq.addEventListener) mq.addEventListener("change", redraw); }
-  new MutationObserver(redraw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  if (sysDark && sysDark.addEventListener) sysDark.addEventListener("change", redraw);
+  new MutationObserver(redraw).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
 })();
 </script>
+</body>
+</html>
