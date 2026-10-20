@@ -239,8 +239,6 @@ figcaption b { color: var(--ink); font-weight: 500; }
 .steps li { counter-increment: s; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; }
 .steps li::before { content: counter(s, decimal-leading-zero); font: 500 12px/1.9 var(--font-data); letter-spacing: 0.08em; color: var(--link); }
 
-.equation { font-family: var(--font-display); font-style: italic; font-size: clamp(40px, 5vw, 56px); line-height: 1; color: var(--ink); padding: 28px 24px; }
-.equation sup { font-size: 0.5em; font-style: normal; font-family: var(--font-data); vertical-align: 1.1em; margin-left: 2px; }
 
 /* photography */
 .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 24px; margin-top: 40px; }
@@ -315,13 +313,13 @@ figcaption b { color: var(--ink); font-weight: 500; }
     <div class="register" aria-label="Project register">
       <header><span class="label">Projects</span></header>
       <ol>
-        <li><a href="#e-04">
-          <span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span><span class="r-key">99.5% gates</span>
-          <span class="r-meta">Python · OpenCV · 2026-08 → 2026-10</span>
-        </a></li>
         <li><a href="#e-03">
           <span class="r-no">E-03</span><span class="r-title">Generative FPV drone frame</span><span class="r-key">36% lighter</span>
           <span class="r-meta">Fusion · Ansys · 2026-07 → 2026-09</span>
+        </a></li>
+        <li><a href="#e-04">
+          <span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span><span class="r-key">99.5% gates</span>
+          <span class="r-meta">Python · OpenCV · 2026-08 → 2026-10</span>
         </a></li>
         <li><a href="#e-02">
           <span class="r-no">E-02</span><span class="r-title">Pipe-climbing robot, IMechE Design Challenge</span><span class="r-key">−16% climb time</span>
@@ -340,9 +338,88 @@ figcaption b { color: var(--ink); font-weight: 500; }
 <section class="section" id="work">
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow">Newest first</div>
+      <div class="eyebrow">Selected work</div>
       <h2>Projects</h2>
     </div>
+
+    <!-- E-03 FRAME -->
+    <article class="sheet" id="e-03" aria-labelledby="e03-h">
+      <div class="tblock">
+        <div><div class="label">Project no.</div><div class="v">E-03</div></div>
+        <div class="wide"><div class="label">Title</div><div class="v">Generative FPV drone frame</div></div>
+        <div><div class="label">Role</div><div class="v">Design, analysis &amp; build</div></div>
+        <div><div class="label">Tools</div><div class="v">Fusion generative · Ansys Mechanical</div></div>
+        <div><div class="label">Date</div><div class="v">2026-07 → 2026-09</div></div>
+        <div><div class="label">Status</div><div class="v">Built &amp; tested</div></div>
+      </div>
+      <div class="sheet-body">
+        <div class="sheet-title">
+          <h3 id="e03-h">A generatively designed 3-inch FPV drone frame</h3>
+          <p class="summary">The frame needed to survive crashes and avoid resonance with the motors, while keeping the complete drone under the UK CAA's 250 g threshold.</p>
+        </div>
+
+        <div class="fig-row">
+          <figure>
+            <img class="render" src="images/frame-render-three-quarter.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone on cracked ground, three-quarter view, showing the white generatively designed frame with four motors and the battery mounted on top">
+            <figcaption><b>Fig. 01</b> — Fusion render of the assembled drone, three-quarter view.</figcaption>
+          </figure>
+          <figure>
+            <img class="render" src="images/frame-render-top.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone from above, showing the organic X-shaped frame arms and the battery on the centre line">
+            <figcaption><b>Fig. 02</b> — Top view, showing the generated arm geometry.</figcaption>
+          </figure>
+        </div>
+
+        <div class="specs" aria-label="Key figures">
+          <div><span class="label">Load cases</span><span class="n">8</span></div>
+          <div><span class="label">Safety factor</span><span class="n">1.5</span></div>
+          <div><span class="label">Modal constraint</span><span class="n">&gt;300<small>Hz</small></span></div>
+          <div><span class="label">Vs plate design</span><span class="n">−36%<small>mass</small></span></div>
+          <div><span class="label">Printed frame</span><span class="n">38<small>g</small></span></div>
+          <div><span class="label">FEA agreement</span><span class="n">≤18%</span></div>
+        </div>
+
+        <div class="cols">
+          <div class="prose">
+            <div>
+              <h4>Approach</h4>
+              <p>I derived eight operational load cases, including maximum thrust, arm collision and battery impact, to define the design envelope and starting geometry.</p>
+              <p>I then ran Fusion's generative optimisation under those loads with buckling, modal frequency (above 300 Hz) and 1.5 safety-factor constraints. The selected topology is 36% lighter than a comparable plate-based frame.</p>
+            </div>
+            <div>
+              <h4>Build and testing</h4>
+              <p>I printed the frame in PC/ABS for impact toughness. It weighs 38 g, and the fully assembled drone comes to 246 g, under the 250 g threshold.</p>
+              <p>I measured arm deflection at maximum thrust and compared it with Ansys Mechanical; the two agreed to within 18%.</p>
+            </div>
+          </div>
+          <div class="fig-stack">
+            <figure>
+              <div class="plate">
+                <svg class="drawing" viewBox="0 0 520 170" role="img" aria-label="Mass budget: 246 grams all-up against a 250 gram limit, of which the frame is 38 grams">
+                  <!-- scale: 0 g at x=20, 260 g at x=500 → 1.846 px/g -->
+                  <line x1="20" y1="96" x2="500" y2="96" stroke="var(--rule)" stroke-width="1"/>
+                  <rect x="20" y="62" width="70.2" height="28" fill="var(--signal)"/>
+                  <rect x="90.2" y="62" width="384" height="28" fill="var(--ink)" opacity="0.82"/>
+                  <line x1="481.5" y1="40" x2="481.5" y2="104" stroke="var(--link)" stroke-width="2" stroke-dasharray="4 3"/>
+                  <text x="512" y="32" text-anchor="end" font-size="11" fill="var(--link)">CAA LIMIT 250 G</text>
+                  <text x="20" y="52" font-size="11" fill="var(--ink)">FRAME 38 G</text>
+                  <text x="470" y="56" text-anchor="end" font-size="11" fill="var(--ink)">ALL-UP 246 G</text>
+                  <g font-size="10" fill="var(--muted)">
+                    <line x1="20" y1="96" x2="20" y2="102" stroke="var(--muted)"/><text x="20" y="118" text-anchor="middle">0</text>
+                    <line x1="112.3" y1="96" x2="112.3" y2="102" stroke="var(--muted)"/><text x="112.3" y="118" text-anchor="middle">50</text>
+                    <line x1="204.6" y1="96" x2="204.6" y2="102" stroke="var(--muted)"/><text x="204.6" y="118" text-anchor="middle">100</text>
+                    <line x1="296.9" y1="96" x2="296.9" y2="102" stroke="var(--muted)"/><text x="296.9" y="118" text-anchor="middle">150</text>
+                    <line x1="389.2" y1="96" x2="389.2" y2="102" stroke="var(--muted)"/><text x="389.2" y="118" text-anchor="middle">200</text>
+                    <text x="500" y="118" text-anchor="end">G</text>
+                  </g>
+                  <text x="20" y="150" font-size="11" fill="var(--muted)">MARGIN TO LIMIT: 4 G</text>
+                </svg>
+              </div>
+              <figcaption><b>Fig. 03</b> — Mass budget. Frame vs. complete drone, against the CAA 250 g threshold.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </article>
 
     <!-- E-04 DRONE -->
     <article class="sheet" id="e-04" aria-labelledby="e04-h">
@@ -428,89 +505,10 @@ figcaption b { color: var(--ink); font-weight: 500; }
                   </table>
                 </div>
               </div>
-              <figcaption><b>Fig. 01</b> — Gate pass rate, latest build, 20 Oct 2026. 50 random 8-gate courses per set; a run ends at the first crash or missed gate.</figcaption>
+              <figcaption><b>Fig. 04</b> — Gate pass rate, latest build, 20 Oct 2026. 50 random 8-gate courses per set; a run ends at the first crash or missed gate.</figcaption>
             </figure>
             <p class="note">Single sets of 50 courses move by a few points from noise alone, so the pooled row is the one to compare. "Camera only" drops the IMU and predicts motion between frames from the drone's own commands.</p>
             <p class="note">Source code: <a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">github.com/dom-t23/vision-drone-racing ↗</a></p>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- E-03 FRAME -->
-    <article class="sheet" id="e-03" aria-labelledby="e03-h">
-      <div class="tblock">
-        <div><div class="label">Project no.</div><div class="v">E-03</div></div>
-        <div class="wide"><div class="label">Title</div><div class="v">Generative FPV drone frame</div></div>
-        <div><div class="label">Role</div><div class="v">Design, analysis &amp; build</div></div>
-        <div><div class="label">Tools</div><div class="v">Fusion generative · Ansys Mechanical</div></div>
-        <div><div class="label">Date</div><div class="v">2026-07 → 2026-09</div></div>
-        <div><div class="label">Status</div><div class="v">Built &amp; tested</div></div>
-      </div>
-      <div class="sheet-body">
-        <div class="sheet-title">
-          <h3 id="e03-h">A generatively designed 3-inch FPV drone frame</h3>
-          <p class="summary">The frame needed to survive crashes and avoid resonance with the motors, while keeping the complete drone under the UK CAA's 250 g threshold.</p>
-        </div>
-
-        <div class="fig-row">
-          <figure>
-            <img class="render" src="images/frame-render-three-quarter.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone on cracked ground, three-quarter view, showing the white generatively designed frame with four motors and the battery mounted on top">
-            <figcaption><b>Fig. 02</b> — Fusion render of the assembled drone, three-quarter view.</figcaption>
-          </figure>
-          <figure>
-            <img class="render" src="images/frame-render-top.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone from above, showing the organic X-shaped frame arms and the battery on the centre line">
-            <figcaption><b>Fig. 03</b> — Top view, showing the generated arm geometry.</figcaption>
-          </figure>
-        </div>
-
-        <div class="specs" aria-label="Key figures">
-          <div><span class="label">Load cases</span><span class="n">8</span></div>
-          <div><span class="label">Safety factor</span><span class="n">1.5</span></div>
-          <div><span class="label">Modal constraint</span><span class="n">&gt;300<small>Hz</small></span></div>
-          <div><span class="label">Vs plate design</span><span class="n">−36%<small>mass</small></span></div>
-          <div><span class="label">Printed frame</span><span class="n">38<small>g</small></span></div>
-          <div><span class="label">FEA agreement</span><span class="n">≤18%</span></div>
-        </div>
-
-        <div class="cols">
-          <div class="prose">
-            <div>
-              <h4>Approach</h4>
-              <p>I derived eight operational load cases, including maximum thrust, arm collision and battery impact, to define the design envelope and starting geometry.</p>
-              <p>I then ran Fusion's generative optimisation under those loads with buckling, modal frequency (above 300 Hz) and 1.5 safety-factor constraints. The selected topology is 36% lighter than a comparable plate-based frame.</p>
-            </div>
-            <div>
-              <h4>Build and testing</h4>
-              <p>I printed the frame in PC/ABS for impact toughness. It weighs 38 g, and the fully assembled drone comes to 246 g, under the 250 g threshold.</p>
-              <p>I measured arm deflection at maximum thrust and compared it with Ansys Mechanical; the two agreed to within 18%.</p>
-            </div>
-          </div>
-          <div class="fig-stack">
-            <figure>
-              <div class="plate">
-                <svg class="drawing" viewBox="0 0 520 170" role="img" aria-label="Mass budget: 246 grams all-up against a 250 gram limit, of which the frame is 38 grams">
-                  <!-- scale: 0 g at x=20, 260 g at x=500 → 1.846 px/g -->
-                  <line x1="20" y1="96" x2="500" y2="96" stroke="var(--rule)" stroke-width="1"/>
-                  <rect x="20" y="62" width="70.2" height="28" fill="var(--signal)"/>
-                  <rect x="90.2" y="62" width="384" height="28" fill="var(--ink)" opacity="0.82"/>
-                  <line x1="481.5" y1="40" x2="481.5" y2="104" stroke="var(--link)" stroke-width="2" stroke-dasharray="4 3"/>
-                  <text x="512" y="32" text-anchor="end" font-size="11" fill="var(--link)">CAA LIMIT 250 G</text>
-                  <text x="20" y="52" font-size="11" fill="var(--ink)">FRAME 38 G</text>
-                  <text x="470" y="56" text-anchor="end" font-size="11" fill="var(--ink)">ALL-UP 246 G</text>
-                  <g font-size="10" fill="var(--muted)">
-                    <line x1="20" y1="96" x2="20" y2="102" stroke="var(--muted)"/><text x="20" y="118" text-anchor="middle">0</text>
-                    <line x1="112.3" y1="96" x2="112.3" y2="102" stroke="var(--muted)"/><text x="112.3" y="118" text-anchor="middle">50</text>
-                    <line x1="204.6" y1="96" x2="204.6" y2="102" stroke="var(--muted)"/><text x="204.6" y="118" text-anchor="middle">100</text>
-                    <line x1="296.9" y1="96" x2="296.9" y2="102" stroke="var(--muted)"/><text x="296.9" y="118" text-anchor="middle">150</text>
-                    <line x1="389.2" y1="96" x2="389.2" y2="102" stroke="var(--muted)"/><text x="389.2" y="118" text-anchor="middle">200</text>
-                    <text x="500" y="118" text-anchor="end">G</text>
-                  </g>
-                  <text x="20" y="150" font-size="11" fill="var(--muted)">MARGIN TO LIMIT: 4 G</text>
-                </svg>
-              </div>
-              <figcaption><b>Fig. 04</b> — Mass budget. Frame vs. complete drone, against the CAA 250 g threshold.</figcaption>
-            </figure>
           </div>
         </div>
       </div>
@@ -631,54 +629,17 @@ figcaption b { color: var(--ink); font-weight: 500; }
           <p class="summary">Statistical analysis of training data for 358 AI models across nine domains, used to fit a scaling law and estimate the training power of a frontier model.</p>
         </div>
 
-        <div class="cols">
-          <div class="prose">
-            <div>
-              <h4>Approach</h4>
-              <p>I summarised each domain with mean, median, standard deviation, skewness and quartiles. The data was heavily right-skewed, with skewness up to 6.1.</p>
-              <p>A log₁₀ transformation cut skewness to below 0.9, which made the nine domains comparable and the boxplots readable.</p>
-              <p>I fitted a power law of training power against parameter count. Higher-order fits gave no meaningful improvement or overfitted, so I kept the simpler model.</p>
-            </div>
-            <div>
-              <h4>Result</h4>
-              <p>The fit gives P ∝ N<sup>0.55</sup> with R² = 0.44, so parameter count explains a little under half the variation in training power. I used it to estimate GPT-5's training power draw at about 590 kW, and wrote a report on the social, environmental and economic effects of rapid AI training.</p>
-              <p>With R² this low, and GPT-5's parameter count not public, the estimate is an order of magnitude rather than a prediction.</p>
-            </div>
-          </div>
-          <div class="fig-stack">
-            <figure>
-              <div class="plate">
-                <div class="equation">P ∝ N<sup>0.55</sup></div>
-                <div class="specs" style="border-width: 1px 0 0">
-                  <div><span class="label">Models</span><span class="n">358</span></div>
-                  <div><span class="label">Domains</span><span class="n">9</span></div>
-                  <div><span class="label">Fit R²</span><span class="n">0.44</span></div>
-                  <div><span class="label">GPT-5 estimate</span><span class="n">≈590<small>kW</small></span></div>
-                </div>
-              </div>
-              <figcaption><b>Fig. 07</b> — Fitted scaling law, training power against parameter count.</figcaption>
-            </figure>
-            <figure>
-              <div class="plate">
-                <svg class="drawing" viewBox="0 0 520 132" role="img" aria-label="Maximum skewness: 6.1 before the log transform, below 0.9 after">
-                  <!-- scale: 0 at x=118, 7 at x=498 → 54.29 px per unit -->
-                  <g font-size="11">
-                    <text x="16" y="38" fill="var(--ink)">RAW DATA</text>
-                    <rect x="118" y="24" width="331.2" height="22" fill="var(--ink)" opacity="0.82"/>
-                    <text x="457" y="40" fill="var(--ink)">6.1</text>
-                    <text x="16" y="78" fill="var(--ink)">LOG₁₀</text>
-                    <rect x="118" y="64" width="48.9" height="22" fill="var(--signal)"/>
-                    <text x="175" y="80" fill="var(--ink)">&lt; 0.9</text>
-                  </g>
-                  <line x1="118" y1="98" x2="498" y2="98" stroke="var(--rule)"/>
-                  <g font-size="10" fill="var(--muted)" text-anchor="middle">
-                    <text x="118" y="116">0</text><text x="226.6" y="116">2</text><text x="335.1" y="116">4</text><text x="443.7" y="116">6</text>
-                  </g>
-                </svg>
-              </div>
-              <figcaption><b>Fig. 08</b> — Worst-case skewness across domains, before and after the log transform.</figcaption>
-            </figure>
-          </div>
+        <div class="specs" aria-label="Key figures">
+          <div><span class="label">Models</span><span class="n">358</span></div>
+          <div><span class="label">Domains</span><span class="n">9</span></div>
+          <div><span class="label">Fitted law</span><span class="n">P&nbsp;∝&nbsp;N<sup>0.55</sup></span></div>
+          <div><span class="label">Fit R²</span><span class="n">0.44</span></div>
+          <div><span class="label">Skewness after log₁₀</span><span class="n">&lt;0.9<small>from&nbsp;6.1</small></span></div>
+          <div><span class="label">GPT-5 estimate</span><span class="n">≈590<small>kW</small></span></div>
+        </div>
+
+        <div class="prose">
+          <p>The data was heavily right-skewed, so I log₁₀-transformed it to make the nine domains comparable, then fitted a power law of training power against parameter count; higher-order fits gave no meaningful improvement or overfitted. Parameter count explains a little under half the variation. I used the fit to estimate GPT-5's training power draw and wrote a report on the social, environmental and economic effects of rapid AI training. With R² this low, and GPT-5's parameter count not public, that estimate is an order of magnitude rather than a prediction.</p>
         </div>
       </div>
     </article>
