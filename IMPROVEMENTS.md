@@ -40,5 +40,5 @@ roles first, software and autonomy roles too.
 
 ## Checkpoints
 
-1. After items 1–6: review screenshots, merge to `main` if approved, collect what items 7–11
-   need.
+1. [x] After items 1–6: review screenshots, merge to `main` if approved, collect what items
+   7–11 need. Approved and merged 20 Oct 2026.
