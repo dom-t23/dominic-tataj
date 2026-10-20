@@ -20,7 +20,7 @@ roles first, software and autonomy roles too.
 
 `[ ]` to do · `[x]` done · `[~]` waiting on Dom
 
-1. [ ] Hero answers a recruiter's questions: a distinctive headline, availability, right to
+1. [x] Hero answers a recruiter's questions: a distinctive headline, availability, right to
    work, location and target roles.
 2. [ ] Projects ordered by relevance (frame, drone racing, pipe-climbing robot, AI-cost
    analysis), with figures renumbered in page order.
