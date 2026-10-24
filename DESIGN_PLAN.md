@@ -21,7 +21,7 @@ checkpoint with Dom, merge to `main`.
 
 ## 0. Foundations (do first; everything else depends on it)
 
-0.1 [ ] **Architecture decision (ask Dom):** stay build-free or add a build step.
+0.1 [x] **Architecture decision:** build-free (Dom, 24 Oct 2026). Split done.
    - Recommended: stay build-free. Split `index.html` into `index.html` + `css/site.css` +
      `js/*.js` ES modules loaded with `<script type="module">`. Load three.js only on the
      frame section, from a pinned CDN (`three@0.170.x` via jsDelivr `+esm`), lazily.
