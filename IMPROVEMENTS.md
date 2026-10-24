@@ -42,4 +42,4 @@ roles first, software and autonomy roles too.
 
 1. [x] After items 1–6: review screenshots, merge to `main` if approved, collect what items
    7–11 need. Approved and merged 20 Oct 2026.
-2. [ ] After items 7–8: merge to `main` if approved.
+2. [x] After items 7–8: merge to `main` if approved. Approved and merged 24 Oct 2026.
