@@ -34,12 +34,12 @@ checkpoint with Dom, merge to `main`.
    - `reducedMotion()` check; every effect has a final-state fallback (no hidden content).
    - A frame budget: pause all rAF loops when their element is off screen or the tab is
      hidden (`visibilitychange`).
-0.3 [ ] **Performance budget** (checked in CI-like local script with Playwright):
+0.3 [x] **Performance budget** (checked in CI-like local script with Playwright):
    first contentful paint < 1.2 s on a throttled "Fast 3G / 4x CPU" profile; JS on first
    load < 60 KB gzipped (three.js and replay data lazy); no layout shift > 0.05; 60 fps
    scroll on a mid phone (no scroll-jank from listeners: use `IntersectionObserver` and
    CSS scroll-driven animations where supported, rAF otherwise).
-0.4 [ ] **Test harness in repo:** move the scratch Playwright checks into `tests/` with a
+0.4 [x] **Test harness in repo:** move the scratch Playwright checks into `tests/` with a
    `README` line on how to run them (`npx playwright test`), plus visual snapshots of hero,
    each project and About in light/dark, phone/desktop.
 

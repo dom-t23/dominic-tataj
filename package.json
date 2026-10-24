@@ -1,0 +1,12 @@
+{
+  "name": "dominic-tataj-portfolio",
+  "private": true,
+  "description": "Tests for the portfolio site. The site itself has no build step.",
+  "scripts": {
+    "test": "playwright test --grep-invert @screens",
+    "screens": "playwright test --grep @screens"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1"
+  }
+}

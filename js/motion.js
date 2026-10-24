@@ -83,6 +83,7 @@ var EFFECTS = {
     };
     function clean(s) {
       ["transition", "strokeDasharray", "strokeDashoffset", "fillOpacity", "transform", "transformBox", "transformOrigin", "opacity"].forEach(function (p) { s.style[p] = ""; });
+      tidy(s);
     }
   },
 
@@ -123,9 +124,13 @@ function stagger(el, items, gap) {
       c.style.transition = now ? "" : "opacity " + DUR.base + "ms ease " + c.dataset.mDelay + "ms, transform " + DUR.base + "ms " + EASE + " " + c.dataset.mDelay + "ms";
       c.style.opacity = ""; c.style.transform = "";
       delete c.dataset.mDelay;
+      if (!now) setTimeout(function () { c.style.transition = ""; tidy(c); }, DUR.base + items.length * gap + 100); else tidy(c);
     });
   };
 }
+
+// Leave the element as it was: drop the style attribute once it is empty.
+function tidy(el) { if (!el.getAttribute("style")) el.removeAttribute("style"); }
 
 function firstNumberNode(el) {
   var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), n;

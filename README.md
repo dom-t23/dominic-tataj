@@ -15,10 +15,17 @@ No build step: GitHub Pages serves these files as they are.
 - `images/` — project images
 - `og-image.png`, `favicon.svg`, `apple-touch-icon.png` — link preview and icons
 - `DESIGN_PLAN.md`, `IMPROVEMENTS.md` — work plans
+- `tests/`, `playwright.config.js`, `package.json` — browser tests (not part of the site)
 
 To view it locally, serve the folder (ES modules don't load from `file://`):
 
     python3 -m http.server 8000    # then open http://localhost:8000
+
+Tests (Playwright, Chromium):
+
+    npm install && npx playwright install chromium   # first time only
+    npm test            # structure, replay, contact, motion and the performance budget
+    npm run screens     # review screenshots in test-results/screens/
 
 To update the replay, regenerate `flights.js` in the drone-racing repo (`python -m vdr.demo`),
 then split it here:
