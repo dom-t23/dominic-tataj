@@ -27,7 +27,7 @@ checkpoint with Dom, merge to `main`.
      frame section, from a pinned CDN (`three@0.170.x` via jsDelivr `+esm`), lazily.
    - Alternative: Vite build with GitHub Actions deploy. Only worth it if JS grows past
      ~3 modules of real complexity.
-0.2 [ ] **Motion system.** One small module `js/motion.js`:
+0.2 [x] **Motion system.** One small module `js/motion.js`:
    - `reveal(el, kind)` driven by a single `IntersectionObserver` (kinds: `draw` for SVG
      strokes, `fill` for title blocks, `count` for numbers, `rise` for text).
    - Shared easing tokens (`--ease`, `--ease-spring`) and durations (150 / 400 / 900 ms).

@@ -2,3 +2,4 @@
 import "./theme.js";
 import "./contact.js";
 import "./replay.js";
+import "./reveals.js";
