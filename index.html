@@ -118,6 +118,7 @@ p { margin: 0; }
 .hero h1 em { font-style: italic; font-weight: 400; }
 .hero .lede { font-size: 18px; color: var(--ink-2); max-width: 34em; }
 .hero-facts { border: 1px solid var(--rule); }
+.tblock.hero-facts > div { flex-basis: 40%; }   /* two by two at every width */
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
 .btn {
   display: inline-block; border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
@@ -294,7 +295,8 @@ figcaption b { color: var(--ink); font-weight: 500; }
       <div class="eyebrow">Mechanical engineering · UCL</div>
       <h1>I design, simulate and build drones and robots</h1>
       <div class="tblock hero-facts" aria-label="Availability">
-        <div class="wide"><div class="label">Looking for</div><div class="v">Summer 2027 internship · 2027–28 placement year</div></div>
+        <div><div class="label">Looking for</div><div class="v">Summer internship or placement year</div></div>
+        <div><div class="label">Available from</div><div class="v">27 June 2027</div></div>
         <div><div class="label">Right to work</div><div class="v">UK, no sponsorship</div></div>
         <div><div class="label">Based in</div><div class="v">London</div></div>
       </div>
@@ -684,7 +686,7 @@ figcaption b { color: var(--ink); font-weight: 500; }
   <div class="wrap">
     <div class="section-head">
       <h2>Contact</h2>
-      <p>Open to summer 2027 internships and a 2027–28 placement year in the UK.</p>
+      <p>Available from 27 June 2027 for a summer internship or a placement year in the UK.</p>
     </div>
     <div class="contact">
       <div class="contact-row">

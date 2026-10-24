@@ -18,7 +18,7 @@ roles first, software and autonomy roles too.
 
 ## Checklist
 
-`[ ]` to do · `[x]` done · `[~]` waiting on Dom
+`[ ]` to do · `[x]` done · `[-]` dropped (24 Oct 2026, at Dom's request)
 
 1. [x] Hero answers a recruiter's questions: a distinctive headline, availability, right to
    work, location and target roles.
@@ -28,17 +28,18 @@ roles first, software and autonomy roles too.
 4. [x] Replay shows a still camera frame and course plot before LOAD.
 5. [x] Photography folded into About; nav is Work / About / Contact.
 6. [x] Work experience in About (Virgin Active lifeguard, Unsplash contributor).
-7. [~] Exact availability dates (internship window, placement start and length).
-8. [~] Pipe-climbing robot's result at the IMechE Design Challenge.
-9. [~] Hardware photos: printed frame, assembled drone, robot on the pipe, Fusion geartrain,
+7. [x] Availability: from 27 June 2027, for a summer internship or a placement year.
+8. [x] Pipe-climbing robot's result: completed the climb at the IMechE Design Challenge.
+9. [-] Hardware photos: printed frame, assembled drone, robot on the pipe, Fusion geartrain,
    Ansys stress or deflection plot, deflection test setup.
-10. [~] CV buttons for the engineering and software CVs, using versions without a phone number.
-11. [~] Custom domain: once bought, add `CNAME` and update the canonical and Open Graph URLs.
-12. [~] Site URL on the CV and in LinkedIn's Featured section.
-13. [~] CV text to match the site (pass-rate history, "pipe" rather than "pole").
-14. [ ] Optional: cookie-free visit analytics. Decide at a checkpoint.
+10. [-] CV buttons for the engineering and software CVs, using versions without a phone number.
+11. [-] Custom domain: once bought, add `CNAME` and update the canonical and Open Graph URLs.
+12. [-] Site URL on the CV and in LinkedIn's Featured section.
+13. [-] CV text to match the site (pass-rate history, "pipe" rather than "pole").
+14. [-] Optional: cookie-free visit analytics.
 
 ## Checkpoints
 
 1. [x] After items 1–6: review screenshots, merge to `main` if approved, collect what items
    7–11 need. Approved and merged 20 Oct 2026.
+2. [ ] After items 7–8: merge to `main` if approved.
