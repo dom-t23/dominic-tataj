@@ -78,6 +78,16 @@ p { margin: 0; }
 .nav .wrap { min-height: 64px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 24px; padding-block: 10px; }
 .nav .name { font: 500 20px/1.2 var(--font-display); color: var(--ink); }
 .nav .name:hover { text-decoration: none; }
+/* sheet counter and scroll progress (js/sheets.js): the page is a drawing set */
+.brand { display: flex; align-items: baseline; gap: 14px; min-width: 0; }
+.sheet-no { font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--muted); white-space: nowrap; }
+.sheet-no b { display: inline-block; font-weight: 500; color: var(--ink); min-width: 1ch; font-variant-numeric: tabular-nums; }
+.sheet-no span { margin-left: 4px; }
+.sheet-no.tick b { animation: sheet-tick 320ms var(--ease); }
+@keyframes sheet-tick { from { transform: translateY(-70%); opacity: 0; } }
+@media (max-width: 380px) { .sheet-no span { display: none; } }
+.progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; pointer-events: none; }
+.progress i { display: block; height: 100%; background: var(--signal); transform: scaleX(0); transform-origin: left; }
 .nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 28px; }
 .nav ul a { font: 400 13px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--ink); padding-block: 6px 4px; border-bottom: 2px solid transparent; transition: color 150ms var(--ease), border-color 150ms var(--ease); }
 .nav ul a:hover { color: var(--link); text-decoration: none; border-bottom-color: var(--signal); }

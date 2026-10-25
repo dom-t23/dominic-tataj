@@ -1,8 +1,9 @@
 // Motion system: reveals, loops, reduced motion and print.
 const { test, expect } = require("@playwright/test");
 
+// elements waiting for a reveal (the nav's progress bar legitimately sits at scaleX(0))
 const prepared = (page) => page.evaluate(() =>
-  document.querySelectorAll('[style*="opacity: 0"], [style*="scaleX(0)"], [style*="stroke-dashoffset"]').length);
+  document.querySelectorAll('[style*="opacity: 0"], [style*="scaleX(0)"]:not(#progress), [style*="stroke-dashoffset"]').length);
 const jump = (page, sel) => page.locator(sel).first().evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
 
 test("first screen is never hidden; figures draw and title blocks fill when reached", async ({ page }) => {
@@ -58,5 +59,5 @@ test.describe("reduced motion", () => {
 test("printing shows everything", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
   await page.evaluate(() => window.dispatchEvent(new Event("beforeprint")));
-  expect(await page.evaluate(() => document.querySelectorAll('[style*="opacity: 0"], [style*="scaleX(0)"]').length)).toBe(0);
+  expect(await prepared(page)).toBe(0);
 });

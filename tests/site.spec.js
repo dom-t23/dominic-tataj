@@ -48,7 +48,32 @@ test.describe("phone", () => {
     expect(await page.evaluate(() => [innerWidth, document.documentElement.scrollWidth])).toEqual([390, 390]);
     const box = await page.locator(".hero-facts").boundingBox();
     expect(box.y + box.height).toBeLessThan(await page.evaluate(() => innerHeight));
-    // no spec value wraps onto a second line
+    // no spec value wraps onto a second line (in its final state, not mid-count)
+    await page.evaluate(() => window.dispatchEvent(new Event("beforeprint")));
     expect(await page.$$eval(".specs .n", (ns) => ns.filter((n) => n.getBoundingClientRect().height > 40).map((n) => n.textContent))).toEqual([]);
   });
+});
+
+test("nav shows the current sheet and scroll progress", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  await expect(page.locator("#sheet-no")).toHaveText("SHEET 1/7 COVER");
+  const at = async (sel) => {
+    await page.locator(sel).first().evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "start" }));
+    await page.waitForTimeout(150);
+    return page.locator("#sheet-no").textContent();
+  };
+  expect(await at("#e-04 .player")).toBe("SHEET 3/7 E-04");
+  expect(await at("#about")).toBe("SHEET 6/7 ABOUT");
+  expect(await at("#contact")).toBe("SHEET 7/7 CONTACT");
+  expect(await page.locator("#progress").evaluate((e) => parseFloat(e.style.transform.slice(7)))).toBe(1);
+});
+
+test("key figures count up to their real values once in view", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  const values = () => page.$$eval("#e-03 .specs .n", (ns) => ns.map((n) => n.textContent));
+  expect(await values()).toEqual(["0", "0.0", ">0Hz", "−0%mass", "0g", "≤0%"]);
+  await page.locator("#e-03 .specs").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
+  await expect.poll(values, { timeout: 4000 }).toEqual(["8", "1.5", ">300Hz", "−36%mass", "38g", "≤18%"]);
+  // compound values are left alone
+  await expect(page.locator("#e-02 .specs .n").nth(1)).toHaveText("400×300mm");
 });

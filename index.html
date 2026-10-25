@@ -32,7 +32,10 @@
 
 <nav class="nav" aria-label="Main">
   <div class="wrap">
-    <a class="name" href="#top">Dominic Tataj</a>
+    <div class="brand">
+      <a class="name" href="#top">Dominic Tataj</a>
+      <span class="sheet-no" id="sheet-no" aria-hidden="true" hidden>SHEET <b>1</b>/7 <span>COVER</span></span>
+    </div>
     <ul>
       <li><a href="#work">WORK</a></li>
       <li><a href="#about">ABOUT</a></li>
@@ -40,6 +43,7 @@
       <li><button class="theme-btn" id="theme" type="button" hidden>DARK</button></li>
     </ul>
   </div>
+  <div class="progress" aria-hidden="true"><i id="progress"></i></div>
 </nav>
 
 <main id="top">
@@ -482,6 +486,7 @@
 <link rel="modulepreload" href="js/hero-flight.js">
 <link rel="modulepreload" href="js/motion.js">
 <link rel="modulepreload" href="js/reveals.js">
+<link rel="modulepreload" href="js/sheets.js">
 <script type="module" src="js/main.js"></script>
 </body>
 </html>

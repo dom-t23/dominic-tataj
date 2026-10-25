@@ -80,12 +80,13 @@ checkpoint with Dom, merge to `main`.
 2.1 [ ] **Drafting cursor** (desktop, pointer: fine only): a thin crosshair with live
    coordinates in the corner (`x 412.0  y 1188.5 mm`) where the page is treated as a
    1:1 drawing sheet. Hidden over text inputs and for reduced motion.
-2.2 [ ] **Sheet-number scroll progress:** the nav shows `SHEET 2 OF 6` updating as you
-   scroll through sections, with a thin orange progress bar under the nav.
+2.2 [x] **Sheet-number scroll progress:** the nav shows `SHEET 3/7 E-04` (cover, four
+   projects, About, Contact), the number ticking over as you scroll, with a thin orange
+   progress bar under the nav.
 2.3 [ ] **Revision cloud on hover:** project titles get a hand-drawn "revision cloud"
    outline (the drafting mark for "changed") that draws around them on hover.
-2.4 [ ] **Numbers count up** with tabular figures when they enter view (99.5%, −36%,
-   38 g, 246 g), once only, 600 ms.
+2.4 [x] **Numbers count up** with tabular figures when they enter view (spec strips and the
+   Unsplash stats), once only, about 0.9 s. Compound values (400×300, P ∝ N^0.55) stay put.
 2.5 [ ] **Theme toggle as a light-table switch:** switching dark/light animates a
    blueprint-style "inverse print" wipe across the page (clip-path circle from the
    button).
