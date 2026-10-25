@@ -4,10 +4,10 @@ const { phone, trackErrors, trackFlights, controlsReady } = require("./helpers")
 
 const toPlayer = (page) => page.locator(".player").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
 
-test("poster loads near the player; LOAD fetches one flight; switching uses a cache", async ({ page }) => {
+test("poster reuses the index; LOAD fetches one flight; switching uses a cache", async ({ page }) => {
   const errors = trackErrors(page), reqs = trackFlights(page);
   await page.goto("/", { waitUntil: "networkidle" });
-  expect(reqs).toEqual([]);
+  expect(reqs).toEqual(["index.js"]);   // fetched at load for the hero's flight strip
   await toPlayer(page);
   await page.waitForFunction(() => document.querySelector("#pv-map .rest").hidden);
   expect(reqs).toEqual(["index.js"]);

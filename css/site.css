@@ -121,6 +121,33 @@ p { margin: 0; }
 .register .r-meta { grid-column: 2 / 4; font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
 @media (max-width: 440px) { .register a { grid-template-columns: 44px minmax(0, 1fr); } .register .r-key { grid-column: 2; text-align: left; } .register .r-meta { grid-column: 2; } }
 
+/* flight-test strip (Fig. 00): plan and elevation views drawn by js/hero-flight.js */
+.flight { grid-column: 1 / -1; }
+.flight .fv {
+  position: relative; height: 280px; background-color: var(--paper);
+  background-image: repeating-linear-gradient(0deg, var(--grid) 0 1px, transparent 1px 32px), repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 32px);
+}
+@media (max-width: 699px) { .flight .fv { height: 360px; } }
+.flight .fv svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.flight figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; }
+.link-btn { font: 500 12px/1.5 var(--font-data); letter-spacing: 0.08em; color: var(--link); background: none; border: none; padding: 0; cursor: pointer; white-space: nowrap; }
+.link-btn:hover { text-decoration: underline; }
+.fv .ln { fill: none; stroke: var(--ink); stroke-width: 1.2; }
+.fv .thin { fill: none; stroke: var(--muted); stroke-width: 0.8; }
+.fv .rule { fill: none; stroke: var(--rule); stroke-width: 1; }
+.fv .gate { stroke: var(--ink); stroke-width: 4; }
+.fv .gate.done { stroke: var(--muted); }
+.fv .gate.next { stroke: var(--signal); stroke-width: 6; }
+.fv .truth { fill: none; stroke: #2C6E9C; stroke-width: 2; stroke-linejoin: round; }
+.fv .est { fill: none; stroke: var(--signal); stroke-width: 1.6; stroke-dasharray: 5 4; }
+.fv .proj { fill: none; stroke: var(--signal); stroke-width: 1; stroke-dasharray: 3 4; }
+.fv .solid { fill: var(--ink); stroke: none; }
+.fv .paper { fill: var(--paper); }
+.fv .accent { fill: var(--signal); stroke: none; }
+.fv text { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.08em; fill: var(--muted); }
+.fv text.ink { fill: var(--ink); }
+.fv text.big { font-size: 11px; font-weight: 500; fill: var(--ink); }
+
 /* ---------- sections ---------- */
 .section { padding-block: clamp(64px, 9vw, 112px); }
 .section + .section { border-top: 1px solid var(--rule); }

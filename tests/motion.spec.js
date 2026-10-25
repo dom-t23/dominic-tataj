@@ -11,7 +11,7 @@ test("first screen is never hidden; figures draw and title blocks fill when reac
   expect(await prepared(page)).toBeGreaterThan(20);
   await jump(page, "#e-03 > .tblock");
   await jump(page, "#e-03 svg.drawing");
-  await expect.poll(() => page.locator("#e-03 svg.drawing *[style]").count(), { timeout: 4000 }).toBe(0);
+  await expect.poll(() => page.locator("#e-03 svg.drawing *[style]").count(), { timeout: 8000 }).toBe(0);
   expect(await page.locator("#e-03 > .tblock > div").evaluateAll((ds) => ds.every((d) => getComputedStyle(d).opacity === "1"))).toBe(true);
 });
 

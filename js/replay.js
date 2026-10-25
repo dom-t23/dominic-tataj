@@ -1,17 +1,12 @@
 import { $, root, sysDark, css, reducedMotion } from "./util.js";
+import { loadScript, flightIndex } from "./flights.js";
 
 /* ---------- drone replay ---------- */
 var fpv = $("fpv"), fctx = fpv.getContext("2d"), map = $("map"), mctx = map.getContext("2d");
 var TRUTH = "#2C6E9C";
 var OUTCOMES = { completed: "Completed", crash_gate: "Crashed", missed_gate: "Missed gate", wrong_gate: "Wrong gate", timeout: "Timed out" };
 var FL = [], seeds = [], methods = [], cur = {}, flight = null, idx = 0, playing = false, t0 = 0, tStart = 0, imgs = [], bounds = null;
-var cache = {}, want = null, posterMode = false, idxWait = null;
-
-function loadScript(src, ok, fail) {
-  var s = document.createElement("script");
-  s.src = src; s.onload = ok; s.onerror = fail;
-  document.body.appendChild(s);
-}
+var cache = {}, want = null, posterMode = false;
 
 // flights/index.js lists the flights; each flight's frames (about 1 MB) load when it is picked.
 function fetchFlight(ok, fail) {
@@ -26,24 +21,18 @@ function fetchFlight(ok, fail) {
   }, function () { if (want === id) fail(); });
 }
 
-// The poster and the LOAD button can both ask for index.js; it is fetched once.
+// Fills the flight list from the shared index the first time it is needed.
 function withIndex(ok, fail) {
-  if (FL.length) { ok(); return; }
-  if (idxWait) { idxWait.push([ok, fail]); return; }
-  idxWait = [[ok, fail]];
-  loadScript("flights/index.js", function () {
-    FL = window.FLIGHT_INDEX || [];
-    seeds = []; methods = [];
-    FL.forEach(function (f) {
-      if (seeds.indexOf(f.seed) < 0) seeds.push(f.seed);
-      if (!methods.some(function (m) { return m.id === f.method; })) methods.push({ id: f.method, label: f.method === "default" ? "Camera + IMU" : "Camera only" });
-    });
-    var w = idxWait; idxWait = null;
-    w.forEach(function (cb) { cb[0](); });
-  }, function () {
-    var w = idxWait; idxWait = null;
-    w.forEach(function (cb) { cb[1](); });
-  });
+  flightIndex(function (ix) {
+    if (!FL.length) {
+      FL = ix.list;
+      FL.forEach(function (f) {
+        if (seeds.indexOf(f.seed) < 0) seeds.push(f.seed);
+        if (!methods.some(function (m) { return m.id === f.method; })) methods.push({ id: f.method, label: f.method === "default" ? "Camera + IMU" : "Camera only" });
+      });
+    }
+    ok();
+  }, fail);
 }
 
 $("load").addEventListener("click", function () {

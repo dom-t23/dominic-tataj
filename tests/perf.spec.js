@@ -1,5 +1,6 @@
-// Performance budget (DESIGN_PLAN.md 0.3). Measured on 24 Oct 2026 for reference: first
-// contentful paint 684 ms throttled, 9.5 KB of gzipped JS on first load.
+// Performance budget (DESIGN_PLAN.md 0.3). Measured on 25 Oct 2026 for reference: first
+// contentful paint about 700 ms throttled (runs vary by ±150 ms), 15 KB of gzipped JS on
+// first load; the flight data (10 KB) loads after the load event.
 const { test, expect } = require("@playwright/test");
 const zlib = require("zlib");
 const { phone } = require("./helpers");

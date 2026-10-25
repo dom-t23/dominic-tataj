@@ -45,15 +45,19 @@ checkpoint with Dom, merge to `main`.
 
 ## 1. Hero: "flight test" (signature moment)
 
-1.1 [ ] **The drone flies the page.** On load, a small top-down drone glyph (SVG, ~28 px,
-   four rotor discs spinning) flies the real course-1 path from `flights/index.js`
-   (`FLIGHT_POSTER.frames[*].p`), scaled into the hero, threading 3–4 stylised gates drawn
-   as dimensioned squares. Its estimated position (dashed orange) trails the true path
-   (blue), exactly as in the replay legend, so the first image *is* the project.
-   - Duration ~4 s, then it parks beside the headline and idles (gentle hover bob, rotor
-     blur).
-   - Text never waits for it: headline and availability block are readable at frame 0.
-   - Reduced motion: draw the full path statically with the drone parked at the end.
+1.1 [x] **Flight-test strip (Fig. 00).** Decided with Dom (24 Oct 2026): a full-width
+   drawing strip at the bottom of the hero, laid out like a two-view drawing sheet.
+   - **Plan view:** the real course-1 path from `flights/index.js` (`FLIGHT_POSTER`), gates
+     as thick bars with numbered balloon callouts, one gate dimensioned (1.70 m), a start
+     mark and a scale bar. A top-down drone glyph (four spinning rotors, turned to its
+     heading) flies the path at 3× speed (~4 s) while the true path (blue) and its own
+     estimate (dashed orange) plot behind it, with a live readout: time, speed, gate.
+   - **Elevation view:** at the finish the drone flips (a card-turn about its axis) along a
+     dashed projection line into a side view, where it hovers above a hatched ground line
+     with a live height dimension that follows the bob. Phase C's physics toy lives here.
+   - Plays on every page load (only while the hero is on screen); REPLAY plays it again.
+     Plan and elevation sit side by side on desktop, stacked on phones.
+   - Text never waits for it. Reduced motion: the finished drawing, drone hovering still.
 1.2 [ ] **Physics toy (opt-in, "PLAY WITH ME" tag next to the parked drone).** Drag the
    drone or flick it; a real cascaded controller brings it back to hover:
    - 2D planar quadrotor model (x, y, θ), thrust + torque inputs, gravity, drag.
@@ -67,9 +71,9 @@ checkpoint with Dom, merge to `main`.
 1.3 [ ] **Headline micro-quirk:** the word "simulate" gets a hand-drawn orange
    underline that draws itself; "build" gets a tiny dimension line under it reading the
    real frame mass (`38 g`) on hover.
-1.4 [ ] **Availability block "stamps" in:** title-block cells fill left to right like a
-   plotter, with a faint drafting-pen sound? → **No sound by default** (ask Dom if he
-   wants an opt-in sound toggle; recommendation: no).
+1.4 [ ] **Availability block gets a plotter pass:** an orange pen line sweeps along each
+   title-block cell in turn on load. The text itself is readable from the first frame. No
+   sound anywhere on the site (Dom, 24 Oct 2026).
 
 ## 2. Global quirks (small, everywhere, low cost)
 
@@ -185,6 +189,6 @@ checkpoint with Dom, merge to `main`.
 ## 8. Open design questions (ask before the relevant phase)
 
 - Build-free vs Vite (0.1).
-- Opt-in sound for plotter/stamp effects (1.4) — recommendation: no sound.
+- ~~Opt-in sound~~ — decided: no sound.
 - Easter egg trigger word and whether to hint at it (2.7).
 - How playful the physics toy may get (allow "unstable" gains, or clamp to stable?).

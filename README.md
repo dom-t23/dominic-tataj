@@ -7,9 +7,11 @@ No build step: GitHub Pages serves these files as they are.
 - `index.html` — the page's markup
 - `css/site.css` — all styles
 - `js/` — ES modules: `main.js` is the entry point and imports `theme.js` (light/dark
-  toggle), `contact.js` (copy email and its burst), `replay.js` (drone replay) and
-  `reveals.js` (what animates in on scroll); `motion.js` is the animation toolkit (one-shot
-  reveals and on-screen-only loops) and `util.js` holds shared helpers
+  toggle), `contact.js` (copy email and its burst), `replay.js` (drone replay),
+  `hero-flight.js` (the hero's flight-test strip, Fig. 00) and `reveals.js` (what animates in
+  on scroll); `flights.js` loads the flight data both of them use, `motion.js` is the
+  animation toolkit (one-shot reveals and on-screen-only loops) and `util.js` holds shared
+  helpers
 - `flights/` — recorded flights for the drone-racing replay: `index.js` lists them and holds
   the still shown before LOAD, and each flight's frames (about 1 MB) load only when it is picked
 - `images/` — project images
