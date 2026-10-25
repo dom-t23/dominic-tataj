@@ -69,3 +69,29 @@ test("without flight data the strip stays empty and REPLAY hidden", async ({ pag
   await expect(page.locator("#fv-replay")).toBeHidden();
   await expect(page.locator("#fv svg *")).toHaveCount(0);
 });
+
+test("headline: reads as plain text; the underline draws itself; build shows its mass on hover", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".hero h1")).toHaveText("I design, simulate and build drones and robots");
+  const offset = () => page.locator(".hl-sim .scribble path").evaluate((p) => parseFloat(getComputedStyle(p).strokeDashoffset));
+  await expect.poll(offset, { timeout: 4000 }).toBe(0);
+  const dim = () => page.locator(".hl-build").evaluate((e) => getComputedStyle(e, "::after").opacity);
+  expect(await dim()).toBe("0");
+  await page.hover(".hl-build");
+  await expect.poll(dim).toBe("1");
+});
+
+test("availability cells get a plotter pass that leaves them as they were", async ({ page }) => {
+  await page.goto("/");
+  const pen = () => page.$$eval(".hero-facts > div", (ds) => ds.map((d) => getComputedStyle(d, "::after").opacity));
+  await expect.poll(pen, { timeout: 4000 }).toEqual(["0", "0", "0", "0"]);
+});
+
+test.describe("reduced motion, headline", () => {
+  test.use({ contextOptions: { reducedMotion: "reduce" } });
+  test("underline is drawn at once and there is no plotter pass", async ({ page }) => {
+    await page.goto("/");
+    expect(await page.locator(".hl-sim .scribble path").evaluate((p) => parseFloat(getComputedStyle(p).strokeDashoffset))).toBe(0);
+    expect(await page.$$eval(".hero-facts > div", (ds) => ds.map((d) => getComputedStyle(d, "::after").display))).toEqual(Array(4).fill("none"));
+  });
+});

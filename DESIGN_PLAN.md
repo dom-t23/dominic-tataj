@@ -68,10 +68,10 @@ checkpoint with Dom, merge to `main`.
    - Mobile: touch drag; desktop: drag or arrow keys. Keyboard accessible, with a
      visually hidden description.
    - Shows Dom understands dynamics and control, not just that he can embed an animation.
-1.3 [ ] **Headline micro-quirk:** the word "simulate" gets a hand-drawn orange
+1.3 [x] **Headline micro-quirk:** the word "simulate" gets a hand-drawn orange
    underline that draws itself; "build" gets a tiny dimension line under it reading the
    real frame mass (`38 g`) on hover.
-1.4 [ ] **Availability block gets a plotter pass:** an orange pen line sweeps along each
+1.4 [x] **Availability block gets a plotter pass:** an orange pen line sweeps along each
    title-block cell in turn on load. The text itself is readable from the first frame. No
    sound anywhere on the site (Dom, 24 Oct 2026).
 

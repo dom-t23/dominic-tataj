@@ -93,7 +93,42 @@ p { margin: 0; }
 .hero h1 em { font-style: italic; font-weight: 400; }
 .hero .lede { font-size: 18px; color: var(--ink-2); max-width: 34em; }
 .hero-facts { border: 1px solid var(--rule); }
-.tblock.hero-facts > div { flex-basis: 40%; }   /* two by two at every width */
+.tblock.hero-facts > div { flex-basis: 40%; position: relative; }   /* two by two at every width */
+
+/* headline quirks: a hand-drawn underline draws itself under "simulate"; hovering "build"
+   dimensions it with the frame's real mass */
+.hl-sim { position: relative; white-space: nowrap; }
+.hl-sim .scribble { position: absolute; left: -2%; bottom: -0.14em; width: 104%; height: 0.26em; overflow: visible; }
+.hl-sim .scribble path {
+  fill: none; stroke: var(--signal); stroke-width: 3; stroke-linecap: round;
+  stroke-dasharray: 1; stroke-dashoffset: 1; animation: scribble 900ms var(--ease) 700ms forwards;
+}
+@keyframes scribble { to { stroke-dashoffset: 0; } }
+.hl-build { position: relative; }
+.hl-build::before, .hl-build::after { position: absolute; opacity: 0; transition: opacity var(--dur-quick) ease, transform var(--dur-base) var(--ease); pointer-events: none; }
+/* "build" has no descenders, so the dimension sits in the empty space below it */
+.hl-build::before { content: ""; left: 0.04em; right: 0.04em; top: 84%; height: 0.14em; border: 1px solid var(--ink); border-top: none; transform: scaleX(0.6); }
+.hl-build::after {
+  content: "38 G FRAME"; left: 50%; top: calc(84% + 0.14em); transform: translate(-50%, -50%) scale(0.9);
+  font: 500 11px/1 var(--font-data); letter-spacing: 0.08em; color: var(--signal); background: var(--paper); padding: 2px 5px; white-space: nowrap;
+}
+.hl-build:hover::before { opacity: 1; transform: none; }
+.hl-build:hover::after { opacity: 1; transform: translate(-50%, -50%); }
+
+/* availability cells: an orange plotter pen sweeps along each in turn on load */
+.tblock.hero-facts > div::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--signal);
+  transform: scaleX(0); transform-origin: left; animation: plot 1000ms var(--ease) forwards;
+}
+.tblock.hero-facts > div:nth-child(1)::after { animation-delay: 300ms; }
+.tblock.hero-facts > div:nth-child(2)::after { animation-delay: 480ms; }
+.tblock.hero-facts > div:nth-child(3)::after { animation-delay: 660ms; }
+.tblock.hero-facts > div:nth-child(4)::after { animation-delay: 840ms; }
+@keyframes plot { 0% { transform: scaleX(0); opacity: 1; } 55% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .hl-sim .scribble path { animation: none; stroke-dashoffset: 0; }
+  .tblock.hero-facts > div::after { display: none; }
+}
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
 .btn {
   display: inline-block; border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
