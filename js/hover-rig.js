@@ -86,6 +86,7 @@ function substep() {
 
 function crash(speed, out) {
   crashT = t; lost = out; held = null; settledIn = -1;
+  q.th = Math.atan2(Math.sin(q.th), Math.cos(q.th));   // after a tumble, the nearest side to lie on
   impact = { x: q.x, speed: speed };
   if (!out) for (var i = 0; i < 12; i++) {
     var a = Math.PI * (0.1 + 0.8 * Math.random());
@@ -306,7 +307,7 @@ function draw() {
   var state = crashT >= 0 ? "crashed" : cut ? "failsafe" : held ? "held" : settledIn >= 0 ? "settled" : "settling";
   var status = crashT >= 0 ? (lost ? "LOST" : "CRASHED") + " · RESTART IN " + Math.max(0, RESPAWN - (t - crashT)).toFixed(1) + " S" :
     cut ? "FAILSAFE: OSCILLATING, MOTORS CUT" : held ? "HELD" : settledIn >= 0 ? "SETTLED IN " + settledIn.toFixed(1) + " S" : "SETTLING " + (t - eventT).toFixed(1) + " S";
-  var parts = ["θ " + (q.th * 180 / Math.PI).toFixed(1) + "°", "ERROR " + Math.hypot(sp.x - q.x, sp.z - q.z).toFixed(2) + " M",
+  var parts = ["θ " + (Math.atan2(Math.sin(q.th), Math.cos(q.th)) * 180 / Math.PI).toFixed(1) + "°", "ERROR " + Math.hypot(sp.x - q.x, sp.z - q.z).toFixed(2) + " M",
     "THRUST " + Math.round(100 * q.T / Q.T_MAX) + "%", status];
   L.readout.textContent = L.wide ? parts.join("  ·  ") : parts.slice(0, 2).join("  ·  ") + "  ·  " + status;
   svg.dataset.state = state;
