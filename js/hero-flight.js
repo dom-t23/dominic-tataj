@@ -12,8 +12,8 @@ var LEAD = 0.5;                   // s on the clock before take-off
 var FLIP = 0.8;                   // s for the card-turn into the elevation view
 var BOB = 0.04, BOB_HZ = 0.5;     // hover bob: amplitude in m, frequency in Hz
 
-var box = $("fv"), svg = box && box.querySelector("svg"), replay = $("fv-replay");
-var F = null, L = null, clock = 0, still = reducedMotion(), anim = null;
+var box = $("fv"), svg = box && box.querySelector("svg.flight-svg"), replay = $("fv-replay");
+var F = null, L = null, clock = 0, still = reducedMotion(), anim = null, flying = false;
 
 function make(tag, attrs, parent) {
   var e = document.createElementNS(NS, tag);
@@ -233,8 +233,9 @@ function render(c) {
 function play() {
   clock = 0; L.lastI = 0; still = false;
   render(0);
-  anim.start();
+  start();
 }
+function start() { flying = true; anim.start(); }
 
 // Fetch the flight data after the page has loaded, so it never competes with first paint.
 function afterLoad(fn) {
@@ -250,12 +251,14 @@ if (box) afterLoad(function () {
     replay.hidden = false;
     anim = loop(box, function (dt) { clock += dt; render(clock); });
     replay.addEventListener("click", play);
+    // The hover test rig (js/hover-rig.js) takes over the strip; pause underneath it.
+    $("flight").addEventListener("rig", function (e) { if (e.detail) anim.stop(); else if (flying) anim.start(); });
     if (window.ResizeObserver) new ResizeObserver(function () { build(); if (L) render(clock); }).observe(box);
     // Take off once at least half the strip is in view, so the flight is seen from the start.
     if (still) return;
-    if (!window.IntersectionObserver) { anim.start(); return; }
+    if (!window.IntersectionObserver) { start(); return; }
     var io = new IntersectionObserver(function (es) {
-      if (es[es.length - 1].intersectionRatio >= 0.5) { io.disconnect(); anim.start(); }
+      if (es[es.length - 1].intersectionRatio >= 0.5) { io.disconnect(); start(); }
     }, { threshold: [0, 0.5, 1] });
     io.observe(box);
   }, function () {});

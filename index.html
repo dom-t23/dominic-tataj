@@ -91,8 +91,17 @@
     </div>
 
     <figure class="flight" id="flight">
-      <div class="fv" id="fv"><svg aria-hidden="true"></svg></div>
-      <figcaption><span><b>Fig. 00</b> — Flight test, course 1, recorded by my vision-only racing drone (<a href="#e-04">E-04</a>): true position in blue, the drone's own estimate dashed orange, 3× speed.</span><button class="link-btn" id="fv-replay" type="button" hidden>REPLAY ↺</button></figcaption>
+      <div class="fv" id="fv">
+        <svg class="flight-svg" aria-hidden="true"></svg>
+        <svg class="rig-svg" id="rig" tabindex="-1" role="group" aria-label="Hover test rig. Drag the drone, or click to move its setpoint. Arrow keys move the setpoint, G sends a gust, R resets."></svg>
+      </div>
+      <div class="rig-controls" id="rig-controls" hidden>
+        <label class="gain">K<sub>p</sub><input type="range" id="kp" min="0" max="1000" step="1" aria-label="Position gain Kp"><output id="kp-out" for="kp"></output></label>
+        <label class="gain">K<sub>d</sub><input type="range" id="kd" min="0" max="1000" step="1" aria-label="Damping gain Kd"><output id="kd-out" for="kd"></output></label>
+        <span class="stab" id="stab"></span>
+        <span class="rig-buttons"><button class="btn" id="gust" type="button">GUST →</button><button class="btn" id="rig-reset" type="button">RESET</button><button class="btn" id="rig-close" type="button">BACK TO PLAN</button></span>
+      </div>
+      <figcaption><span><b>Fig. 00</b> — <span id="cap-flight">Flight test, course 1, recorded by my vision-only racing drone (<a href="#e-04">E-04</a>): true position in blue, the drone's own estimate dashed orange, 3× speed.</span><span id="cap-rig" hidden>Hover test: my 246 g drone as a planar model, held by a cascaded PD controller (a position loop feeding an attitude loop). Drag it, click to move the setpoint or send a gust, and push the gains past the Routh–Hurwitz limit to watch it go unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>REPLAY ↺</button><button class="link-btn" id="rig-open" type="button" hidden>TRY THE CONTROLLER →</button></span></figcaption>
     </figure>
   </div>
 </section>
@@ -484,6 +493,7 @@
 <link rel="modulepreload" href="js/replay.js">
 <link rel="modulepreload" href="js/flights.js">
 <link rel="modulepreload" href="js/hero-flight.js">
+<link rel="modulepreload" href="js/rig-button.js">
 <link rel="modulepreload" href="js/motion.js">
 <link rel="modulepreload" href="js/reveals.js">
 <link rel="modulepreload" href="js/sheets.js">

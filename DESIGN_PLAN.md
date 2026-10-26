@@ -58,16 +58,22 @@ checkpoint with Dom, merge to `main`.
    - Plays on every page load (only while the hero is on screen); REPLAY plays it again.
      Plan and elevation sit side by side on desktop, stacked on phones.
    - Text never waits for it. Reduced motion: the finished drawing, drone hovering still.
-1.2 [ ] **Physics toy (opt-in, "PLAY WITH ME" tag next to the parked drone).** Drag the
-   drone or flick it; a real cascaded controller brings it back to hover:
-   - 2D planar quadrotor model (x, y, θ), thrust + torque inputs, gravity, drag.
-   - Outer PD loop on position → attitude setpoint; inner PD on attitude → torque.
-   - Live mini readout in drawing style: `Kp 4.0 · Kd 2.2 · θ 12.4° · settling 0.8 s`,
-     with two small sliders to change gains (make it unstable on purpose = fun quirk).
-   - Wind gust button (orange arrow annotation) to show disturbance rejection.
-   - Mobile: touch drag; desktop: drag or arrow keys. Keyboard accessible, with a
-     visually hidden description.
-   - Shows Dom understands dynamics and control, not just that he can embed an animation.
+1.2 [x] **Hover test rig (physics toy).** Decided with Dom (26 Oct 2026): TRY THE CONTROLLER
+   expands the strip into an elevation-view test rig; gains may go unstable; ground hits crash
+   and reset.
+   - Model (`js/quad.js`, no DOM): planar quadrotor (x, z, θ) with the real 246 g mass,
+     thrust-to-weight 4, motor lag 30 ms, drag; cascaded PD: position loop → thrust vector,
+     fixed attitude loop (ωn 20 rad/s, ζ 0.7) → torque.
+   - Drag the drone (a spring "hand"), click or arrow keys to move the setpoint, GUST, RESET.
+     Readout: tilt, error, thrust, settling time; a 6 s error trace; the s-plane with the
+     closed-loop poles of the linearised model, right half-plane hatched.
+   - Gain sliders (Kp log 0.5–80, Kd −2–14) show their unstable zones in red from the
+     Routh–Hurwitz conditions (stable iff 0 < Kd < 28 and Kp < Kd(28 − Kd)/1.96; default
+     Kp 6, Kd 3.4, limit 42.7).
+   - Past the limit the saturated tilt makes a limit cycle, so an oscillation failsafe (four
+     tilt reversals past 25° in 4 s) cuts the motors, as a real flight controller would; it
+     tumbles, crashes with an IMPACT note and debris, and restarts.
+   - Loaded on first use (`js/rig-button.js`), so first-load JS is unchanged.
 1.3 [x] **Headline micro-quirk:** the word "simulate" gets a hand-drawn orange
    underline that draws itself; "build" gets a tiny dimension line under it reading the
    real frame mass (`38 g`) on hover.
@@ -192,4 +198,4 @@ checkpoint with Dom, merge to `main`.
 - Build-free vs Vite (0.1).
 - ~~Opt-in sound~~ — decided: no sound.
 - Easter egg trigger word and whether to hint at it (2.7).
-- How playful the physics toy may get (allow "unstable" gains, or clamp to stable?).
+- ~~How playful the physics toy may get~~ — decided: unstable gains allowed, with a failsafe.

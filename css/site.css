@@ -190,6 +190,37 @@ p { margin: 0; }
 .fv .paper { fill: var(--paper); }
 .fv .accent { fill: var(--signal); stroke: none; }
 .fv text { font-family: var(--font-data); font-size: 10px; letter-spacing: 0.08em; fill: var(--muted); }
+.fv .thrust { stroke: var(--signal); stroke-width: 2; fill: none; }
+.fv .bad-fill { fill: var(--bad); }
+.fv text.bad { fill: var(--bad); }
+.fv text.sig { fill: var(--signal); }
+.fv .hatch { stroke: var(--bad); stroke-width: 0.8; opacity: 0.5; }
+
+/* hover test rig (js/hover-rig.js): the elevation view takes over the whole strip */
+.flight .fv { transition: height var(--dur-base) var(--ease); }
+.flight.rig .fv { height: 400px; }
+@media (max-width: 699px) { .flight.rig .fv { height: 460px; } }
+.flight .flight-svg { transition: opacity var(--dur-base) ease, transform var(--dur-base) var(--ease); }
+.flight.rig .flight-svg { opacity: 0; transform: translateX(-4%); pointer-events: none; }
+.flight .rig-svg { opacity: 0; visibility: hidden; transition: opacity var(--dur-base) ease, visibility 0s linear var(--dur-base); touch-action: none; cursor: crosshair; }
+.flight.rig .rig-svg { opacity: 1; visibility: visible; transition: opacity var(--dur-base) ease 120ms, visibility 0s; }
+.flight.rig #fv-replay, .flight.rig #rig-open { display: none; }
+.cap-actions { display: flex; gap: 18px; }
+.rig-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; padding: 12px 14px; border-top: 1px solid var(--rule); background: var(--panel); }
+.rig-controls .gain { display: flex; align-items: center; gap: 10px; font: 500 13px/1 var(--font-data); color: var(--ink); }
+.rig-controls output { font: 500 13px/1 var(--font-data); min-width: 4.5ch; font-variant-numeric: tabular-nums; }
+.rig-controls .stab { font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--ok); }
+.rig-controls .gain sub { font-size: 10px; margin-left: -0.15em; }
+.rig-controls .stab.bad { color: var(--bad); }
+.rig-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+.rig-controls .btn { padding: 8px 12px; font-size: 11px; cursor: pointer; }
+/* gain sliders: the track is red where the gains are unstable (--a to --b is the stable span) */
+.rig-controls input[type=range] { -webkit-appearance: none; appearance: none; width: 170px; height: 22px; margin: 0; background: transparent; cursor: pointer; --a: 0%; --b: 100%; }
+.rig-controls input[type=range]::-webkit-slider-runnable-track { height: 4px; background: linear-gradient(90deg, var(--bad) 0 var(--a), var(--rule) var(--a) var(--b), var(--bad) var(--b) 100%); }
+.rig-controls input[type=range]::-moz-range-track { height: 4px; background: linear-gradient(90deg, var(--bad) 0 var(--a), var(--rule) var(--a) var(--b), var(--bad) var(--b) 100%); }
+.rig-controls input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 20px; margin-top: -8px; background: var(--ink); border: none; border-radius: 0; }
+.rig-controls input[type=range]::-moz-range-thumb { width: 10px; height: 20px; background: var(--ink); border: none; border-radius: 0; }
+@media (max-width: 699px) { .rig-controls input[type=range] { width: 120px; } .rig-buttons { margin-left: 0; } }
 .fv text.ink { fill: var(--ink); }
 .fv text.big { font-size: 11px; font-weight: 500; fill: var(--ink); }
 
