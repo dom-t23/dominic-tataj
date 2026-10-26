@@ -107,23 +107,26 @@ checkpoint with Dom, merge to `main`.
 ## 3. Project signature moments (one per project, each conveys information)
 
 ### E-03 Generative frame — "from load case to part"
-3.1 [ ] **Interactive 3D frame** (three.js, lazy-loaded when section is near):
-   - Dom exports the frame as glTF/GLB (≤ 1.5 MB, Draco-compressed) and, if possible,
-     the plate-frame baseline for comparison.
-   - Orbit (drag), auto-rotate slowly when idle, matte material with drawing-style
-     edge lines (EdgesGeometry) so it matches the site.
-   - **Scroll-scrubbed story** (sticky panel, 4 steps, each with one caption):
-     1. Design space block + the 8 load-case arrows appear (thrust, arm impact, battery).
-     2. Generative "growth": cross-fade from design space to topology (or a recorded
-        sequence of Fusion iterations as images if Dom has them).
-     3. **FEA overlay:** stress colour map texture (export from Ansys as image or vertex
-        colours) with a legend; hover an arm to read max stress and safety factor.
-     4. Mass comparison: ghosted plate frame vs generative frame, with the −36% dimension
-        line and the 38 g / 246 g / 250 g budget bar from Fig. 03.
-   - Fallback (no WebGL / reduced motion): the two existing renders + a static stress
-     plot image.
-3.2 [ ] **Exploded view on click:** motors, battery, stack slide out along axes with
-   leader-line labels (part name, mass in g). Sum of masses animates to 246 g.
+3.1 [x] **Interactive 3D frame** (done in phase D, as Fig. 01). What was built, from
+   Dom's answers ("views from the real model", "scroll-driven, pinned", "drawing style,
+   colour on hover", "names only for now"):
+   - The real Fusion assembly (`models/frame.glb`, 47 parts, 187 KB) in three.js r170,
+     vendored in `js/vendor/three`. Nothing loads until the visitor has scrolled and the
+     figure is within a screen of view, so first-load JS is unchanged.
+   - Drawn like the site: matte surfaces plus ink lines found from a normals, depth and
+     part-identity pass (outlines thicker than creases, a line at every join between
+     parts). Real materials fade in for whatever is picked out.
+   - Three views, scrubbed by scroll while the figure is pinned under the nav:
+     ASSEMBLY (turns slowly; drag or fling it), EXPLODED (parts move out in turn, with
+     numbered balloons keyed to a parts list), FRAME ONLY (plan view, with the motor
+     spacing and diagonal dimensioned from the model: 96.0 and 135.8 mm).
+   - Parts list (drawing BOM): hovering or tapping a row or a part picks it out.
+   - Reduced motion or a short screen: not pinned; the view buttons switch views at once.
+     No WebGL 2, or the model fails to load: the two Fusion renders, as before.
+   - Still to come when Dom sends them: a STRESS view (Ansys result as an image or vertex
+     colours), the plate-frame baseline as a ghost for the −36% comparison, part masses.
+3.2 [x] **Exploded view** (done in phase D, as the EXPLODED view of 3.1). Labels carry
+   names only for now; masses (and a sum counting to 246 g) need Dom's part masses.
 
 ### E-04 Drone racing — "see what the drone sees"
 3.3 [ ] **Pipeline strip under the replay:** four linked mini-panels (Detect → Measure →
@@ -140,9 +143,9 @@ checkpoint with Dom, merge to `main`.
 3.6 [ ] **Live mini-simulation of the Excel model** in JS: pick gear ratio / wheel
    radius / normal force with three steppers; a side-view robot climbs a 2 m pipe with
    the chain load growing, against the 3-minute clock. Slip → wheels spin with a red
-   "SLIP" annotation and the setup is rejected, exactly like the Fig. 05 flowchart.
+   "SLIP" annotation and the setup is rejected, exactly like the Fig. 04 flowchart.
    The chosen drivetrain is preset; shows the 22% predicted improvement vs baseline.
-3.7 [ ] **Flowchart (Fig. 05) animates** its loop arrow once per 10 ms "step" while the
+3.7 [ ] **Flowchart (Fig. 04) animates** its loop arrow once per 10 ms "step" while the
    mini-sim runs (ties the diagram to the sim).
 
 ### E-01 AI-cost analysis — "the fit, not just the number"
@@ -178,14 +181,16 @@ checkpoint with Dom, merge to `main`.
 | A | 0.1–0.4 | Foundations: split files, motion system, tests. |
 | B | 1.1, 1.3, 1.4, 2.2, 2.4 | Hero signature + cheap global polish: biggest first impression. |
 | C | 1.2 | Physics toy: the memorable interactive moment. |
-| D | 3.1, 3.2 | 3D frame story (needs Dom's glTF + stress image). |
+| D | 3.1, 3.2 | 3D frame story. Done; a STRESS view waits on the Ansys image. |
 | E | 3.6, 3.7 | Robot mini-sim. |
 | F | 3.3–3.5 | Replay pipeline strip (may need drone-repo export changes). |
 | G | 2.1, 2.3, 2.5–2.8, 3.8, 4.1–4.3 | Remaining quirks and polish. |
 
 ## 7. Needed from Dom
 
-- [ ] Frame model as GLB/glTF (or STL/OBJ; I'll convert), plus plate-frame baseline if any.
+- [x] Frame model (received as OBJ, 26 Oct 2026; converted to `models/frame.glb`).
+- [ ] Plate-frame baseline model, if any (a ghost in Fig. 01 for the −36% comparison).
+- [ ] Part masses (motor, prop, battery, stack, camera...) for the parts list and balloons.
 - [ ] Ansys stress/deflection result as an image (top view) or per-vertex export.
 - [ ] Optional: images of generative iterations from Fusion.
 - [ ] Optional: robot CAD export (for a later 3D/2.5D side view) and the Excel model's

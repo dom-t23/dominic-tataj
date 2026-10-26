@@ -130,14 +130,39 @@
           <p class="summary">The frame needed to survive crashes and avoid resonance with the motors, while keeping the complete drone under the UK CAA's 250 g threshold.</p>
         </div>
 
-        <div class="fig-row">
-          <figure>
-            <img class="render" src="images/frame-render-three-quarter.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone on cracked ground, three-quarter view, showing the white generatively designed frame with four motors and the battery mounted on top">
-            <figcaption><b>Fig. 01</b> — Fusion render of the assembled drone, three-quarter view.</figcaption>
-          </figure>
-          <figure>
-            <img class="render" src="images/frame-render-top.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone from above, showing the organic X-shaped frame arms and the battery on the centre line">
-            <figcaption><b>Fig. 02</b> — Top view, showing the generated arm geometry.</figcaption>
+        <!-- Fig. 01: with WebGL, js/frame3d-boot.js swaps the renders for the real model in
+             three scroll-driven views (js/frame3d.js); without it, the renders stay. -->
+        <div class="f3-track" id="f3-track">
+          <figure class="f3" id="frame3d">
+            <div class="f3-renders">
+              <img class="render" src="images/frame-render-three-quarter.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone on cracked ground, three-quarter view, showing the white generatively designed frame with four motors and the battery mounted on top">
+              <img class="render" src="images/frame-render-top.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone from above, showing the organic X-shaped frame arms and the battery on the centre line">
+            </div>
+            <div class="f3-stage" hidden>
+              <div class="f3-steps" role="group" aria-label="Views of the model">
+                <button type="button" data-cap="As modelled in Fusion: 47 parts, 246 g all-up. Drag to turn it; point at a part to name it."><span>01</span> ASSEMBLY</button>
+                <button type="button" data-cap="Exploded. Point at a part, or a row of the parts list, to pick it out."><span>02</span> EXPLODED</button>
+                <button type="button" data-cap="The generated frame alone: 38 g of PC/ABS, motors 96 mm apart, 136 mm across the diagonal."><span>03</span> FRAME ONLY</button>
+              </div>
+              <div class="f3-view"><p class="f3-load" aria-live="polite">LOADING MODEL</p></div>
+              <table class="f3-parts">
+                <caption>Parts list</caption>
+                <thead><tr><th scope="col">Item</th><th scope="col">Part</th><th scope="col">Qty</th><th scope="col">Mass</th></tr></thead>
+                <tbody>
+                  <tr data-part="frame"><td>1</td><td><button type="button">Frame, PC/ABS</button></td><td>1</td><td>38 g</td></tr>
+                  <tr data-part="motor"><td>2</td><td><button type="button">Motor 1404</button></td><td>4</td><td></td></tr>
+                  <tr data-part="prop"><td>3</td><td><button type="button">Propeller 3016</button></td><td>4</td><td></td></tr>
+                  <tr data-part="battery"><td>4</td><td><button type="button">Battery 4S 650</button></td><td>1</td><td></td></tr>
+                  <tr data-part="fc"><td>5</td><td><button type="button">Flight controller</button></td><td>1</td><td></td></tr>
+                  <tr data-part="vtx"><td>6</td><td><button type="button">Video transmitter</button></td><td>1</td><td></td></tr>
+                  <tr data-part="camera"><td>7</td><td><button type="button">Camera</button></td><td>1</td><td></td></tr>
+                  <tr data-part="standoff"><td>8</td><td><button type="button">Standoff</button></td><td>8</td><td></td></tr>
+                  <tr data-part="bolt"><td>9</td><td><button type="button">Bolt M2</button></td><td>26</td><td></td></tr>
+                </tbody>
+                <tfoot><tr><td></td><td>All-up</td><td>47</td><td>246 g</td></tr></tfoot>
+              </table>
+            </div>
+            <figcaption><b>Fig. 01</b> — <span class="f3-cap">Fusion renders of the assembled drone, three-quarter and top views, showing the generated arm geometry.</span></figcaption>
           </figure>
         </div>
 
@@ -186,7 +211,7 @@
                   <text x="20" y="150" font-size="11" fill="var(--muted)">MARGIN TO LIMIT: 4 G</text>
                 </svg>
               </div>
-              <figcaption><b>Fig. 03</b> — Mass budget. Frame vs. complete drone, against the CAA 250 g threshold.</figcaption>
+              <figcaption><b>Fig. 02</b> — Mass budget. Frame vs. complete drone, against the CAA 250 g threshold.</figcaption>
             </figure>
           </div>
         </div>
@@ -277,7 +302,7 @@
                   </table>
                 </div>
               </div>
-              <figcaption><b>Fig. 04</b> — Gate pass rate, latest build, 20 Oct 2026. 50 random 8-gate courses per set; a run ends at the first crash or missed gate.</figcaption>
+              <figcaption><b>Fig. 03</b> — Gate pass rate, latest build, 20 Oct 2026. 50 random 8-gate courses per set; a run ends at the first crash or missed gate.</figcaption>
             </figure>
             <p class="note">Single sets of 50 courses move by a few points from noise alone, so the pooled row is the one to compare. "Camera only" drops the IMU and predicts motion between frames from the drone's own commands.</p>
             <p class="note">Source code: <a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">github.com/dom-t23/vision-drone-racing ↗</a></p>
@@ -360,7 +385,7 @@
                   <text x="16" y="232" font-size="10" fill="var(--muted)">REPEAT UNTIL TOP OF PIPE OR 3 MIN</text>
                 </svg>
               </div>
-              <figcaption><b>Fig. 05</b> — One step of the Excel model, repeated every 10 ms.</figcaption>
+              <figcaption><b>Fig. 04</b> — One step of the Excel model, repeated every 10 ms.</figcaption>
             </figure>
             <figure>
               <div class="plate">
@@ -380,7 +405,7 @@
                   </g>
                 </svg>
               </div>
-              <figcaption><b>Fig. 06</b> — Cut in climb time for the chosen drivetrain, model vs. real runs.</figcaption>
+              <figcaption><b>Fig. 05</b> — Cut in climb time for the chosen drivetrain, model vs. real runs.</figcaption>
             </figure>
           </div>
         </div>
@@ -487,6 +512,8 @@
   </div>
 </footer>
 
+<!-- three.js (r170, js/vendor/three) is loaded only when Fig. 01 is close; its addons import "three" by name -->
+<script type="importmap">{ "imports": { "three": "./js/vendor/three/three.module.min.js", "three/addons/": "./js/vendor/three/addons/" } }</script>
 <link rel="modulepreload" href="js/util.js">
 <link rel="modulepreload" href="js/theme.js">
 <link rel="modulepreload" href="js/contact.js">
@@ -497,6 +524,7 @@
 <link rel="modulepreload" href="js/motion.js">
 <link rel="modulepreload" href="js/reveals.js">
 <link rel="modulepreload" href="js/sheets.js">
+<link rel="modulepreload" href="js/frame3d-boot.js">
 <script type="module" src="js/main.js"></script>
 </body>
 </html>

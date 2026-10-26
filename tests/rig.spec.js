@@ -69,10 +69,10 @@ test("a gust knocks it and it recovers; clicks and arrow keys move the setpoint"
   expect(await sp(page)).toBe("0.00,1.50");
   await page.locator("#rig").focus();
   await page.keyboard.press("ArrowRight"); await page.keyboard.press("ArrowUp");
-  expect(await sp(page)).toBe("0.25,1.75");
+  await expect.poll(() => sp(page)).toBe("0.25,1.75");   // data-sp is written each frame
   const box = await page.locator("#rig").boundingBox();
   await page.mouse.click(box.x + box.width * 0.2, box.y + box.height * 0.5);
-  expect(await sp(page)).not.toBe("0.25,1.75");
+  await expect.poll(() => sp(page)).not.toBe("0.25,1.75");
 });
 
 test("gains past the limit: it oscillates, the failsafe cuts the motors, it crashes and restarts", async ({ page }) => {

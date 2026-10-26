@@ -11,6 +11,8 @@ module.exports = defineConfig({
     baseURL: "http://127.0.0.1:4173",
     browserName: "chromium",
     viewport: { width: 1440, height: 900 },
+    // lets headless Chromium fall back to software WebGL, so Fig. 01 (three.js) renders
+    launchOptions: { args: ["--enable-unsafe-swiftshader"] },
     trace: "retain-on-failure"
   },
   webServer: {
