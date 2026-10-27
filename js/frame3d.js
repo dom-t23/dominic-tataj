@@ -90,6 +90,10 @@ var renderer, scene, camera, model, rt, inkMat, inkScene, inkCam, anim, raycaste
 var parts = [], groups = {}, poses = [], target = new THREE.Vector3(), drawCol = new THREE.Color();
 var svg, bal = {}, dims, tag, tagText;
 var w = 1, h = 1, stickyTop = 0, rm = false, dirty = true;
+// A slow device (or software WebGL) gets fewer pixels and is drawn like reduced motion (no
+// turning on its own, views and springs jump to their ends), so the figure never keeps the
+// main thread busy: if the median of the first SLOW_N gaps between frames is over SLOW_MS.
+var SLOW_MS = 60, SLOW_N = 5, gaps = [], lastAt = null, slow = false, compiled = false;
 var p = 0, u = 0, uT = 0, step = -1;
 var turn = { x: 0, v: 0 }, tilt = { x: 0, v: 0 };
 var drag = null, pointer = null, picking = false, lastInput = 0;
@@ -213,7 +217,8 @@ function place(e, f) {
 
 function frame(dt, now) {
   var moving = false, i;
-  u += (uT - u) * (rm ? 1 : 1 - Math.exp(-dt * 7));
+  var snap = rm || slow;   // reduced motion, or a device too slow to animate: jump to the end
+  u += (uT - u) * (snap ? 1 : 1 - Math.exp(-dt * 7));
   if (Math.abs(uT - u) < 1e-4) u = uT; else moving = true;
   var e = clamp(u, 0, 1), f = clamp(u - 1, 0, 1);
 
@@ -222,7 +227,7 @@ function frame(dt, now) {
   if (drag) moving = true;
   else {
     if (u < 0.5) {
-      var auto = rm || now - lastInput > IDLE ? 0 : AUTO;
+      var auto = rm || slow || now - lastInput > IDLE ? 0 : AUTO;
       turn.v += (auto - turn.v) * (1 - Math.exp(-dt * 1.2));
       turn.x += turn.v * dt;
       if (Math.abs(turn.v) > 1e-3) moving = true;
@@ -239,7 +244,7 @@ function frame(dt, now) {
   if (f > 0.5 && focus !== "frame") focus = null;   // only the frame is left to pick out
 
   // colour: real materials in the exploded view, and for whatever is picked out
-  var base = smooth(0.3, 0.9, e) * (1 - smooth(0, 0.5, f)), km = rm ? 1 : 1 - Math.exp(-dt * 10);
+  var base = smooth(0.3, 0.9, e) * (1 - smooth(0, 0.5, f)), km = snap ? 1 : 1 - Math.exp(-dt * 10);
   for (var id in groups) {
     var g = groups[id], to = focus ? (id === focus ? 1 : 0) : base;
     g.mix += (to - g.mix) * km;
@@ -260,12 +265,14 @@ function frame(dt, now) {
   if (!view.classList.contains("ready")) view.classList.add("ready");
   var go = moving || dirty;
   dirty = false;
+  if (lastAt !== null) measure(now - lastAt);
+  lastAt = go ? now : null;
   view.classList.toggle("still", !go);   // for the tests: nothing left to animate
   return go ? undefined : false;
 }
 
 function aim() {
-  var i = Math.min(1, Math.floor(u)), t = smooth(0, 1, u - i), A = poses[i], B = poses[i + 1];
+  var i = clamp(Math.floor(u), 0, 1), t = smooth(0, 1, u - i), A = poses[i], B = poses[i + 1];
   var yaw = A.yaw + (B.yaw - A.yaw) * t, pitch = clamp(A.pitch + (B.pitch - A.pitch) * t + tilt.x, -0.3, 1.52);
   var half = Math.min(FOV / 2 * DEG, Math.atan(Math.tan(FOV / 2 * DEG) * camera.aspect));
   // on a narrow screen the turning props set the fit
@@ -278,6 +285,17 @@ function aim() {
   camera.updateProjectionMatrix();
   model.rotation.y = turn.x;
   model.updateMatrixWorld(true);
+}
+
+// ms: time since the previous frame of the same run of frames. The median shrugs off a
+// one-off spike, such as compiling shaders.
+function measure(ms) {
+  if (gaps.length >= SLOW_N) return;
+  gaps.push(ms);
+  if (gaps.length < SLOW_N || gaps.slice().sort(function (a, b) { return a - b; })[SLOW_N >> 1] <= SLOW_MS) return;
+  slow = true;
+  fig.dataset.slow = "1";
+  if (renderer.getPixelRatio() > 1) { renderer.setPixelRatio(1); resize(); }
 }
 
 function draw() {
@@ -518,10 +536,28 @@ function wire(canvas) {
     overPart = null; pointer = null; view.classList.remove("over"); wake();
   });
 
-  resize();
+  resize();   // sized now; the first frame waits for the shaders
+  precompile().then(begin, begin);
+  function begin() { compiled = true; wake(); }
 }
 
-function wake() { dirty = true; view.classList.remove("still"); anim.start(); }
+// Compiles every shader the figure draws with before its first frame: in parallel where the
+// browser can (KHR_parallel_shader_compile), so the page doesn't stall as the figure appears.
+// Each pass is compiled for the target it draws to.
+function precompile() {
+  if (!renderer.extensions.has("KHR_parallel_shader_compile")) return Promise.resolve();   // it would block just the same
+  aim();
+  var jobs = [renderer.compileAsync(scene, camera)];
+  parts.forEach(function (q) { q.mesh.material = q.gmat; });
+  renderer.setRenderTarget(rt);
+  jobs.push(renderer.compileAsync(scene, camera));
+  renderer.setRenderTarget(null);
+  parts.forEach(function (q) { q.mesh.material = q.mat; });
+  jobs.push(renderer.compileAsync(inkScene, inkCam));
+  return Promise.all(jobs);
+}
+
+function wake() { dirty = true; view.classList.remove("still"); if (compiled) anim.start(); }
 
 function resize() {
   w = view.clientWidth; h = view.clientHeight;
@@ -583,7 +619,7 @@ function smooth(a, b, v) { var t = clamp((v - a) / (b - a), 0, 1); return t * t 
 function ease(t) { t = clamp(t, 0, 1); return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(2 - 2 * t, 3) / 2; }
 // A critically damped spring towards goal; false once it has settled there.
 function spring(s, goal, dt) {
-  if (rm) { s.x = goal; s.v = 0; return false; }
+  if (rm || slow) { s.x = goal; s.v = 0; return false; }
   var k = 9;
   s.v += (-k * k * (s.x - goal) - 2 * k * s.v) * dt;
   s.x += s.v * dt;

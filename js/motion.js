@@ -144,7 +144,7 @@ function firstNumberNode(el) {
 export function loop(el, step) {
   var wanted = false, visible = !window.IntersectionObserver, running = false, raf = 0, last = 0;
   function frame(now) {
-    var dt = Math.min(0.05, (now - last) / 1000);
+    var dt = Math.min(0.05, Math.max(0, (now - last) / 1000));   // a frame's timestamp can precede start()
     last = now;
     if (step(dt, now) === false) { api.stop(); return; }
     raf = requestAnimationFrame(frame);

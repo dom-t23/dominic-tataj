@@ -69,6 +69,9 @@ test("nav shows the current sheet and scroll progress", async ({ page }) => {
 });
 
 test("key figures count up to their real values once in view", async ({ page }) => {
+  // without WebGL 2, so Fig. 01 just above stays the two renders: compiling its shaders in
+  // software WebGL can hold the main thread for seconds, and this test is about the figures
+  await page.addInitScript(() => { delete window.WebGL2RenderingContext; });
   await page.goto("/", { waitUntil: "networkidle" });
   const values = () => page.$$eval("#e-03 .specs .n", (ns) => ns.map((n) => n.textContent));
   expect(await values()).toEqual(["0", "0.0", ">0Hz", "−0%mass", "0g", "≤0%"]);
