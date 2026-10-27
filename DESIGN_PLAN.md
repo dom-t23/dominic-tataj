@@ -129,15 +129,20 @@ checkpoint with Dom, merge to `main`.
    names only for now; masses (and a sum counting to 246 g) need Dom's part masses.
 
 ### E-04 Drone racing — "see what the drone sees"
-3.3 [ ] **Pipeline strip under the replay:** four linked mini-panels (Detect → Measure →
-   Fuse → Fly) that light up in sync with the replay clock, showing that frame's
-   intermediate result: threshold mask, corner fit, filter covariance ellipse, command
-   arrows. Needs extra fields from `vdr.demo` (mask thumbnail, covariance); otherwise
-   derive the ellipse from estimate error.
-3.4 [ ] **Covariance ellipse on the top view** (shrinking as gates are seen) — a cheap,
-   very "engineer" visual.
-3.5 [ ] **Benchmark table that sorts and sparks:** hovering a course set highlights its
-   bar in a small histogram of pass rates; pooled row pulses once on entry.
+3.3 [x] **Pipeline strip under the replay** (done in phase F). Four panels follow the
+   replay's clock, all from the recording: DETECT (the colour mask with the fitted squares),
+   MEASURE (every valid PnP pose of the largest square, in plan, so an ambiguous sighting
+   shows two), FUSE (the filter's 95% ellipse against the truth, and its uncertainty over the
+   flight with handoffs and rejections marked), FLY (the commands as mode-2 sticks). A stage
+   that acted gets an orange rule; a chi-squared rejection or re-initialisation, a red one.
+   The extra fields come from `tools/export_flights.py`, which runs vision-drone-racing from a
+   checkout without changing it (Dom's choice). The replay now flies run 25's clutter world.
+3.4 [x] **Covariance ellipse on the top view** (done in phase F): the same 95% ellipse,
+   around the estimate.
+3.5 [x] **Benchmark table that sorts and sparks** (done in phase F): Fig. 03 shows the clean
+   benchmark (run 20) beside the orange-clutter one (run 25), as Dom chose. A column header
+   charts that column as gates missed per set (zero baseline, one scale) and sorts by it; a
+   set's row and bar pick each other out; the pooled row pulses once in view.
 
 ### E-02 Pipe-climbing robot — "the model, running"
 3.6 [ ] **Live mini-simulation of the Excel model** in JS: pick gear ratio / wheel
@@ -183,7 +188,7 @@ checkpoint with Dom, merge to `main`.
 | C | 1.2 | Physics toy: the memorable interactive moment. |
 | D | 3.1, 3.2 | 3D frame story. Done; a STRESS view waits on the Ansys image. |
 | E | 3.6, 3.7 | Robot mini-sim. |
-| F | 3.3–3.5 | Replay pipeline strip (may need drone-repo export changes). |
+| F | 3.3–3.5 | Replay pipeline strip. Done, with an exporter here and the clutter world. |
 | G | 2.1, 2.3, 2.5–2.8, 3.8, 4.1–4.3 | Remaining quirks and polish. |
 
 ## 7. Needed from Dom
