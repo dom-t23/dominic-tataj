@@ -103,3 +103,21 @@ test.describe("approval box", () => {
     expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("dominic_tataj@icloud.com");
   });
 });
+
+test("About is a parts list; each skill counts and links the projects that used it", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".bom tbody tr:not(.grp)")).toHaveCount(11);
+  await expect(page.locator(".bom .grp th")).toHaveText(["Education", "Engineering", "Programming", "Experience", "Leadership", "Languages"]);
+  const fusion = page.locator(".bom tr.skill").first();
+  await expect(fusion.locator("td").nth(2)).toHaveText("2");
+  expect(await fusion.locator("a").evaluateAll((as) => as.map((a) => a.getAttribute("href")))).toEqual(["#e-03", "#e-02"]);
+  // every linked project exists, and each skill's count matches its links
+  for (const row of await page.locator(".bom tr.skill").all()) {
+    const links = await row.locator("a").evaluateAll((as) => as.map((a) => a.getAttribute("href")));
+    expect(await row.locator("td").nth(2).textContent()).toBe(String(links.length));
+    for (const h of links) await expect(page.locator(h)).toHaveCount(1);
+  }
+  await fusion.locator("a").first().hover();
+  await expect.poll(() => fusion.locator("a").first().evaluate((a) => getComputedStyle(a, "::after").opacity)).toBe("1");
+  expect(await fusion.locator("a").first().evaluate((a) => getComputedStyle(a, "::after").content)).toBe('"Generative FPV drone frame"');
+});
