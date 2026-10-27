@@ -21,16 +21,18 @@ test("poster reuses the index; LOAD fetches one flight; switching uses a cache",
 
   await page.click("#load");
   await controlsReady(page);
-  expect(reqs).toEqual(["index.js", "0-default.js"]);
+  expect(reqs).toEqual(["index.js", "1017-default.js"]);
   await expect(page.locator("#r-out")).toContainText("Completed");
   await expect(page.locator("#play")).toHaveText("PAUSE");
 
+  // course 3 in the clutter world: with the IMU it takes a distractor for the gate
   await page.click("#seeds button:nth-child(3)"); await controlsReady(page);
-  await page.click("#methods button:nth-child(2)"); await controlsReady(page);
   await expect(page.locator("#r-out")).toHaveText("Missed gate");
+  await page.click("#methods button:nth-child(2)"); await controlsReady(page);
+  await expect(page.locator("#r-out")).toContainText("Completed");
   await page.click("#seeds button:nth-child(1)"); await controlsReady(page);
   await page.click("#methods button:nth-child(1)"); await controlsReady(page);
-  expect(reqs).toEqual(["index.js", "0-default.js", "2034-default.js", "2034-camera_only.js", "0-camera_only.js"]);
+  expect(reqs).toEqual(["index.js", "1017-default.js", "0-default.js", "0-camera_only.js", "1017-camera_only.js"]);
 
   await page.locator("#scrub").evaluate((s) => { s.value = "100"; s.dispatchEvent(new Event("input")); });
   await expect(page.locator("#clock")).not.toHaveText("0.00 s");
@@ -44,7 +46,7 @@ test("map and camera panels are the same height side by side", async ({ page }) 
 });
 
 test("a flight that fails to load reverts the pick", async ({ page }) => {
-  await page.route("**/flights/1017-default.js", (r) => r.fulfill({ status: 404, body: "" }));
+  await page.route("**/flights/2034-default.js", (r) => r.fulfill({ status: 404, body: "" }));
   await page.goto("/");
   await page.click("#load"); await controlsReady(page);
   await page.click("#seeds button:nth-child(2)");
