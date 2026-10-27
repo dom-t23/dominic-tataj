@@ -11,9 +11,10 @@ var SPEED = 3;                    // playback speed
 var LEAD = 0.5;                   // s on the clock before take-off
 var FLIP = 0.8;                   // s for the card-turn into the elevation view
 var BOB = 0.04, BOB_HZ = 0.5;     // hover bob: amplitude in m, frequency in Hz
+var ROLL = 0.9;                   // s for an acro-mode flip (js/acro.js)
 
 var box = $("fv"), svg = box && box.querySelector("svg.flight-svg"), replay = $("fv-replay");
-var F = null, L = null, clock = 0, still = reducedMotion(), anim = null, flying = false;
+var F = null, L = null, clock = 0, still = reducedMotion(), anim = null, flying = false, flipAt = -1;
 
 function make(tag, attrs, parent) {
   var e = document.createElementNS(NS, tag);
@@ -186,9 +187,9 @@ function render(c) {
   var after = still ? Infinity : c - tEnd, kp = L.kp, ke = L.ke;
   if (after < 0) {
     var h0 = heading(i), h1 = heading(j), dh = Math.atan2(Math.sin(h1 - h0), Math.cos(h1 - h0));
-    var hd = -(h0 + dh * u) * 180 / Math.PI;
+    var hd = -(h0 + dh * u) * 180 / Math.PI, roll = Math.cos(2 * Math.PI * flipping(c));   // seen from above, a roll narrows it
     show(L.gp, true);
-    L.gp.setAttribute("transform", "translate(" + r1(here[0]) + " " + r1(here[1]) + ") rotate(" + r1(hd) + ") scale(" + kp + ")");
+    L.gp.setAttribute("transform", "translate(" + r1(here[0]) + " " + r1(here[1]) + ") rotate(" + r1(hd) + ") scale(" + kp + " " + r1(kp * roll * 100) / 100 + ")");
     show(L.ge, false); show(L.proj, false); show(L.dim, false); show(L.finish, false);
     L.readout.textContent = "T " + tf.toFixed(2) + " S  ·  " + lerp(speed(i), speed(j), u).toFixed(1) + " M/S  ·  GATE " +
       Math.min(g + 1, F.n) + "/" + F.n + "  ·  ×" + SPEED;
@@ -211,7 +212,7 @@ function render(c) {
   show(L.ge, v >= 0.5);
   if (v >= 0.5) {
     var sy = Math.sin(Math.min(1, (v - 0.5) * 2) * Math.PI / 2);
-    L.ge.setAttribute("transform", "translate(" + r1(L.ex) + " " + r1(ez) + ") scale(" + ke + " " + r1(ke * sy * 100) / 100 + ")");
+    L.ge.setAttribute("transform", "translate(" + r1(L.ex) + " " + r1(ez) + ") rotate(" + r1(-360 * flipping(c)) + ") scale(" + ke + " " + r1(ke * sy * 100) / 100 + ")");
     L.bladesE.forEach(function (bl) {
       var half = still ? 12 : Math.max(3, 12 * Math.abs(Math.cos(c * 26 + bl.phase)));
       bl.el.setAttribute("x1", r1(bl.x - half)); bl.el.setAttribute("x2", r1(bl.x + half));
@@ -228,6 +229,20 @@ function render(c) {
     L.dimText.textContent = (L.z0 + bob).toFixed(2) + " m";
   }
   L.readout.textContent = "T " + F.T.toFixed(2) + " S  ·  " + F.n + "/" + F.n + " GATES  ·  " + (v >= 1 ? "HOVER" : "LANDED");
+}
+
+// How far through an acro-mode flip the drone is at clock c (0 when not flipping).
+function flipping(c) {
+  if (flipAt < 0 || c < flipAt || c > flipAt + ROLL) return 0;
+  var k = (c - flipAt) / ROLL;
+  return k * k * (3 - 2 * k);
+}
+// Acro mode (js/acro.js): the drone flips, if the strip is flying and not drawn still.
+export function flip() {
+  if (!L || still || !flying) return false;
+  flipAt = clock;
+  anim.start();
+  return true;
 }
 
 function play() {

@@ -521,7 +521,21 @@ figcaption b { color: var(--ink); font-weight: 500; }
 
 /* footer title block */
 .foot { border-top: 1px solid var(--rule); }
-.foot .tblock { border: 1px solid var(--rule); margin-block: 32px 40px; }
+.foot .tblock { border: 1px solid var(--rule); margin-block: 32px 12px; }
+.foot-hint { margin: 0 0 28px; font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+@media (hover: none) { .foot-hint { visibility: hidden; } }   /* no keyboard to type on */
+
+/* acro mode (js/acro.js): a badge in the nav; the page tilts and rights itself like a drone in a gust */
+.acro-badge { margin-left: 10px; padding: 2px 6px; font: 500 11px/1.4 var(--font-data); letter-spacing: 0.08em; color: #FFFFFF; background: var(--signal); font-variant-numeric: tabular-nums; }
+main.tilt { animation: gust 1.8s linear; }
+@keyframes gust {
+  0% { transform: rotate(0); animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1); }
+  14% { transform: rotate(2deg); animation-timing-function: ease-in-out; }
+  36% { transform: rotate(-0.9deg); animation-timing-function: ease-in-out; }
+  58% { transform: rotate(0.4deg); animation-timing-function: ease-in-out; }
+  78% { transform: rotate(-0.15deg); animation-timing-function: ease-in-out; }
+  100% { transform: none; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

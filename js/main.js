@@ -8,3 +8,5 @@ import "./reveals.js";
 import "./sheets.js";
 import "./frame3d-boot.js";
 import "./bench.js";
+import "./acro.js";
+import "./hello.js";
