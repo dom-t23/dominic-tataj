@@ -7,3 +7,4 @@ import "./rig-button.js";
 import "./reveals.js";
 import "./sheets.js";
 import "./frame3d-boot.js";
+import "./bench.js";

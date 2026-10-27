@@ -8,7 +8,7 @@ import { $, css } from "./util.js";
 
 var NS = "http://www.w3.org/2000/svg";
 var K95 = 2.448;                 // a 2D Gaussian's 95% ellipse, in standard deviations
-var SCALES = [0.05, 0.1, 0.2, 0.5, 1, 2, 5];   // m, the FUSE plot's radius steps
+var SCALES = [0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50];   // m, the FUSE plot's radius steps
 var PLAN = 13;                   // px per m in MEASURE (10 m fits)
 var TRAIL = 8;                   // earlier frames drawn behind each stick
 

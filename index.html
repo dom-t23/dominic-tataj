@@ -76,7 +76,7 @@
           <span class="r-meta">Fusion · Ansys · 2026-07 → 2026-09</span>
         </a></li>
         <li><a href="#e-04">
-          <span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span><span class="r-key">99.5% gates</span>
+          <span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span><span class="r-key">99.8% gates</span>
           <span class="r-meta">Python · OpenCV · 2026-08 → 2026-10</span>
         </a></li>
         <li><a href="#e-02">
@@ -303,31 +303,39 @@
             </div>
             <div>
               <h4>Testing</h4>
-              <p>I built a deterministic regression harness, with lockstep simulation over UDP, which flies every change on the same seeded courses and reports the gate pass rate. On the first set of 50 courses the pass rate rose from 89.2% at the first committed baseline to 100%. Because one set moves by a few points from noise alone, a change is kept only if it helps pooled over 300 courses, where the pass rate now stands at 99.5%.</p>
+              <p>I built a deterministic regression harness, with lockstep simulation over UDP, which flies every change on the same seeded courses and reports the gate pass rate. On the first set of 50 courses the pass rate rose from 89.2% at the first committed baseline to 100%. Because one set moves by a few points from noise alone, a change is kept only if it helps pooled over 300 courses, where the pass rate reached 99.8%.</p>
+              <p>With that benchmark saturated, I made the world harder: orange panels and cones beside the course, in the gate's own colour. Pooled over the same 300 courses the pass rate is 97.8% with the IMU and 96.5% camera only. Course 3 in the replay is one of the failures: with the IMU, the drone twice takes a distractor for the gate, and the pipeline strip shows its filter rejecting measurements and re-initialising before it misses gate 2.</p>
               <p>One bug came from the simulator itself: its sign convention was the reverse of what its documentation said. I found it by comparing commanded inputs against logged attitude, confirmed it with single-axis tests, and corrected the controller.</p>
             </div>
           </div>
           <div class="fig-stack">
-            <figure>
-              <div class="plate" style="padding: 8px 16px 4px">
+            <figure class="bench-fig">
+              <div class="plate">
                 <div class="tablebox">
-                  <table class="bench">
-                    <thead><tr><th>Course set</th><th>Camera + IMU</th><th>Camera only</th></tr></thead>
+                  <!-- js/bench.js: the column headers chart and sort their column -->
+                  <table class="bench" id="bench">
+                    <thead>
+                      <tr class="world"><th></th><th colspan="2">Clean · run 20</th><th colspan="2">Orange clutter · run 25</th></tr>
+                      <tr><th scope="col">Course set</th><th scope="col">Camera + IMU</th><th scope="col">Camera only</th><th scope="col">Camera + IMU</th><th scope="col">Camera only</th></tr>
+                    </thead>
                     <tbody>
-                      <tr><td>0–49</td><td>100.0%</td><td>97.2%</td></tr>
-                      <tr><td>1000–1049</td><td>99.0%</td><td>99.0%</td></tr>
-                      <tr><td>2000–2049</td><td>100.0%</td><td>99.0%</td></tr>
-                      <tr><td>3000–3049</td><td>100.0%</td><td>96.5%</td></tr>
-                      <tr><td>4000–4049</td><td>100.0%</td><td>100.0%</td></tr>
-                      <tr><td>5000–5049</td><td>98.2%</td><td>100.0%</td></tr>
-                      <tr class="pooled"><td>Pooled</td><td>99.5%</td><td>98.6%</td></tr>
+                      <tr><td>0–49</td><td>100.00%</td><td>96.25%</td><td>95.75%</td><td>96.75%</td></tr>
+                      <tr><td>1000–1049</td><td>100.00%</td><td>98.50%</td><td>98.00%</td><td>98.00%</td></tr>
+                      <tr><td>2000–2049</td><td>99.00%</td><td>98.00%</td><td>100.00%</td><td>98.50%</td></tr>
+                      <tr><td>3000–3049</td><td>100.00%</td><td>96.50%</td><td>98.00%</td><td>91.75%</td></tr>
+                      <tr><td>4000–4049</td><td>100.00%</td><td>98.75%</td><td>96.75%</td><td>95.75%</td></tr>
+                      <tr><td>5000–5049</td><td>100.00%</td><td>98.75%</td><td>98.00%</td><td>98.00%</td></tr>
                     </tbody>
+                    <tfoot>
+                      <tr class="pooled"><td>Pooled</td><td>99.83%</td><td>97.79%</td><td>97.75%</td><td>96.46%</td></tr>
+                    </tfoot>
                   </table>
                 </div>
+                <svg class="bench-chart" id="bench-chart" viewBox="0 0 520 168" role="img" aria-label="Gates missed per set of 400, for the chosen column" hidden></svg>
               </div>
-              <figcaption><b>Fig. 03</b> — Gate pass rate, latest build, 20 Oct 2026. 50 random 8-gate courses per set; a run ends at the first crash or missed gate.</figcaption>
+              <figcaption><b>Fig. 03</b> — Gate pass rate on six sets of 50 random 8-gate courses, in two worlds: clean (run 20, 22 Oct 2026; camera only re-run 25 Oct) and with orange clutter beside the course (run 25, 27 Oct 2026). A run ends at the first crash or missed gate.</figcaption>
             </figure>
-            <p class="note">Single sets of 50 courses move by a few points from noise alone, so the pooled row is the one to compare. "Camera only" drops the IMU and predicts motion between frames from the drone's own commands.</p>
+            <p class="note">Single sets of 50 courses move by a few points from noise alone, so the pooled row is the one to compare. "Camera only" drops the IMU and predicts motion between frames from the drone's own commands. The clutter is up to 20 flat panels and cones beside the course, painted within the gate's colour range. That world is harder by design, so its numbers start a new baseline rather than continuing the clean one.</p>
             <p class="note">Source code: <a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">github.com/dom-t23/vision-drone-racing ↗</a></p>
           </div>
         </div>
@@ -549,6 +557,7 @@
 <link rel="modulepreload" href="js/reveals.js">
 <link rel="modulepreload" href="js/sheets.js">
 <link rel="modulepreload" href="js/frame3d-boot.js">
+<link rel="modulepreload" href="js/bench.js">
 <script type="module" src="js/main.js"></script>
 </body>
 </html>

@@ -18,14 +18,14 @@ test("content: order, numbering, figures and links", async ({ page }) => {
   expect(await page.$$eval("figcaption b", (bs) => bs.map((b) => b.textContent)))
     .toEqual(["Fig. 00", "Fig. 01", "Fig. 02", "Fig. 03", "Fig. 04", "Fig. 05"]);
   expect(await page.$$eval(".nav ul a", (as) => as.map((a) => a.textContent))).toEqual(["WORK", "ABOUT", "CONTACT"]);
-  expect(await page.$$eval("tr.pooled td", (tds) => tds.map((t) => t.textContent))).toEqual(["Pooled", "99.5%", "98.6%"]);
+  expect(await page.$$eval("tr.pooled td", (tds) => tds.map((t) => t.textContent))).toEqual(["Pooled", "99.83%", "97.79%", "97.75%", "96.46%"]);
   for (const href of ["https://unsplash.com/@dominic_t", "https://www.instagram.com/dt___xt/",
     "https://www.linkedin.com/in/dominic-tataj", "https://github.com/dom-t23"]) {
     await expect(page.locator(`a[href="${href}"]`)).toHaveCount(1);
   }
   await expect(page.locator('a[href$=".pdf"]')).toHaveCount(0);
   const body = await page.textContent("body");
-  expect(body).not.toMatch(/48%|79%|98\.0% gates|13 Oct|Photograph to add/);
+  expect(body).not.toMatch(/(?<![\d.])(48|79)%|98\.0% gates|13 Oct|Photograph to add/);
   await expect(page.locator(".hero-facts")).toContainText("27 June 2027");
 });
 
