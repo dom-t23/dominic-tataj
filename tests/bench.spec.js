@@ -8,7 +8,7 @@ const COURSE_ORDER = ["0–49", "1000–1049", "2000–2049", "3000–3049", "40
 
 test("a column header charts its column and sorts the table by it; Course set restores the order", async ({ page }) => {
   const errors = trackErrors(page);
-  await page.goto("/");
+  await page.goto("/", { waitUntil: "networkidle" });   // bench.js loads after the load event
   await expect(page.locator("#bench-chart")).toBeVisible();
   await expect(header(page, 4)).toHaveClass(/sel/);   // clutter, camera + IMU to start
   await expect(page.locator("#bench-chart")).toHaveAttribute("aria-label", /orange clutter, camera \+ imu: 0–49 17, 1000–1049 8, 2000–2049 0, 3000–3049 8, 4000–4049 13, 5000–5049 8/);
@@ -30,7 +30,7 @@ test("a column header charts its column and sorts the table by it; Course set re
 });
 
 test("a set's row and its bar pick each other out; the pooled row pulses once in view", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/", { waitUntil: "networkidle" });   // bench.js loads after the load event
   await page.locator(".bench-fig").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
   await expect(page.locator("#bench tr.pooled")).toHaveClass(/pulse/);
   await page.locator("#bench tbody tr").nth(3).hover();
@@ -43,7 +43,7 @@ test("a set's row and its bar pick each other out; the pooled row pulses once in
 test.describe("reduced motion", () => {
   test.use({ contextOptions: { reducedMotion: "reduce" } });
   test("bars are drawn at once, and nothing pulses", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/", { waitUntil: "networkidle" });   // bench.js loads after the load event
     const heights = await page.$$eval("#bench-chart path.bar", (ps) => ps.map((p) => p.getAttribute("d")));
     expect(heights.filter((d) => d).length).toBe(5);   // one set missed no gates
     await page.locator(".bench-fig").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
@@ -55,7 +55,7 @@ test.describe("reduced motion", () => {
 test.describe("phone", () => {
   test.use(phone);
   test("the table fits without scrolling sideways", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/", { waitUntil: "networkidle" });   // bench.js loads after the load event
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
     const box = await page.locator(".tablebox").evaluate((e) => [e.scrollWidth, e.clientWidth]);
     expect(box[0]).toBeLessThanOrEqual(box[1]);

@@ -50,25 +50,30 @@ var EFFECTS = {
     var shapes = Array.prototype.filter.call(svg.querySelectorAll("path, line, polyline, polygon, rect, circle, text"), function (s) {
       return !s.closest("defs, marker");
     });
+    // Read every shape first and write after: a read that follows a write makes the browser
+    // recompute styles, once per shape.
+    var info = shapes.map(function (s) {
+      if (s.tagName === "text") return { text: true };
+      var st = getComputedStyle(s), stroked = st.stroke !== "none" && !s.getAttribute("stroke-dasharray") && !!s.getTotalLength;
+      return { stroked: stroked, filled: st.fill !== "none" && st.fill !== "transparent", len: stroked ? s.getTotalLength() : 0 };
+    });
     var steps = [];
     shapes.forEach(function (s, i) {
-      var st = getComputedStyle(s), delay = Math.min(i * 35, 700) + "ms";
-      if (s.tagName === "text") {
+      var o = info[i], delay = Math.min(i * 35, 700) + "ms";
+      if (o.text) {
         s.style.opacity = "0";
         steps.push(function () { s.style.transition = "opacity " + DUR.base + "ms ease " + delay; s.style.opacity = ""; });
         return;
       }
-      var stroked = st.stroke !== "none" && !s.getAttribute("stroke-dasharray") && s.getTotalLength;
-      var filled = st.fill !== "none" && st.fill !== "transparent";
-      if (stroked) {
-        var len = s.getTotalLength();
+      if (o.stroked) {
+        var len = o.len;
         s.style.strokeDasharray = len + " " + len; s.style.strokeDashoffset = String(len);
-        if (filled) s.style.fillOpacity = "0";
+        if (o.filled) s.style.fillOpacity = "0";
         steps.push(function () {
           s.style.transition = "stroke-dashoffset " + DUR.slow + "ms " + EASE + " " + delay + ", fill-opacity " + DUR.base + "ms ease " + delay;
           s.style.strokeDashoffset = "0"; s.style.fillOpacity = "";
         });
-      } else if (filled && s.tagName === "rect") {
+      } else if (o.filled && s.tagName === "rect") {
         // bars grow from their left edge
         s.style.transformBox = "fill-box"; s.style.transformOrigin = "left center"; s.style.transform = "scaleX(0)";
         steps.push(function () { s.style.transition = "transform " + DUR.slow + "ms " + EASE + " " + delay; s.style.transform = ""; });

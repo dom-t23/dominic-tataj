@@ -15,7 +15,7 @@ test("the console says hello once, with the source and the hint", async ({ page 
 test("typing fpv: ACRO for 10 s, the page tilts and rights itself; not from a form field", async ({ page }) => {
   const errors = trackErrors(page);
   await page.clock.install();
-  await page.goto("/");
+  await page.goto("/", { waitUntil: "networkidle" });   // the quirks load after the load event
   await expect(page.locator(".foot-hint")).toHaveText("Type FPV anywhere for acro mode.");
   // typed into a slider, it is not a command
   await page.locator("#scrub").focus();
@@ -36,7 +36,7 @@ test("typing fpv: ACRO for 10 s, the page tilts and rights itself; not from a fo
 test.describe("reduced motion", () => {
   test.use({ contextOptions: { reducedMotion: "reduce" } });
   test("acro mode shows the badge but nothing tilts", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/", { waitUntil: "networkidle" });   // the quirks load after the load event
     await page.keyboard.type("fpv");
     await expect(page.locator(".acro-badge")).toHaveText("ACRO 10");
     await expect(page.locator("main")).not.toHaveClass(/\btilt\b/);
@@ -44,7 +44,7 @@ test.describe("reduced motion", () => {
 });
 
 test("drafting cursor: ticks and the position on the sheet in mm, off over controls", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/", { waitUntil: "networkidle" });   // the quirks load after the load event
   await page.mouse.move(400, 500); await page.mouse.move(420, 520, { steps: 3 });
   await expect(page.locator("html")).toHaveClass(/\bdc-on\b/);
   // 96 px to the inch: x 420 px is 111.1 mm
@@ -56,13 +56,13 @@ test("drafting cursor: ticks and the position on the sheet in mm, off over contr
 test.describe("phone", () => {
   test.use(require("./helpers").phone);
   test("no drafting cursor on a touch screen", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/", { waitUntil: "networkidle" });   // the quirks load after the load event
     await expect(page.locator(".dc-read")).toHaveCount(0);
   });
 });
 
 test("hovering a project draws a revision cloud round it", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/", { waitUntil: "networkidle" });   // the quirks load after the load event
   const entry = page.locator(".register li:nth-child(2) a");
   await entry.hover();
   await expect(entry).toHaveClass(/\brev-on\b/);
@@ -76,7 +76,7 @@ test("hovering a project draws a revision cloud round it", async ({ page }) => {
 
 test("the theme switch spreads from the button in a view transition", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "light" });
-  await page.goto("/");
+  await page.goto("/", { waitUntil: "networkidle" });   // the quirks load after the load event
   await page.evaluate(() => {
     window.__vt = 0;
     const start = document.startViewTransition.bind(document);
@@ -90,7 +90,7 @@ test("the theme switch spreads from the button in a view transition", async ({ p
 test.describe("approval box", () => {
   test.use({ permissions: ["clipboard-read", "clipboard-write"] });
   test("copying the email prints it again, signs and dates the approval box, then the burst", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/", { waitUntil: "networkidle" });   // the quirks load after the load event
     await expect(page.locator("#approve-status")).toHaveText("For approval");
     await page.click("#copy");
     await expect(page.locator("#approve")).toHaveClass(/\bsigned\b/);
@@ -105,7 +105,7 @@ test.describe("approval box", () => {
 });
 
 test("About is a parts list; each skill counts and links the projects that used it", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/", { waitUntil: "networkidle" });   // the quirks load after the load event
   await expect(page.locator(".bom tbody tr:not(.grp)")).toHaveCount(11);
   await expect(page.locator(".bom .grp th")).toHaveText(["Education", "Engineering", "Programming", "Experience", "Leadership", "Languages"]);
   const fusion = page.locator(".bom tr.skill").first();

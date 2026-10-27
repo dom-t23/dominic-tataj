@@ -1,6 +1,5 @@
 import { $, root, sysDark, css, reducedMotion } from "./util.js";
 import { loadScript, flightIndex } from "./flights.js";
-import { show as showPipe } from "./pipeline.js";
 
 /* ---------- drone replay ---------- */
 var fpv = $("fpv"), fctx = fpv.getContext("2d"), map = $("map"), mctx = map.getContext("2d");
@@ -36,7 +35,14 @@ function withIndex(ok, fail) {
   }, fail);
 }
 
+// The pipeline strip under the player (js/pipeline.js) loads when the player is near, or on LOAD.
+var pipe = null;
+function loadPipe() {
+  if (!loadPipe.started) loadPipe.started = import("./pipeline.js").then(function (m) { pipe = m; if (flight) draw(); }, function () {});
+}
+
 $("load").addEventListener("click", function () {
+  loadPipe();
   var btn = this;
   btn.disabled = true; btn.textContent = "LOADING…";
   function failed() { btn.disabled = false; btn.textContent = "RETRY"; $("load-note").textContent = "The recording could not be loaded."; }
@@ -63,7 +69,7 @@ function showPoster() {
 }
 if (window.IntersectionObserver) {
   var io = new IntersectionObserver(function (es) {
-    if (es.some(function (en) { return en.isIntersecting; })) { io.disconnect(); withIndex(showPoster, function () {}); }
+    if (es.some(function (en) { return en.isIntersecting; })) { io.disconnect(); loadPipe(); withIndex(showPoster, function () {}); }
   }, { rootMargin: "600px 0px" });
   io.observe(document.querySelector(".player"));
 }
@@ -180,7 +186,7 @@ function speedAt(i) {
 
 function draw() {
   if (!flight) return;
-  drawFpv(); drawMap(); showPipe(flight, idx);
+  drawFpv(); drawMap(); if (pipe) pipe.show(flight, idx);
   if (posterMode) return;   // the readouts and scrubber wait for LOAD
   var fr = flight.frames[idx];
   $("scrub").value = String(idx);
