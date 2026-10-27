@@ -83,26 +83,26 @@ checkpoint with Dom, merge to `main`.
 
 ## 2. Global quirks (small, everywhere, low cost)
 
-2.1 [ ] **Drafting cursor** (desktop, pointer: fine only): a thin crosshair with live
-   coordinates in the corner (`x 412.0  y 1188.5 mm`) where the page is treated as a
-   1:1 drawing sheet. Hidden over text inputs and for reduced motion.
+2.1 [x] **Drafting cursor** (done in phase G, subtle as Dom chose): the pointer stays;
+   four short crosshair ticks follow it and a corner readout gives its position on the
+   page in mm (96 px to the inch). Mouse only; hidden over links, buttons, controls and
+   the interactive figures, and for reduced motion.
 2.2 [x] **Sheet-number scroll progress:** the nav shows `SHEET 3/7 E-04` (cover, four
    projects, About, Contact), the number ticking over as you scroll, with a thin orange
    progress bar under the nav.
-2.3 [ ] **Revision cloud on hover:** project titles get a hand-drawn "revision cloud"
-   outline (the drafting mark for "changed") that draws around them on hover.
+2.3 [x] **Revision cloud on hover** (done in phase G): round each register entry (title
+   and line below) and each sheet's title.
 2.4 [x] **Numbers count up** with tabular figures when they enter view (spec strips and the
    Unsplash stats), once only, about 0.9 s. Compound values (400×300, P ∝ N^0.55) stay put.
-2.5 [ ] **Theme toggle as a light-table switch:** switching dark/light animates a
-   blueprint-style "inverse print" wipe across the page (clip-path circle from the
-   button).
-2.6 [ ] **Copy-email burst** (exists) — keep; add the email "printing" out of a plotter
-   line when copied.
-2.7 [ ] **Konami-style easter egg:** typing `fpv` anywhere switches the page into
-   "acro mode" for 10 s (the hero drone does a flip, page tilts 2° and rights itself).
-   Hidden, harmless, memorable.
-2.8 [ ] **Console note** for engineers who open DevTools: a small ASCII drawing of the
-   frame and a link to the source repo.
+2.5 [x] **Theme toggle as a light-table switch** (done in phase G): a view transition
+   with the new theme clipped to a circle growing from the button; instant without view
+   transitions or with reduced motion.
+2.6 [x] **Copy-email burst** (done in phase G): the email prints again behind an orange
+   plotter head, then 4.3's signature, then the burst.
+2.7 [x] **Easter egg** (done in phase G): typing `fpv` puts the page in acro mode for
+   10 s (ACRO badge with a countdown, the page tilts 2° and rights itself, the hero drone
+   flips). Hinted by a small line at the foot of the page, as Dom chose, and in 2.8.
+2.8 [x] **Console note** (done in phase G): the frame in characters, both repos, the hint.
 
 ## 3. Project signature moments (one per project, each conveys information)
 
@@ -161,13 +161,14 @@ checkpoint with Dom, merge to `main`.
 
 ## 4. About & contact
 
-4.1 [ ] **About as a parts list / BOM:** education, skills, experience as BOM rows with
-   item numbers and "qty"; hovering a skill highlights which projects used it (draws
-   leader lines up to project register entries).
+4.1 [x] **About as a parts list / BOM** (done in phase G): grouped rows with item
+   numbers; each skill has a qty (projects that used it) and links to them, which show
+   the project's title on hover. No leader lines: the register is a page away.
 4.2 [ ] **Photography strip** (optional, if Dom supplies 3–6 photos): a horizontal
    "contact sheet" with film-frame numbers, lazy-loaded, captions in drawing style.
-4.3 [ ] **Contact as the drawing's approval box:** "APPROVED BY: ____" signature line;
-   clicking COPY EMAIL "signs" it with an animated pen stroke, then the burst.
+4.3 [x] **Contact as the drawing's approval box** (done in phase G): drawn by, status,
+   approved by and date; COPY EMAIL signs it with a pen stroke (a generic scribble: the
+   visitor approves), sets Approved and today's date, then the burst.
 
 ## 5. Quality gates for every feature
 
@@ -189,7 +190,7 @@ checkpoint with Dom, merge to `main`.
 | D | 3.1, 3.2 | 3D frame story. Done; a STRESS view waits on the Ansys image. |
 | E | 3.6, 3.7 | Robot mini-sim. |
 | F | 3.3–3.5 | Replay pipeline strip. Done, with an exporter here and the clutter world. |
-| G | 2.1, 2.3, 2.5–2.8, 3.8, 4.1–4.3 | Remaining quirks and polish. |
+| G | 2.1, 2.3, 2.5–2.8, 3.8, 4.1–4.3 | Done except 3.8 (Dom's MATLAB coursework and data) and 4.2 (Dom's photos). |
 
 ## 7. Needed from Dom
 
@@ -207,5 +208,5 @@ checkpoint with Dom, merge to `main`.
 
 - Build-free vs Vite (0.1).
 - ~~Opt-in sound~~ — decided: no sound.
-- Easter egg trigger word and whether to hint at it (2.7).
+- ~~Easter egg trigger word and whether to hint at it~~ — decided: `fpv`, hinted at the foot of the page.
 - ~~How playful the physics toy may get~~ — decided: unstable gains allowed, with a failsafe.
