@@ -1,6 +1,8 @@
 import { $, root, reducedMotion } from "./util.js";
 
 /* ---------- copy email ---------- */
+// Copied, the email prints again behind a plotter head, the approval box below is signed and
+// dated (DESIGN_PLAN.md 2.6, 4.3), and then the burst goes off.
 $("copy").addEventListener("click", function () {
   var btn = this, text = $("email").textContent.trim();
   function selectIt() {
@@ -9,10 +11,22 @@ $("copy").addEventListener("click", function () {
     btn.textContent = "SELECTED — PRESS COPY";
   }
   try {
-    navigator.clipboard.writeText(text).then(function () { btn.textContent = "COPIED"; burst(btn); }, selectIt);
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = "COPIED"; approve(btn); }, selectIt);
   } catch (e) { selectIt(); }
   setTimeout(function () { btn.textContent = "COPY EMAIL"; }, 2400);
 });
+
+function approve(btn) {
+  var box = $("approve"), email = $("email"), d = new Date();
+  $("approve-status").textContent = "Approved";
+  $("approve-date").textContent = d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  if (reducedMotion()) { box.classList.add("signed"); return; }
+  email.classList.remove("print"); box.classList.remove("signed");
+  void email.offsetWidth;
+  email.classList.add("print"); box.classList.add("signed");
+  setTimeout(function () { burst(btn); }, 800);
+}
+$("email").addEventListener("animationend", function (e) { if (e.animationName === "print-reveal") this.classList.remove("print"); });
 
 /* ---------- copy burst ---------- */
 // Squares, outlines and drafting crosses fly from the button to the screen edges, behind square rings.

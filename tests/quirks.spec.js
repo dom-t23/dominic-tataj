@@ -86,3 +86,20 @@ test("the theme switch spreads from the button in a view transition", async ({ p
   await expect.poll(() => page.evaluate(() => document.documentElement.dataset.theme)).toBe("dark");
   expect(await page.evaluate(() => window.__vt)).toBe(1);
 });
+
+test.describe("approval box", () => {
+  test.use({ permissions: ["clipboard-read", "clipboard-write"] });
+  test("copying the email prints it again, signs and dates the approval box, then the burst", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator("#approve-status")).toHaveText("For approval");
+    await page.click("#copy");
+    await expect(page.locator("#approve")).toHaveClass(/\bsigned\b/);
+    await expect(page.locator("#email")).toHaveClass(/\bprint\b/);
+    await expect(page.locator("#approve-status")).toHaveText("Approved");
+    const today = await page.evaluate(() => new Date().toLocaleDateString("sv-SE"));   // YYYY-MM-DD
+    await expect(page.locator("#approve-date")).toHaveText(today);
+    await expect(page.locator("canvas.burst")).toHaveCount(1, { timeout: 3000 });
+    await expect(page.locator("#email")).not.toHaveClass(/\bprint\b/);
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("dominic_tataj@icloud.com");
+  });
+});
