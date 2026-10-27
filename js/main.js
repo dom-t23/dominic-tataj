@@ -11,3 +11,4 @@ import "./bench.js";
 import "./acro.js";
 import "./hello.js";
 import "./cursor.js";
+import "./clouds.js";

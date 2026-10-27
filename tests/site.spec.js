@@ -33,12 +33,12 @@ test("theme toggle saves a choice and clears it again", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "light" });
   await page.goto("/");
   await expect(page.locator("#theme")).toHaveText("DARK");
-  await page.click("#theme");
-  expect(await page.evaluate(() => [document.documentElement.dataset.theme, localStorage.getItem("theme")])).toEqual(["dark", "dark"]);
+  await page.click("#theme");   // applied inside a view transition, a frame later
+  await expect.poll(() => page.evaluate(() => [document.documentElement.dataset.theme, localStorage.getItem("theme")])).toEqual(["dark", "dark"]);
   await page.reload();
   await expect(page.locator("#theme")).toHaveText("LIGHT");
   await page.click("#theme");
-  expect(await page.evaluate(() => [document.documentElement.hasAttribute("data-theme"), localStorage.getItem("theme")])).toEqual([false, null]);
+  await expect.poll(() => page.evaluate(() => [document.documentElement.hasAttribute("data-theme"), localStorage.getItem("theme")])).toEqual([false, null]);
 });
 
 test.describe("phone", () => {

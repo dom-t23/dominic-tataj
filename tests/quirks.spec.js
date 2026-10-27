@@ -60,3 +60,29 @@ test.describe("phone", () => {
     await expect(page.locator(".dc-read")).toHaveCount(0);
   });
 });
+
+test("hovering a project draws a revision cloud round it", async ({ page }) => {
+  await page.goto("/");
+  const entry = page.locator(".register li:nth-child(2) a");
+  await entry.hover();
+  await expect(entry).toHaveClass(/\brev-on\b/);
+  const d = await entry.locator(".rev-cloud path").getAttribute("d");
+  expect(d.match(/A/g).length).toBeGreaterThan(30);   // scallops all the way round
+  await page.mouse.move(5, 600);
+  await expect(entry).not.toHaveClass(/\brev-on\b/);
+  await page.locator("#e03-h").hover();
+  await expect(page.locator("#e03-h")).toHaveClass(/\brev-on\b/);
+});
+
+test("the theme switch spreads from the button in a view transition", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.goto("/");
+  await page.evaluate(() => {
+    window.__vt = 0;
+    const start = document.startViewTransition.bind(document);
+    document.startViewTransition = (fn) => { window.__vt++; return start(fn); };
+  });
+  await page.click("#theme");
+  await expect.poll(() => page.evaluate(() => document.documentElement.dataset.theme)).toBe("dark");
+  expect(await page.evaluate(() => window.__vt)).toBe(1);
+});

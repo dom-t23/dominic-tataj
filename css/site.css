@@ -525,6 +525,16 @@ figcaption b { color: var(--ink); font-weight: 500; }
 .foot-hint { margin: 0 0 28px; font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 @media (hover: none) { .foot-hint { visibility: hidden; } }   /* no keyboard to type on */
 
+/* theme switch (js/theme.js): the new theme is clipped to a growing circle, not cross-faded */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+
+/* revision clouds (js/clouds.js): drawn around a project's title on hover */
+.register a, .sheet-title h3 { position: relative; }
+.rev-cloud { position: absolute; left: 0; top: 0; width: 1px; height: 1px; overflow: visible; pointer-events: none; }
+.rev-cloud path { fill: none; stroke: var(--signal); stroke-width: 1.3; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; transition: opacity var(--dur-quick) ease; }
+.rev-on .rev-cloud path { opacity: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 650ms var(--ease), opacity 80ms ease; }
+@media (prefers-reduced-motion: reduce) { .rev-on .rev-cloud path { transition: none; } }
+
 /* drafting cursor (js/cursor.js): ticks around the pointer and its position on the sheet */
 .dc-ticks, .dc-read { position: fixed; z-index: 90; pointer-events: none; opacity: 0; transition: opacity var(--dur-quick) ease; }
 .dc-on .dc-ticks, .dc-on .dc-read { opacity: 1; }
