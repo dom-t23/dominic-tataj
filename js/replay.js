@@ -1,5 +1,6 @@
 import { $, root, sysDark, css, reducedMotion } from "./util.js";
 import { loadScript, flightIndex } from "./flights.js";
+import { show as showPipe } from "./pipeline.js";
 
 /* ---------- drone replay ---------- */
 var fpv = $("fpv"), fctx = fpv.getContext("2d"), map = $("map"), mctx = map.getContext("2d");
@@ -110,11 +111,10 @@ function load(f, at) {
     (ok && flight.time ? " " + flight.time.toFixed(2) + " s" : "");
 }
 
+function mapScale() { return Math.min((map.width - 56) / (bounds.x1 - bounds.x0), (map.height - 56) / (bounds.y1 - bounds.y0)); }
 function toMap(x, y) {
-  var w = map.width, h = map.height, pad = 28;
-  var s = Math.min((w - 2 * pad) / (bounds.x1 - bounds.x0), (h - 2 * pad) / (bounds.y1 - bounds.y0));
-  var cx = (bounds.x0 + bounds.x1) / 2, cy = (bounds.y0 + bounds.y1) / 2;
-  return [w / 2 + (x - cx) * s, h / 2 - (y - cy) * s];
+  var s = mapScale(), cx = (bounds.x0 + bounds.x1) / 2, cy = (bounds.y0 + bounds.y1) / 2;
+  return [map.width / 2 + (x - cx) * s, map.height / 2 - (y - cy) * s];
 }
 
 function drawMap() {
@@ -142,7 +142,17 @@ function drawMap() {
   path("e", css("--signal"), [5, 4]);
   var now = toMap(fr[idx].p[0], fr[idx].p[1]);
   c.fillStyle = TRUTH; c.beginPath(); c.arc(now[0], now[1], 5, 0, 2 * Math.PI); c.fill();
-  if (fr[idx].e) { var en = toMap(fr[idx].e[0], fr[idx].e[1]); c.strokeStyle = css("--signal"); c.lineWidth = 2; c.beginPath(); c.arc(en[0], en[1], 7, 0, 2 * Math.PI); c.stroke(); }
+  if (fr[idx].e) {
+    var en = toMap(fr[idx].e[0], fr[idx].e[1]), cv = fr[idx].cv;
+    if (cv) {
+      // the filter's 95% ellipse (DESIGN_PLAN.md 3.4): large at the start, shrinking as gates are seen
+      var k = 2.448 * mapScale();
+      c.fillStyle = css("--signal"); c.globalAlpha = 0.16; c.beginPath();
+      c.ellipse(en[0], en[1], Math.max(cv[0] * k, 0.5), Math.max(cv[1] * k, 0.5), -cv[2], 0, 2 * Math.PI);
+      c.fill(); c.globalAlpha = 1; c.strokeStyle = css("--signal"); c.lineWidth = 1.2; c.stroke();
+    }
+    c.strokeStyle = css("--signal"); c.lineWidth = 2; c.beginPath(); c.arc(en[0], en[1], 7, 0, 2 * Math.PI); c.stroke();
+  }
 }
 
 function drawFpv() {
@@ -170,7 +180,7 @@ function speedAt(i) {
 
 function draw() {
   if (!flight) return;
-  drawFpv(); drawMap();
+  drawFpv(); drawMap(); showPipe(flight, idx);
   if (posterMode) return;   // the readouts and scrubber wait for LOAD
   var fr = flight.frames[idx];
   $("scrub").value = String(idx);

@@ -249,7 +249,7 @@
               <span class="tag">Top view · from the recording</span>
               <canvas id="map" width="640" height="480" aria-label="Top-down course view"></canvas>
               <div class="rest"><span>Course plot appears with the replay</span></div>
-              <div class="legend"><span><i style="background:#2C6E9C"></i>true path</span><span><i style="background:var(--signal)"></i>drone's estimate</span><span><i style="background:var(--muted)"></i>gates</span></div>
+              <div class="legend"><span><i style="background:#2C6E9C"></i>true path</span><span><i style="background:var(--signal)"></i>drone's estimate, 95% ellipse</span><span><i style="background:var(--muted)"></i>gates</span></div>
             </div>
           </div>
           <div class="controls" id="controls" aria-disabled="true">
@@ -264,6 +264,29 @@
             <div><span class="label">Gates passed</span><b id="r-gates">–</b></div>
             <div><span class="label">Speed</span><b id="r-speed">–</b></div>
             <div><span class="label">Estimate error</span><b id="r-err">–</b></div>
+          </div>
+          <!-- the flight stack's four stages at the replay's current frame (js/pipeline.js) -->
+          <div class="pipe" id="pipe" role="group" aria-label="What each stage of the flight stack did in this frame">
+            <div class="pp" id="pp-detect">
+              <div class="pp-h"><b><span>01</span> Detect</b><small>colour mask · squares</small></div>
+              <canvas width="320" height="240" aria-hidden="true"></canvas>
+              <p class="pp-r">–</p>
+            </div>
+            <div class="pp" id="pp-measure">
+              <div class="pp-h"><b><span>02</span> Measure</b><small>PnP · gate poses, plan</small></div>
+              <svg viewBox="0 0 200 150" aria-hidden="true"></svg>
+              <p class="pp-r">–</p>
+            </div>
+            <div class="pp" id="pp-fuse">
+              <div class="pp-h"><b><span>03</span> Fuse</b><small>filter · 95% ellipse</small></div>
+              <svg viewBox="0 0 200 150" aria-hidden="true"></svg>
+              <p class="pp-r">–</p>
+            </div>
+            <div class="pp" id="pp-fly">
+              <div class="pp-h"><b><span>04</span> Fly</b><small>commands · as sticks</small></div>
+              <svg viewBox="0 0 200 150" aria-hidden="true"></svg>
+              <p class="pp-r">–</p>
+            </div>
           </div>
         </div>
 
@@ -519,6 +542,7 @@
 <link rel="modulepreload" href="js/contact.js">
 <link rel="modulepreload" href="js/replay.js">
 <link rel="modulepreload" href="js/flights.js">
+<link rel="modulepreload" href="js/pipeline.js">
 <link rel="modulepreload" href="js/hero-flight.js">
 <link rel="modulepreload" href="js/rig-button.js">
 <link rel="modulepreload" href="js/motion.js">

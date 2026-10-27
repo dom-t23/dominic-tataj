@@ -416,6 +416,41 @@ figcaption b { color: var(--ink); font-weight: 500; }
 .pill { display: inline-block; font: 500 11px/1 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 6px; border: 1px solid currentColor; }
 .pill.ok { color: var(--ok); } .pill.bad { color: var(--bad); }
 
+/* pipeline strip (js/pipeline.js): the flight stack's four stages at the replay's current
+   frame. A stage that acted this frame gets an orange rule; a rejected measurement, a red one. */
+.pipe { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule); border-top: 1px solid var(--rule); }
+@media (max-width: 760px) { .pipe { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.pp { position: relative; display: grid; gap: 6px; align-content: start; min-width: 0; padding: 10px 12px; background: var(--paper); }
+.pp::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 2px; background: var(--signal);
+  transform: scaleX(0); transform-origin: left; transition: transform var(--dur-quick) ease;
+}
+.pp.on::before { transform: none; }
+.pp.bad::before { transform: none; background: var(--bad); }
+.pp-h { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 2px 8px; }
+.pp-h b { font: 500 12px/1.2 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); transition: color var(--dur-quick) ease; }
+.pp-h b span { font-weight: 400; }
+.pp.on .pp-h b { color: var(--ink); }
+.pp.on .pp-h b span { color: var(--signal); }
+.pp-h small { font: 400 10px/1.2 var(--font-data); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.pp canvas, .pp svg { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; }
+.pp canvas { background: var(--panel); }
+.pp-r { min-height: 2.8em; font: 400 11px/1.4 var(--font-data); letter-spacing: 0.04em; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.pp-r.bad { color: var(--bad); }
+.pp svg text { font: 400 9px/1 var(--font-data); letter-spacing: 0.06em; fill: var(--muted); }
+.pp svg .grid { stroke: var(--rule); stroke-width: 1; fill: none; }
+.pp svg .ink { stroke: var(--ink); stroke-width: 2; fill: none; stroke-linecap: round; }
+.pp svg .alt { stroke: var(--muted); stroke-width: 1.5; fill: none; stroke-dasharray: 3 3; }
+.pp svg .sig { stroke: var(--signal); stroke-width: 1.5; fill: none; }
+.pp svg .sig-fill { fill: var(--signal); fill-opacity: 0.14; stroke: var(--signal); stroke-width: 1.2; }
+.pp svg .truth { fill: #2C6E9C; }
+.pp svg .knob { fill: var(--ink); }
+.pp svg .trail { stroke: var(--muted); stroke-width: 1; fill: none; opacity: 0.6; }
+.pp svg .tick-bad { stroke: var(--bad); stroke-width: 1.2; }
+.pp svg .tick { stroke: var(--ink-2); stroke-width: 1; }
+.pp svg .spark { stroke: var(--ink); stroke-width: 1; fill: none; }
+.pp svg .cursor { stroke: var(--signal); stroke-width: 1; }
+
 .bench { width: 100%; border-collapse: collapse; font: 400 13px/1.4 var(--font-data); font-variant-numeric: tabular-nums; }
 .bench th, .bench td { text-align: left; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--rule); white-space: nowrap; }
 .bench th { font-weight: 400; font-size: 11px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
