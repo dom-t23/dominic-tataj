@@ -525,6 +525,17 @@ figcaption b { color: var(--ink); font-weight: 500; }
 .foot-hint { margin: 0 0 28px; font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 @media (hover: none) { .foot-hint { visibility: hidden; } }   /* no keyboard to type on */
 
+/* drafting cursor (js/cursor.js): ticks around the pointer and its position on the sheet */
+.dc-ticks, .dc-read { position: fixed; z-index: 90; pointer-events: none; opacity: 0; transition: opacity var(--dur-quick) ease; }
+.dc-on .dc-ticks, .dc-on .dc-read { opacity: 1; }
+.dc-ticks { left: 0; top: 0; width: 0; height: 0; }
+.dc-ticks::before, .dc-ticks::after { content: ""; position: absolute; background: var(--ink); opacity: 0.45; }
+/* two bars each, with a gap in the middle for the pointer: 8 px out to 18 px */
+.dc-ticks::before { left: -18px; top: -0.5px; width: 36px; height: 1px; -webkit-mask: linear-gradient(90deg, #000 0 10px, transparent 10px 26px, #000 26px); mask: linear-gradient(90deg, #000 0 10px, transparent 10px 26px, #000 26px); }
+.dc-ticks::after { left: -0.5px; top: -18px; width: 1px; height: 36px; -webkit-mask: linear-gradient(180deg, #000 0 10px, transparent 10px 26px, #000 26px); mask: linear-gradient(180deg, #000 0 10px, transparent 10px 26px, #000 26px); }
+.dc-read { right: 12px; bottom: 10px; padding: 3px 7px; background: var(--paper); border: 1px solid var(--rule); font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--muted); font-variant-numeric: tabular-nums; white-space: pre; }
+@media print { .dc-ticks, .dc-read { display: none; } }
+
 /* acro mode (js/acro.js): a badge in the nav; the page tilts and rights itself like a drone in a gust */
 .acro-badge { margin-left: 10px; padding: 2px 6px; font: 500 11px/1.4 var(--font-data); letter-spacing: 0.08em; color: #FFFFFF; background: var(--signal); font-variant-numeric: tabular-nums; }
 main.tilt { animation: gust 1.8s linear; }

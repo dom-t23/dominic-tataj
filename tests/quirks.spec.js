@@ -42,3 +42,21 @@ test.describe("reduced motion", () => {
     await expect(page.locator("main")).not.toHaveClass(/\btilt\b/);
   });
 });
+
+test("drafting cursor: ticks and the position on the sheet in mm, off over controls", async ({ page }) => {
+  await page.goto("/");
+  await page.mouse.move(400, 500); await page.mouse.move(420, 520, { steps: 3 });
+  await expect(page.locator("html")).toHaveClass(/\bdc-on\b/);
+  // 96 px to the inch: x 420 px is 111.1 mm
+  await expect(page.locator(".dc-read")).toHaveText(/^X 111\.1 {2}Y \d+\.\d MM$/);
+  await page.hover(".btn.primary");
+  await expect(page.locator("html")).not.toHaveClass(/\bdc-on\b/);
+});
+
+test.describe("phone", () => {
+  test.use(require("./helpers").phone);
+  test("no drafting cursor on a touch screen", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator(".dc-read")).toHaveCount(0);
+  });
+});

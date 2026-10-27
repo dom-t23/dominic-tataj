@@ -10,3 +10,4 @@ import "./frame3d-boot.js";
 import "./bench.js";
 import "./acro.js";
 import "./hello.js";
+import "./cursor.js";
