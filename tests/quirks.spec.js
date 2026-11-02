@@ -21,10 +21,15 @@ test("typing fpv: ACRO for 10 s, the page tilts and rights itself; not from a fo
   await page.locator("#scrub").focus();
   await page.keyboard.type("fpv");
   await expect(page.locator(".acro-badge")).toHaveCount(0);
-  await page.evaluate(() => document.activeElement.blur());
+  await page.evaluate(() => {
+    document.activeElement.blur();
+    // the tilt is a 1.8 s animation, which can be over before a busy test polls the class
+    window.__gust = 0;
+    document.querySelector("main").addEventListener("animationstart", (e) => { if (e.animationName === "gust") window.__gust++; });
+  });
   await page.keyboard.type("xfPv");   // any case, after other keys
   await expect(page.locator(".acro-badge")).toHaveText("ACRO 10");
-  await expect(page.locator("main")).toHaveClass(/\btilt\b/);
+  await expect.poll(() => page.evaluate(() => window.__gust)).toBe(1);
   await page.clock.runFor(3000);
   await expect(page.locator(".acro-badge")).toHaveText("ACRO 7");
   await page.clock.runFor(7500);

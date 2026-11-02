@@ -23,6 +23,7 @@ for (const [device, opts] of [["desktop", {}], ["phone", phone]]) {
           await page.locator(sel).screenshot({ path: `test-results/screens/${device}-${scheme}-${name}.png` });
         }
         // reduced motion: the view buttons switch views at once
+        await page.locator("#frame3d").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));   // its loop runs only on screen
         for (const [i, view] of VIEWS.entries()) {
           await page.click(`.f3-steps button:nth-child(${i + 1})`);
           await page.locator(".f3-view.still").waitFor();
