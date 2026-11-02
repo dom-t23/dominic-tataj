@@ -508,6 +508,24 @@ figcaption b { color: var(--ink); font-weight: 500; }
 /* about */
 .about { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 48px 64px; margin-top: 48px; align-items: start; }
 .about .prose p { color: var(--ink); }
+/* E-01's scatter (Fig. 06, js/scaling.js): linear axes un-skew into log axes, then the fit draws */
+.scaling-fig .plate { padding: 10px 12px 6px; }
+.sc-axes { display: flex; gap: 1px; width: max-content; margin: 0 0 6px auto; background: var(--rule); border: 1px solid var(--rule); }
+.sc-axes button { font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; background: var(--paper); color: var(--muted); border: 0; padding: 6px 10px; cursor: pointer; }
+.sc-axes button[aria-pressed="true"] { color: var(--ink); box-shadow: inset 0 -2px 0 var(--signal); }
+.scaling { display: block; width: 100%; height: auto; overflow: visible; touch-action: pan-y; }
+.scaling text { font: 400 10px/1 var(--font-data); letter-spacing: 0.06em; fill: var(--muted); }
+.scaling .title { fill: var(--ink-2); }
+.scaling .grid { stroke: var(--rule); stroke-width: 1; }
+.scaling .axis { stroke: var(--ink-2); stroke-width: 1; fill: none; }
+.scaling .pt { fill: var(--ink); fill-opacity: 0.32; }
+.scaling .fit { stroke: var(--signal); stroke-width: 2; fill: none; stroke-linecap: round; }
+.scaling .est { fill: var(--signal); stroke: var(--paper); stroke-width: 2; }
+.scaling .fit-t { fill: var(--ink); font-weight: 500; paint-order: stroke; stroke: var(--paper); stroke-width: 3px; stroke-linejoin: round; }   /* a halo, legible over the points */
+.scaling .ring { fill: none; stroke: var(--signal); stroke-width: 1.5; }
+.scaling .tip rect { fill: var(--ink); }
+.scaling .tip text { fill: var(--paper); }
+
 /* About as a parts list (DESIGN_PLAN.md 4.1): skills count and link the projects that used them */
 .bom { width: 100%; border-collapse: collapse; }
 .bom caption { caption-side: top; text-align: left; padding: 0 0 10px; font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }

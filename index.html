@@ -468,8 +468,22 @@
           <div><span class="label">GPT-5 estimate</span><span class="n">≈590<small>kW</small></span></div>
         </div>
 
-        <div class="prose">
-          <p>The data was heavily right-skewed, so I log₁₀-transformed it to make the nine domains comparable, then fitted a power law of training power against parameter count; higher-order fits gave no meaningful improvement or overfitted. Parameter count explains a little under half the variation. I used the fit to estimate GPT-5's training power draw and wrote a report on the social, environmental and economic effects of rapid AI training. With R² this low, and GPT-5's parameter count not public, that estimate is an order of magnitude rather than a prediction.</p>
+        <div class="cols">
+          <div class="prose">
+            <p>The data was heavily right-skewed, so I log₁₀-transformed it to make the nine domains comparable, then fitted a power law of training power against parameter count; higher-order fits gave no meaningful improvement or overfitted. Parameter count explains a little under half the variation. I used the fit to estimate GPT-5's training power draw and wrote a report on the social, environmental and economic effects of rapid AI training. With R² this low, and GPT-5's parameter count not public, that estimate is an order of magnitude rather than a prediction.</p>
+          </div>
+          <div class="fig-stack">
+            <figure class="scaling-fig" id="scaling-fig" hidden>
+              <div class="plate">
+                <!-- js/scaling.js draws it from js/data/scaling.js once it is near -->
+                <div class="sc-axes" role="group" aria-label="Axes">
+                  <button type="button" data-log="0" aria-pressed="false">Linear</button><button type="button" data-log="1" aria-pressed="true">Log₁₀</button>
+                </div>
+                <svg class="scaling" id="scaling" role="img" aria-label="Training power draw against parameter count for 603 AI models: a power law, P proportional to N to the 0.55, with R squared 0.44"></svg>
+              </div>
+              <figcaption><b>Fig. 06</b> — Training power draw against parameter count, for the 603 models in the dataset with both (Epoch AI). On linear axes they crowd one corner; on log₁₀ axes the fit is P ∝ N<sup>0.55</sup>, R² 0.44. Orange: the GPT-5 estimate, ≈590 kW at an assumed 330 billion parameters.</figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     </article>
