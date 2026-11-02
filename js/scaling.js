@@ -1,4 +1,4 @@
-// E-01's scatter, Fig. 06 (DESIGN_PLAN.md 3.8): training power draw against parameter count for
+// E-01's scatter, Fig. 07 (DESIGN_PLAN.md 3.8): training power draw against parameter count for
 // the 603 models in Dom's coursework dataset that have both (js/data/scaling.js). It opens on
 // linear axes, where nearly every model crowds one corner; in view, the points sweep out onto
 // log10 axes and the least-squares power law draws through them, as in the coursework. A switch

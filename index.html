@@ -368,6 +368,34 @@
           <div><span class="label">Measured gain</span><span class="n">−16%<small>time</small></span></div>
         </div>
 
+        <!-- Fig. 04: the climb, on a corrected version of the Excel model (js/climber.js) -->
+        <figure class="climb-fig" id="climb-fig" hidden>
+          <div class="plate climb">
+            <div class="climb-stage" id="climb-stage" aria-hidden="true">
+              <svg class="climb-world"></svg>
+              <div class="climb-robot"><div class="rb-fill"></div><div class="rb-ink"></div></div>
+              <span class="climb-tag">×10</span>
+            </div>
+            <div class="climb-side">
+              <div class="climb-ctl">
+                <label><span>Gear ratio</span><input type="range" id="cl-g" min="50" max="300" step="5" value="150"><output id="cl-g-o">150</output></label>
+                <label><span>Wheel diameter</span><input type="range" id="cl-d" min="10" max="40" step="1" value="20"><output id="cl-d-o">20 mm</output></label>
+                <label><span>Normal force</span><input type="range" id="cl-n" min="5" max="50" step="1" value="30"><output id="cl-n-o">30 N</output></label>
+                <div class="climb-btns"><button class="btn" type="button" id="cl-run">CLIMB</button><button class="btn" type="button" id="cl-reset">THE SHEET'S SETUP</button></div>
+              </div>
+              <p class="climb-result" id="cl-result" aria-live="polite"></p>
+              <div class="climb-read">
+                <div><span class="label">Time</span><b id="cl-t">0.0 s</b></div>
+                <div><span class="label">Height</span><b id="cl-x">0.00 m</b></div>
+                <div><span class="label">Speed</span><b id="cl-v">0 mm/s</b></div>
+                <div><span class="label">Drive / grip</span><b id="cl-f">–</b></div>
+              </div>
+              <svg class="climb-plot" id="cl-plot" role="img" aria-label="Height against time for this setup, against the sheet's setup and the 3 minute limit"></svg>
+            </div>
+          </div>
+          <figcaption><b>Fig. 04</b> — The climb, simulated in the page with the Excel model's equations, corrected: the gear ratio used consistently, a stable 1 ms step, and slipping setups rejected. A demonstration, not the coursework's numbers. Drawing from the team's Fusion model.</figcaption>
+        </figure>
+
         <div class="cols">
           <div class="prose">
             <div>
@@ -385,7 +413,7 @@
           <div class="fig-stack">
             <figure>
               <div class="plate">
-                <svg class="drawing" viewBox="0 0 520 250" role="img" aria-label="Simulation loop: state, motor torque at current speed, drive force, slip check, acceleration, integrate over 10 milliseconds, repeat">
+                <svg class="drawing" id="flowchart" viewBox="0 0 520 250" role="img" aria-label="Simulation loop: state, motor torque at current speed, drive force, slip check, acceleration, integrate over 10 milliseconds, repeat">
                   <defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--ink)"/></marker></defs>
                   <g font-size="11" fill="var(--ink)" text-anchor="middle">
                     <rect x="16" y="24" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
@@ -410,13 +438,13 @@
                     <path d="M86 120 L86 72"/>
                   </g>
                   <g stroke="var(--link)" stroke-width="1.2" fill="none" marker-end="url(#ah)">
-                    <path d="M434 164 L434 196 L300 196"/>
+                    <path class="fc-reject" d="M434 164 L434 196 L300 196"/>
                   </g>
                   <text x="292" y="200" font-size="10" fill="var(--link)" text-anchor="end">SLIPS → SETUP REJECTED</text>
                   <text x="16" y="232" font-size="10" fill="var(--muted)">REPEAT UNTIL TOP OF PIPE OR 3 MIN</text>
                 </svg>
               </div>
-              <figcaption><b>Fig. 04</b> — One step of the Excel model, repeated every 10 ms.</figcaption>
+              <figcaption><b>Fig. 05</b> — One step of the Excel model, repeated every 10 ms.</figcaption>
             </figure>
             <figure>
               <div class="plate">
@@ -436,7 +464,7 @@
                   </g>
                 </svg>
               </div>
-              <figcaption><b>Fig. 05</b> — Cut in climb time for the chosen drivetrain, model vs. real runs.</figcaption>
+              <figcaption><b>Fig. 06</b> — Cut in climb time for the chosen drivetrain, model vs. real runs.</figcaption>
             </figure>
           </div>
         </div>
@@ -481,7 +509,7 @@
                 </div>
                 <svg class="scaling" id="scaling" role="img" aria-label="Training power draw against parameter count for 603 AI models: a power law, P proportional to N to the 0.55, with R squared 0.44"></svg>
               </div>
-              <figcaption><b>Fig. 06</b> — Training power draw against parameter count, for the 603 models in the dataset with both (Epoch AI). On linear axes they crowd one corner; on log₁₀ axes the fit is P ∝ N<sup>0.55</sup>, R² 0.44. Orange: the GPT-5 estimate, ≈590 kW at an assumed 330 billion parameters.</figcaption>
+              <figcaption><b>Fig. 07</b> — Training power draw against parameter count, for the 603 models in the dataset with both (Epoch AI). On linear axes they crowd one corner; on log₁₀ axes the fit is P ∝ N<sup>0.55</sup>, R² 0.44. Orange: the GPT-5 estimate, ≈590 kW at an assumed 330 billion parameters.</figcaption>
             </figure>
           </div>
         </div>

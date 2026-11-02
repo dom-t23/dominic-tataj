@@ -508,7 +508,58 @@ figcaption b { color: var(--ink); font-weight: 500; }
 /* about */
 .about { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 48px 64px; margin-top: 48px; align-items: start; }
 .about .prose p { color: var(--ink); }
-/* E-01's scatter (Fig. 06, js/scaling.js): linear axes un-skew into log axes, then the fit draws */
+/* E-02's climb (Fig. 04, js/climber.js): the robot climbs while the pipe scrolls past it */
+.climb { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 1px; background: var(--rule); }
+@media (max-width: 760px) { .climb { grid-template-columns: minmax(0, 1fr); } }
+.climb-stage {
+  position: relative; height: 440px; overflow: hidden; background-color: var(--paper);
+  background-image: repeating-linear-gradient(0deg, var(--grid) 0 1px, transparent 1px 32px), repeating-linear-gradient(90deg, var(--grid) 0 1px, transparent 1px 32px);
+}
+@media (max-width: 760px) { .climb-stage { height: 360px; } }
+.climb-world { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+.climb-world text { font: 400 10px/1 var(--font-data); letter-spacing: 0.06em; fill: var(--muted); }
+.climb-world .pipe { fill: var(--panel); stroke: var(--ink-2); stroke-width: 1; }
+.climb-world .tick { stroke: var(--ink-2); stroke-width: 1; }
+.climb-world .ground { stroke: var(--ink); stroke-width: 1.5; }
+.climb-world .hatch { stroke: var(--muted); stroke-width: 1; }
+.climb-world .chain { stroke: var(--ink-2); stroke-width: 3; stroke-dasharray: 5 2; fill: none; }
+.climb-world .top { stroke: var(--signal); stroke-width: 1.5; stroke-dasharray: 6 4; }
+.climb-world .top-t { fill: var(--signal); }
+.climb-world .gauge { stroke: var(--rule); stroke-width: 6; }
+.climb-world .gauge-on { stroke: var(--signal); stroke-width: 6; }
+/* the robot: the side elevation's silhouette in paper and its lines in ink, from two masks */
+.climb-robot { position: absolute; left: 50%; width: 156px; height: 240px; margin-left: -78px; will-change: transform; }
+.climb-robot > div { position: absolute; inset: 0; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+.rb-fill { background: var(--paper); -webkit-mask-image: url(../images/robot-side-fill.png); mask-image: url(../images/robot-side-fill.png); }
+.rb-ink { background: var(--ink); -webkit-mask-image: url(../images/robot-side-ink.png); mask-image: url(../images/robot-side-ink.png); }
+.climb.slip .rb-ink { background: var(--bad); }
+.climb-tag { position: absolute; left: 10px; top: 10px; background: var(--paper); border: 1px solid var(--rule); padding: 2px 6px; font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--muted); }
+.climb-side { background: var(--paper); padding: 14px 16px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.climb-ctl { display: grid; gap: 8px; }
+.climb-ctl label { display: grid; grid-template-columns: 9.5em minmax(0, 1fr) 4.5em; align-items: center; gap: 10px; font: 400 11px/1.3 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.climb-ctl input[type=range] { width: 100%; min-width: 0; accent-color: var(--signal); }
+.climb-ctl output { font: 500 13px/1 var(--font-data); color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
+.climb-btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.climb-btns .btn { padding: 8px 12px; font-size: 11px; cursor: pointer; }
+.climb-result { min-height: 1.5em; font: 500 12px/1.5 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ok); }
+.climb-result.bad { color: var(--bad); }
+.climb-read { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+@media (max-width: 440px) { .climb-read { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.climb-read > div { background: var(--paper); padding: 8px 10px; display: grid; gap: 3px; }
+.climb-read b { font: 500 14px/1.2 var(--font-data); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.climb-plot { display: block; width: 100%; height: auto; overflow: visible; }
+.climb-plot text { font: 400 10px/1 var(--font-data); letter-spacing: 0.06em; fill: var(--muted); }
+.climb-plot .grid { stroke: var(--rule); stroke-width: 1; }
+.climb-plot .axis { stroke: var(--ink-2); stroke-width: 1; fill: none; }
+.climb-plot .sheet { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 4 3; fill: none; }
+.climb-plot .run { stroke: var(--signal); stroke-width: 2; fill: none; stroke-linejoin: round; }
+.climb-plot .limit { stroke: var(--bad); stroke-width: 1; stroke-dasharray: 2 3; }
+.climb-plot .now { fill: var(--signal); }
+/* the flowchart beside it (Fig. 05) follows a run: a dot goes round its loop, a slip lights the reject branch */
+#flowchart .fc-dot { fill: var(--signal); }
+#flowchart.reject .fc-reject { stroke: var(--bad); stroke-width: 2.5; }
+
+/* E-01's scatter (Fig. 07, js/scaling.js): linear axes un-skew into log axes, then the fit draws */
 .scaling-fig .plate { padding: 10px 12px 6px; }
 .sc-axes { display: flex; gap: 1px; width: max-content; margin: 0 0 6px auto; background: var(--rule); border: 1px solid var(--rule); }
 .sc-axes button { font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; background: var(--paper); color: var(--muted); border: 0; padding: 6px 10px; cursor: pointer; }

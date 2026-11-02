@@ -1,4 +1,4 @@
-// E-01's scatter, Fig. 06 (js/scaling.js, data in js/data/scaling.js).
+// E-01's scatter, Fig. 07 (js/scaling.js, data in js/data/scaling.js).
 const { test, expect } = require("@playwright/test");
 const { phone, trackErrors } = require("./helpers");
 

@@ -145,16 +145,21 @@ checkpoint with Dom, merge to `main`.
    set's row and bar pick each other out; the pooled row pulses once in view.
 
 ### E-02 Pipe-climbing robot — "the model, running"
-3.6 [ ] **Live mini-simulation of the Excel model** in JS: pick gear ratio / wheel
-   radius / normal force with three steppers; a side-view robot climbs a 2 m pipe with
-   the chain load growing, against the 3-minute clock. Slip → wheels spin with a red
-   "SLIP" annotation and the setup is rejected, exactly like the Fig. 04 flowchart.
-   The chosen drivetrain is preset; shows the 22% predicted improvement vs baseline.
-3.7 [ ] **Flowchart (Fig. 04) animates** its loop arrow once per 10 ms "step" while the
-   mini-sim runs (ties the diagram to the sim).
+3.6 [x] **Live mini-simulation of the Excel model** (done in phase E, Fig. 04): sliders for
+   gear ratio, wheel diameter and normal force; the side elevation of the team's Fusion
+   model (Dom's STL, rendered to two PNG masks by `tools/robot/`) climbs a pipe marked in
+   metres at ten times real time, with the chain growing, beside a height/time plot against
+   the sheet's setup and the 3-minute limit. The page runs the sheet's equations and
+   parameters, corrected (Dom: "page model is just for demo"): the gear ratio used
+   consistently (the sheet's speed column uses 100 against 150 for torque), a 1 ms step
+   (the drive's time constant is about 3 ms, so the sheet's 10 ms explicit Euler is
+   unstable) and the slip check enforced. The sheet's setup climbs in 58.5 s. A slipping
+   setup is rejected in red. No 22% baseline: Dom said to use what is on the sheet.
+3.7 [x] **Flowchart (Fig. 05) animates** (done in phase E): a dot goes round the model's
+   loop while a run plays, and the reject branch lights when the setup slips.
 
 ### E-01 AI-cost analysis — "the fit, not just the number"
-3.8 [x] **Log-scale scatter that un-skews** (done, Fig. 06): the 603 models in Dom's
+3.8 [x] **Log-scale scatter that un-skews** (done, Fig. 07): the 603 models in Dom's
    ENGF0003 dataset (Epoch AI) with both parameters and training power draw, from
    `tools/scaling_data.py`. Linear axes until in view, then a sweep to log10 axes and the
    least-squares fit, recomputed in the page (P ∝ N^0.55, R² 0.44), with the GPT-5 estimate
@@ -190,7 +195,7 @@ checkpoint with Dom, merge to `main`.
 | B | 1.1, 1.3, 1.4, 2.2, 2.4 | Hero signature + cheap global polish: biggest first impression. |
 | C | 1.2 | Physics toy: the memorable interactive moment. |
 | D | 3.1, 3.2 | 3D frame story. Done; a STRESS view waits on the Ansys image. |
-| E | 3.6, 3.7 | Robot mini-sim. |
+| E | 3.6, 3.7 | Robot mini-sim. Done, on the corrected model, with Dom's CAD as the drawing. |
 | F | 3.3–3.5 | Replay pipeline strip. Done, with an exporter here and the clutter world. |
 | G | 2.1, 2.3, 2.5–2.8, 3.8, 4.1–4.3 | Done except 4.2 (Dom's photos). |
 
@@ -201,9 +206,9 @@ checkpoint with Dom, merge to `main`.
 - [ ] Part masses (motor, prop, battery, stack, camera...) for the parts list and balloons.
 - [ ] Ansys stress/deflection result as an image (top view) or per-vertex export.
 - [ ] Optional: images of generative iterations from Fusion.
-- [ ] Optional: robot CAD export (for a later 3D/2.5D side view) and the Excel model's
-  key parameters (motor torque curve, gear ratios tried, μ, masses) for the mini-sim.
-- [x] AI-cost coursework and datasets (received 2 Nov 2026; Fig. 06).
+- [x] Robot CAD export (STL, 2 Nov 2026; converted to `models/pipe-climber.glb`) and the
+  Excel model (its parameters drive Fig. 04).
+- [x] AI-cost coursework and datasets (received 2 Nov 2026; Fig. 07).
 - [ ] Optional: 3–6 photographs for the contact-sheet strip.
 
 ## 8. Open design questions (ask before the relevant phase)

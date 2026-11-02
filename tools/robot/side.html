@@ -1,0 +1,58 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}canvas{display:block}</style>
+<script type="importmap">{ "imports": { "three": "../../js/vendor/three/three.module.min.js", "three/addons/": "../../js/vendor/three/addons/" } }</script></head>
+<body><script type="module">
+// The pipe climber's side elevation, step 3 of 3 (see README; driven by side.cjs): an ink drawing
+// (edges from normals, part changes and steps in depth) and a silhouette, both PNG with alpha, at 5 px/mm.
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+const PXMM = +(new URLSearchParams(location.search).get('pxmm') || 5);
+new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load('../../models/pipe-climber.glb', (g) => {
+  const scene = new THREE.Scene(); scene.add(g.scene); g.scene.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(g.scene), c = box.getCenter(new THREE.Vector3()), s = box.getSize(new THREE.Vector3());
+  // look along -x (camera on +x); screen right = -z (STL +y), up = +y (STL +z)
+  const W = Math.round(s.z * 1000 * PXMM), H = Math.round(s.y * 1000 * PXMM);
+  const cam = new THREE.OrthographicCamera(-s.z / 2, s.z / 2, s.y / 2, -s.y / 2, 0.001, 2);
+  cam.position.set(c.x + 1, c.y, c.z); cam.lookAt(c); cam.updateProjectionMatrix();
+  const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+  r.setPixelRatio(1); r.setSize(W, H); r.setClearColor(0, 0); document.body.appendChild(r.domElement);
+  const meshes = []; g.scene.traverse((o) => { if (o.isMesh) meshes.push(o); });
+  const gmats = meshes.map((m, i) => new THREE.ShaderMaterial({
+    side: THREE.DoubleSide,
+    vertexShader: 'varying vec3 vN; void main(){ vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
+    fragmentShader: 'uniform float uId; varying vec3 vN; void main(){ vec3 n = normalize(vN); if (!gl_FrontFacing) n = -n; gl_FragColor = vec4(n.xy*0.5+0.5, uId, 1.0); }',
+    uniforms: { uId: { value: (i % 250 + 1) / 255 } } }));
+  const rt = new THREE.WebGLRenderTarget(W, H, { samples: 4, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter, depthTexture: new THREE.DepthTexture(W, H) });
+  meshes.forEach((m, i) => { m.material = gmats[i]; });
+  r.setRenderTarget(rt); r.render(scene, cam); r.setRenderTarget(null);
+  const span = (cam.far - cam.near) * 1000;   // mm across the depth range (orthographic depth is linear)
+  const ink = new THREE.ShaderMaterial({ transparent: true, depthTest: false,
+    vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy,0.0,1.0); }',
+    fragmentShader: `uniform sampler2D tG, tD; uniform vec2 uPx; uniform float uSpan; varying vec2 vUv;
+      vec3 nrm(vec4 g){ vec2 v = g.xy*2.0-1.0; return vec3(v, sqrt(max(0.0,1.0-dot(v,v)))); }
+      void main(){
+        vec2 ox = vec2(uPx.x,0.0), oy = vec2(0.0,uPx.y);
+        vec4 c = texture2D(tG,vUv), r = texture2D(tG,vUv+ox), u = texture2D(tG,vUv+oy), l = texture2D(tG,vUv-ox), b = texture2D(tG,vUv-oy);
+        float dc = texture2D(tD,vUv).x, dr = texture2D(tD,vUv+ox).x, du = texture2D(tD,vUv+oy).x, dl = texture2D(tD,vUv-ox).x, db = texture2D(tD,vUv-oy).x;
+        float e = smoothstep(0.6, 1.6, abs(dr+dl+du+db-4.0*dc) * uSpan);              // steps in depth over ~1 mm
+        float sr = step(0.5, c.a*r.a), su = step(0.5, c.a*u.a);
+        vec3 n = nrm(c);
+        float cr = max(sr*(1.0-dot(n,nrm(r))), su*(1.0-dot(n,nrm(u))));
+        float id = max(sr*abs(c.b-r.b), su*abs(c.b-u.b));
+        e = max(e, max(smoothstep(0.12,0.3,cr), step(0.002,id)) * 0.85);
+        e *= max(max(c.a, max(r.a,u.a)), max(l.a,b.a));
+        gl_FragColor = vec4(0.0,0.0,0.0,e);
+      }`,
+    uniforms: { tG: { value: rt.texture }, tD: { value: rt.depthTexture }, uPx: { value: new THREE.Vector2(2 / W, 2 / H) }, uSpan: { value: span } } });
+  const q = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), ink); q.frustumCulled = false;
+  const qs = new THREE.Scene(); qs.add(q);
+  r.render(qs, new THREE.Camera());
+  window.__ink = r.domElement.toDataURL('image/png');
+  // silhouette
+  meshes.forEach((m) => { m.material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide }); });
+  r.render(scene, cam);
+  window.__fill = r.domElement.toDataURL('image/png');
+  document.title = 'ok ' + W + 'x' + H + ' mm ' + (s.z * 1000).toFixed(1) + ' x ' + (s.y * 1000).toFixed(1) + ' pipe-centre-from-left-mm ' + ((s.z / 2 + c.z) * 1000).toFixed(1) + ' bottom-mm ' + (box.min.y * 1000).toFixed(1);
+}, undefined, (e) => { document.title = 'error ' + e; });
+</script></body></html>
