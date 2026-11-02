@@ -16,8 +16,8 @@ No build step: GitHub Pages serves these files as they are.
   - after the load event: `bench.js` (Fig. 03's chart), `climber.js` (Fig. 04, the pipe
     climber on a corrected version of the team's Excel model), `scaling.js` (Fig. 07, with
     its points in `data/scaling.js`) and small quirks, `acro.js` (type
-    fpv), `hello.js` (the console note), `cursor.js` (the drafting cursor) and `clouds.js`
-    (revision clouds on project titles); the theme wipe is in `theme.js` and the approval box
+    fpv), `hello.js` (the console note), `cursor.js` (the drafting cursor), `clouds.js`
+    (revision clouds on project titles) and `contact-sheet.js` (paging About's photo strip); the theme wipe is in `theme.js` and the approval box
     in `contact.js`
   - `rig-button.js`, which loads `hover-rig.js` (the hover test rig) and `quad.js` (its drone
     model and controller, no DOM) on first use
@@ -34,7 +34,8 @@ No build step: GitHub Pages serves these files as they are.
   isometric from `images/robot-iso-ink.png` and `-fill.png`, used as two CSS masks
 - `flights/` — recorded flights for the drone-racing replay: `index.js` lists them and holds
   the still shown before LOAD, and each flight's frames (0.5-1.6 MB) load only when it is picked
-- `images/` — project images
+- `images/` — project images; `images/photos/` holds the About contact sheet's eight
+  photographs, 600 px tall, without metadata
 - `og-image.png`, `favicon.svg`, `apple-touch-icon.png` — link preview and icons
 - `DESIGN_PLAN.md`, `IMPROVEMENTS.md` — work plans
 - `tests/`, `playwright.config.js`, `package.json` — browser tests (not part of the site)
@@ -46,7 +47,7 @@ To view it locally, serve the folder (ES modules don't load from `file://`):
 Tests (Playwright, Chromium):
 
     npm install && npx playwright install chromium   # first time only
-    npm test            # structure, hero, rig, 3D frame, replay and its strip, benchmark, climb, scatter, quirks, contact, motion, performance
+    npm test            # structure, hero, rig, 3D frame, replay and its strip, benchmark, climb, scatter, photos, quirks, contact, motion, performance
     npm run screens     # review screenshots in test-results/screens/
 
 To re-record the replay, fly the courses from a checkout of the drone-racing repo (it needs

@@ -171,8 +171,9 @@ checkpoint with Dom, merge to `main`.
 4.1 [x] **About as a parts list / BOM** (done in phase G): grouped rows with item
    numbers; each skill has a qty (projects that used it) and links to them, which show
    the project's title on hover. No leader lines: the register is a page away.
-4.2 [ ] **Photography strip** (optional, if Dom supplies 3–6 photos): a horizontal
-   "contact sheet" with film-frame numbers, lazy-loaded, captions in drawing style.
+4.2 [x] **Photography strip** (done, 2 Nov 2026): Dom's eight photographs (Sicily and
+   Malaysia) under About as a strip of film that scrolls sideways, with sprocket holes,
+   frame numbers and place names in the edge print; lazy-loaded; buttons page it for a mouse.
 4.3 [x] **Contact as the drawing's approval box** (done in phase G): drawn by, status,
    approved by and date; COPY EMAIL signs it with a pen stroke (a generic scribble: the
    visitor approves), sets Approved and today's date, then the burst.
@@ -197,7 +198,7 @@ checkpoint with Dom, merge to `main`.
 | D | 3.1, 3.2 | 3D frame story. Done; a STRESS view waits on the Ansys image. |
 | E | 3.6, 3.7 | Robot mini-sim. Done, on the corrected model, with Dom's CAD as the drawing. |
 | F | 3.3–3.5 | Replay pipeline strip. Done, with an exporter here and the clutter world. |
-| G | 2.1, 2.3, 2.5–2.8, 3.8, 4.1–4.3 | Done except 4.2 (Dom's photos). |
+| G | 2.1, 2.3, 2.5–2.8, 3.8, 4.1–4.3 | Done; 4.2 once Dom's photos came. |
 
 ## 7. Needed from Dom
 
@@ -209,7 +210,7 @@ checkpoint with Dom, merge to `main`.
 - [x] Robot CAD export (STL, 2 Nov 2026; converted to `models/pipe-climber.glb`) and the
   Excel model (its parameters drive Fig. 04).
 - [x] AI-cost coursework and datasets (received 2 Nov 2026; Fig. 07).
-- [ ] Optional: 3–6 photographs for the contact-sheet strip.
+- [x] Photographs for the contact-sheet strip (eight, received 2 Nov 2026).
 
 ## 8. Open design questions (ask before the relevant phase)
 

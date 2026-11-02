@@ -2,6 +2,7 @@
    project, each opened by a title block, with figures captioned like plates. */
 :root {
   --paper: #FFFFFF;
+  --film: #161616;   /* the contact sheet's film base */
   --panel: #F6F6F6;
   --grid: #F1F1F1;
   --rule: #D9D9D9;
@@ -24,7 +25,7 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #111214; --panel: #18191C; --grid: #1B1C1F; --rule: #2E2F33;
+    --paper: #111214; --panel: #18191C; --grid: #1B1C1F; --rule: #2E2F33; --film: #2A2B2F;
     --ink: #ECECEC; --ink-2: #B4B4B4; --muted: #8C8C8C;
     --signal: #FF5A14; --link: #FF8048; --screen: #0A0B0C;
     --ok: #4CB97A; --bad: #F0705F;
@@ -32,7 +33,7 @@
   }
 }
 :root[data-theme="dark"] {
-  --paper: #111214; --panel: #18191C; --grid: #1B1C1F; --rule: #2E2F33;
+  --paper: #111214; --panel: #18191C; --grid: #1B1C1F; --rule: #2E2F33; --film: #2A2B2F;
   --ink: #ECECEC; --ink-2: #B4B4B4; --muted: #8C8C8C;
   --signal: #FF5A14; --link: #FF8048; --screen: #0A0B0C;
   --ok: #4CB97A; --bad: #F0705F;
@@ -665,3 +666,28 @@ main.tilt { animation: gust 1.8s linear; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
+
+/* About: photographs as a contact sheet (4.2). Film base and edge print stay dark in both themes;
+   the sprocket holes are punched through to the page. */
+.contact-sheet { margin: 64px 0 0; }
+.film { position: relative; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--muted) transparent; }
+.film:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+.film ol {
+  list-style: none; margin: 0; display: flex; gap: 14px; width: max-content; padding: 36px 18px;
+  background-color: var(--film);
+  background-image: linear-gradient(90deg, var(--paper) 0 9px, transparent 9px), linear-gradient(90deg, var(--paper) 0 9px, transparent 9px);
+  background-size: 22px 10px, 22px 10px; background-repeat: repeat-x; background-position: 6px 7px, 6px calc(100% - 7px);
+}
+.film li { position: relative; flex: none; }
+.film img { display: block; height: 230px; width: auto; max-width: none; transition: transform 0.25s ease; }
+.film li:hover img { transform: translateY(-3px); }
+.film .fr, .film .cap { position: absolute; left: 0; font: 400 10px/1 var(--font-data); letter-spacing: 0.1em; white-space: nowrap; }
+.film .fr { top: -15px; color: #E39B3A; }
+.film .cap { bottom: -15px; color: #B9B9B9; }
+.contact-sheet figcaption { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.cs-nav { display: flex; gap: 6px; flex: none; }
+.cs-nav button { font: 400 13px/1 var(--font-data); width: 34px; height: 28px; padding: 0; color: var(--ink); background: var(--paper); border: 1px solid var(--rule); cursor: pointer; }
+.cs-nav button:hover:not(:disabled) { border-color: var(--ink); }
+.cs-nav button:disabled { color: var(--rule); cursor: default; }
+@media (max-width: 760px) { .film img { height: 170px; } }
+@media (prefers-reduced-motion: reduce) { .film img { transition: none; } }
