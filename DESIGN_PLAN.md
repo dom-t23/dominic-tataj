@@ -154,10 +154,12 @@ checkpoint with Dom, merge to `main`.
    mini-sim runs (ties the diagram to the sim).
 
 ### E-01 AI-cost analysis — "the fit, not just the number"
-3.8 [ ] **Log-scale scatter that un-skews:** points start on linear axes (clumped,
-   skewed), then animate to log₁₀ axes and the power-law line draws through them, R²
-   label appears. Uses a small anonymised sample of the dataset (Dom to supply CSV) or
-   a faithful synthetic sample clearly labelled "illustrative".
+3.8 [x] **Log-scale scatter that un-skews** (done, Fig. 06): the 603 models in Dom's
+   ENGF0003 dataset (Epoch AI) with both parameters and training power draw, from
+   `tools/scaling_data.py`. Linear axes until in view, then a sweep to log10 axes and the
+   least-squares fit, recomputed in the page (P ∝ N^0.55, R² 0.44), with the GPT-5 estimate
+   (≈590 kW at the ~330 B parameters Dom assumed). A switch flips the axes; pointing at a
+   point names the model.
 
 ## 4. About & contact
 
@@ -190,7 +192,7 @@ checkpoint with Dom, merge to `main`.
 | D | 3.1, 3.2 | 3D frame story. Done; a STRESS view waits on the Ansys image. |
 | E | 3.6, 3.7 | Robot mini-sim. |
 | F | 3.3–3.5 | Replay pipeline strip. Done, with an exporter here and the clutter world. |
-| G | 2.1, 2.3, 2.5–2.8, 3.8, 4.1–4.3 | Done except 3.8 (Dom's MATLAB coursework and data) and 4.2 (Dom's photos). |
+| G | 2.1, 2.3, 2.5–2.8, 3.8, 4.1–4.3 | Done except 4.2 (Dom's photos). |
 
 ## 7. Needed from Dom
 
@@ -201,7 +203,7 @@ checkpoint with Dom, merge to `main`.
 - [ ] Optional: images of generative iterations from Fusion.
 - [ ] Optional: robot CAD export (for a later 3D/2.5D side view) and the Excel model's
   key parameters (motor torque curve, gear ratios tried, μ, masses) for the mini-sim.
-- [ ] Optional: AI-cost CSV (or permission to use an illustrative sample).
+- [x] AI-cost coursework and datasets (received 2 Nov 2026; Fig. 06).
 - [ ] Optional: 3–6 photographs for the contact-sheet strip.
 
 ## 8. Open design questions (ask before the relevant phase)
