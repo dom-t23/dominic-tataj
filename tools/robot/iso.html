@@ -2,19 +2,36 @@
 <html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}canvas{display:block}</style>
 <script type="importmap">{ "imports": { "three": "../../js/vendor/three/three.module.min.js", "three/addons/": "../../js/vendor/three/addons/" } }</script></head>
 <body><script type="module">
-// The pipe climber's side elevation, step 3 of 3 (see README; driven by side.cjs): an ink drawing
-// (edges from normals, part changes and steps in depth) and a silhouette, both PNG with alpha, at 5 px/mm.
+// The pipe climber in isometric, step 3 of 3 (see README; driven by iso.cjs): an ink drawing
+// (edges from normals, part changes and steps in depth) and a silhouette, both PNG with alpha,
+// at 5 px per mm of the picture plane. ?az= turns the view about the pipe (degrees, default 45).
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
-const PXMM = +(new URLSearchParams(location.search).get('pxmm') || 5);
+const Q = new URLSearchParams(location.search), PXMM = +(Q.get('pxmm') || 5), AZ = +(Q.get('az') || 45) * Math.PI / 180;
+const EL = Math.atan(1 / Math.SQRT2);   // 35.26 deg: the three axes equally foreshortened
 new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load('../../models/pipe-climber.glb', (g) => {
   const scene = new THREE.Scene(); scene.add(g.scene); g.scene.updateMatrixWorld(true);
   const box = new THREE.Box3().setFromObject(g.scene), c = box.getCenter(new THREE.Vector3()), s = box.getSize(new THREE.Vector3());
-  // look along -x (camera on +x); screen right = -z (STL +y), up = +y (STL +z)
-  const W = Math.round(s.z * 1000 * PXMM), H = Math.round(s.y * 1000 * PXMM);
-  const cam = new THREE.OrthographicCamera(-s.z / 2, s.z / 2, s.y / 2, -s.y / 2, 0.001, 2);
-  cam.position.set(c.x + 1, c.y, c.z); cam.lookAt(c); cam.updateProjectionMatrix();
+  // isometric: orthographic, looking down 35.26 deg; the pipe axis (the model's y axis through
+  // the origin) stays vertical on screen, and vertical lengths show at sqrt(2/3)
+  const dir = new THREE.Vector3(Math.sin(AZ) * Math.cos(EL), Math.sin(EL), Math.cos(AZ) * Math.cos(EL));
+  const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.001, 2);
+  cam.position.copy(c).addScaledVector(dir, 1); cam.lookAt(c); cam.updateMatrixWorld(true);
+  // frame the drawing on every vertex, in the camera's plane
+  const lo = new THREE.Vector2(1e9, 1e9), hi = new THREE.Vector2(-1e9, -1e9), v = new THREE.Vector3();
+  g.scene.traverse((o) => {
+    if (!o.isMesh) return;
+    const pos = o.geometry.attributes.position;
+    for (let i = 0; i < pos.count; i++) {
+      v.fromBufferAttribute(pos, i).applyMatrix4(o.matrixWorld).applyMatrix4(cam.matrixWorldInverse);
+      lo.min(v); hi.max(v);
+    }
+  });
+  cam.left = lo.x; cam.right = hi.x; cam.bottom = lo.y; cam.top = hi.y; cam.updateProjectionMatrix();
+  const W = Math.round((hi.x - lo.x) * 1000 * PXMM), H = Math.round((hi.y - lo.y) * 1000 * PXMM);
+  // where the pipe axis leaves the robot's underside, in mm from the picture's top left
+  const foot = new THREE.Vector3(0, box.min.y, 0).applyMatrix4(cam.matrixWorldInverse);
   const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   r.setPixelRatio(1); r.setSize(W, H); r.setClearColor(0, 0); document.body.appendChild(r.domElement);
   const meshes = []; g.scene.traverse((o) => { if (o.isMesh) meshes.push(o); });
@@ -53,6 +70,8 @@ new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load('../../models/pipe-climb
   meshes.forEach((m) => { m.material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide }); });
   r.render(scene, cam);
   window.__fill = r.domElement.toDataURL('image/png');
-  document.title = 'ok ' + W + 'x' + H + ' mm ' + (s.z * 1000).toFixed(1) + ' x ' + (s.y * 1000).toFixed(1) + ' pipe-centre-from-left-mm ' + ((s.z / 2 + c.z) * 1000).toFixed(1) + ' bottom-mm ' + (box.min.y * 1000).toFixed(1);
+  window.__meta = { px: [W, H], mm: [+((hi.x - lo.x) * 1000).toFixed(1), +((hi.y - lo.y) * 1000).toFixed(1)],
+    foot: [+((foot.x - lo.x) * 1000).toFixed(1), +((hi.y - foot.y) * 1000).toFixed(1)] };
+  document.title = 'ok ' + JSON.stringify(window.__meta);
 }, undefined, (e) => { document.title = 'error ' + e; });
 </script></body></html>

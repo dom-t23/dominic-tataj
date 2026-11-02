@@ -30,8 +30,8 @@ No build step: GitHub Pages serves these files as they are.
 - `models/frame.glb` — the drone for Fig. 01: the Fusion assembly exported as OBJ, converted
   to glTF (metres, Y up), simplified and meshopt-compressed (47 parts, 187 KB)
 - `models/pipe-climber.glb` — the pipe climber, from the team's Fusion STL (168 parts,
-  simplified within 1 mm, 575 KB). The page doesn't load it: Fig. 04 uses its side
-  elevation, `images/robot-side-ink.png` and `-fill.png`, as two CSS masks
+  simplified within 1 mm, 575 KB). The page doesn't load it: Fig. 04 draws it in
+  isometric from `images/robot-iso-ink.png` and `-fill.png`, used as two CSS masks
 - `flights/` — recorded flights for the drone-racing replay: `index.js` lists them and holds
   the still shown before LOAD, and each flight's frames (0.5-1.6 MB) load only when it is picked
 - `images/` — project images
@@ -72,6 +72,6 @@ second; this repo's Playwright for the third). Each reproduces the committed fil
 
     python3 tools/robot/stl_to_glb.py Pipe_Climber.stl robot-raw.glb   # parts, metres, Y up, no pipe stub
     node tools/robot/web_glb.mjs robot-raw.glb models/pipe-climber.glb  # simplify, meshopt
-    node tools/robot/side.cjs                                           # writes images/robot-side-*.png
+    node tools/robot/iso.cjs                                            # writes images/robot-iso-*.png
 
 Drone-racing source: https://github.com/dom-t23/vision-drone-racing

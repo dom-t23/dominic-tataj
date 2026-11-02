@@ -146,8 +146,8 @@ checkpoint with Dom, merge to `main`.
 
 ### E-02 Pipe-climbing robot — "the model, running"
 3.6 [x] **Live mini-simulation of the Excel model** (done in phase E, Fig. 04): sliders for
-   gear ratio, wheel diameter and normal force; the side elevation of the team's Fusion
-   model (Dom's STL, rendered to two PNG masks by `tools/robot/`) climbs a pipe marked in
+   gear ratio, wheel diameter and normal force; the team's Fusion model in isometric
+   (Dom's STL, rendered to two PNG masks by `tools/robot/`) climbs a pipe marked in
    metres at ten times real time, with the chain growing, beside a height/time plot against
    the sheet's setup and the 3-minute limit. The page runs the sheet's equations and
    parameters, corrected (Dom: "page model is just for demo"): the gear ratio used

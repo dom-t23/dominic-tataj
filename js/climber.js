@@ -4,14 +4,16 @@
 // the gear ratio used consistently, a 1 ms step (10 ms explicit Euler is unstable here: the drive
 // responds in about 3 ms) and the slip check enforced. A setup that slips at the start is
 // rejected; one that can't lift itself and its chain stalls; three minutes is the limit.
-// The robot is the side elevation of the team's Fusion model (images/robot-side-*.png).
+// The robot is the team's Fusion model in isometric (images/robot-iso-*.png, from tools/robot/).
 import { $, reducedMotion } from "./util.js";
 
 // The Excel sheet's parameters: motor stall torque 10 g cm, no-load speed 10 000 rpm, device 0.6 kg,
 // chain 0.155 kg/m, wheel friction 0.7. The sliders set the rest.
 var P = { ts: 10 * 1e-3 * 9.81 * 1e-2, w0: 10000 * 2 * Math.PI / 60, M: 0.6, m: 0.155, mu: 0.7, g: 9.81 };
 var SHEET = { G: 150, D: 20, N: 30 }, H = 2, LIMIT = 180, DT = 0.001, SPEED = 10;
-var ROBOT_MM = 184.6, ROBOT_W_MM = 120;   // the drawing's height and width
+// The drawing, from tools/robot/iso.cjs: its size in mm of the picture plane, and where the pipe
+// axis leaves the robot's underside. In isometric a vertical mm shows as sqrt(2/3) of a mm.
+var PIC = [202.6, 246.7], FOOT = [137.2, 225.8], ISO = Math.sqrt(2 / 3);
 
 var fig = $("climb-fig"), stage = $("climb-stage"), plot = $("cl-plot"), flow = $("flowchart");
 var NS = "http://www.w3.org/2000/svg";
@@ -58,27 +60,36 @@ function sameAsSheet(s) { return s.G === SHEET.G && s.D === SHEET.D && s.N === S
 
 function layout() {
   W = stage.clientWidth; Hs = stage.clientHeight;
-  var rh = Math.min(Hs * 0.55, 260);
-  pxmm = rh / ROBOT_MM;
-  robot.style.height = rh.toFixed(1) + "px"; robot.style.width = (rh * ROBOT_W_MM / ROBOT_MM).toFixed(1) + "px";
-  robot.style.marginLeft = (-rh * ROBOT_W_MM / ROBOT_MM / 2).toFixed(1) + "px";
+  var rh = Math.min(Hs * 0.58, 300, (W - 150) * PIC[1] / PIC[0]);   // room for the ruler, its labels and the gauge
+  pxmm = rh / PIC[1]; vmm = pxmm * ISO;
+  // the drawing centred on the stage, a little left of the gauge; the pipe runs through its foot
+  var cx = W / 2 - 10 + (FOOT[0] - PIC[0] / 2) * pxmm;
+  robot.style.height = rh.toFixed(1) + "px"; robot.style.width = (rh * PIC[0] / PIC[1]).toFixed(1) + "px";
+  robot.style.left = (cx - FOOT[0] * pxmm).toFixed(1) + "px";
   world.setAttribute("viewBox", "0 0 " + W + " " + Hs);
   world.textContent = "";
-  var g = els.g = el("g", {}, world), cx = W / 2, pipeW = 22 * pxmm, len = ((H + 0.6) * 1000 + ROBOT_MM) * pxmm;
+  var g = els.g = el("g", {}, world), pipeW = 22 * pxmm, len = ((H + 0.6) * 1000 + PIC[1]) * vmm;
+  // the floor: a 300 mm square about the pipe, in isometric, and the pipe's round foot
+  var fx = 150 * Math.SQRT2 * ISO * pxmm, fy = 150 * ISO * pxmm;
+  el("path", { class: "ground", d: "M" + (cx - fx).toFixed(1) + " 0L" + cx.toFixed(1) + " " + (-fy).toFixed(1) + "L" + (cx + fx).toFixed(1) + " 0L" + cx.toFixed(1) + " " + fy.toFixed(1) + "Z" }, g);
+  for (var k = 1; k < 6; k++) {   // floor grid, along both axes
+    var f = k / 6 * 2 - 1;
+    el("line", { class: "hatch", x1: (cx + fx * (f - 1) / 2).toFixed(1), y1: (fy * (f + 1) / 2).toFixed(1), x2: (cx + fx * (f + 1) / 2).toFixed(1), y2: (fy * (f - 1) / 2).toFixed(1) }, g);
+    el("line", { class: "hatch", x1: (cx - fx * (f - 1) / 2).toFixed(1), y1: (fy * (f + 1) / 2).toFixed(1), x2: (cx - fx * (f + 1) / 2).toFixed(1), y2: (fy * (f - 1) / 2).toFixed(1) }, g);
+  }
+  el("ellipse", { class: "pipe", cx: cx.toFixed(1), cy: 0, rx: (pipeW / 2).toFixed(1), ry: (pipeW / 2 * Math.sin(Math.atan(1 / Math.SQRT2))).toFixed(1) }, g);
   el("rect", { class: "pipe", x: (cx - pipeW / 2).toFixed(1), y: (-len).toFixed(1), width: pipeW.toFixed(1), height: len.toFixed(1) }, g);
   // a ruler left of the robot: height climbed, read at the robot's bottom edge
-  var rx = cx - ROBOT_W_MM / 2 * pxmm - 12;
-  el("line", { class: "tick", x1: rx, x2: rx, y1: 0, y2: (-(H + 0.5) * 1000 * pxmm).toFixed(1) }, g);
+  var rx = cx - FOOT[0] * pxmm - 12;
+  el("line", { class: "tick", x1: rx, x2: rx, y1: 0, y2: (-(H + 0.5) * 1000 * vmm).toFixed(1) }, g);
   for (var mm = 0; mm <= (H + 0.5) * 1000; mm += 100) {
-    var y = -mm * pxmm, major = mm % 500 === 0;
+    var y = -mm * vmm, major = mm % 500 === 0;
     el("line", { class: "tick", x1: rx, x2: (rx - (major ? 12 : 6)).toFixed(1), y1: y.toFixed(1), y2: y.toFixed(1) }, g);
-    if (major && mm !== H * 1000) el("text", { x: (rx - 16).toFixed(1), y: (y + 3).toFixed(1), "text-anchor": "end" }, g).textContent = (mm / 1000).toFixed(1) + " M";
+    if (major && mm > 0 && mm !== H * 1000) el("text", { x: (rx - 16).toFixed(1), y: (y + 3).toFixed(1), "text-anchor": "end" }, g).textContent = (mm / 1000).toFixed(1) + " M";
   }
-  var top = -H * 1000 * pxmm;
+  var top = -H * 1000 * vmm;
   el("line", { class: "top", x1: 0, x2: W, y1: top, y2: top }, g);
   el("text", { class: "top-t", x: 8, y: top - 6 }, g).textContent = "2 M CLIMBED";
-  el("line", { class: "ground", x1: 0, x2: W, y1: 0, y2: 0 }, g);
-  for (var hx = 0; hx < W; hx += 10) el("line", { class: "hatch", x1: hx, y1: 0, x2: hx - 8, y2: 8 }, g);
   els.chain = el("line", { class: "chain", x1: cx + pipeW / 2 + 4, x2: cx + pipeW / 2 + 4 }, g);
   // the whole climb at a glance, on the right
   var gx = W - 14, gy0 = Hs - 24, gy1 = 24;
@@ -91,11 +102,12 @@ function layout() {
 function show(s) {
   if (!s) return;
   if (run) run.cur = s;
-  var base = Hs - 34, robotBottom = base - Math.min(s.x * 1000 * pxmm, Hs * 0.3);   // near the ground the robot rises; then the pipe scrolls
-  var rh = ROBOT_MM * pxmm, shift = robotBottom - (-s.x * 1000 * pxmm);
+  // near the ground the robot rises; then the pipe scrolls, with the whole drawing on the stage
+  var base = Hs - 60, robotBottom = Math.max(FOOT[1] * pxmm + 14, base - Math.min(s.x * 1000 * vmm, Hs * 0.3));
+  var shift = robotBottom - (-s.x * 1000 * vmm);
   els.g.setAttribute("transform", "translate(0 " + shift.toFixed(1) + ")");
-  robot.style.transform = "translateY(" + (robotBottom - rh).toFixed(1) + "px)";
-  els.chain.setAttribute("y1", (-s.x * 1000 * pxmm).toFixed(1)); els.chain.setAttribute("y2", "0");
+  robot.style.transform = "translateY(" + (robotBottom - FOOT[1] * pxmm).toFixed(1) + "px)";
+  els.chain.setAttribute("y1", (-s.x * 1000 * vmm).toFixed(1)); els.chain.setAttribute("y2", "0");
   els.gauge.setAttribute("y2", (els.gy[0] + (els.gy[1] - els.gy[0]) * s.x / H).toFixed(1));
   $("cl-t").textContent = s.t.toFixed(1) + " s";
   $("cl-x").textContent = s.x.toFixed(2) + " m";
@@ -171,7 +183,7 @@ function el(tag, attrs, parent) {
 if (fig) {
   var world = stage.querySelector(".climb-world"), robot = stage.querySelector(".climb-robot"), plate = fig.querySelector(".climb");
   var inputs = { G: $("cl-g"), D: $("cl-d"), N: $("cl-n") }, run = null, sheet = simulate(SHEET.G, SHEET.D, SHEET.N);
-  var anim = 0, W = 0, Hs = 0, pxmm = 0, els = {}, rm = reducedMotion(), dot = null, loopLen = 0;
+  var anim = 0, W = 0, Hs = 0, pxmm = 0, vmm = 0, els = {}, rm = reducedMotion(), dot = null, loopLen = 0;
   fig.hidden = false;
 
   var setup = function () { return { G: +inputs.G.value, D: +inputs.D.value, N: +inputs.N.value }; };

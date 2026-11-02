@@ -520,18 +520,18 @@ figcaption b { color: var(--ink); font-weight: 500; }
 .climb-world text { font: 400 10px/1 var(--font-data); letter-spacing: 0.06em; fill: var(--muted); }
 .climb-world .pipe { fill: var(--panel); stroke: var(--ink-2); stroke-width: 1; }
 .climb-world .tick { stroke: var(--ink-2); stroke-width: 1; }
-.climb-world .ground { stroke: var(--ink); stroke-width: 1.5; }
+.climb-world .ground { fill: var(--paper); stroke: var(--ink); stroke-width: 1.5; }
 .climb-world .hatch { stroke: var(--muted); stroke-width: 1; }
 .climb-world .chain { stroke: var(--ink-2); stroke-width: 3; stroke-dasharray: 5 2; fill: none; }
 .climb-world .top { stroke: var(--signal); stroke-width: 1.5; stroke-dasharray: 6 4; }
 .climb-world .top-t { fill: var(--signal); }
 .climb-world .gauge { stroke: var(--rule); stroke-width: 6; }
 .climb-world .gauge-on { stroke: var(--signal); stroke-width: 6; }
-/* the robot: the side elevation's silhouette in paper and its lines in ink, from two masks */
-.climb-robot { position: absolute; left: 50%; width: 156px; height: 240px; margin-left: -78px; will-change: transform; }
+/* the robot: the isometric drawing's silhouette in paper and its lines in ink, from two masks */
+.climb-robot { position: absolute; left: 0; top: 0; will-change: transform; }
 .climb-robot > div { position: absolute; inset: 0; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
-.rb-fill { background: var(--paper); -webkit-mask-image: url(../images/robot-side-fill.png); mask-image: url(../images/robot-side-fill.png); }
-.rb-ink { background: var(--ink); -webkit-mask-image: url(../images/robot-side-ink.png); mask-image: url(../images/robot-side-ink.png); }
+.rb-fill { background: var(--paper); -webkit-mask-image: url(../images/robot-iso-fill.png); mask-image: url(../images/robot-iso-fill.png); }
+.rb-ink { background: var(--ink); -webkit-mask-image: url(../images/robot-iso-ink.png); mask-image: url(../images/robot-iso-ink.png); }
 .climb.slip .rb-ink { background: var(--bad); }
 .climb-tag { position: absolute; left: 10px; top: 10px; background: var(--paper); border: 1px solid var(--rule); padding: 2px 6px; font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--muted); }
 .climb-side { background: var(--paper); padding: 14px 16px; display: grid; gap: 12px; align-content: start; min-width: 0; }
