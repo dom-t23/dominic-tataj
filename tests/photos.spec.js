@@ -23,7 +23,10 @@ test("eight numbered, captioned frames, lazy-loaded, each with a description", a
   expect(errors).toEqual([]);
 });
 
-test("the buttons page the strip and stop at its ends", async ({ page }) => {
+test.describe("paging", () => {
+  // reduced motion: each page is a jump, so the loop below never clicks mid-scroll
+  test.use({ contextOptions: { reducedMotion: "reduce" } });
+  test("the buttons page the strip and stop at its ends", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });   // loads after the load event
   await toView(page);
   await expect(page.locator(".cs-nav")).toBeVisible();
@@ -37,6 +40,7 @@ test("the buttons page the strip and stop at its ends", async ({ page }) => {
   await expect.poll(left).toBeGreaterThan(end - 3);
   await page.click("#cs-prev");
   await expect.poll(left).toBeLessThan(end - 3);
+  });
 });
 
 test.describe("phone", () => {

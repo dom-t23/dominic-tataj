@@ -74,9 +74,9 @@ test("key figures count up to their real values once in view", async ({ page }) 
   await page.addInitScript(() => { delete window.WebGL2RenderingContext; });
   await page.goto("/", { waitUntil: "networkidle" });
   const values = () => page.$$eval("#e-03 .specs .n", (ns) => ns.map((n) => n.textContent));
-  expect(await values()).toEqual(["0", "0.0", ">0Hz", "−0%mass", "0g", "≤0%"]);
+  expect(await values()).toEqual(["0.0", ">0Hz", "−0%mass", "0g"]);
   await page.locator("#e-03 .specs").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
-  await expect.poll(values, { timeout: 4000 }).toEqual(["8", "1.5", ">300Hz", "−36%mass", "38g", "≤18%"]);
+  await expect.poll(values, { timeout: 4000 }).toEqual(["1.5", ">300Hz", "−36%mass", "38g"]);
   // compound values are left alone
   await expect(page.locator("#e-02 .specs .n").nth(1)).toHaveText("400×300mm");
 });

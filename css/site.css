@@ -156,16 +156,15 @@ p { margin: 0; }
 .register ol { list-style: none; margin: 0; padding: 0; }
 .register li + li { border-top: 1px solid var(--rule); }
 .register a {
-  display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; gap: 4px 14px; align-items: baseline;
+  display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 4px 14px; align-items: baseline;
   padding: 16px 14px; color: var(--ink); transition: background 150ms var(--ease);
 }
 .register a:hover { background: var(--panel); text-decoration: none; }
 .register a:hover .r-title { color: var(--link); }
 .register .r-no { font: 500 13px/1.4 var(--font-data); letter-spacing: 0.08em; }
 .register .r-title { font: 600 17px/1.3 var(--font-body); transition: color 150ms var(--ease); }
-.register .r-key { font: 500 13px/1.4 var(--font-data); letter-spacing: 0.04em; text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.register .r-meta { grid-column: 2 / 4; font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
-@media (max-width: 440px) { .register a { grid-template-columns: 44px minmax(0, 1fr); } .register .r-key { grid-column: 2; text-align: left; } .register .r-meta { grid-column: 2; } }
+.register .r-meta { grid-column: 2; font: 400 11px/1.4 var(--font-data); letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+@media (max-width: 440px) { .register a { grid-template-columns: 44px minmax(0, 1fr); } }
 
 /* flight-test strip (Fig. 00): plan and elevation views drawn by js/hero-flight.js */
 .flight { grid-column: 1 / -1; }

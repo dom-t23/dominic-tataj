@@ -60,8 +60,7 @@
         <div><div class="label">Right to work</div><div class="v">UK, no sponsorship</div></div>
         <div><div class="label">Based in</div><div class="v">London</div></div>
       </div>
-      <p class="lede">Second-year MEng student at UCL, graduating in 2029. I work across CAD, generative design and FEA, dynamic modelling, and Python for computer vision and data analysis.</p>
-      <p class="lede">Aiming for mechanical engineering roles, and open to software and autonomy work.</p>
+      <p class="lede">I work across CAD, generative design and FEA, dynamic modelling, and Python for computer vision. Aiming for mechanical engineering roles, open to software and autonomy.</p>
       <div class="actions">
         <a class="btn primary" href="#work">VIEW PROJECTS</a>
         <a class="btn" href="#contact">CONTACT</a>
@@ -72,20 +71,20 @@
       <header><span class="label">Projects</span></header>
       <ol>
         <li><a href="#e-03">
-          <span class="r-no">E-03</span><span class="r-title">Generative FPV drone frame</span><span class="r-key">36% lighter</span>
-          <span class="r-meta">Fusion · Ansys · 2026-07 → 2026-09</span>
+          <span class="r-no">E-03</span><span class="r-title">Generative FPV drone frame</span>
+          <span class="r-meta">Fusion · Ansys</span>
         </a></li>
         <li><a href="#e-04">
-          <span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span><span class="r-key">99.8% gates</span>
-          <span class="r-meta">Python · OpenCV · 2026-08 → 2026-10</span>
+          <span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span>
+          <span class="r-meta">Python · OpenCV</span>
         </a></li>
         <li><a href="#e-02">
-          <span class="r-no">E-02</span><span class="r-title">Pipe-climbing robot, IMechE Design Challenge</span><span class="r-key">−16% climb time</span>
-          <span class="r-meta">Excel model · Fusion CAD · 2026-02 → 2026-04</span>
+          <span class="r-no">E-02</span><span class="r-title">Pipe-climbing robot, IMechE Design Challenge</span>
+          <span class="r-meta">Excel · Fusion</span>
         </a></li>
         <li><a href="#e-01">
-          <span class="r-no">E-01</span><span class="r-title">AI training-cost analysis</span><span class="r-key">P ∝ N<sup>0.55</sup></span>
-          <span class="r-meta">MATLAB · 2025-10</span>
+          <span class="r-no">E-01</span><span class="r-title">AI training-cost analysis</span>
+          <span class="r-meta">MATLAB</span>
         </a></li>
       </ol>
     </div>
@@ -101,7 +100,7 @@
         <span class="stab" id="stab"></span>
         <span class="rig-buttons"><button class="btn" id="gust" type="button">GUST →</button><button class="btn" id="rig-reset" type="button">RESET</button><button class="btn" id="rig-close" type="button">BACK TO PLAN</button></span>
       </div>
-      <figcaption><span><b>Fig. 00</b> — <span id="cap-flight">Flight test, course 1, recorded by my vision-only racing drone (<a href="#e-04">E-04</a>): true position in blue, the drone's own estimate dashed orange, 3× speed.</span><span id="cap-rig" hidden>Hover test: my 246 g drone as a planar model, held by a cascaded PD controller (a position loop feeding an attitude loop). Drag it, click to move the setpoint or send a gust, and push the gains past the Routh–Hurwitz limit to watch it go unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>REPLAY ↺</button><button class="link-btn" id="rig-open" type="button" hidden>TRY THE CONTROLLER →</button></span></figcaption>
+      <figcaption><span><b>Fig. 00</b> — <span id="cap-flight">Flight test from my vision-only racing drone (<a href="#e-04">E-04</a>): true path in blue, its own estimate dashed orange.</span><span id="cap-rig" hidden>Hover test: my 246 g drone as a planar model, held by a cascaded PD controller (a position loop feeding an attitude loop). Drag it, click to move the setpoint or send a gust, and push the gains past the Routh–Hurwitz limit to watch it go unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>REPLAY ↺</button><button class="link-btn" id="rig-open" type="button" hidden>TRY THE CONTROLLER →</button></span></figcaption>
     </figure>
   </div>
 </section>
@@ -167,12 +166,10 @@
         </div>
 
         <div class="specs" aria-label="Key figures">
-          <div><span class="label">Load cases</span><span class="n">8</span></div>
           <div><span class="label">Safety factor</span><span class="n">1.5</span></div>
           <div><span class="label">Modal constraint</span><span class="n">&gt;300<small>Hz</small></span></div>
           <div><span class="label">Vs plate design</span><span class="n">−36%<small>mass</small></span></div>
           <div><span class="label">Printed frame</span><span class="n">38<small>g</small></span></div>
-          <div><span class="label">FEA agreement</span><span class="n">≤18%</span></div>
         </div>
 
         <div class="cols">
@@ -242,7 +239,7 @@
               <div class="rest" id="rest">
                 <span>Six recorded flights · 8 gates · about 6 m/s</span>
                 <button class="btn" id="load" type="button">LOAD REPLAY</button>
-                <span id="load-note">About 1.4 MB of camera frames per flight</span>
+                <span id="load-note"></span>
               </div>
             </div>
             <div class="pv map" id="pv-map">
@@ -333,7 +330,7 @@
                 </div>
                 <svg class="bench-chart" id="bench-chart" viewBox="0 0 520 168" role="img" aria-label="Gates missed per set of 400, for the chosen column" hidden></svg>
               </div>
-              <figcaption><b>Fig. 03</b> — Gate pass rate on six sets of 50 random 8-gate courses, in two worlds: clean (run 20, 22 Oct 2026; camera only re-run 25 Oct) and with orange clutter beside the course (run 25, 27 Oct 2026). A run ends at the first crash or missed gate.</figcaption>
+              <figcaption><b>Fig. 03</b> — Gate pass rate on six sets of 50 random 8-gate courses, in a clean world and with orange clutter beside the course. A run ends at the first crash or missed gate.</figcaption>
             </figure>
             <p class="note">Single sets of 50 courses move by a few points from noise alone, so the pooled row is the one to compare. "Camera only" drops the IMU and predicts motion between frames from the drone's own commands. The clutter is up to 20 flat panels and cones beside the course, painted within the gate's colour range. That world is harder by design, so its numbers start a new baseline rather than continuing the clean one.</p>
             <p class="note">Source code: <a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">github.com/dom-t23/vision-drone-racing ↗</a></p>
@@ -362,8 +359,6 @@
         <div class="specs" aria-label="Constraints and results">
           <div><span class="label">Pipe height</span><span class="n">2<small>m</small></span></div>
           <div><span class="label">Envelope</span><span class="n">400×300<small>mm</small></span></div>
-          <div><span class="label">Budget</span><span class="n">£50</span></div>
-          <div><span class="label">Time step</span><span class="n">10<small>ms</small></span></div>
           <div><span class="label">Setups simulated</span><span class="n">20+</span></div>
           <div><span class="label">Measured gain</span><span class="n">−16%<small>time</small></span></div>
         </div>
@@ -393,7 +388,7 @@
               <svg class="climb-plot" id="cl-plot" role="img" aria-label="Height against time for this setup, against the sheet's setup and the 3 minute limit"></svg>
             </div>
           </div>
-          <figcaption><b>Fig. 04</b> — The climb, simulated in the page with the Excel model's equations, corrected: the gear ratio used consistently, a stable 1 ms step, and slipping setups rejected. A demonstration, not the coursework's numbers. Drawing from the team's Fusion model.</figcaption>
+          <figcaption><b>Fig. 04</b> — The climb, on a corrected version of the Excel model: a demonstration, not the coursework's numbers. Robot from the team's Fusion model.</figcaption>
         </figure>
 
         <div class="cols">
@@ -489,10 +484,8 @@
 
         <div class="specs" aria-label="Key figures">
           <div><span class="label">Models</span><span class="n">358</span></div>
-          <div><span class="label">Domains</span><span class="n">9</span></div>
           <div><span class="label">Fitted law</span><span class="n">P&nbsp;∝&nbsp;N<sup>0.55</sup></span></div>
           <div><span class="label">Fit R²</span><span class="n">0.44</span></div>
-          <div><span class="label">Skewness after log₁₀</span><span class="n">&lt;0.9<small>from&nbsp;6.1</small></span></div>
           <div><span class="label">GPT-5 estimate</span><span class="n">≈590<small>kW</small></span></div>
         </div>
 
@@ -509,7 +502,7 @@
                 </div>
                 <svg class="scaling" id="scaling" role="img" aria-label="Training power draw against parameter count for 603 AI models: a power law, P proportional to N to the 0.55, with R squared 0.44"></svg>
               </div>
-              <figcaption><b>Fig. 07</b> — Training power draw against parameter count, for the 603 models in the dataset with both (Epoch AI). On linear axes they crowd one corner; on log₁₀ axes the fit is P ∝ N<sup>0.55</sup>, R² 0.44. Orange: the GPT-5 estimate, ≈590 kW at an assumed 330 billion parameters.</figcaption>
+              <figcaption><b>Fig. 07</b> — Training power draw against parameter count, 603 models (Epoch AI). On log₁₀ axes the fit is P ∝ N<sup>0.55</sup>; orange is the GPT-5 estimate.</figcaption>
             </figure>
           </div>
         </div>
@@ -589,7 +582,7 @@
             <li><img src="images/photos/08.jpg" width="404" height="600" loading="lazy" decoding="async" alt="A shaded lane of old shophouses, plants and an old bicycle, people walking towards the shops"><span class="fr">▸ 08</span><span class="cap">PENANG, MALAYSIA</span></li>
         </ol>
       </div>
-      <figcaption><span><b>Contact sheet</b> — eight frames from Sicily and Malaysia. More on Unsplash and Instagram.</span><span class="cs-nav" hidden><button type="button" id="cs-prev" aria-label="Earlier frames">◂</button><button type="button" id="cs-next" aria-label="Later frames">▸</button></span></figcaption>
+      <figcaption><span><b>Contact sheet</b> — Sicily and Malaysia.</span><span class="cs-nav" hidden><button type="button" id="cs-prev" aria-label="Earlier frames">◂</button><button type="button" id="cs-next" aria-label="Later frames">▸</button></span></figcaption>
     </figure>
   </div>
 </section>
