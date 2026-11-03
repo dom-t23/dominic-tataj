@@ -103,8 +103,23 @@ p { margin: 0; }
 .hero h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(38px, 4.8vw, 62px); line-height: 1.04; letter-spacing: -0.01em; }
 .hero h1 em { font-style: italic; font-weight: 400; }
 .hero .lede { font-size: 18px; color: var(--ink-2); max-width: 34em; }
-.hero-facts { border: 1px solid var(--rule); }
-.tblock.hero-facts > div { flex-basis: 40%; position: relative; }   /* two by two at every width */
+/* availability, one line under the headline */
+.hero-facts { position: relative; display: flex; flex-wrap: wrap; row-gap: 2px; padding-bottom: 10px; font: 500 12px/1.6 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); }
+.hero-facts span:not(:last-child)::after { content: "·"; margin: 0 10px; color: var(--muted); }   /* a wrapped line never starts with one */
+
+/* the drone (E-03) on the right, drawn in ink; dark mode inverts the drawing's paper and ink */
+.hero-drone { position: relative; display: block; align-self: center; min-width: 0; color: var(--muted); text-decoration: none; }
+.hero-drone img, .hero-drone canvas { display: block; width: 100%; height: auto; }
+.hero-drone canvas { position: absolute; left: 0; top: 0; }
+.hero-drone.live img { visibility: hidden; }
+.hd-tag { position: absolute; left: 0; bottom: 4%; font: 400 11px/1 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; transition: color var(--dur-quick) ease; }
+.hero-drone:hover { text-decoration: none; }
+.hero-drone:hover .hd-tag { color: var(--signal); }
+.hero-drone:hover .hd-tag::after { content: " →"; }
+:root[data-theme="dark"] .hero-drone img, :root[data-theme="dark"] .hero-drone canvas { filter: invert(0.93); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .hero-drone img, :root:not([data-theme="light"]) .hero-drone canvas { filter: invert(0.93); }
+}
 
 /* headline quirks: a hand-drawn underline draws itself under "simulate"; hovering "build"
    dimensions it with the frame's real mass */
@@ -126,19 +141,15 @@ p { margin: 0; }
 .hl-build:hover::before { opacity: 1; transform: none; }
 .hl-build:hover::after { opacity: 1; transform: translate(-50%, -50%); }
 
-/* availability cells: an orange plotter pen sweeps along each in turn on load */
-.tblock.hero-facts > div::after {
-  content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--signal);
-  transform: scaleX(0); transform-origin: left; animation: plot 1000ms var(--ease) forwards;
+/* availability: an orange plotter pen sweeps along under it on load, then lifts */
+.hero-facts::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--signal);
+  transform: scaleX(0); transform-origin: left; animation: plot 1400ms var(--ease) 300ms forwards;
 }
-.tblock.hero-facts > div:nth-child(1)::after { animation-delay: 300ms; }
-.tblock.hero-facts > div:nth-child(2)::after { animation-delay: 480ms; }
-.tblock.hero-facts > div:nth-child(3)::after { animation-delay: 660ms; }
-.tblock.hero-facts > div:nth-child(4)::after { animation-delay: 840ms; }
 @keyframes plot { 0% { transform: scaleX(0); opacity: 1; } 55% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
   .hl-sim .scribble path { animation: none; stroke-dashoffset: 0; }
-  .tblock.hero-facts > div::after { display: none; }
+  .hero-facts::after { display: none; }
 }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
 .btn {
@@ -151,10 +162,12 @@ p { margin: 0; }
 .btn.primary:hover { background: var(--signal); border-color: var(--signal); color: #FFFFFF; }
 
 /* drawing register (parts list) */
-.register { border: 1px solid var(--rule); min-width: 0; }
+.register { grid-column: 1 / -1; border: 1px solid var(--rule); min-width: 0; }
 .register header { display: flex; justify-content: space-between; gap: 12px; padding: 10px 14px; background: var(--panel); border-bottom: 1px solid var(--rule); }
-.register ol { list-style: none; margin: 0; padding: 0; }
-.register li + li { border-top: 1px solid var(--rule); }
+/* the projects in a row under the hero */
+.register ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1px; background: var(--rule); }
+.register li { background: var(--paper); }
+.register a { height: 100%; align-content: start; }
 .register a {
   display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 4px 14px; align-items: baseline;
   padding: 16px 14px; color: var(--ink); transition: background 150ms var(--ease);

@@ -84,6 +84,8 @@ var INK_FRAG = [
   "  gl_FragColor = vec4(uInk, e * max(max(c.a, max(r.a, u.a)), max(l.a, b.a)));",
   "  #include <colorspace_fragment>",
   "}"].join("\n");
+// shared with tools/hero/render.html, which draws the hero's frames offline in this style
+export { GROUPS, MOVES, POSES, FOV, G_VERT, G_FRAG, INK_VERT, INK_FRAG, ease };
 
 var track, fig, view, note, buttons, cap, rows = {};
 var renderer, scene, camera, model, rt, inkMat, inkScene, inkCam, anim, raycaster = new THREE.Raycaster();

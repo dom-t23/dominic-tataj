@@ -16,10 +16,8 @@ test("flies the course, flips into the elevation view and hovers", async ({ page
   // every gate passed, and the height dimension follows the hover bob
   expect(await page.$$eval("#fv .gate", (gs) => gs.map((g) => g.getAttribute("class")))).toEqual(Array(8).fill("gate done"));
   const a = await height(page).textContent();
-  await page.waitForTimeout(700);
-  const b = await height(page).textContent();
   expect(a).toMatch(/^1\.\d\d m$/);
-  expect(a).not.toBe(b);
+  await expect.poll(() => height(page).textContent(), { timeout: 3000 }).not.toBe(a);
   expect(errors).toEqual([]);
 });
 
@@ -81,10 +79,10 @@ test("headline: reads as plain text; the underline draws itself; build shows its
   await expect.poll(dim).toBe("1");
 });
 
-test("availability cells get a plotter pass that leaves them as they were", async ({ page }) => {
+test("availability gets a plotter pass that leaves it as it was", async ({ page }) => {
   await page.goto("/");
-  const pen = () => page.$$eval(".hero-facts > div", (ds) => ds.map((d) => getComputedStyle(d, "::after").opacity));
-  await expect.poll(pen, { timeout: 4000 }).toEqual(["0", "0", "0", "0"]);
+  const pen = () => page.locator(".hero-facts").evaluate((d) => getComputedStyle(d, "::after").opacity);
+  await expect.poll(pen, { timeout: 4000 }).toBe("0");
 });
 
 test.describe("reduced motion, headline", () => {
@@ -92,6 +90,6 @@ test.describe("reduced motion, headline", () => {
   test("underline is drawn at once and there is no plotter pass", async ({ page }) => {
     await page.goto("/");
     expect(await page.locator(".hl-sim .scribble path").evaluate((p) => parseFloat(getComputedStyle(p).strokeDashoffset))).toBe(0);
-    expect(await page.$$eval(".hero-facts > div", (ds) => ds.map((d) => getComputedStyle(d, "::after").display))).toEqual(Array(4).fill("none"));
+    expect(await page.locator(".hero-facts").evaluate((d) => getComputedStyle(d, "::after").display)).toBe("none");
   });
 });

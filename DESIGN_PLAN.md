@@ -166,6 +166,13 @@ checkpoint with Dom, merge to `main`.
    (≈590 kW at the ~330 B parameters Dom assumed). A switch flips the axes; pointing at a
    point names the model.
 
+### Hero, after the first round (3 Nov 2026)
+H.1 [x] **The drone on the cover**: E-03's drone, drawn offline in Fig. 01's style
+   (`tools/hero/`), on the right of the headline. It sways ±24° while the page is still
+   (cross-faded frames) and comes apart as you scroll on; wide screens without reduced motion
+   only, the rest get the still frame. The project register moves under it as a row.
+H.2 [x] **Availability in one line** instead of the four-cell block, with the pen pass kept.
+
 ## 4. About & contact
 
 4.1 [x] **About as a parts list / BOM** (done in phase G): grouped rows with item
