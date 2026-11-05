@@ -85,7 +85,7 @@ var INK_FRAG = [
   "  #include <colorspace_fragment>",
   "}"].join("\n");
 // shared with tools/hero/render.html, which draws the hero's frames offline in this style
-export { GROUPS, MOVES, POSES, FOV, G_VERT, G_FRAG, INK_VERT, INK_FRAG, ease };
+export { GROUPS, POSES, FOV, G_VERT, G_FRAG, INK_VERT, INK_FRAG };
 
 var track, fig, view, note, buttons, cap, rows = {};
 var renderer, scene, camera, model, rt, inkMat, inkScene, inkCam, anim, raycaster = new THREE.Raycaster();

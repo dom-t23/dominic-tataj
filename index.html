@@ -62,11 +62,14 @@
       </div>
     </div>
 
-    <!-- The drone from E-03, drawn offline in Fig. 01's style (tools/hero/): it sways while the page
-         is still and comes apart as you scroll on (js/hero-drone.js); one still frame until then -->
+    <!-- The drone from E-03, drawn offline in Fig. 01's style (tools/hero/): it hovers, turning a
+         little, and climbs away as you scroll on (js/hero-drone.js) -->
     <a class="hero-drone" id="hero-drone" href="#e-03" aria-label="E-03, generative FPV drone frame">
-      <img class="hd-still" src="images/hero/t16.webp" width="840" height="630" alt="Line drawing of my generative FPV drone, assembled" fetchpriority="high">
-      <canvas class="hd-canvas" width="840" height="630" aria-hidden="true" hidden></canvas>
+      <span class="hd-shadow" aria-hidden="true"></span>
+      <span class="hd-art">
+        <img class="hd-still" src="images/hero/t16.webp" width="840" height="630" alt="Line drawing of my generative FPV drone, assembled" decoding="async">
+        <canvas class="hd-canvas" width="840" height="630" aria-hidden="true" hidden></canvas>
+      </span>
       <span class="hd-tag">E-03 · Generative frame</span>
     </a>
 

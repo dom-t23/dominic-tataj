@@ -110,7 +110,13 @@ p { margin: 0; }
 /* the drone (E-03) on the right, drawn in ink; dark mode inverts the drawing's paper and ink */
 .hero-drone { position: relative; display: block; align-self: center; min-width: 0; color: var(--muted); text-decoration: none; }
 .hero-drone img, .hero-drone canvas { display: block; width: 100%; height: auto; }
+.hd-art { display: block; position: relative; will-change: transform; }
 .hero-drone canvas { position: absolute; left: 0; top: 0; }
+/* its shadow on the ground below, which tightens and darkens as it dips */
+.hd-shadow {
+  position: absolute; left: 47%; top: 86%; width: 50%; height: 7%; border-radius: 50%; transform: translate(-50%, -50%) scale(var(--s, 1)); opacity: var(--o, 1);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--ink) 13%, transparent), transparent); will-change: transform, opacity;
+}
 .hero-drone.live img { visibility: hidden; }
 .hd-tag { position: absolute; left: 0; bottom: 4%; font: 400 11px/1 var(--font-data); letter-spacing: 0.08em; text-transform: uppercase; transition: color var(--dur-quick) ease; }
 .hero-drone:hover { text-decoration: none; }

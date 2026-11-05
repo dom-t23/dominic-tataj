@@ -3,17 +3,15 @@
 <script type="importmap">{ "imports": { "three": "../../js/vendor/three/three.module.min.js", "three/addons/": "../../js/vendor/three/addons/" } }</script></head>
 <body><script type="module">
 // The hero's drone, drawn offline in Fig. 01's style (see README; driven by render.cjs): flat
-// paper-white surfaces and ink lines, as WebP frames with alpha. Two runs of frames:
-//   t00..t32  the assembly swaying ±24° about Fig. 01's assembly view, 1.5° apart
-//   x00..x15  from there, the parts moving out as in Fig. 01's exploded view
-// The camera is Fig. 01's assembly pose; during the explode it backs off to keep it all in frame.
+// paper-white surfaces and ink lines, as WebP frames with alpha: t00..t32, the assembly turning
+// ±8° about Fig. 01's assembly view in 0.5° steps, so neighbouring frames cross-fade invisibly.
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
-import { GROUPS, MOVES, POSES, FOV, G_VERT, G_FRAG, INK_VERT, INK_FRAG, ease } from "../../js/frame3d.js";
+import { GROUPS, POSES, FOV, G_VERT, G_FRAG, INK_VERT, INK_FRAG } from "../../js/frame3d.js";
 
 const Q = new URLSearchParams(location.search), W = +(Q.get("w") || 840), H = +(Q.get("h") || 630);
-const MM = 0.001, DEG = Math.PI / 180, SWAY = 24, STEP = 1.5, NX = 16;
+const DEG = Math.PI / 180, SWAY = 8, STEP = 0.5;
 const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
 r.setPixelRatio(1); r.setSize(W, H); r.setClearColor(0, 0); document.body.appendChild(r.domElement);
 
@@ -27,24 +25,17 @@ new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load("../../models/frame.glb"
   const c0 = centre(meshes.find((m) => GROUPS[0][1].test(m.name)));
   meshes.forEach((m) => m.position.sub(c0)); model.updateMatrixWorld(true);
   const fill = new THREE.MeshBasicMaterial({ color: 0xffffff });
-  const parts = meshes.map((mesh, i) => {
-    const c = centre(mesh), off = new THREE.Vector3(), mv = MOVES.find((x) => x[0].test(mesh.name));
-    if (mv) {
-      const out = mv[5] === "side" ? new THREE.Vector3(Math.sign(c.x), 0, 0) : new THREE.Vector3(Math.sign(c.x), 0, Math.sign(c.z)).normalize();
-      off.addScaledVector(out, mv[1] * MM); off.y += mv[2] * MM; off.z -= mv[3] * MM;
-    }
-    return { mesh, base: mesh.position.clone(), off, t: mv ? mv[4] : 0,
-      gmat: new THREE.ShaderMaterial({ vertexShader: G_VERT, fragmentShader: G_FRAG, uniforms: { uId: { value: (i + 1) / 255 }, uInk: { value: 1 } } }) };
-  });
-  const place = (e) => parts.forEach((q) => q.mesh.position.copy(q.base).addScaledVector(q.off, ease((e - q.t * 0.6) / 0.4)));
-  // the assembly's sphere frames the whole sway, so the drawing keeps its scale and place
-  const sphereAt = (e) => { place(e); model.updateMatrixWorld(true); const b = new THREE.Box3(); parts.forEach((q) => b.expandByObject(q.mesh)); return b.getBoundingSphere(new THREE.Sphere()); };
-  const sX = sphereAt(1), s0 = sphereAt(0);
+  const parts = meshes.map((mesh, i) => ({ mesh,
+    gmat: new THREE.ShaderMaterial({ vertexShader: G_VERT, fragmentShader: G_FRAG, uniforms: { uId: { value: (i + 1) / 255 }, uInk: { value: 1 } } }) }));
+  // framed on the assembly's bounding sphere, the same for every frame, so only the turn changes
+  const b0 = new THREE.Box3(); meshes.forEach((m) => b0.expandByObject(m));
+  const s0 = b0.getBoundingSphere(new THREE.Sphere());
   const cam = new THREE.PerspectiveCamera(FOV, W / H, 0.01, 2);
   const half = Math.min(FOV / 2 * DEG, Math.atan(Math.tan(FOV / 2 * DEG) * W / H));
-  const aim = (yaw, e) => {
-    const k = ease(e), rad = s0.radius * 0.66 + (sX.radius * 0.8 - s0.radius * 0.66) * k;
-    const target = s0.center.clone().lerp(sX.center, k), pitch = POSES[0].pitch * DEG, dist = rad / Math.sin(half);
+  const aim = (yaw) => {
+    // aimed a little below the middle, so the drawing sits high and leaves room for its shadow
+    const pitch = POSES[0].pitch * DEG, dist = s0.radius * 0.74 / Math.sin(half);
+    const target = s0.center.clone().add(new THREE.Vector3(0, -s0.radius * 0.12, 0));
     cam.position.set(Math.sin(yaw) * Math.cos(pitch), Math.sin(pitch), Math.cos(yaw) * Math.cos(pitch)).multiplyScalar(dist).add(target);
     cam.near = Math.max(0.005, dist - 0.3); cam.far = dist + 0.3; cam.lookAt(target); cam.updateProjectionMatrix();
   };
@@ -53,8 +44,8 @@ new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load("../../models/frame.glb"
     uniforms: { tG: { value: rt.texture }, tD: { value: rt.depthTexture }, uPx: { value: new THREE.Vector2(1 / W, 1 / H) }, uInk: { value: new THREE.Color(0x111111) }, uN: { value: 0.1 }, uF: { value: 1 } } });
   const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), inkMat); quad.frustumCulled = false;
   const inkScene = new THREE.Scene(); inkScene.add(quad);
-  const shot = (yaw, e) => {
-    place(e); aim(yaw, e); model.updateMatrixWorld(true);
+  const shot = (yaw) => {
+    aim(yaw); model.updateMatrixWorld(true);
     parts.forEach((q) => { q.mesh.material = q.gmat; });
     r.setRenderTarget(rt); r.render(scene, cam);
     parts.forEach((q) => { q.mesh.material = fill; });
@@ -64,8 +55,7 @@ new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load("../../models/frame.glb"
     return r.domElement.toDataURL("image/png");
   };
   const out = {}, n = Math.round(2 * SWAY / STEP), mid = POSES[0].yaw;
-  for (let i = 0; i <= n; i++) out["t" + String(i).padStart(2, "0")] = shot((mid - SWAY + i * STEP) * DEG, 0);
-  for (let i = 0; i < NX; i++) out["x" + String(i).padStart(2, "0")] = shot(mid * DEG, (i + 1) / NX);
+  for (let i = 0; i <= n; i++) out["t" + String(i).padStart(2, "0")] = shot((mid - SWAY + i * STEP) * DEG);
   window.__frames = out;
   document.title = "ok " + Object.keys(out).length + " frames " + W + "x" + H;
 }, undefined, (e) => { document.title = "error " + e; });

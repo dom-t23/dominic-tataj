@@ -18,7 +18,7 @@ No build step: GitHub Pages serves these files as they are.
     its points in `data/scaling.js`) and small quirks, `acro.js` (type
     fpv), `hello.js` (the console note), `cursor.js` (the drafting cursor), `clouds.js`
     (revision clouds on project titles), `contact-sheet.js` (paging About's photo strip) and
-    `hero-drone.js` (the hero's drone, swaying, then coming apart as you scroll); the theme wipe is in `theme.js` and the approval box
+    `hero-drone.js` (the hero's drone, hovering, then climbing away as you scroll); the theme wipe is in `theme.js` and the approval box
     in `contact.js`
   - `rig-button.js`, which loads `hover-rig.js` (the hover test rig) and `quad.js` (its drone
     model and controller, no DOM) on first use
@@ -35,8 +35,8 @@ No build step: GitHub Pages serves these files as they are.
   isometric from `images/robot-iso-ink.png` and `-fill.png`, used as two CSS masks
 - `flights/` — recorded flights for the drone-racing replay: `index.js` lists them and holds
   the still shown before LOAD, and each flight's frames (0.5-1.6 MB) load only when it is picked
-- `images/` — project images; `images/hero/` holds the hero drone's 49 frames (WebP, from
-  `tools/hero/`); `images/photos/` holds the About contact sheet's eight
+- `images/` — project images; `images/hero/` holds the hero drone's 33 turn frames (WebP,
+  from `tools/hero/`); `images/photos/` holds the About contact sheet's eight
   photographs, 600 px tall, without metadata
 - `og-image.png`, `favicon.svg`, `apple-touch-icon.png` — link preview and icons
 - `DESIGN_PLAN.md`, `IMPROVEMENTS.md` — work plans
@@ -77,8 +77,8 @@ second; this repo's Playwright for the third). Each reproduces the committed fil
     node tools/robot/web_glb.mjs robot-raw.glb models/pipe-climber.glb  # simplify, meshopt
     node tools/robot/iso.cjs                                            # writes images/robot-iso-*.png
 
-The hero's drone frames are drawn from `models/frame.glb` in Fig. 01's style, with the
-exploded view's moves taken from `js/frame3d.js` (needs Python with Pillow for the WebP step):
+The hero's drone frames are drawn from `models/frame.glb` in Fig. 01's style, with its shaders
+and camera pose taken from `js/frame3d.js` (needs Python with Pillow for the WebP step):
 
     node tools/hero/render.cjs                                          # writes images/hero/*.webp
 
