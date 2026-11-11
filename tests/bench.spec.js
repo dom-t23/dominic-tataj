@@ -11,13 +11,13 @@ test("a column header charts its column and sorts the table by it; Course set re
   await page.goto("/", { waitUntil: "networkidle" });   // bench.js loads after the load event
   await expect(page.locator("#bench-chart")).toBeVisible();
   await expect(header(page, 4)).toHaveClass(/sel/);   // clutter, camera + IMU to start
-  await expect(page.locator("#bench-chart")).toHaveAttribute("aria-label", /orange clutter, camera \+ imu: 0–49 17, 1000–1049 8, 2000–2049 0, 3000–3049 8, 4000–4049 13, 5000–5049 8/);
+  await expect(page.locator("#bench-chart")).toHaveAttribute("aria-label", /orange clutter, camera \+ imu: 0–49 17, 1000–1049 0, 2000–2049 0, 3000–3049 0, 4000–4049 9, 5000–5049 8/);
   expect(await firstCol(page)).toEqual(COURSE_ORDER);
 
   await header(page, 5).locator("button").click();     // clutter, camera only: worst set first
   await expect(header(page, 5)).toHaveAttribute("aria-sort", "ascending");
   expect((await firstCol(page))[0]).toBe("3000–3049");
-  await expect(page.locator("#bench-chart")).toHaveAttribute("aria-label", /camera only: .*3000–3049 33/);
+  await expect(page.locator("#bench-chart")).toHaveAttribute("aria-label", /camera only: .*3000–3049 25/);
   await expect(page.locator("#bench tfoot tr td").last()).toHaveClass(/sel/);
 
   await header(page, 5).locator("button").click();     // again: course order, same column
@@ -33,9 +33,9 @@ test("a set's row and its bar pick each other out; the pooled row pulses once in
   await page.goto("/", { waitUntil: "networkidle" });   // bench.js loads after the load event
   await page.locator(".bench-fig").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
   await expect(page.locator("#bench tr.pooled")).toHaveClass(/pulse/);
-  await page.locator("#bench tbody tr").nth(3).hover();
+  await page.locator("#bench tbody tr").nth(4).hover();
   await expect(page.locator("#bench-chart path.bar.hl")).toHaveCount(1);
-  await expect(page.locator("#bench-chart text").filter({ hasText: "3000–3049: 8 MISSED, 98.00% PASSED" })).toHaveCount(1);
+  await expect(page.locator("#bench-chart text").filter({ hasText: "4000–4049: 9 MISSED, 97.75% PASSED" })).toHaveCount(1);
   await page.locator("#bench-chart rect.hit").nth(0).hover();
   await expect(page.locator("#bench tbody tr").nth(0)).toHaveClass(/\bhl\b/);
 });
@@ -45,7 +45,7 @@ test.describe("reduced motion", () => {
   test("bars are drawn at once, and nothing pulses", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });   // bench.js loads after the load event
     const heights = await page.$$eval("#bench-chart path.bar", (ps) => ps.map((p) => p.getAttribute("d")));
-    expect(heights.filter((d) => d).length).toBe(5);   // one set missed no gates
+    expect(heights.filter((d) => d).length).toBe(3);   // three sets missed no gates
     await page.locator(".bench-fig").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
     await page.waitForTimeout(300);
     await expect(page.locator("#bench tr.pooled")).not.toHaveClass(/pulse/);

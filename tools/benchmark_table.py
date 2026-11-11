@@ -3,7 +3,8 @@
 Nothing is re-run. Two worlds, each flown on the same six sets of 50 seeded courses:
   clean    the benchmark before run 25, the files vdr.demo itself ships (camera + IMU from
            run 20, camera only from run 23's re-run)
-  clutter  run 25's default: orange panels and cones beside the course, re-baselined
+  clutter  run 26's default: orange panels and cones beside the course, with init rescue on
+           (camera + IMU seed 0 is the new baseline file; the other sets are the A/B's "on" files)
 
 Prints each set's rates and the pooled rate (gates passed over gates flown) per world and
 method, then the table body for index.html.
@@ -18,8 +19,8 @@ SETS = [0, 1000, 2000, 3000, 4000, 5000]
 FILES = {
     ("clean", "imu"): lambda s: "2026-10-22_5143039_baseline.json" if s == 0 else f"2026-10-22_6b66b99_ab-unamb2-on-seed{s}.json",
     ("clean", "cam"): lambda s: "2026-10-25_75277ee_ab-camonly.json" if s == 0 else f"2026-10-25_75277ee_ab-camonly-seed{s}.json",
-    ("clutter", "imu"): lambda s: "2026-10-27_11f0132_rebaseline-clutter.json" if s == 0 else f"2026-10-27_11f0132_rebaseline-clutter-seed{s}.json",
-    ("clutter", "cam"): lambda s: "2026-10-27_11f0132_rebaseline-clutter-camonly.json" if s == 0 else f"2026-10-27_11f0132_rebaseline-clutter-camonly-seed{s}.json",
+    ("clutter", "imu"): lambda s: "2026-10-28_e65b78d_baseline.json" if s == 0 else f"2026-10-28_059848c_ab-init-rescue-seed{s}.json",
+    ("clutter", "cam"): lambda s: "2026-10-28_059848c_ab-init-rescue-camonly.json" if s == 0 else f"2026-10-28_059848c_ab-init-rescue-camonly-seed{s}.json",
 }
 COLS = [("clean", "imu"), ("clean", "cam"), ("clutter", "imu"), ("clutter", "cam")]
 
@@ -44,7 +45,7 @@ def main(repo):
     print()
     for r in rows:
         cls = ' class="pooled"' if r[0] == "Pooled" else ""
-        print(f'<tr{cls}><td>{r[0]}</td>' + "".join(f"<td>{v:.1f}%</td>" for v in r[1:]) + "</tr>")
+        print(f'<tr{cls}><td>{r[0]}</td>' + "".join(f"<td>{v:.2f}%</td>" for v in r[1:]) + "</tr>")
 
 
 if __name__ == "__main__":

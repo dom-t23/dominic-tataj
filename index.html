@@ -226,7 +226,7 @@
       <div class="tblock">
         <div><div class="label">Project no.</div><div class="v">E-04</div></div>
         <div class="wide"><div class="label">Title</div><div class="v">Vision-based autonomous drone racing</div></div>
-        <div><div class="label">Role</div><div class="v">Individual project</div></div>
+        <div><div class="label">Role</div><div class="v">Individual, with an AI agent</div></div>
         <div><div class="label">Tools</div><div class="v">Python · OpenCV · NumPy</div></div>
         <div><div class="label">Date</div><div class="v">2026-08 → 2026-10</div></div>
         <div><div class="label">Status</div><div class="v">In development</div></div>
@@ -305,9 +305,13 @@
               </ol>
             </div>
             <div>
+              <h4>How it was built</h4>
+              <p>I set the problem and the design decisions that stay fixed: acro thrust and body-rate commands, identical gates with no IDs, a strict wall between the simulator and the flight stack, and the benchmark rules. Most of the code was written by an AI coding agent (Claude) in scheduled overnight runs. Each night it tried one change behind a flag, flew the same seeded courses with it on and off, and kept it only if it clearly helped. I reviewed the results and worked through some changes with it directly.</p>
+            </div>
+            <div>
               <h4>Testing</h4>
-              <p>I built a deterministic regression harness, with lockstep simulation over UDP, which flies every change on the same seeded courses and reports the gate pass rate. On the first set of 50 courses the pass rate rose from 89.2% at the first committed baseline to 100%. Because one set moves by a few points from noise alone, a change is kept only if it helps pooled over 300 courses, where the pass rate reached 99.8%.</p>
-              <p>With that benchmark saturated, I made the world harder: orange panels and cones beside the course, in the gate's own colour. Pooled over the same 300 courses the pass rate is 97.8% with the IMU and 96.5% camera only. Course 3 in the replay is one of the failures: with the IMU, the drone twice takes a distractor for the gate, and the pipeline strip shows its filter rejecting measurements and re-initialising before it misses gate 2.</p>
+              <p>A deterministic regression harness flies every change on the same seeded courses in lockstep (also over UDP, with identical results) and reports the gate pass rate. On the first set of 50 courses the pass rate rose from 89.2% at the first committed baseline to 100%. Because one set moves by a few points from noise alone, a change is kept only if it helps pooled over 300 courses, where the pass rate reached 99.8%.</p>
+              <p>With that benchmark saturated, the world was made harder: orange panels and cones beside the course, in the gate's own colour. Pooled over the same 300 courses the pass rate is now 98.6% with the IMU and 97.5% camera only. Course 3 in the replay is one of the failures: with the IMU, the drone twice takes a distractor for the gate, and the pipeline strip shows its filter rejecting measurements and re-initialising before it misses gate 2.</p>
               <p>One bug came from the simulator itself: its sign convention was the reverse of what its documentation said. I found it by comparing commanded inputs against logged attitude, confirmed it with single-axis tests, and corrected the controller.</p>
             </div>
           </div>
@@ -318,19 +322,19 @@
                   <!-- js/bench.js: the column headers chart and sort their column -->
                   <table class="bench" id="bench">
                     <thead>
-                      <tr class="world"><th></th><th colspan="2">Clean · run 20</th><th colspan="2">Orange clutter · run 25</th></tr>
+                      <tr class="world"><th></th><th colspan="2">Clean · run 20</th><th colspan="2">Orange clutter · run 26</th></tr>
                       <tr><th scope="col">Course set</th><th scope="col">Camera + IMU</th><th scope="col">Camera only</th><th scope="col">Camera + IMU</th><th scope="col">Camera only</th></tr>
                     </thead>
                     <tbody>
                       <tr><td>0–49</td><td>100.00%</td><td>96.25%</td><td>95.75%</td><td>96.75%</td></tr>
-                      <tr><td>1000–1049</td><td>100.00%</td><td>98.50%</td><td>98.00%</td><td>98.00%</td></tr>
+                      <tr><td>1000–1049</td><td>100.00%</td><td>98.50%</td><td>100.00%</td><td>100.00%</td></tr>
                       <tr><td>2000–2049</td><td>99.00%</td><td>98.00%</td><td>100.00%</td><td>98.50%</td></tr>
-                      <tr><td>3000–3049</td><td>100.00%</td><td>96.50%</td><td>98.00%</td><td>91.75%</td></tr>
-                      <tr><td>4000–4049</td><td>100.00%</td><td>98.75%</td><td>96.75%</td><td>95.75%</td></tr>
+                      <tr><td>3000–3049</td><td>100.00%</td><td>96.50%</td><td>100.00%</td><td>93.75%</td></tr>
+                      <tr><td>4000–4049</td><td>100.00%</td><td>98.75%</td><td>97.75%</td><td>97.75%</td></tr>
                       <tr><td>5000–5049</td><td>100.00%</td><td>98.75%</td><td>98.00%</td><td>98.00%</td></tr>
                     </tbody>
                     <tfoot>
-                      <tr class="pooled"><td>Pooled</td><td>99.83%</td><td>97.79%</td><td>97.75%</td><td>96.46%</td></tr>
+                      <tr class="pooled"><td>Pooled</td><td>99.83%</td><td>97.79%</td><td>98.58%</td><td>97.46%</td></tr>
                     </tfoot>
                   </table>
                 </div>
@@ -629,7 +633,7 @@
     <div class="tblock">
       <div><div class="label">Name</div><div class="v">Dominic Tataj</div></div>
       <div><div class="label">Course</div><div class="v">MEng Mech. Eng., UCL</div></div>
-      <div><div class="label">Updated</div><div class="v">October 2026</div></div>
+      <div><div class="label">Updated</div><div class="v">November 2026</div></div>
     </div>
     <p class="foot-hint">Type FPV anywhere for acro mode.</p>
   </div>
