@@ -36,7 +36,7 @@ test("loop runs only while its element is on screen", async ({ page }) => {
   await page.goto("/");
   const [on, off] = await page.evaluate(async () => {
     const m = await import("/js/motion.js"), wait = (t) => new Promise((r) => setTimeout(r, t));
-    let n = 0; const l = m.loop(document.querySelector(".hero h1"), () => { n++; });
+    let n = 0; const l = m.loop(document.querySelector(".hero-text"), () => { n++; });
     l.start(); await wait(300);
     const on = n;
     window.scrollTo({ top: document.body.scrollHeight, behavior: "instant" }); await wait(200);

@@ -173,6 +173,8 @@ H.1 [x] **The drone on the cover**: E-03's drone, drawn offline in Fig. 01's sty
    cross-faded) and climbs away as you scroll on. Revised on 5 Nov: the first version swayed
    ±24° in 1.5° steps, which looked choppy, and exploded like Fig. 01 below it. Reduced motion
    keeps it still; phones hover without turning. The project register moves under it as a row.
+H.3 [x] **No visible headline** (14 Nov 2026, Dom's call): "I design, simulate and build drones
+   and robots" and its underline and hover quirks are gone; a visually hidden h1 names the page.
 H.2 [x] **Availability in one line** instead of the four-cell block, with the pen pass kept.
 
 ## 4. About & contact

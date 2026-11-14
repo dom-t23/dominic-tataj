@@ -68,15 +68,11 @@ test("without flight data the strip stays empty and REPLAY hidden", async ({ pag
   await expect(page.locator("#fv svg *")).toHaveCount(0);
 });
 
-test("headline: reads as plain text; the underline draws itself; build shows its mass on hover", async ({ page }) => {
+test("no visible headline; the page's h1 names it for screen readers", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".hero h1")).toHaveText("I design, simulate and build drones and robots");
-  const offset = () => page.locator(".hl-sim .scribble path").evaluate((p) => parseFloat(getComputedStyle(p).strokeDashoffset));
-  await expect.poll(offset, { timeout: 4000 }).toBe(0);
-  const dim = () => page.locator(".hl-build").evaluate((e) => getComputedStyle(e, "::after").opacity);
-  expect(await dim()).toBe("0");
-  await page.hover(".hl-build");
-  await expect.poll(dim).toBe("1");
+  await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.locator("h1")).toHaveText("Dominic Tataj, mechanical engineering portfolio");
+  expect(await page.locator("h1").boundingBox()).toMatchObject({ width: 1, height: 1 });
 });
 
 test("availability gets a plotter pass that leaves it as it was", async ({ page }) => {
@@ -85,11 +81,10 @@ test("availability gets a plotter pass that leaves it as it was", async ({ page 
   await expect.poll(pen, { timeout: 4000 }).toBe("0");
 });
 
-test.describe("reduced motion, headline", () => {
+test.describe("reduced motion, availability", () => {
   test.use({ contextOptions: { reducedMotion: "reduce" } });
-  test("underline is drawn at once and there is no plotter pass", async ({ page }) => {
+  test("there is no plotter pass", async ({ page }) => {
     await page.goto("/");
-    expect(await page.locator(".hl-sim .scribble path").evaluate((p) => parseFloat(getComputedStyle(p).strokeDashoffset))).toBe(0);
     expect(await page.locator(".hero-facts").evaluate((d) => getComputedStyle(d, "::after").display)).toBe("none");
   });
 });

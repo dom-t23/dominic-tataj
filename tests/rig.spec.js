@@ -80,7 +80,8 @@ test("gains past the limit: it oscillates, the failsafe cuts the motors, it cras
   await page.locator("#kp").evaluate((e) => { e.value = "950"; e.dispatchEvent(new Event("input")); });
   await expect(page.locator("#stab")).toHaveClass(/bad/);
   await expect(page.locator("#stab")).toHaveText("UNSTABLE: RAISE Kd OR LOWER Kp");
-  await expect.poll(() => state(page), { timeout: 25000 }).toBe("failsafe");
+  // the oscillation grows in real time: about 12 s alone, longer when the whole suite loads the machine
+  await expect.poll(() => state(page), { timeout: 45000 }).toBe("failsafe");
   await expect.poll(() => state(page), { timeout: 5000 }).toBe("crashed");
   await expect(page.locator("#rig text.note")).toContainText("IMPACT");
   await expect.poll(() => state(page), { timeout: 4000 }).not.toBe("crashed");
