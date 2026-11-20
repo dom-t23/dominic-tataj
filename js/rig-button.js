@@ -1,4 +1,4 @@
-// The TRY THE CONTROLLER button. The test rig and its model (js/hover-rig.js, js/quad.js) load
+// The Try the controller button. The test rig and its model (js/hover-rig.js, js/quad.js) load
 // the first time it is pressed, so visitors who never open it don't download them.
 import { $ } from "./util.js";
 

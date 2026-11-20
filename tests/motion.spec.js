@@ -1,19 +1,19 @@
 // Motion system: reveals, loops, reduced motion and print.
 const { test, expect } = require("@playwright/test");
 
-// elements waiting for a reveal (the nav's progress bar legitimately sits at scaleX(0))
+// elements waiting for a reveal
 const prepared = (page) => page.evaluate(() =>
-  document.querySelectorAll('[style*="opacity: 0"], [style*="scaleX(0)"]:not(#progress), [style*="stroke-dashoffset"]').length);
+  document.querySelectorAll('[style*="opacity: 0"], [style*="scaleX(0)"], [style*="stroke-dashoffset"]').length);
 const jump = (page, sel) => page.locator(sel).first().evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
 
-test("first screen is never hidden; figures draw and title blocks fill when reached", async ({ page }) => {
+test("first screen is never hidden; figures draw and each project's chips fill in when reached", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
   expect(await page.evaluate(() => [...document.querySelectorAll(".hero *")].filter((e) => e.style.opacity === "0").length)).toBe(0);
   expect(await prepared(page)).toBeGreaterThan(20);
-  await jump(page, "#e-03 > .tblock");
+  await jump(page, "#e-03 > .sheet-meta");
   await jump(page, "#e-03 svg.drawing");
   await expect.poll(() => page.locator("#e-03 svg.drawing *[style]").count(), { timeout: 8000 }).toBe(0);
-  expect(await page.locator("#e-03 > .tblock > div").evaluateAll((ds) => ds.every((d) => getComputedStyle(d).opacity === "1"))).toBe(true);
+  expect(await page.locator("#e-03 > .sheet-meta > *").evaluateAll((ds) => ds.every((d) => getComputedStyle(d).opacity === "1"))).toBe(true);
 });
 
 test("count keeps the original formatting", async ({ page }) => {

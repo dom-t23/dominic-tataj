@@ -1,4 +1,4 @@
-import { $, root, sysDark, css, reducedMotion } from "./util.js";
+import { $, root, css, reducedMotion } from "./util.js";
 import { loadScript, flightIndex } from "./flights.js";
 
 /* ---------- drone replay ---------- */
@@ -44,10 +44,10 @@ function loadPipe() {
 $("load").addEventListener("click", function () {
   loadPipe();
   var btn = this;
-  btn.disabled = true; btn.textContent = "LOADING…";
-  function failed() { btn.disabled = false; btn.textContent = "RETRY"; $("load-note").textContent = "The recording could not be loaded."; }
+  btn.disabled = true; btn.textContent = "Loading…";
+  function failed() { btn.disabled = false; btn.textContent = "Retry"; $("load-note").textContent = "The recording could not be loaded."; }
   withIndex(function () {
-    if (!FL.length) { btn.textContent = "REPLAY UNAVAILABLE"; return; }
+    if (!FL.length) { btn.textContent = "Replay unavailable"; return; }
     cur = { seed: seeds[0], method: methods[0].id };
     fetchFlight(function (f) {
       posterMode = false;
@@ -205,15 +205,15 @@ function tick(now) {
   if (idx >= fr.length - 1) { stop(); return; }
   requestAnimationFrame(tick);
 }
-// auto: started by loading a flight rather than the PLAY button, so it respects reduced motion.
+// auto: started by loading a flight rather than the Play button, so it respects reduced motion.
 function play(auto) {
   if (!flight) return;
   if (auto && reducedMotion()) return;
   if (idx >= flight.frames.length - 1) idx = 0;
-  playing = true; $("play").textContent = "PAUSE"; t0 = performance.now(); tStart = flight.frames[idx].t;
+  playing = true; $("play").textContent = "Pause"; t0 = performance.now(); tStart = flight.frames[idx].t;
   requestAnimationFrame(tick);
 }
-function stop() { playing = false; $("play").textContent = "PLAY"; }
+function stop() { playing = false; $("play").textContent = "Play"; }
 $("play").addEventListener("click", function () { if (playing) stop(); else play(false); });
 $("scrub").addEventListener("input", function () {
   if (!flight) return;
@@ -223,5 +223,4 @@ $("scrub").addEventListener("input", function () {
 });
 
 var redraw = function () { if (flight) draw(); };
-if (sysDark && sysDark.addEventListener) sysDark.addEventListener("change", redraw);
 new MutationObserver(redraw).observe(root, { attributes: true, attributeFilter: ["data-theme"] });

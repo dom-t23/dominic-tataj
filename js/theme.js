@@ -1,23 +1,23 @@
-import { $, root, sysDark, reducedMotion } from "./util.js";
+import { $, root, reducedMotion } from "./util.js";
 
 /* ---------- theme toggle ---------- */
-function isDark() { var t = root.getAttribute("data-theme"); return t ? t === "dark" : !!(sysDark && sysDark.matches); }
+// Light first: the page is light unless the visitor chooses dark here, whatever their device's
+// setting. The choice is saved; choosing light again clears it.
+function isDark() { return root.getAttribute("data-theme") === "dark"; }
 function syncThemeBtn() {
   var d = isDark();
-  $("theme").textContent = d ? "LIGHT" : "DARK";
+  $("theme").textContent = d ? "Light" : "Dark";
   $("theme").setAttribute("aria-label", d ? "Switch to light theme" : "Switch to dark theme");
 }
 $("theme").addEventListener("click", function () {
-  var t = isDark() ? "light" : "dark", sys = sysDark && sysDark.matches ? "dark" : "light";
+  var dark = !isDark();
   function apply() {
-    // Choosing the system theme clears the override, so the page follows the system again.
-    if (t === sys) root.removeAttribute("data-theme"); else root.setAttribute("data-theme", t);
-    try { if (t === sys) localStorage.removeItem("theme"); else localStorage.setItem("theme", t); } catch (e) {}
+    if (dark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme");
+    try { if (dark) localStorage.setItem("theme", "dark"); else localStorage.removeItem("theme"); } catch (e) {}
     syncThemeBtn();
   }
-  // Like a print coming off a light table (DESIGN_PLAN.md 2.5): the new theme spreads in a
-  // circle from the button. Where view transitions aren't supported, or with reduced motion,
-  // it just switches.
+  // The new theme spreads in a circle from the button. Where view transitions aren't supported,
+  // or with reduced motion, it just switches.
   if (!document.startViewTransition || reducedMotion()) { apply(); return; }
   var b = this.getBoundingClientRect(), x = b.left + b.width / 2, y = b.top + b.height / 2;
   var r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
@@ -26,5 +26,4 @@ $("theme").addEventListener("click", function () {
       { duration: 700, easing: "cubic-bezier(0.22, 1, 0.36, 1)", pseudoElement: "::view-transition-new(root)" });
   }, function () {});
 });
-if (sysDark && sysDark.addEventListener) sysDark.addEventListener("change", syncThemeBtn);
 syncThemeBtn(); $("theme").hidden = false;

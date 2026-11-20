@@ -82,16 +82,16 @@ test("the h1 stays hidden even when a cached, older stylesheet loads with the pa
   expect(await page.locator("h1").boundingBox()).toMatchObject({ width: 1, height: 1 });
 });
 
-test("availability gets a plotter pass that leaves it as it was", async ({ page }) => {
+test("availability: four pills, the first marked live", async ({ page }) => {
   await page.goto("/");
-  const pen = () => page.locator(".hero-facts").evaluate((d) => getComputedStyle(d, "::after").opacity);
-  await expect.poll(pen, { timeout: 4000 }).toBe("0");
+  await expect(page.locator(".hero-facts span")).toHaveText(["Summer internship or placement year", "From 27 June 2027", "UK, no sponsorship", "London"]);
+  expect(await page.locator(".hero-facts span").first().evaluate((d) => getComputedStyle(d, "::before").animationName)).toBe("live");
 });
 
 test.describe("reduced motion, availability", () => {
   test.use({ contextOptions: { reducedMotion: "reduce" } });
-  test("there is no plotter pass", async ({ page }) => {
+  test("the live dot holds still", async ({ page }) => {
     await page.goto("/");
-    expect(await page.locator(".hero-facts").evaluate((d) => getComputedStyle(d, "::after").display)).toBe("none");
+    expect(await page.locator(".hero-facts span").first().evaluate((d) => getComputedStyle(d, "::before").animationName)).toBe("none");
   });
 });

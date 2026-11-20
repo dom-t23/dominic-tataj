@@ -17,7 +17,7 @@ test("content: order, numbering, figures and links", async ({ page }) => {
   expect(await ids("article.sheet")).toEqual(["e-03", "e-04", "e-02", "e-01"]);
   expect(await page.$$eval("figcaption b", (bs) => bs.map((b) => b.textContent)))
     .toEqual(["Fig. 00", "Fig. 01", "Fig. 02", "Fig. 03", "Fig. 04", "Fig. 05", "Fig. 06", "Fig. 07", "Contact sheet"]);
-  expect(await page.$$eval(".nav ul a", (as) => as.map((a) => a.textContent))).toEqual(["WORK", "ABOUT", "CONTACT"]);
+  expect(await page.$$eval(".nav ul a", (as) => as.map((a) => a.textContent))).toEqual(["Work", "About", "Contact"]);
   expect(await page.$$eval("tr.pooled td", (tds) => tds.map((t) => t.textContent))).toEqual(["Pooled", "99.83%", "97.79%", "98.58%", "97.46%"]);
   for (const href of ["https://unsplash.com/@dominic_t", "https://www.instagram.com/dt___xt/",
     "https://www.linkedin.com/in/dominic-tataj", "https://github.com/dom-t23"]) {
@@ -29,14 +29,15 @@ test("content: order, numbering, figures and links", async ({ page }) => {
   await expect(page.locator(".hero-facts")).toContainText("27 June 2027");
 });
 
-test("theme toggle saves a choice and clears it again", async ({ page }) => {
-  await page.emulateMedia({ colorScheme: "light" });
+test("light first: a dark device still gets light; the toggle saves dark and clears it again", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
-  await expect(page.locator("#theme")).toHaveText("DARK");
+  await expect(page.locator("#theme")).toHaveText("Dark");
+  expect(await page.evaluate(() => [document.documentElement.hasAttribute("data-theme"), getComputedStyle(document.body).backgroundColor])).toEqual([false, "rgb(243, 244, 247)"]);
   await page.click("#theme");   // applied inside a view transition, a frame later
   await expect.poll(() => page.evaluate(() => [document.documentElement.dataset.theme, localStorage.getItem("theme")])).toEqual(["dark", "dark"]);
   await page.reload();
-  await expect(page.locator("#theme")).toHaveText("LIGHT");
+  await expect(page.locator("#theme")).toHaveText("Light");
   await page.click("#theme");
   await expect.poll(() => page.evaluate(() => [document.documentElement.hasAttribute("data-theme"), localStorage.getItem("theme")])).toEqual([false, null]);
 });
@@ -54,20 +55,11 @@ test.describe("phone", () => {
   });
 });
 
-test("nav shows the current sheet and scroll progress", async ({ page }) => {
+test("the nav is the name and three links: no sheet counter, no progress line", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
-  await expect(page.locator("#sheet-no")).toHaveText("SHEET 1/7 COVER");
-  const at = async (sel) => {
-    await page.locator(sel).first().evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "start" }));
-    await page.waitForTimeout(150);
-    return page.locator("#sheet-no").textContent();
-  };
-  expect(await at("#e-04 .player")).toBe("SHEET 3/7 E-04");
-  expect(await at("#about")).toBe("SHEET 6/7 ABOUT");
-  expect(await at("#contact")).toBe("SHEET 7/7 CONTACT");
-  expect(await page.locator("#progress").evaluate((e) => parseFloat(e.style.transform.slice(7)))).toBe(1);
+  await expect(page.locator("#sheet-no, #progress, .tblock, #approve")).toHaveCount(0);
+  await expect(page.locator(".nav .brand")).toHaveText("Dominic Tataj");
 });
-
 test("key figures count up to their real values once in view", async ({ page }) => {
   // without WebGL 2, so Fig. 01 just above stays the two renders: compiling its shaders in
   // software WebGL can hold the main thread for seconds, and this test is about the figures

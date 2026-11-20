@@ -7,19 +7,18 @@ No build step: GitHub Pages serves these files as they are.
 - `index.html` — the page's markup
 - `css/site.css` — all styles
 - `js/` — ES modules. `main.js` is the entry point and imports:
-  - `theme.js` (light/dark toggle), `contact.js` (copy email and its burst), `sheets.js`
-    (the nav's sheet counter and progress) and `reveals.js` (what animates in on scroll and
-    which numbers count up)
+  - `theme.js` (light/dark toggle; light first, dark only by choice), `contact.js` (copy
+    email and its burst), `sheets.js` (lays every project out once after load, so links down
+    the page land) and `reveals.js` (what animates in on scroll and which numbers count up)
   - `hero-flight.js` (the hero's flight-test strip, Fig. 00) and `replay.js` (the drone
     replay), which share the flight data loaded by `flights.js`; `pipeline.js` draws the
     strip under the replay (detect, measure, fuse, fly at the current frame)
   - after the load event: `bench.js` (Fig. 03's chart), `climber.js` (Fig. 04, the pipe
     climber on a corrected version of the team's Excel model), `scaling.js` (Fig. 07, with
     its points in `data/scaling.js`) and small quirks, `acro.js` (type
-    fpv), `hello.js` (the console note), `cursor.js` (the drafting cursor), `clouds.js`
-    (revision clouds on project titles), `contact-sheet.js` (paging About's photo strip) and
-    `hero-drone.js` (the hero's drone, hovering, then climbing away as you scroll); the theme wipe is in `theme.js` and the approval box
-    in `contact.js`
+    fpv), `hello.js` (the console note), `cursor.js` (the crosshair cursor),
+    `contact-sheet.js` (paging About's photo strip) and `hero-drone.js` (the hero's drone,
+    hovering, then climbing away as you scroll); the theme wipe is in `theme.js`
   - `rig-button.js`, which loads `hover-rig.js` (the hover test rig) and `quad.js` (its drone
     model and controller, no DOM) on first use
   - `frame3d-boot.js`, which sets up Fig. 01 and loads `frame3d.js` (the drone in 3D) and

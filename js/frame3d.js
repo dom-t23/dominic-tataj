@@ -8,7 +8,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
-import { root, sysDark, css, reducedMotion } from "./util.js";
+import { root, css, reducedMotion } from "./util.js";
 import { loop } from "./motion.js";
 
 var MM = 0.001, DEG = Math.PI / 180, TAU = 2 * Math.PI;
@@ -121,7 +121,7 @@ export function mount(el) {
     new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load("models/frame.glb", function (gltf) {
       try { build(gltf.scene); wire(canvas); resolve(); } catch (e) { reject(e); }
     }, function (x) {
-      if (x.lengthComputable) note.textContent = "LOADING MODEL " + Math.round(100 * x.loaded / x.total) + "%";
+      if (x.lengthComputable) note.textContent = "Loading model " + Math.round(100 * x.loaded / x.total) + "%";
     }, reject);
   }).catch(function (e) { renderer.dispose(); canvas.remove(); throw e; });
 }
@@ -473,7 +473,6 @@ function wire(canvas) {
   anim = loop(view, frame);
   new ResizeObserver(resize).observe(view);
   addEventListener("scroll", onScroll, { passive: true });
-  if (sysDark && sysDark.addEventListener) sysDark.addEventListener("change", theme);
   new MutationObserver(theme).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
 
   buttons.forEach(function (b, i) {

@@ -23,7 +23,7 @@ test("poster reuses the index; LOAD fetches one flight; switching uses a cache",
   await controlsReady(page);
   expect(reqs).toEqual(["index.js", "1017-default.js"]);
   await expect(page.locator("#r-out")).toContainText("Completed");
-  await expect(page.locator("#play")).toHaveText("PAUSE");
+  await expect(page.locator("#play")).toHaveText("Pause");
 
   // course 3 in the clutter world: with the IMU it takes a distractor for the gate
   await page.click("#seeds button:nth-child(3)"); await controlsReady(page);
@@ -58,7 +58,7 @@ test("a missing index shows RETRY", async ({ page }) => {
   await page.route("**/flights/index.js", (r) => r.fulfill({ status: 500, body: "" }));
   await page.goto("/");
   await page.click("#load");
-  await expect(page.locator("#load")).toHaveText("RETRY");
+  await expect(page.locator("#load")).toHaveText("Retry");
 });
 
 test.describe("reduced motion", () => {
@@ -66,15 +66,17 @@ test.describe("reduced motion", () => {
   test("no autoplay, but PLAY plays", async ({ page }) => {
     await page.goto("/");
     await page.click("#load"); await controlsReady(page);
-    await expect(page.locator("#play")).toHaveText("PLAY");
+    await expect(page.locator("#play")).toHaveText("Play");
     await page.click("#play");
     await expect(page.locator("#clock")).not.toHaveText("0.00 s");
   });
 });
 
 test.describe("phone, dark", () => {
-  test.use({ ...phone, colorScheme: "dark" });
+  test.use(phone);
   test("replay fits and status colours pass contrast", async ({ page }) => {
+    // light first: dark is the visitor's choice, saved by the toggle
+    await page.addInitScript(() => localStorage.setItem("theme", "dark"));
     await page.goto("/");
     await page.click("#load"); await controlsReady(page);
     expect(await page.evaluate(() => getComputedStyle(document.querySelector(".pill")).color)).toBe("rgb(76, 185, 122)");

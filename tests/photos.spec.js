@@ -13,7 +13,7 @@ test("eight numbered, captioned frames, lazy-loaded, each with a description", a
   const frames = page.locator(".film li");
   await expect(frames).toHaveCount(8);
   await expect(frames.locator(".fr")).toHaveText(["01", "02", "03", "04", "05", "06", "07", "08"].map((n) => "▸ " + n));
-  await expect(frames.nth(2).locator(".cap")).toHaveText("CATANIA, SICILY");
+  await expect(frames.nth(2).locator(".cap")).toHaveText("Catania, Sicily");
   for (const img of await frames.locator("img").all()) {
     await expect(img).toHaveAttribute("loading", "lazy");
     expect((await img.getAttribute("alt")).length).toBeGreaterThan(20);

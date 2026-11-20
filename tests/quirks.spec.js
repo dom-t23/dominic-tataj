@@ -66,17 +66,14 @@ test.describe("phone", () => {
   });
 });
 
-test("hovering a project draws a revision cloud round it", async ({ page }) => {
-  await page.goto("/", { waitUntil: "networkidle" });   // the quirks load after the load event
-  const entry = page.locator(".register li:nth-child(2) a");
-  await entry.hover();
-  await expect(entry).toHaveClass(/\brev-on\b/);
-  const d = await entry.locator(".rev-cloud path").getAttribute("d");
-  expect(d.match(/A/g).length).toBeGreaterThan(30);   // scallops all the way round
+test("hovering a project card lifts it and lights its number", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  const card = page.locator(".register li:nth-child(2) a");
+  await card.hover();
+  await expect.poll(() => card.evaluate((e) => new DOMMatrix(getComputedStyle(e).transform).m42)).toBeLessThan(-3);
+  await expect.poll(() => card.locator(".r-no").evaluate((e) => getComputedStyle(e).color)).toBe("rgb(255, 255, 255)");
   await page.mouse.move(5, 600);
-  await expect(entry).not.toHaveClass(/\brev-on\b/);
-  await page.locator("#e03-h").hover();
-  await expect(page.locator("#e03-h")).toHaveClass(/\brev-on\b/);
+  await expect.poll(() => card.evaluate((e) => new DOMMatrix(getComputedStyle(e).transform).m42)).toBe(0);
 });
 
 test("the theme switch spreads from the button in a view transition", async ({ page }) => {
@@ -92,24 +89,7 @@ test("the theme switch spreads from the button in a view transition", async ({ p
   expect(await page.evaluate(() => window.__vt)).toBe(1);
 });
 
-test.describe("approval box", () => {
-  test.use({ permissions: ["clipboard-read", "clipboard-write"] });
-  test("copying the email prints it again, signs and dates the approval box, then the burst", async ({ page }) => {
-    await page.goto("/", { waitUntil: "networkidle" });   // the quirks load after the load event
-    await expect(page.locator("#approve-status")).toHaveText("For approval");
-    await page.click("#copy");
-    await expect(page.locator("#approve")).toHaveClass(/\bsigned\b/);
-    await expect(page.locator("#email")).toHaveClass(/\bprint\b/);
-    await expect(page.locator("#approve-status")).toHaveText("Approved");
-    const today = await page.evaluate(() => new Date().toLocaleDateString("sv-SE"));   // YYYY-MM-DD
-    await expect(page.locator("#approve-date")).toHaveText(today);
-    await expect(page.locator("canvas.burst")).toHaveCount(1, { timeout: 3000 });
-    await expect(page.locator("#email")).not.toHaveClass(/\bprint\b/);
-    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("dominic_tataj@icloud.com");
-  });
-});
-
-test("About is a parts list; each skill counts and links the projects that used it", async ({ page }) => {
+test("About lists skills and experience; each skill counts and links the projects that used it", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });   // the quirks load after the load event
   await expect(page.locator(".bom tbody tr:not(.grp)")).toHaveCount(11);
   await expect(page.locator(".bom .grp th")).toHaveText(["Education", "Engineering", "Programming", "Experience", "Leadership", "Languages"]);

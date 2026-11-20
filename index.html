@@ -8,8 +8,7 @@
 <link rel="canonical" href="https://dom-t23.github.io/dominic-tataj/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#111214" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F3F4F7">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Dominic Tataj — Engineering portfolio">
 <meta property="og:description" content="MEng Mechanical Engineering at UCL. Designs, simulates and builds drones and robots. Looking for a summer 2027 internship or a 2027–28 placement year in the UK.">
@@ -21,12 +20,13 @@
 <meta name="twitter:card" content="summary_large_image">
 <script>
   // Apply a saved theme before first paint so the page doesn't flash.
-  try { var t = localStorage.getItem("theme"); if (t === "light" || t === "dark") document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+  // Light first: only a saved choice of dark changes it.
+  try { if (localStorage.getItem("theme") === "dark") document.documentElement.setAttribute("data-theme", "dark"); } catch (e) {}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="css/site.css?v=20261120">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="css/site.css?v=20261120r">
 </head>
 <body>
 
@@ -34,16 +34,14 @@
   <div class="wrap">
     <div class="brand">
       <a class="name" href="#top">Dominic Tataj</a>
-      <span class="sheet-no" id="sheet-no" aria-hidden="true" hidden>SHEET <b>1</b>/7 <span>COVER</span></span>
     </div>
     <ul>
-      <li><a href="#work">WORK</a></li>
-      <li><a href="#about">ABOUT</a></li>
-      <li><a href="#contact">CONTACT</a></li>
-      <li><button class="theme-btn" id="theme" type="button" hidden>DARK</button></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><button class="theme-btn" id="theme" type="button" hidden>Dark</button></li>
     </ul>
   </div>
-  <div class="progress" aria-hidden="true"><i id="progress"></i></div>
 </nav>
 
 <main id="top">
@@ -57,14 +55,15 @@
       <p class="hero-facts" aria-label="Availability"><span>Summer internship or placement year</span><span>From 27 June 2027</span><span>UK, no sponsorship</span><span>London</span></p>
       <p class="lede">I work across CAD, generative design and FEA, dynamic modelling, and Python for computer vision. Aiming for mechanical engineering roles, open to software and autonomy.</p>
       <div class="actions">
-        <a class="btn primary" href="#work">VIEW PROJECTS</a>
-        <a class="btn" href="#contact">CONTACT</a>
+        <a class="btn primary" href="#work">View projects</a>
+        <a class="btn" href="#contact">Get in touch</a>
       </div>
     </div>
 
     <!-- The drone from E-03, drawn offline in Fig. 01's style (tools/hero/): it hovers, turning a
          little, and climbs away as you scroll on (js/hero-drone.js) -->
     <a class="hero-drone" id="hero-drone" href="#e-03" aria-label="E-03, generative FPV drone frame">
+      <span class="hd-floor" aria-hidden="true"></span>
       <span class="hd-shadow" aria-hidden="true"></span>
       <span class="hd-art">
         <img class="hd-still" src="images/hero/t16.webp" width="840" height="630" alt="Line drawing of my generative FPV drone, assembled" decoding="async">
@@ -104,9 +103,9 @@
         <label class="gain">K<sub>p</sub><input type="range" id="kp" min="0" max="1000" step="1" aria-label="Position gain Kp"><output id="kp-out" for="kp"></output></label>
         <label class="gain">K<sub>d</sub><input type="range" id="kd" min="0" max="1000" step="1" aria-label="Damping gain Kd"><output id="kd-out" for="kd"></output></label>
         <span class="stab" id="stab"></span>
-        <span class="rig-buttons"><button class="btn" id="gust" type="button">GUST →</button><button class="btn" id="rig-reset" type="button">RESET</button><button class="btn" id="rig-close" type="button">BACK TO PLAN</button></span>
+        <span class="rig-buttons"><button class="btn" id="gust" type="button">Gust →</button><button class="btn" id="rig-reset" type="button">Reset</button><button class="btn" id="rig-close" type="button">Back to the flight</button></span>
       </div>
-      <figcaption><span><b>Fig. 00</b> — <span id="cap-flight">Flight test from my vision-only racing drone (<a href="#e-04">E-04</a>): true path in blue, its own estimate dashed orange.</span><span id="cap-rig" hidden>Hover test: my 246 g drone as a planar model, held by a cascaded PD controller (a position loop feeding an attitude loop). Drag it, click to move the setpoint or send a gust, and push the gains past the Routh–Hurwitz limit to watch it go unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>REPLAY ↺</button><button class="link-btn" id="rig-open" type="button" hidden>TRY THE CONTROLLER →</button></span></figcaption>
+      <figcaption><span><b>Fig. 00</b> — <span id="cap-flight">Flight test from my vision-only racing drone (<a href="#e-04">E-04</a>): true path in blue, its own estimate dashed orange.</span><span id="cap-rig" hidden>Hover test: my 246 g drone as a planar model, held by a cascaded PD controller (a position loop feeding an attitude loop). Drag it, click to move the setpoint or send a gust, and push the gains past the Routh–Hurwitz limit to watch it go unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>Replay ↺</button><button class="link-btn" id="rig-open" type="button" hidden>Try the controller →</button></span></figcaption>
     </figure>
   </div>
 </section>
@@ -121,13 +120,8 @@
 
     <!-- E-03 FRAME -->
     <article class="sheet" id="e-03" aria-labelledby="e03-h">
-      <div class="tblock">
-        <div><div class="label">Project no.</div><div class="v">E-03</div></div>
-        <div class="wide"><div class="label">Title</div><div class="v">Generative FPV drone frame</div></div>
-        <div><div class="label">Role</div><div class="v">Design, analysis &amp; build</div></div>
-        <div><div class="label">Tools</div><div class="v">Fusion generative · Ansys Mechanical</div></div>
-        <div><div class="label">Date</div><div class="v">2026-07 → 2026-09</div></div>
-        <div><div class="label">Status</div><div class="v">Built &amp; tested</div></div>
+      <div class="sheet-meta">
+        <span class="pno">E-03</span><span class="chip"><span class="k">Role</span>Design, analysis &amp; build</span><span class="chip"><span class="k">Tools</span>Fusion generative · Ansys Mechanical</span><span class="chip"><span class="k">Date</span>Jul – Sep 2026</span><span class="chip"><span class="k">Status</span>Built &amp; tested</span>
       </div>
       <div class="sheet-body">
         <div class="sheet-title">
@@ -145,11 +139,11 @@
             </div>
             <div class="f3-stage" hidden>
               <div class="f3-steps" role="group" aria-label="Views of the model">
-                <button type="button" data-cap="As modelled in Fusion: 47 parts, 246 g all-up. Drag to turn it; point at a part to name it."><span>01</span> ASSEMBLY</button>
-                <button type="button" data-cap="Exploded. Point at a part, or a row of the parts list, to pick it out."><span>02</span> EXPLODED</button>
-                <button type="button" data-cap="The generated frame alone: 38 g of PC/ABS, motors 96 mm apart, 136 mm across the diagonal."><span>03</span> FRAME ONLY</button>
+                <button type="button" data-cap="As modelled in Fusion: 47 parts, 246 g all-up. Drag to turn it; point at a part to name it."><span>01</span> Assembly</button>
+                <button type="button" data-cap="Exploded. Point at a part, or a row of the parts list, to pick it out."><span>02</span> Exploded</button>
+                <button type="button" data-cap="The generated frame alone: 38 g of PC/ABS, motors 96 mm apart, 136 mm across the diagonal."><span>03</span> Frame only</button>
               </div>
-              <div class="f3-view"><p class="f3-load" aria-live="polite">LOADING MODEL</p></div>
+              <div class="f3-view"><p class="f3-load" aria-live="polite">Loading model</p></div>
               <table class="f3-parts">
                 <caption>Parts list</caption>
                 <thead><tr><th scope="col">Item</th><th scope="col">Part</th><th scope="col">Qty</th><th scope="col">Mass</th></tr></thead>
@@ -223,13 +217,8 @@
 
     <!-- E-04 DRONE -->
     <article class="sheet" id="e-04" aria-labelledby="e04-h">
-      <div class="tblock">
-        <div><div class="label">Project no.</div><div class="v">E-04</div></div>
-        <div class="wide"><div class="label">Title</div><div class="v">Vision-based autonomous drone racing</div></div>
-        <div><div class="label">Role</div><div class="v">Individual, with an AI agent</div></div>
-        <div><div class="label">Tools</div><div class="v">Python · OpenCV · NumPy</div></div>
-        <div><div class="label">Date</div><div class="v">2026-08 → 2026-10</div></div>
-        <div><div class="label">Status</div><div class="v">In development</div></div>
+      <div class="sheet-meta">
+        <span class="pno">E-04</span><span class="chip"><span class="k">Role</span>Individual, with an AI agent</span><span class="chip"><span class="k">Tools</span>Python · OpenCV · NumPy</span><span class="chip"><span class="k">Date</span>Aug – Oct 2026</span><span class="chip"><span class="k">Status</span>In development</span>
       </div>
       <div class="sheet-body">
         <div class="sheet-title">
@@ -244,7 +233,7 @@
               <canvas id="fpv" width="640" height="480" aria-label="Onboard camera view"></canvas>
               <div class="rest" id="rest">
                 <span>Six recorded flights · 8 gates · about 6 m/s</span>
-                <button class="btn" id="load" type="button">LOAD REPLAY</button>
+                <button class="btn" id="load" type="button">Load replay</button>
                 <span id="load-note"></span>
               </div>
             </div>
@@ -258,7 +247,7 @@
           <div class="controls" id="controls" aria-disabled="true">
             <div class="seg" id="seeds" role="group" aria-label="Course" hidden></div>
             <div class="seg" id="methods" role="group" aria-label="Sensing" hidden></div>
-            <button class="ctl" id="play" type="button">PLAY</button>
+            <button class="ctl" id="play" type="button">Play</button>
             <input id="scrub" type="range" min="0" max="0" value="0" step="1" aria-label="Flight time">
             <span class="clock" id="clock">0.00 s</span>
           </div>
@@ -351,14 +340,8 @@
 
     <!-- E-02 ROBOT -->
     <article class="sheet" id="e-02" aria-labelledby="e02-h">
-      <div class="tblock">
-        <div><div class="label">Project no.</div><div class="v">E-02</div></div>
-        <div class="wide"><div class="label">Title</div><div class="v">External pipe-climbing robot</div></div>
-        <div><div class="label">Role</div><div class="v">Team of 6 · model &amp; CAD</div></div>
-        <div><div class="label">Tools</div><div class="v">Excel · Fusion CAD</div></div>
-        <div><div class="label">Date</div><div class="v">2026-02 → 2026-04</div></div>
-        <div><div class="label">Context</div><div class="v">IMechE Design Challenge</div></div>
-        <div><div class="label">Result</div><div class="v">Completed the climb</div></div>
+      <div class="sheet-meta">
+        <span class="pno">E-02</span><span class="chip"><span class="k">Role</span>Team of 6 · model &amp; CAD</span><span class="chip"><span class="k">Tools</span>Excel · Fusion CAD</span><span class="chip"><span class="k">Date</span>Feb – Apr 2026</span><span class="chip"><span class="k">Context</span>IMechE Design Challenge</span><span class="chip"><span class="k">Result</span>Completed the climb</span>
       </div>
       <div class="sheet-body">
         <div class="sheet-title">
@@ -386,7 +369,7 @@
                 <label><span>Gear ratio</span><input type="range" id="cl-g" min="50" max="300" step="5" value="150"><output id="cl-g-o">150</output></label>
                 <label><span>Wheel diameter</span><input type="range" id="cl-d" min="10" max="40" step="1" value="20"><output id="cl-d-o">20 mm</output></label>
                 <label><span>Normal force</span><input type="range" id="cl-n" min="5" max="50" step="1" value="30"><output id="cl-n-o">30 N</output></label>
-                <div class="climb-btns"><button class="btn" type="button" id="cl-run">CLIMB</button><button class="btn" type="button" id="cl-reset">THE SHEET'S SETUP</button></div>
+                <div class="climb-btns"><button class="btn primary" type="button" id="cl-run">Climb</button><button class="btn" type="button" id="cl-reset">The sheet's setup</button></div>
               </div>
               <p class="climb-result" id="cl-result" aria-live="polite"></p>
               <div class="climb-read">
@@ -478,13 +461,8 @@
 
     <!-- E-01 AI COST -->
     <article class="sheet" id="e-01" aria-labelledby="e01-h">
-      <div class="tblock">
-        <div><div class="label">Project no.</div><div class="v">E-01</div></div>
-        <div class="wide"><div class="label">Title</div><div class="v">AI training-cost analysis</div></div>
-        <div><div class="label">Role</div><div class="v">Analysis &amp; report</div></div>
-        <div><div class="label">Tools</div><div class="v">MATLAB</div></div>
-        <div><div class="label">Date</div><div class="v">2025-10</div></div>
-        <div><div class="label">Status</div><div class="v">Complete</div></div>
+      <div class="sheet-meta">
+        <span class="pno">E-01</span><span class="chip"><span class="k">Role</span>Analysis &amp; report</span><span class="chip"><span class="k">Tools</span>MATLAB</span><span class="chip"><span class="k">Date</span>Oct 2025</span><span class="chip"><span class="k">Status</span>Complete</span>
       </div>
       <div class="sheet-body">
         <div class="sheet-title">
@@ -538,15 +516,15 @@
             <div><b>5,000+</b><span class="label">downloads</span></div>
           </div>
           <div class="actions">
-            <a class="btn" href="https://unsplash.com/@dominic_t" target="_blank" rel="noopener">UNSPLASH ↗</a>
-            <a class="btn" href="https://www.instagram.com/dt___xt/" target="_blank" rel="noopener">INSTAGRAM ↗</a>
+            <a class="btn" href="https://unsplash.com/@dominic_t" target="_blank" rel="noopener">Unsplash ↗</a>
+            <a class="btn" href="https://www.instagram.com/dt___xt/" target="_blank" rel="noopener">Instagram ↗</a>
           </div>
         </div>
       </div>
-      <!-- About as a drawing's parts list (DESIGN_PLAN.md 4.1): skills name the projects that used them -->
+      <!-- About: skills and experience; each skill names the projects that used it (DESIGN_PLAN.md 4.1) -->
       <table class="bom">
-        <caption>Parts list</caption>
-        <thead><tr><th scope="col">Item</th><th scope="col">Part</th><th scope="col">Qty</th><th scope="col">Used in</th></tr></thead>
+        <caption>Skills and experience</caption>
+        <thead><tr><th scope="col"><span class="sr-only">Number</span></th><th scope="col">Skill or role</th><th scope="col">Projects</th><th scope="col"><span class="sr-only">Which projects</span></th></tr></thead>
         <tbody>
           <tr class="grp"><th scope="rowgroup" colspan="4">Education</th></tr>
           <tr><td>1</td><td>MEng Mechanical Engineering, UCL<span>2025 – 2029 · predicted 2:1</span></td><td></td><td></td></tr>
@@ -582,14 +560,14 @@
     <figure class="contact-sheet">
       <div class="film" tabindex="0" role="region" aria-label="Contact sheet: eight photographs, scrolls sideways">
         <ol>
-            <li><img src="images/photos/01.jpg" width="400" height="600" loading="lazy" decoding="async" alt="A painted statue of the Madonna and child, haloes lit, in a chapel cut into the rock"><span class="fr">▸ 01</span><span class="cap">TAORMINA, SICILY</span></li>
-            <li><img src="images/photos/02.jpg" width="400" height="600" loading="lazy" decoding="async" alt="The bay below Taormina in summer haze, steps zigzagging down the hillside"><span class="fr">▸ 02</span><span class="cap">TAORMINA, SICILY</span></li>
-            <li><img src="images/photos/03.jpg" width="400" height="600" loading="lazy" decoding="async" alt="A narrow street hung with red, yellow and white umbrellas, their shadows on the paving"><span class="fr">▸ 03</span><span class="cap">CATANIA, SICILY</span></li>
-            <li><img src="images/photos/04.jpg" width="900" height="600" loading="lazy" decoding="async" alt="An Italian flag on a castle wall above the coast and Giardini Naxos"><span class="fr">▸ 04</span><span class="cap">CASTELMOLA, SICILY</span></li>
-            <li><img src="images/photos/05.jpg" width="900" height="600" loading="lazy" decoding="async" alt="A focacceria hung with lemons under a yellow Limoncello sign"><span class="fr">▸ 05</span><span class="cap">TAORMINA, SICILY</span></li>
-            <li><img src="images/photos/06.jpg" width="988" height="600" loading="lazy" decoding="async" alt="Rainforest over a rocky stream, looking up from the riverbed"><span class="fr">▸ 06</span><span class="cap">MALAYSIA</span></li>
-            <li><img src="images/photos/07.jpg" width="582" height="600" loading="lazy" decoding="async" alt="Red lanterns strung over temple roofs, a Sun Wukong statue in the trees beyond"><span class="fr">▸ 07</span><span class="cap">MALAYSIA</span></li>
-            <li><img src="images/photos/08.jpg" width="404" height="600" loading="lazy" decoding="async" alt="A shaded lane of old shophouses, plants and an old bicycle, people walking towards the shops"><span class="fr">▸ 08</span><span class="cap">PENANG, MALAYSIA</span></li>
+            <li><img src="images/photos/01.jpg" width="400" height="600" loading="lazy" decoding="async" alt="A painted statue of the Madonna and child, haloes lit, in a chapel cut into the rock"><span class="fr">▸ 01</span><span class="cap">Taormina, Sicily</span></li>
+            <li><img src="images/photos/02.jpg" width="400" height="600" loading="lazy" decoding="async" alt="The bay below Taormina in summer haze, steps zigzagging down the hillside"><span class="fr">▸ 02</span><span class="cap">Taormina, Sicily</span></li>
+            <li><img src="images/photos/03.jpg" width="400" height="600" loading="lazy" decoding="async" alt="A narrow street hung with red, yellow and white umbrellas, their shadows on the paving"><span class="fr">▸ 03</span><span class="cap">Catania, Sicily</span></li>
+            <li><img src="images/photos/04.jpg" width="900" height="600" loading="lazy" decoding="async" alt="An Italian flag on a castle wall above the coast and Giardini Naxos"><span class="fr">▸ 04</span><span class="cap">Castelmola, Sicily</span></li>
+            <li><img src="images/photos/05.jpg" width="900" height="600" loading="lazy" decoding="async" alt="A focacceria hung with lemons under a yellow Limoncello sign"><span class="fr">▸ 05</span><span class="cap">Taormina, Sicily</span></li>
+            <li><img src="images/photos/06.jpg" width="988" height="600" loading="lazy" decoding="async" alt="Rainforest over a rocky stream, looking up from the riverbed"><span class="fr">▸ 06</span><span class="cap">Malaysia</span></li>
+            <li><img src="images/photos/07.jpg" width="582" height="600" loading="lazy" decoding="async" alt="Red lanterns strung over temple roofs, a Sun Wukong statue in the trees beyond"><span class="fr">▸ 07</span><span class="cap">Malaysia</span></li>
+            <li><img src="images/photos/08.jpg" width="404" height="600" loading="lazy" decoding="async" alt="A shaded lane of old shophouses, plants and an old bicycle, people walking towards the shops"><span class="fr">▸ 08</span><span class="cap">Penang, Malaysia</span></li>
         </ol>
       </div>
       <figcaption><span><b>Contact sheet</b> — Sicily and Malaysia.</span><span class="cs-nav" hidden><button type="button" id="cs-prev" aria-label="Earlier frames">◂</button><button type="button" id="cs-next" aria-label="Later frames">▸</button></span></figcaption>
@@ -607,20 +585,11 @@
     <div class="contact">
       <div class="contact-row">
         <span class="email" id="email">dominic_tataj@icloud.com</span>
-        <button class="btn copy-btn" id="copy" type="button">COPY EMAIL</button>
-      </div>
-      <!-- the drawing's approval box: copying the email signs and dates it (js/contact.js) -->
-      <div class="tblock approve" id="approve">
-        <div><div class="label">Drawn by</div><div class="v">D. Tataj</div></div>
-        <div><div class="label">Status</div><div class="v" id="approve-status">For approval</div></div>
-        <div class="wide sign"><div class="label">Approved by</div>
-          <svg class="sig" viewBox="0 0 180 40" aria-hidden="true"><path pathLength="1" d="M6 30C12 12 20 6 21 16S16 34 26 30 34 10 41 14 42 30 50 26 58 12 64 16 63 30 72 28 80 10 86 12 86 26 94 28 104 14 110 16 108 30 118 28 128 18 134 18M30 35C70 33 120 31 170 25"/></svg>
-        </div>
-        <div><div class="label">Date</div><div class="v" id="approve-date">–</div></div>
+        <button class="btn primary copy-btn" id="copy" type="button">Copy email</button>
       </div>
       <div class="actions">
-        <a class="btn" href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LINKEDIN ↗</a>
-        <a class="btn" href="https://github.com/dom-t23" target="_blank" rel="noopener">GITHUB ↗</a>
+        <a class="btn" href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn" href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
     </div>
   </div>
@@ -630,11 +599,7 @@
 
 <footer class="foot">
   <div class="wrap">
-    <div class="tblock">
-      <div><div class="label">Name</div><div class="v">Dominic Tataj</div></div>
-      <div><div class="label">Course</div><div class="v">MEng Mech. Eng., UCL</div></div>
-      <div><div class="label">Updated</div><div class="v">November 2026</div></div>
-    </div>
+    <p class="foot-line"><span>Dominic Tataj</span><span>MEng Mechanical Engineering, UCL</span><span>Updated November 2026</span></p>
     <p class="foot-hint">Type FPV anywhere for acro mode.</p>
   </div>
 </footer>

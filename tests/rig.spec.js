@@ -76,12 +76,15 @@ test("a gust knocks it and it recovers; clicks and arrow keys move the setpoint"
 });
 
 test("gains past the limit: it oscillates, the failsafe cuts the motors, it crashes and restarts", async ({ page }) => {
+  // The rig steps its physics at a fixed rate but covers at most 0.05 s of it per frame, so on
+  // a loaded test machine the simulation runs slower than real time: 12 s alone, 40 s or more
+  // with the suite running beside it (the same on the live site before the redesign).
+  test.setTimeout(150000);
   await openRig(page);
   await page.locator("#kp").evaluate((e) => { e.value = "950"; e.dispatchEvent(new Event("input")); });
   await expect(page.locator("#stab")).toHaveClass(/bad/);
   await expect(page.locator("#stab")).toHaveText("UNSTABLE: RAISE Kd OR LOWER Kp");
-  // the oscillation grows in real time: about 12 s alone, longer when the whole suite loads the machine
-  await expect.poll(() => state(page), { timeout: 45000 }).toBe("failsafe");
+  await expect.poll(() => state(page), { timeout: 120000 }).toBe("failsafe");
   await expect.poll(() => state(page), { timeout: 5000 }).toBe("crashed");
   await expect(page.locator("#rig text.note")).toContainText("IMPACT");
   await expect.poll(() => state(page), { timeout: 4000 }).not.toBe("crashed");

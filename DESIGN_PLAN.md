@@ -1,11 +1,18 @@
-# Design plan: "a living drawing set"
+# Design plan
 
 **Goal:** a portfolio that a recruiter remembers a week later and an engineer respects:
 visually striking, quirky in small ways, but every animation carries information about
 Dom's work. Professional first; delight second; never at the cost of reading speed.
 
-**Decisions so far (24 Oct 2026)**
-- Direction: amplify the existing engineering-drawing identity. The site is a drawing set
+**Direction since 20 Nov 2026: smooth layered panels (phase R below).** Dom found the
+engineering-drawing styling cluttered (the orange revision clouds in particular) and asked
+for something cleaner and more futuristic, with more visual depth. His answers: light first;
+drop the drawing identity entirely; a geometric sans for headings; keep only the crosshair
+cursor and the film-strip photos. Sections 0 to 4 below are the history of the drawing-set
+version; where phase R removed or replaced an item, it says so there.
+
+**Earlier decisions (24 Oct 2026)**
+- Direction (superseded by phase R): amplify the engineering-drawing identity, a drawing set
   that is *alive*: linework draws itself, dimensions measure real things, title blocks fill
   in, annotations point at what matters.
 - Motion: rich but purposeful. Signature moments in the hero and in each project, small
@@ -74,10 +81,10 @@ checkpoint with Dom, merge to `main`.
      tilt reversals past 25° in 4 s) cuts the motors, as a real flight controller would; it
      tumbles, crashes with an IMPACT note and debris, and restarts.
    - Loaded on first use (`js/rig-button.js`), so first-load JS is unchanged.
-1.3 [x] **Headline micro-quirk:** the word "simulate" gets a hand-drawn orange
+1.3 [-] (removed with the headline, 14 Nov) **Headline micro-quirk:** the word "simulate" gets a hand-drawn orange
    underline that draws itself; "build" gets a tiny dimension line under it reading the
    real frame mass (`38 g`) on hover.
-1.4 [x] **Availability block gets a plotter pass:** an orange pen line sweeps along each
+1.4 [-] (removed in phase R) **Availability block gets a plotter pass:** an orange pen line sweeps along each
    title-block cell in turn on load. The text itself is readable from the first frame. No
    sound anywhere on the site (Dom, 24 Oct 2026).
 
@@ -87,17 +94,17 @@ checkpoint with Dom, merge to `main`.
    four short crosshair ticks follow it and a corner readout gives its position on the
    page in mm (96 px to the inch). Mouse only; hidden over links, buttons, controls and
    the interactive figures, and for reduced motion.
-2.2 [x] **Sheet-number scroll progress:** the nav shows `SHEET 3/7 E-04` (cover, four
+2.2 [-] (removed in phase R) **Sheet-number scroll progress:** the nav shows `SHEET 3/7 E-04` (cover, four
    projects, About, Contact), the number ticking over as you scroll, with a thin orange
    progress bar under the nav.
-2.3 [x] **Revision cloud on hover** (done in phase G): round each register entry (title
+2.3 [-] (removed in phase R) **Revision cloud on hover** (done in phase G): round each register entry (title
    and line below) and each sheet's title.
 2.4 [x] **Numbers count up** with tabular figures when they enter view (spec strips and the
    Unsplash stats), once only, about 0.9 s. Compound values (400×300, P ∝ N^0.55) stay put.
 2.5 [x] **Theme toggle as a light-table switch** (done in phase G): a view transition
    with the new theme clipped to a circle growing from the button; instant without view
    transitions or with reduced motion.
-2.6 [x] **Copy-email burst** (done in phase G): the email prints again behind an orange
+2.6 [x] **Copy-email burst** (done in phase G; the plotter print removed in phase R): the email prints again behind an orange
    plotter head, then 4.3's signature, then the burst.
 2.7 [x] **Easter egg** (done in phase G): typing `fpv` puts the page in acro mode for
    10 s (ACRO badge with a countdown, the page tilts 2° and rights itself, the hero drone
@@ -177,6 +184,26 @@ H.3 [x] **No visible headline** (14 Nov 2026, Dom's call): "I design, simulate a
    and robots" and its underline and hover quirks are gone; a visually hidden h1 names the page.
 H.2 [x] **Availability in one line** instead of the four-cell block, with the pen pass kept.
 
+### Phase R: redesign as smooth panels (20 Nov 2026)
+R.1 [x] **Foundations.** Tokens for a page background, raised panels and inset surfaces;
+   three elevation levels (soft layered shadows; in dark, lighter surfaces with a lit top
+   edge); radii 10/14/22 px; hairlines at low alpha. The page's depth: a warm glow top right,
+   a cool one left, and a dot grid fading out from the top. Glass nav (translucent, blurred).
+   Space Grotesk headings, IBM Plex Sans body, Plex Mono for numbers. Light first: the device
+   setting no longer picks dark; the toggle does, and is saved.
+R.2 [x] **Drawing-set features removed:** revision clouds (js/clouds.js deleted), the
+   "Sheet n/7" counter and progress line, the approval box and the email's plotter print,
+   the plotter pen under availability, title blocks (now chips: project number, role, tools,
+   date, status), and uppercase mono labels (normal case now). Orange is kept for data, the
+   active state and main buttons.
+R.3 [x] **Components:** project cards that lift on hover; each project a raised panel; key
+   figures as inset stat cards; figures as rounded screens with dot grids and captions under
+   them; segmented controls for views and axes; pill buttons; round slider thumbs; the About
+   skills table on a panel; contact as a field and a button; a one-line footer. Kept and
+   restyled: the crosshair cursor (glass readout) and the film strip (rounded).
+R.4 [x] **Hero depth:** availability as pills with a live dot; a glow behind the drone and a
+   perspective floor under it; the drone's frames blend into the page in both themes.
+
 ## 4. About & contact
 
 4.1 [x] **About as a parts list / BOM** (done in phase G): grouped rows with item
@@ -185,7 +212,7 @@ H.2 [x] **Availability in one line** instead of the four-cell block, with the pe
 4.2 [x] **Photography strip** (done, 2 Nov 2026): Dom's eight photographs (Sicily and
    Malaysia) under About as a strip of film that scrolls sideways, with sprocket holes,
    frame numbers and place names in the edge print; lazy-loaded; buttons page it for a mouse.
-4.3 [x] **Contact as the drawing's approval box** (done in phase G): drawn by, status,
+4.3 [-] (removed in phase R) **Contact as the drawing's approval box** (done in phase G): drawn by, status,
    approved by and date; COPY EMAIL signs it with a pen stroke (a generic scribble: the
    visitor approves), sets Approved and today's date, then the burst.
 

@@ -1,5 +1,5 @@
 // Fig. 00's hover test rig (DESIGN_PLAN.md 1.2), loaded on demand by js/rig-button.js, whose
-// TRY THE CONTROLLER button calls open(). It turns the flight strip into
+// Try the controller button calls open(). It turns the flight strip into
 // an elevation-view test rig for the drone model in js/quad.js: drag the drone, click to move
 // its setpoint, send a gust, and change the position-loop gains, including past the
 // Routh–Hurwitz limit, where it goes unstable and crashes. The rig shows the tilt, error,
