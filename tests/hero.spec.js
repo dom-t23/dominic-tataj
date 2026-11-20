@@ -75,6 +75,13 @@ test("no visible headline; the page's h1 names it for screen readers", async ({ 
   expect(await page.locator("h1").boundingBox()).toMatchObject({ width: 1, height: 1 });
 });
 
+test("the h1 stays hidden even when a cached, older stylesheet loads with the page", async ({ page }) => {
+  // on 20 Nov 2026 the live site showed it in display type: new HTML, the old site.css from cache
+  await page.route(/css\/site\.css/, (r) => r.fulfill({ contentType: "text/css", body: ".hero h1 { font-size: 62px; }" }));
+  await page.goto("/");
+  expect(await page.locator("h1").boundingBox()).toMatchObject({ width: 1, height: 1 });
+});
+
 test("availability gets a plotter pass that leaves it as it was", async ({ page }) => {
   await page.goto("/");
   const pen = () => page.locator(".hero-facts").evaluate((d) => getComputedStyle(d, "::after").opacity);
