@@ -1,7 +1,8 @@
 # Portfolio improvement plan
 
-**Purpose:** help land a UK summer 2027 internship or a 2027–28 placement year. Mechanical
-roles first, software and autonomy roles too.
+**Purpose:** help land a UK summer 2027 internship or a 2027–28 placement year. Software,
+autonomy and systems roles first, particularly in UK defence; mechanical design as a supporting
+strength.
 
 **Readers**
 - Recruiters: about 30 seconds, often on a phone from a LinkedIn link. They need role fit,
@@ -10,11 +11,20 @@ roles first, software and autonomy roles too.
   building and testing real hardware.
 
 **Decisions (20 Oct 2026)**
-- Aimed at mechanical roles first, software too.
+- ~~Aimed at mechanical roles first, software too.~~ Superseded 20 Nov 2026: aimed at
+  software, autonomy and systems roles first, particularly in UK defence; mechanical design
+  as a supporting strength.
 - Work happens on the `claude/portfolio-improvements` branch, one commit per item, merged to
   `main` at checkpoints (`main` deploys straight to the live site).
 - Photography folds into About; the nav becomes Work / About / Contact.
 - The hero states full right to work in the UK.
+
+**Open finding from the change of direction (20 Nov 2026), P1, for the copy review (Phase 4
+of the professional review, see `REVIEW.md`):** copy that still says mechanical-first. At the
+moment that is the hero eyebrow ("Mechanical engineering · UCL"), the hero lede ("Aiming for
+mechanical engineering roles, open to software and autonomy"), the hidden `<h1>`, and the meta
+and OG descriptions. Keep the degree stated accurately (MEng Mechanical Engineering, UCL); only
+the targeting changes.
 
 ## Checklist
 
