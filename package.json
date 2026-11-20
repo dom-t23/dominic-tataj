@@ -7,6 +7,7 @@
     "screens": "playwright test --grep @screens"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
     "@playwright/test": "1.56.1"
   }
 }
