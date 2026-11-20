@@ -204,6 +204,29 @@ R.3 [x] **Components:** project cards that lift on hover; each project a raised 
 R.4 [x] **Hero depth:** availability as pills with a live dot; a glow behind the drone and a
    perspective floor under it; the drone's frames blend into the page in both themes.
 
+### Phase S: professional review (Nov 2026)
+Eight independent reviewers (recruiter panel, hiring engineer, art director, motion,
+accessibility, performance and SEO, copy, benchmark) audited the site after Dom's change of
+direction (20 Nov 2026: software, autonomy and systems roles first, particularly UK defence).
+Findings, scores, conflicts and decisions are in `REVIEW.md`; the reports are in
+`review/findings/`. Decision: **redesign the identity layer** (visual design 6/10, recruiter
+10-second test failed, three reviewers called the shell generic). The figures stay. H.3 is
+reopened for a visible name-and-role line (not a slogan); 2.4's count-ups go (they show false
+values before and during the count).
+S.1 [ ] **Targeting copy** (P0): hero, title, meta, OG, hidden h1, About, Contact (R-01, R-28, R-29).
+S.2 [ ] **Foundations**: tokens for the chosen direction, contrast fixes, fonts (R-11, R-25, R-24, R-34).
+S.3 [ ] **Hero**: visible name and role, availability as a spec list, hero visual, one-row phone nav, theme button before paint (R-02, R-19, R-18).
+S.4 [ ] **E-04 leads**: project order E-04, E-03, E-02, E-01; figures renumbered; result line on each card (R-04, R-23).
+S.5 [ ] **Project anatomy**: new sheet layout, metadata line, key figures under each summary, E-04 key figures, results first (R-03, R-05, R-06, R-09, R-21).
+S.6 [ ] **Accuracy**: Fig. 00 and rig wording, E-04 title, E-01 count, E-02 limitation, count-ups removed (R-10, R-13, R-14, R-15).
+S.7 [ ] **Phone length and legibility**: Fig. 01 unpinned on phones, Fig. 02/05/06 for phones, parts list (R-08, R-20, R-27, R-31).
+S.8 [ ] **Figure language**: sentence case and correct units; one tag, segmented control and slider (R-12, R-26).
+S.9 [ ] **About and Contact**: skills table on phones, mailto, CV slot (R-07, R-09, R-29, R-30).
+S.10 [ ] **Accessibility**: semantics, loops that settle, rig on touch (R-30, R-32, R-33).
+S.11 [ ] **Performance and SEO**: JSON-LD, OG image, theme-color, loading fixes, perf test (R-17, R-34, R-35).
+S.12 [ ] **Dark theme pass** (R-24).
+S.13 [ ] Independent re-audit, after screenshots, scorecard "after" column, PR.
+
 ## 4. About & contact
 
 4.1 [x] **About as a parts list / BOM** (done in phase G): grouped rows with item

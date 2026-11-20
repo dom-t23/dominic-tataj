@@ -4,7 +4,9 @@
 
 - `<size>-<theme>-fold.png`: the first screen after load, fonts ready, page scrolled once top to
   bottom and back (so reveals have played and lazy figures have loaded).
-- `<size>-<theme>-full.png`: the whole page. **Capture caveats:** the capture forces
+- `<size>-<theme>-full-N.png`: the whole page, top to bottom in parts (N = 1, 2, ...), each under
+  8192 device pixels: a single capture taller than that repeats the top of the page in
+  software-rendered Chromium. **Capture caveats:** the capture forces
   `.sheet { content-visibility: visible }` so off-screen projects paint; the pinned Fig. 01
   (E-03's 3D drone) shows as roughly 2 to 3 screens of empty white panel, because on screen that
   height is the scroll track that turns the model while it is pinned under the nav. WebGL renders

@@ -39,13 +39,23 @@ async function settle(page) {
 // shows as tall white space: on screen that height is scroll that turns the model.
 const PAINT_ALL = ".sheet { content-visibility: visible !important; }";
 
+// The whole page, in parts: one capture taller than about 8192 device pixels repeats the top of
+// the page in software-rendered Chromium, so each part stays under that.
+async function fullPage(page, base) {
+  const [w, h, dpr] = await page.evaluate(() => [document.documentElement.clientWidth, document.documentElement.scrollHeight, devicePixelRatio]);
+  const step = Math.floor(8000 / dpr);
+  for (let y = 0, k = 1; y < h; y += step, k++) {
+    await page.screenshot({ path: `${base}-${k}.png`, fullPage: true, clip: { x: 0, y, width: w, height: Math.min(step, h - y) } });
+  }
+}
+
 async function capture(page, name, sequence) {
   await page.goto("/", { waitUntil: "networkidle" });
   await settle(page);
   await page.screenshot({ path: `${OUT}/${name}-fold.png` });
   const tag = await page.addStyleTag({ content: PAINT_ALL });
   await page.waitForTimeout(300);
-  await page.screenshot({ path: `${OUT}/${name}-full.png`, fullPage: true });
+  await fullPage(page, `${OUT}/${name}-full`);
   await tag.evaluate((t) => t.remove());
   if (!sequence) return;
   // what a visitor sees screen by screen, scrolling down the page
@@ -77,6 +87,7 @@ test.describe("phone reduced motion", () => {
     await page.goto("/", { waitUntil: "networkidle" });
     await page.evaluate(() => document.fonts.ready);
     await page.screenshot({ path: `${OUT}/phone-light-reduced-fold.png` });
-    await page.screenshot({ path: `${OUT}/phone-light-reduced-full.png`, fullPage: true });
+    await page.addStyleTag({ content: PAINT_ALL });
+    await fullPage(page, `${OUT}/phone-light-reduced-full`);
   });
 });
