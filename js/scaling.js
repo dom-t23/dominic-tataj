@@ -69,9 +69,9 @@ function layout() {
   for (var e = lx0; e <= lx1; e += stepX) tickX(els.gLog, lg.x(e), "10" + sup(e));
   for (e = ly0; e <= ly1; e += stepY) tickY(els.gLog, lg.y(e), "10" + sup(e));
   el("path", { class: "axis", d: "M" + X0 + " " + Y0 + "V" + Y1 + "H" + X1 }, svg);
-  el("text", { x: X1, y: H - 4, "text-anchor": "end" }, svg).textContent = "PARAMETERS, N";
+  el("text", { x: X1, y: H - 4, "text-anchor": "end" }, svg).textContent = "Parameters, N";
   els.title = el("text", { class: "title", x: 0, y: 12 }, svg);
-  el("text", { x: 0, y: 24 }, svg).textContent = "TRAINING POWER DRAW, P (W)";
+  el("text", { x: 0, y: 24 }, svg).textContent = "Training power draw, P (W)";
 
   els.pts = pts.map(function () { return el("circle", { class: "pt", r: 2.6 }, svg); });
   // the fit and the GPT-5 estimate, on log axes only
@@ -107,7 +107,7 @@ function draw(tt) {
   });
   els.gLin.setAttribute("opacity", (1 - tt).toFixed(3));
   els.gLog.setAttribute("opacity", tt.toFixed(3));
-  els.title.textContent = tt < 0.5 ? "LINEAR AXES" : "LOG₁₀ AXES";
+  els.title.textContent = tt < 0.5 ? "Linear axes" : "Log₁₀ axes";
   if (hl >= 0) pick(hl);
 }
 
@@ -151,7 +151,7 @@ function pick(i) {
   if (i < 0) return;
   var c = els.pts[i], cx = +c.getAttribute("cx"), cy = +c.getAttribute("cy"), q = pts[i];
   els.ring.setAttribute("cx", cx); els.ring.setAttribute("cy", cy);
-  els.tipText.textContent = (q.name.length > 34 ? q.name.slice(0, 33) + "…" : q.name).toUpperCase() + " · " + fmt(q.n, "") + " · " + fmt(q.p, "W");
+  els.tipText.textContent = (q.name.length > 34 ? q.name.slice(0, 33) + "…" : q.name) + " · " + fmt(q.n, "") + " · " + fmt(q.p, "W");
   var w = els.tipText.getComputedTextLength() + 12;
   els.tip.firstChild.setAttribute("width", f1(w));
   var tx = Math.min(Math.max(cx - w / 2, 0), W - w), ty = cy - 30 < 0 ? cy + 12 : cy - 30;

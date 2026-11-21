@@ -56,7 +56,7 @@ if (P.fuse) {
 }
 if (P.fly) {
   var y = P.fly.g;
-  [[14, "THROTTLE · YAW"], [114, "PITCH · ROLL"]].forEach(function (b, i) {
+  [[14, "Throttle · yaw"], [114, "Pitch · roll"]].forEach(function (b, i) {
     var x = b[0];
     el("rect", { class: "grid", x: x, y: 10, width: 72, height: 72 }, y);
     el("path", { class: "grid", d: "M" + (x + 36) + " 10v72M" + x + " 46h72" }, y);
@@ -113,7 +113,7 @@ export function show(f, i) {
 
 function light(p, on, bad) { p.el.classList.toggle("on", !!on && !bad); p.el.classList.toggle("bad", !!bad); }
 // Readouts in capitals, as the rest of the page's data, but σ and χ stay lower case.
-function say(p, text, bad) { p.r.textContent = text.toUpperCase().replace(/Σ/g, "σ").replace(/Χ/g, "χ"); p.r.classList.toggle("bad", !!bad); }
+function say(p, text, bad) { p.r.textContent = text; p.r.classList.toggle("bad", !!bad); }
 
 function detect(fr, i) {
   var p = P.detect;

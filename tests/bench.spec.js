@@ -1,8 +1,8 @@
-// Fig. 03, the benchmark table and its chart (js/bench.js).
+// Fig. 01, the benchmark table and its chart (js/bench.js).
 const { test, expect } = require("@playwright/test");
 const { phone, trackErrors } = require("./helpers");
 
-const firstCol = (page) => page.$$eval("#bench tbody tr td:first-child", (t) => t.map((x) => x.textContent));
+const firstCol = (page) => page.$$eval("#bench tbody tr th:first-child", (t) => t.map((x) => x.textContent));
 const header = (page, n) => page.locator(`#bench thead tr:nth-child(2) th:nth-child(${n})`);
 const COURSE_ORDER = ["0–49", "1000–1049", "2000–2049", "3000–3049", "4000–4049", "5000–5049"];
 
@@ -35,7 +35,7 @@ test("a set's row and its bar pick each other out; the pooled row pulses once in
   await expect(page.locator("#bench tr.pooled")).toHaveClass(/pulse/);
   await page.locator("#bench tbody tr").nth(4).hover();
   await expect(page.locator("#bench-chart path.bar.hl")).toHaveCount(1);
-  await expect(page.locator("#bench-chart text").filter({ hasText: "4000–4049: 9 MISSED, 97.75% PASSED" })).toHaveCount(1);
+  await expect(page.locator("#bench-chart text").filter({ hasText: "4000–4049: 9 missed, 97.75% passed" })).toHaveCount(1);
   await page.locator("#bench-chart rect.hit").nth(0).hover();
   await expect(page.locator("#bench tbody tr").nth(0)).toHaveClass(/\bhl\b/);
 });

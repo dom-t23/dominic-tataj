@@ -8,9 +8,11 @@ $("copy").addEventListener("click", function () {
     var r = document.createRange(); r.selectNodeContents($("email"));
     var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
     btn.textContent = "Selected, press copy";
+    say("Email address selected: press Ctrl+C, or Command+C on a Mac, to copy it");
   }
+  function say(t) { var st = $("copy-status"); if (st) { st.textContent = ""; setTimeout(function () { st.textContent = t; }, 50); } }
   try {
-    navigator.clipboard.writeText(text).then(function () { btn.textContent = "Copied"; burst(btn); }, selectIt);
+    navigator.clipboard.writeText(text).then(function () { btn.textContent = "Copied"; say("Email address copied"); burst(btn); }, selectIt);
   } catch (e) { selectIt(); }
   setTimeout(function () { btn.textContent = "Copy email"; }, 2400);
 });

@@ -9,47 +9,53 @@ No build step: GitHub Pages serves these files as they are.
 - `js/` — ES modules. `main.js` is the entry point and imports:
   - `theme.js` (light/dark toggle; light first, dark only by choice), `contact.js` (copy
     email and its burst), `sheets.js` (lays every project out once after load, so links down
-    the page land) and `reveals.js` (what animates in on scroll and which numbers count up)
-  - `hero-flight.js` (the hero's flight-test strip, Fig. 00) and `replay.js` (the drone
+    the page land) and `reveals.js` (what animates in on scroll; numbers no longer count up)
+  - `hero-flight.js` (Fig. 00, the hero's flight log: E-04's simulated flight drawn as a plan
+    view with its estimate-error trace and readout) and `replay.js` (the drone
     replay), which share the flight data loaded by `flights.js`; `pipeline.js` draws the
     strip under the replay (detect, measure, fuse, fly at the current frame)
-  - after the load event: `bench.js` (Fig. 03's chart), `climber.js` (Fig. 04, the pipe
+  - after the load event: `bench.js` (Fig. 01's chart), `climber.js` (Fig. 04, the pipe
     climber on a corrected version of the team's Excel model), `scaling.js` (Fig. 07, with
     its points in `data/scaling.js`) and small quirks, `acro.js` (type
     fpv), `hello.js` (the console note), `cursor.js` (the crosshair cursor),
-    `contact-sheet.js` (paging About's photo strip) and `hero-drone.js` (the hero's drone,
-    hovering, then climbing away as you scroll); the theme wipe is in `theme.js`
+    `contact-sheet.js` (paging About's photo strip); the theme wipe is in `theme.js`
   - `rig-button.js`, which loads `hover-rig.js` (the hover test rig) and `quad.js` (its drone
     model and controller, no DOM) on first use
-  - `frame3d-boot.js`, which sets up Fig. 01 and loads `frame3d.js` (the drone in 3D) and
+  - `frame3d-boot.js`, which sets up Fig. 02 and loads `frame3d.js` (the drone in 3D) and
     three.js once the figure is near
 
   `motion.js` is the animation toolkit (one-shot reveals and on-screen-only loops) and
-  `util.js` holds shared helpers. `vendor/three/` is three.js r170 and the four addons Fig. 01
+  `util.js` holds shared helpers. `vendor/three/` is three.js r170 and the four addons Fig. 02
   uses, unchanged; the import map in `index.html` points the addons' `"three"` at it.
-- `models/frame.glb` — the drone for Fig. 01: the Fusion assembly exported as OBJ, converted
+- `models/frame.glb` — the drone for Fig. 02: the Fusion assembly exported as OBJ, converted
   to glTF (metres, Y up), simplified and meshopt-compressed (47 parts, 187 KB)
 - `models/pipe-climber.glb` — the pipe climber, from the team's Fusion STL (168 parts,
   simplified within 1 mm, 575 KB). The page doesn't load it: Fig. 04 draws it in
   isometric from `images/robot-iso-ink.png` and `-fill.png`, used as two CSS masks
 - `flights/` — recorded flights for the drone-racing replay: `index.js` lists them and holds
   the still shown before LOAD, and each flight's frames (0.5-1.6 MB) load only when it is picked
-- `images/` — project images; `images/hero/` holds the hero drone's 33 turn frames (WebP,
-  from `tools/hero/`); `images/photos/` holds the About contact sheet's eight
+- `images/` — project images; `images/hero/` holds 33 turn frames of the drone drawing (WebP,
+  from `tools/hero/`; the page stopped showing them in phase S, and the link preview uses one); `images/photos/` holds the About contact sheet's eight
   photographs, 600 px tall, without metadata
-- `og-image.png`, `favicon.svg`, `apple-touch-icon.png` — link preview and icons
+- `og-image.png`, `favicon.svg`, `apple-touch-icon.png` — link preview and icons; the preview is
+  rendered from `tools/og/og.html` by `node tools/og/render.cjs`
 - `DESIGN_PLAN.md`, `IMPROVEMENTS.md` — work plans
-- `tests/`, `playwright.config.js`, `package.json` — browser tests (not part of the site)
+- `tests/`, `playwright.config.js`, `package.json` — browser tests (not part of the site); `tests/serve.cjs` is the
+  tests' static server (gzip, no dependencies), and `tests/review-*.spec.js` capture the design
+  review's screenshots and metrics into `review/` (kept out of the repo)
 
 To view it locally, serve the folder (ES modules don't load from `file://`):
 
-    python3 -m http.server 8000    # then open http://localhost:8000
+    node tests/serve.cjs 8000      # then open http://localhost:8000 (gzips like GitHub Pages)
+    python3 -m http.server 8000    # also fine
 
 Tests (Playwright, Chromium):
 
     npm install && npx playwright install chromium   # first time only
-    npm test            # structure, hero and its drone, rig, 3D frame, replay and its strip, benchmark, climb, scatter, photos, quirks, contact, motion, performance
-    npm run screens     # review screenshots in test-results/screens/
+    npm test            # structure, hero and its flight log, rig, 3D frame, replay and its strip, benchmark, climb, scatter, photos, quirks, contact, motion; then performance, on its own
+    npm run screens     # review screenshots in test-results/screens/, and the design review's captures (into `review/`, not committed)
+
+`npm test` runs on two workers: Fig. 02 renders three.js in software WebGL, which is CPU-heavy.
 
 To re-record the replay, fly the courses from a checkout of the drone-racing repo (it needs
 that repo's requirements: numpy, opencv-python-headless, scipy). This runs its simulator and
@@ -57,7 +63,7 @@ flight stack unchanged and also records each stage's output for the pipeline str
 
     python3 tools/export_flights.py path/to/vision-drone-racing    # writes flights/
 
-Fig. 03's numbers come from that repo's committed results files:
+Fig. 01's numbers come from that repo's committed results files:
 
     python3 tools/benchmark_table.py path/to/vision-drone-racing   # prints the table rows
 
@@ -76,7 +82,7 @@ second; this repo's Playwright for the third). Each reproduces the committed fil
     node tools/robot/web_glb.mjs robot-raw.glb models/pipe-climber.glb  # simplify, meshopt
     node tools/robot/iso.cjs                                            # writes images/robot-iso-*.png
 
-The hero's drone frames are drawn from `models/frame.glb` in Fig. 01's style, with its shaders
+The drone drawing's frames are drawn from `models/frame.glb` in Fig. 02's style, with its shaders
 and camera pose taken from `js/frame3d.js` (needs Python with Pillow for the WebP step):
 
     node tools/hero/render.cjs                                          # writes images/hero/*.webp

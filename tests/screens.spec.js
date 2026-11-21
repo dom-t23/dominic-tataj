@@ -5,9 +5,9 @@ const { phone } = require("./helpers");
 
 const SECTIONS = [["hero", ".hero"], ["frame", "#e-03"], ["racing", "#e-04"], ["robot", "#e-02"],
   ["ai-cost", "#e-01"], ["about", "#about"], ["contact", "#contact"]];
-const VIEWS = ["assembly", "exploded", "frame-only"];   // Fig. 01
+const VIEWS = ["assembly", "exploded", "frame-only"];   // Fig. 02
 
-// ANGLE's software renderer, as in frame3d.spec.js, so Fig. 01 renders whole
+// ANGLE's software renderer, as in frame3d.spec.js, so Fig. 02 renders whole
 test.use({ launchOptions: { args: ["--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"] } });
 
 for (const [device, opts] of [["desktop", {}], ["phone", phone]]) {

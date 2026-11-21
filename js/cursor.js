@@ -18,7 +18,7 @@ if (fine && !reducedMotion()) {
   var update = function () {
     queued = false;
     ticks.style.transform = "translate(" + x + "px, " + y + "px)";
-    read.textContent = "X " + ((x + scrollX) * MM).toFixed(1) + "  Y " + ((y + scrollY) * MM).toFixed(1) + " MM";
+    read.textContent = "X " + ((x + scrollX) * MM).toFixed(1) + "  Y " + ((y + scrollY) * MM).toFixed(1) + " mm";
   };
   var queue = function () { if (!queued) { queued = true; requestAnimationFrame(update); } };
   var show = function (v) { if (v !== on) { on = v; document.documentElement.classList.toggle("dc-on", v); } };

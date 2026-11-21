@@ -89,7 +89,7 @@ function layout() {
   }
   var top = -H * 1000 * vmm;
   el("line", { class: "top", x1: 0, x2: W, y1: top, y2: top }, g);
-  el("text", { class: "top-t", x: 8, y: top - 6 }, g).textContent = "2 M CLIMBED";
+  el("text", { class: "top-t", x: 8, y: top - 6 }, g).textContent = "2 m climbed";
   els.chain = el("line", { class: "chain", x1: cx + pipeW / 2 + 4, x2: cx + pipeW / 2 + 4 }, g);
   // the whole climb at a glance, on the right
   var gx = W - 14, gy0 = Hs - 24, gy1 = 24;
@@ -162,10 +162,10 @@ function drawPlot() {
     el("line", { class: "grid", x1: L, x2: PW - R, y1: py(x), y2: py(x) }, plot);
     el("text", { x: L - 6, y: py(x) + 3, "text-anchor": "end" }, plot).textContent = x.toFixed(1);
   }
-  for (var t = 0; t <= LIMIT; t += 30) el("text", { x: px(t), y: PH - 6, "text-anchor": "middle" }, plot).textContent = t + (t === LIMIT ? " S" : "");
+  for (var t = 0; t <= LIMIT; t += 30) el("text", { x: px(t), y: PH - 6, "text-anchor": "middle" }, plot).textContent = t + (t === LIMIT ? " s" : "");
   el("line", { class: "limit", x1: px(LIMIT), x2: px(LIMIT), y1: T, y2: PH - B }, plot);
   el("path", { class: "axis", d: "M" + L + " " + T + "V" + (PH - B) + "H" + (PW - R) }, plot);
-  el("text", { x: L + 4, y: T + 8 }, plot).textContent = "HEIGHT, M";
+  el("text", { x: L + 4, y: T + 8 }, plot).textContent = "Height, m";
   var line = function (r, cls) { return el("polyline", { class: cls, points: r.samples.map(function (s) { return px(s.t).toFixed(1) + "," + py(s.x).toFixed(1); }).join(" ") }, plot); };
   line(sheet, "sheet");
   if (run.result !== "slip") line(run, "run");
@@ -200,6 +200,12 @@ if (fig) {
 
   layout(); recompute(); show(run.samples[0]);
   if (window.ResizeObserver) new ResizeObserver(function () { if (Math.abs(stage.clientWidth - W) > 1 || Math.abs(stage.clientHeight - Hs) > 1) { layout(); show(run.cur || run.samples[0]); } }).observe(stage);
+  // the robot's two mask images load only once the figure is within a screen of view
+  if (window.IntersectionObserver) {
+    var near = new IntersectionObserver(function (es) { if (es[es.length - 1].isIntersecting) { stage.classList.add("near"); near.disconnect(); } }, { rootMargin: "100% 0px" });
+    near.observe(stage);
+    addEventListener("beforeprint", function () { stage.classList.add("near"); });
+  } else stage.classList.add("near");
   if (rm || !window.IntersectionObserver) show(run.samples[run.samples.length - 1]);
   else {
     var io = new IntersectionObserver(function (es) {

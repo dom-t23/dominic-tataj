@@ -1,25 +1,26 @@
-// Performance budget (DESIGN_PLAN.md 0.3). Measured on 27 Oct 2026, after phase G, for
-// reference: first contentful paint about 0.9 s throttled (runs vary by ±150 ms; the local
-// server doesn't gzip, so this is harsher than GitHub Pages), 20-23 KB of gzipped JS on first
-// load; the flight index loads after the load event, and is sometimes counted (+9 KB).
+// Performance budget (DESIGN_PLAN.md 0.3). The test server (tests/serve.cjs) gzips like GitHub
+// Pages. Measured on 21 Nov 2026: first contentful paint about 0.9 s throttled (runs vary by
+// ±150 ms), about 19 KB of gzipped JS requested before the load event.
 const { test, expect } = require("@playwright/test");
-const zlib = require("zlib");
 const { phone } = require("./helpers");
 
 test.use(phone);
+test.describe.configure({ mode: "serial" });   // one at a time, after the rest (playwright.config.js)
 
 test("first paint under 1.2 s on a throttled phone; under 60 KB of gzipped JS", async ({ page, context }) => {
   const cdp = await context.newCDPSession(page);
   await cdp.send("Network.enable");
   await cdp.send("Network.emulateNetworkConditions", { offline: false, latency: 150, downloadThroughput: 1.6e6 / 8, uploadThroughput: 750e3 / 8 });
   await cdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
-  const sizes = [];
-  page.on("response", async (r) => {
-    if (r.request().resourceType() === "script") sizes.push(r.body().then((b) => zlib.gzipSync(b).length).catch(() => 0));
-  });
   await page.goto("/", { waitUntil: "load" });
   const fcp = await page.evaluate(() => (performance.getEntriesByName("first-contentful-paint")[0] || {}).startTime);
-  const js = (await Promise.all(sizes)).reduce((a, n) => a + n, 0);
+  // scripts requested before the load event (what nothing on the first screen needs waits for it),
+  // as sent: the test server gzips them as GitHub Pages does
+  const js = await page.evaluate(() => {
+    const load = performance.getEntriesByType("navigation")[0].loadEventStart;
+    return performance.getEntriesByType("resource").filter((e) => /\.js(\?|$)/.test(e.name) && e.startTime < load)
+      .reduce((a, e) => a + e.encodedBodySize, 0);
+  });
   console.log(`first contentful paint ${Math.round(fcp)} ms, first-load JS ${(js / 1024).toFixed(1)} KB gzipped`);
   expect(fcp).toBeLessThan(1200);
   expect(js).toBeLessThan(60 * 1024);

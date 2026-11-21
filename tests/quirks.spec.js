@@ -53,7 +53,7 @@ test("drafting cursor: ticks and the position on the sheet in mm, off over contr
   await page.mouse.move(400, 500); await page.mouse.move(420, 520, { steps: 3 });
   await expect(page.locator("html")).toHaveClass(/\bdc-on\b/);
   // 96 px to the inch: x 420 px is 111.1 mm
-  await expect(page.locator(".dc-read")).toHaveText(/^X 111\.1 {2}Y \d+\.\d MM$/);
+  await expect(page.locator(".dc-read")).toHaveText(/^X 111\.1 {2}Y \d+\.\d mm$/);
   await page.hover(".btn.primary");
   await expect(page.locator("html")).not.toHaveClass(/\bdc-on\b/);
 });
@@ -66,14 +66,11 @@ test.describe("phone", () => {
   });
 });
 
-test("hovering a project card lifts it and lights its number", async ({ page }) => {
-  await page.goto("/", { waitUntil: "networkidle" });
-  const card = page.locator(".register li:nth-child(2) a");
-  await card.hover();
-  await expect.poll(() => card.evaluate((e) => new DOMMatrix(getComputedStyle(e).transform).m42)).toBeLessThan(-3);
-  await expect.poll(() => card.locator(".r-no").evaluate((e) => getComputedStyle(e).color)).toBe("rgb(255, 255, 255)");
-  await page.mouse.move(5, 600);
-  await expect.poll(() => card.evaluate((e) => new DOMMatrix(getComputedStyle(e).transform).m42)).toBe(0);
+test("projects and results: each row links its project and states one result (R-23)", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".results tbody tr")).toHaveCount(4);
+  await expect(page.locator(".results .res b")).toHaveText(["98.6%", "246 g", "Climbed", "P ∝ N0.55"]);
+  for (const a of await page.locator(".results a").all()) await expect(page.locator(await a.getAttribute("href"))).toHaveCount(1);
 });
 
 test("the theme switch spreads from the button in a view transition", async ({ page }) => {
@@ -89,20 +86,15 @@ test("the theme switch spreads from the button in a view transition", async ({ p
   expect(await page.evaluate(() => window.__vt)).toBe(1);
 });
 
-test("About lists skills and experience; each skill counts and links the projects that used it", async ({ page }) => {
-  await page.goto("/", { waitUntil: "networkidle" });   // the quirks load after the load event
-  await expect(page.locator(".bom tbody tr:not(.grp)")).toHaveCount(11);
-  await expect(page.locator(".bom .grp th")).toHaveText(["Education", "Engineering", "Programming", "Experience", "Leadership", "Languages"]);
-  const fusion = page.locator(".bom tr.skill").first();
-  await expect(fusion.locator("td").nth(2)).toHaveText("2");
+test("About lists skills and experience, software first; each skill links the projects that used it", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  await expect(page.locator(".bom tbody tr:not(.grp)")).toHaveCount(13);
+  await expect(page.locator(".bom .grp th")).toHaveText(["Software and autonomy", "Mechanical design", "Education", "Leadership", "Experience", "Languages"]);
+  const fusion = page.locator(".bom tr.skill").filter({ hasText: "Fusion" });
   expect(await fusion.locator("a").evaluateAll((as) => as.map((a) => a.getAttribute("href")))).toEqual(["#e-03", "#e-02"]);
-  // every linked project exists, and each skill's count matches its links
   for (const row of await page.locator(".bom tr.skill").all()) {
     const links = await row.locator("a").evaluateAll((as) => as.map((a) => a.getAttribute("href")));
-    expect(await row.locator("td").nth(2).textContent()).toBe(String(links.length));
+    expect(links.length).toBeGreaterThan(0);
     for (const h of links) await expect(page.locator(h)).toHaveCount(1);
   }
-  await fusion.locator("a").first().hover();
-  await expect.poll(() => fusion.locator("a").first().evaluate((a) => getComputedStyle(a, "::after").opacity)).toBe("1");
-  expect(await fusion.locator("a").first().evaluate((a) => getComputedStyle(a, "::after").content)).toBe('"Generative FPV drone frame"');
 });

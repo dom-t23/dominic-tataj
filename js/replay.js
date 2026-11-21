@@ -4,6 +4,7 @@ import { loadScript, flightIndex } from "./flights.js";
 /* ---------- drone replay ---------- */
 var fpv = $("fpv"), fctx = fpv.getContext("2d"), map = $("map"), mctx = map.getContext("2d");
 var TRUTH = "#2C6E9C";
+function truth() { return css("--truth") || TRUTH; }
 var OUTCOMES = { completed: "Completed", crash_gate: "Crashed", missed_gate: "Missed gate", wrong_gate: "Wrong gate", timeout: "Timed out" };
 var FL = [], seeds = [], methods = [], cur = {}, flight = null, idx = 0, playing = false, t0 = 0, tStart = 0, imgs = [], bounds = null;
 var cache = {}, want = null, posterMode = false;
@@ -144,10 +145,10 @@ function drawMap() {
     }
     c.stroke(); c.setLineDash([]);
   }
-  path("p", TRUTH, []);
+  path("p", truth(), []);
   path("e", css("--signal"), [5, 4]);
   var now = toMap(fr[idx].p[0], fr[idx].p[1]);
-  c.fillStyle = TRUTH; c.beginPath(); c.arc(now[0], now[1], 5, 0, 2 * Math.PI); c.fill();
+  c.fillStyle = truth(); c.beginPath(); c.arc(now[0], now[1], 5, 0, 2 * Math.PI); c.fill();
   if (fr[idx].e) {
     var en = toMap(fr[idx].e[0], fr[idx].e[1]), cv = fr[idx].cv;
     if (cv) {
@@ -187,8 +188,15 @@ function speedAt(i) {
 function draw() {
   if (!flight) return;
   drawFpv(); drawMap(); if (pipe) pipe.show(flight, idx);
-  if (posterMode) return;   // the readouts and scrubber wait for LOAD
   var fr = flight.frames[idx];
+  if (posterMode) {   // the scrubber waits for LOAD; the readout shows the poster's frame, not dashes (R-05)
+    $("r-out").textContent = "Course 1 · camera + IMU";
+    $("clock").textContent = fr.t.toFixed(2) + " s";   // the poster frame's own time, not 0.00
+    $("r-gates").textContent = Math.min(fr.g, flight.n_gates) + " / " + flight.n_gates;
+    $("r-speed").textContent = speedAt(idx).toFixed(1) + " m/s";
+    if (fr.e) { var ex = fr.e[0] - fr.p[0], ey = fr.e[1] - fr.p[1], ez = fr.e[2] - fr.p[2]; $("r-err").textContent = Math.sqrt(ex * ex + ey * ey + ez * ez).toFixed(2) + " m"; }
+    return;
+  }
   $("scrub").value = String(idx);
   $("clock").textContent = fr.t.toFixed(2) + " s";
   $("r-gates").textContent = Math.min(fr.g, flight.n_gates) + " / " + flight.n_gates;
@@ -197,12 +205,25 @@ function draw() {
   else $("r-err").textContent = "–";
 }
 
+// Playback holds while the player is off screen or the tab is hidden (DESIGN_PLAN 0.2), and
+// resumes where it stopped.
+var onScreen = true, ticking = false;
+function resume() {
+  if (!playing || ticking || !onScreen || document.hidden) return;
+  ticking = true; t0 = performance.now(); tStart = flight.frames[idx].t;
+  requestAnimationFrame(tick);
+}
+if (window.IntersectionObserver) {
+  new IntersectionObserver(function (es) { onScreen = es[es.length - 1].isIntersecting; resume(); }).observe(document.querySelector(".player"));
+}
+document.addEventListener("visibilitychange", resume);
+
 function tick(now) {
-  if (!playing) return;
+  if (!playing || !onScreen || document.hidden) { ticking = false; return; }
   var fr = flight.frames, t = tStart + (now - t0) / 1000;
   while (idx < fr.length - 1 && fr[idx + 1].t <= t) idx++;
   draw();
-  if (idx >= fr.length - 1) { stop(); return; }
+  if (idx >= fr.length - 1) { stop(); ticking = false; return; }
   requestAnimationFrame(tick);
 }
 // auto: started by loading a flight rather than the Play button, so it respects reduced motion.
@@ -210,8 +231,8 @@ function play(auto) {
   if (!flight) return;
   if (auto && reducedMotion()) return;
   if (idx >= flight.frames.length - 1) idx = 0;
-  playing = true; $("play").textContent = "Pause"; t0 = performance.now(); tStart = flight.frames[idx].t;
-  requestAnimationFrame(tick);
+  playing = true; $("play").textContent = "Pause";
+  resume();
 }
 function stop() { playing = false; $("play").textContent = "Play"; }
 $("play").addEventListener("click", function () { if (playing) stop(); else play(false); });

@@ -2,3 +2,9 @@ node_modules/
 test-results/
 playwright-report/
 __pycache__/
+
+# Design review (Nov 2026): kept local, not published
+review/
+REVIEW.md
+TODO.md
+tools/review/

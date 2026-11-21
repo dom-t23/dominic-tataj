@@ -17,7 +17,7 @@ test("poster reuses the index; LOAD fetches one flight; switching uses a cache",
     let n = 0; for (let i = 0; i < d.length; i += 4 * 97) if (d[i] + d[i + 1] + d[i + 2] > 120) n++; return n;
   });
   expect(lit).toBeGreaterThan(200);
-  await expect(page.locator("#r-out")).toHaveText("–");
+  await expect(page.locator("#readout")).toBeHidden();   // no dashes before LOAD (R-05)
 
   await page.click("#load");
   await controlsReady(page);
@@ -79,7 +79,28 @@ test.describe("phone, dark", () => {
     await page.addInitScript(() => localStorage.setItem("theme", "dark"));
     await page.goto("/");
     await page.click("#load"); await controlsReady(page);
-    expect(await page.evaluate(() => getComputedStyle(document.querySelector(".pill")).color)).toBe("rgb(76, 185, 122)");
+    expect(await page.evaluate(() => getComputedStyle(document.querySelector(".pill")).color)).toBe("rgb(92, 194, 138)");
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
   });
+});
+
+test("playback holds while the player is off screen and resumes where it stopped (PERF-06)", async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__raf = 0;
+    const raf = window.requestAnimationFrame.bind(window);
+    window.requestAnimationFrame = (cb) => { window.__raf++; return raf(cb); };
+  });
+  await page.goto("/", { waitUntil: "networkidle" });
+  await toPlayer(page);
+  await page.click("#load");
+  await controlsReady(page);
+  await expect(page.locator("#play")).toHaveText("Pause");
+  await page.locator("#contact").evaluate((e) => e.scrollIntoView({ behavior: "instant" }));
+  await page.waitForTimeout(2500);   // let other reveals settle
+  const before = await page.evaluate(() => window.__raf), at = await page.inputValue("#scrub");
+  await page.waitForTimeout(1000);
+  expect(await page.evaluate(() => window.__raf) - before).toBe(0);
+  expect(await page.inputValue("#scrub")).toBe(at);
+  await toPlayer(page);
+  await expect.poll(() => page.inputValue("#scrub")).not.toBe(at);
 });

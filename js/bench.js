@@ -1,4 +1,4 @@
-// Fig. 03, the benchmark (DESIGN_PLAN.md 3.5). A data column's header charts that column as
+// Fig. 01, the benchmark (DESIGN_PLAN.md 3.5). A data column's header charts that column as
 // gates missed per set (out of 400, from a zero baseline, on one scale for every column) and
 // sorts the table by it, worst set first; pressing it again, or "Course set", restores the
 // course order. A set's row and its bar pick each other out. The pooled row pulses once when
@@ -93,7 +93,7 @@ function render(animate) {
   rows.concat([pooled]).forEach(function (r) {
     Array.prototype.forEach.call(r.cells, function (td, c) { td.classList.toggle("sel", c === col); });
   });
-  title.textContent = (groupOf(col) + " · " + head[col].textContent).toUpperCase();
+  title.textContent = groupOf(col) + " · " + head[col].textContent;
   var avg = pooledMissed();
   ref.setAttribute("y1", y(avg)); ref.setAttribute("y2", y(avg));
   pick(hl);
@@ -133,8 +133,8 @@ function pick(i) {
   rows.forEach(function (r, j) { r.classList.toggle("hl", j === i); });
   if (!bars) return;
   bars.forEach(function (b, j) { b.classList.toggle("hl", j === i); });
-  info.textContent = i < 0 ? "GATES MISSED OF 400 · LINE = POOLED, " + pooledMissed().toFixed(1) :
-    sets[i] + ": " + missed(col)[i] + " MISSED, " + value(rows[i], col).toFixed(2) + "% PASSED";
+  info.textContent = i < 0 ? "Gates missed of 400 · line = pooled, " + pooledMissed().toFixed(1) :
+    sets[i] + ": " + missed(col)[i] + " missed, " + value(rows[i], col).toFixed(2) + "% passed";
 }
 
 function missed(c) { return rows.map(function (r) { return Math.round(400 * (1 - value(r, c) / 100)); }); }

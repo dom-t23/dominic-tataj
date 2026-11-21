@@ -1,4 +1,4 @@
-// Fig. 01, the drone in 3D (js/frame3d-boot.js, js/frame3d.js).
+// Fig. 02, the drone in 3D (js/frame3d-boot.js, js/frame3d.js).
 const { test, expect } = require("@playwright/test");
 const { phone, trackErrors } = require("./helpers");
 
@@ -140,14 +140,21 @@ test.describe("reduced motion", () => {
 
 test.describe("phone", () => {
   test.use(phone);
-  test("pinned, full width, with the parts list under the drawing", async ({ page }) => {
+  test("not pinned on a phone (R-08): full width, the parts list under the drawing, views by button", async ({ page }) => {
     await reach(page);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
-    await expect(page.locator("#f3-track")).toHaveClass(/pinned/);
+    await expect(page.locator("#f3-track")).not.toHaveClass(/pinned/);
     const view = await page.locator(".f3-view").boundingBox(), parts = await page.locator(".f3-parts").boundingBox();
     expect(parts.y).toBeGreaterThanOrEqual(view.y + view.height - 1);
-    expect(view.height).toBeGreaterThan(300);
-    expect(parts.y + parts.height).toBeLessThanOrEqual(await page.evaluate(() => innerHeight));
+    expect(view.height).toBeGreaterThan(260);
+    await page.click(".f3-steps button:nth-child(2)");
+    await expect(fig(page)).toHaveAttribute("data-step", "1");
+    // caption and parts list inside the screen, not clipped at its edges (P1-1)
+    for (const sel of ["#frame3d figcaption", ".f3-parts"]) {
+      const b = await page.locator(sel).boundingBox();
+      expect(b.x).toBeGreaterThanOrEqual(0); expect(b.x + b.width).toBeLessThanOrEqual(390);
+    }
+    await expect(page.locator("#frame3d figcaption")).toContainText("Fig. 02");
   });
 });
 

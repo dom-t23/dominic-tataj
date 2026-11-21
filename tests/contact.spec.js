@@ -18,6 +18,13 @@ test("copies the email and bursts without blocking the page", async ({ page }) =
   expect(errors).toEqual([]);
 });
 
+test("the address is a mailto link, and copying is announced (R-07, A11Y-13)", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("a#email")).toHaveAttribute("href", "mailto:dominic_tataj@icloud.com");
+  await page.click("#copy");
+  await expect(page.locator("#copy-status")).toHaveText("Email address copied");
+});
+
 test.describe("phone", () => {
   test.use(phone);
   test("burst does not cause sideways scroll", async ({ page }) => {

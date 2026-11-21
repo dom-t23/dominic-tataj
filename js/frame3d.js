@@ -1,4 +1,4 @@
-// Fig. 01: the real drone (models/frame.glb, converted from the Fusion assembly) in three
+// Fig. 02: the real drone (models/frame.glb, converted from the Fusion assembly) in three
 // views, ASSEMBLY, EXPLODED and FRAME ONLY (DESIGN_PLAN.md 3.1, 3.2). Pinned, the page's
 // scroll moves it through them; otherwise the view buttons do. It is drawn like the rest of
 // the site: matte surfaces and ink lines, the lines found from a pass that renders every
@@ -433,7 +433,7 @@ function overlay(e, f) {
   tag.setAttribute("opacity", focus ? 1 : 0);
   if (focus) {
     var row = groups[focus].row, qty = +row.cells[2].textContent;
-    var label = row.querySelector("button").textContent.toUpperCase() + (qty > 1 ? " ×" + qty : "");
+    var label = row.querySelector("button").textContent + (qty > 1 ? " ×" + qty : "");
     if (tagText.textContent !== label) { tagText.textContent = label; tag.firstChild.setAttribute("width", (tagText.getComputedTextLength() + 14).toFixed(1)); }
     var at = focus === overPart && pointer ? [pointer.x + 14, pointer.y - 30] : ab > 0.5 ? [bal[focus].at[0] + 16, bal[focus].at[1] - 10] : px(anchorAt(groups[focus]));
     var tw = +tag.firstChild.getAttribute("width");

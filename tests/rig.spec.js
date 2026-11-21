@@ -42,8 +42,8 @@ test("opens over the strip, takes off and settles", async ({ page }) => {
   await expect(page.locator("#cap-rig")).toBeVisible();
   await expect.poll(() => page.locator(".flight-svg").evaluate((e) => getComputedStyle(e).opacity)).toBe("0");
   await expect.poll(() => state(page), { timeout: 6000 }).toBe("settled");
-  await expect(readout(page)).toContainText("SETTLED IN 2.");
-  await expect(page.locator("#stab")).toHaveText("STABLE · ζ 0.69 · Kp LIMIT 42.7");
+  await expect(readout(page)).toContainText("Settled in 2.");
+  await expect(page.locator("#stab")).toHaveText("Stable · ζ 0.69 · Kp limit 42.7");
   await expect(page.locator("#rig .poles path")).toHaveCount(4);   // four poles on the s-plane
   expect(errors).toEqual([]);
 });
@@ -83,10 +83,10 @@ test("gains past the limit: it oscillates, the failsafe cuts the motors, it cras
   await openRig(page);
   await page.locator("#kp").evaluate((e) => { e.value = "950"; e.dispatchEvent(new Event("input")); });
   await expect(page.locator("#stab")).toHaveClass(/bad/);
-  await expect(page.locator("#stab")).toHaveText("UNSTABLE: RAISE Kd OR LOWER Kp");
+  await expect(page.locator("#stab")).toHaveText("Unstable: raise Kd or lower Kp");
   await expect.poll(() => state(page), { timeout: 120000 }).toBe("failsafe");
   await expect.poll(() => state(page), { timeout: 5000 }).toBe("crashed");
-  await expect(page.locator("#rig text.note")).toContainText("IMPACT");
+  await expect(page.locator("#rig text.note")).toContainText("Impact");
   await expect.poll(() => state(page), { timeout: 4000 }).not.toBe("crashed");
   await page.click("#rig-reset");
   await expect(page.locator("#kp-out")).toHaveText("6.0");
