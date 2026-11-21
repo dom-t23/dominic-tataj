@@ -1,6 +1,7 @@
 // Renders tools/hero/explode.html in headless Chromium (software WebGL) and writes the hero's
 // frames to images/hero/x00.webp ... (WebP with alpha, encoded by Chromium; no Python needed).
-// Usage: node tools/hero/explode.cjs [width] [height] [frames] [quality]   (serves the repo on port 8813)
+// Usage: [GLOW=0] [INK=hex] [FILL=hex] [FRAME=hex] node tools/hero/explode.cjs [width] [height] [frames] [quality]
+// (hex without #; serves the repo on port 8813)
 const { chromium } = require("playwright");
 const fs = require("fs"), http = require("http"), path = require("path");
 const ROOT = path.join(__dirname, "../.."), OUT = path.join(ROOT, "images/hero");
@@ -16,7 +17,7 @@ const srv = http.createServer((q, s) => {
   const b = await chromium.launch({ args: ["--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"] });
   const p = await b.newPage({ viewport: { width: 400, height: 300 } });
   p.on("pageerror", (e) => console.log("ERR", e.message));
-  await p.goto(`http://127.0.0.1:8813/tools/hero/explode.html?w=${W}&h=${H}&n=${N}&q=${QL}&glow=${process.env.GLOW ?? "1"}`);
+  await p.goto(`http://127.0.0.1:8813/tools/hero/explode.html?w=${W}&h=${H}&n=${N}&q=${QL}&glow=${process.env.GLOW ?? "1"}&ink=${process.env.INK || "3DDCFF"}&fill=${process.env.FILL || "0D0E11"}&frame=${process.env.FRAME || ""}`);
   await p.waitForFunction(() => /^(ok|error)/.test(document.title), null, { timeout: 900000 });
   console.log(await p.title());
   const frames = await p.evaluate(() => window.__frames);
