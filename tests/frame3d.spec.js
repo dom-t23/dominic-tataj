@@ -140,14 +140,15 @@ test.describe("reduced motion", () => {
 
 test.describe("phone", () => {
   test.use(phone);
-  test("pinned, full width, with the parts list under the drawing", async ({ page }) => {
+  test("not pinned on a phone (R-08): full width, the parts list under the drawing, views by button", async ({ page }) => {
     await reach(page);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
-    await expect(page.locator("#f3-track")).toHaveClass(/pinned/);
+    await expect(page.locator("#f3-track")).not.toHaveClass(/pinned/);
     const view = await page.locator(".f3-view").boundingBox(), parts = await page.locator(".f3-parts").boundingBox();
     expect(parts.y).toBeGreaterThanOrEqual(view.y + view.height - 1);
-    expect(view.height).toBeGreaterThan(300);
-    expect(parts.y + parts.height).toBeLessThanOrEqual(await page.evaluate(() => innerHeight));
+    expect(view.height).toBeGreaterThan(260);
+    await page.click(".f3-steps button:nth-child(2)");
+    await expect(fig(page)).toHaveAttribute("data-step", "1");
   });
 });
 

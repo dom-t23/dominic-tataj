@@ -17,7 +17,9 @@ if (track && window.WebGL2RenderingContext && window.IntersectionObserver) {
   addEventListener("resize", layout);
 
   addEventListener("scroll", function first() { scrolled = true; removeEventListener("scroll", first); start(); }, { passive: true });
-  addEventListener("load", function () { setTimeout(function () { scrolled = true; start(); }, 2500); });
+  // No timer: on a laptop it parsed and mounted three.js (140 to 160 ms tasks) for visitors who
+  // never scrolled near the figure (REVIEW.md R-34). A pointer on the page counts as interest too.
+  addEventListener("pointerdown", function first() { scrolled = true; removeEventListener("pointerdown", first); start(); }, { passive: true });
   new IntersectionObserver(function (es) { near = es[es.length - 1].isIntersecting; start(); }, { rootMargin: "100% 0px" }).observe(track);
 }
 
@@ -25,7 +27,8 @@ if (track && window.WebGL2RenderingContext && window.IntersectionObserver) {
 // for reduced motion; otherwise the figure stays in the flow and its view buttons switch views.
 function layout() {
   root.style.setProperty("--nav-h", nav.offsetHeight + "px");
-  track.classList.toggle("pinned", !reducedMotion() && innerHeight >= 560);
+  // Phones scroll past it instead: pinned, the scrub cost them over two screens (REVIEW.md R-08).
+  track.classList.toggle("pinned", !reducedMotion() && innerHeight >= 560 && innerWidth >= 600);
 }
 
 function start() {

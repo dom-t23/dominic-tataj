@@ -197,12 +197,25 @@ function draw() {
   else $("r-err").textContent = "–";
 }
 
+// Playback holds while the player is off screen or the tab is hidden (DESIGN_PLAN 0.2), and
+// resumes where it stopped.
+var onScreen = true, ticking = false;
+function resume() {
+  if (!playing || ticking || !onScreen || document.hidden) return;
+  ticking = true; t0 = performance.now(); tStart = flight.frames[idx].t;
+  requestAnimationFrame(tick);
+}
+if (window.IntersectionObserver) {
+  new IntersectionObserver(function (es) { onScreen = es[es.length - 1].isIntersecting; resume(); }).observe(document.querySelector(".player"));
+}
+document.addEventListener("visibilitychange", resume);
+
 function tick(now) {
-  if (!playing) return;
+  if (!playing || !onScreen || document.hidden) { ticking = false; return; }
   var fr = flight.frames, t = tStart + (now - t0) / 1000;
   while (idx < fr.length - 1 && fr[idx + 1].t <= t) idx++;
   draw();
-  if (idx >= fr.length - 1) { stop(); return; }
+  if (idx >= fr.length - 1) { stop(); ticking = false; return; }
   requestAnimationFrame(tick);
 }
 // auto: started by loading a flight rather than the Play button, so it respects reduced motion.
@@ -210,8 +223,8 @@ function play(auto) {
   if (!flight) return;
   if (auto && reducedMotion()) return;
   if (idx >= flight.frames.length - 1) idx = 0;
-  playing = true; $("play").textContent = "Pause"; t0 = performance.now(); tStart = flight.frames[idx].t;
-  requestAnimationFrame(tick);
+  playing = true; $("play").textContent = "Pause";
+  resume();
 }
 function stop() { playing = false; $("play").textContent = "Play"; }
 $("play").addEventListener("click", function () { if (playing) stop(); else play(false); });

@@ -83,3 +83,24 @@ test.describe("phone, dark", () => {
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
   });
 });
+
+test("playback holds while the player is off screen and resumes where it stopped (PERF-06)", async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__raf = 0;
+    const raf = window.requestAnimationFrame.bind(window);
+    window.requestAnimationFrame = (cb) => { window.__raf++; return raf(cb); };
+  });
+  await page.goto("/", { waitUntil: "networkidle" });
+  await toPlayer(page);
+  await page.click("#load");
+  await controlsReady(page);
+  await expect(page.locator("#play")).toHaveText("Pause");
+  await page.locator("#contact").evaluate((e) => e.scrollIntoView({ behavior: "instant" }));
+  await page.waitForTimeout(2500);   // let other reveals settle
+  const before = await page.evaluate(() => window.__raf), at = await page.inputValue("#scrub");
+  await page.waitForTimeout(1000);
+  expect(await page.evaluate(() => window.__raf) - before).toBe(0);
+  expect(await page.inputValue("#scrub")).toBe(at);
+  await toPlayer(page);
+  await expect.poll(() => page.inputValue("#scrub")).not.toBe(at);
+});

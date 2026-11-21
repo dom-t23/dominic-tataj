@@ -306,10 +306,10 @@ figcaption b { color: var(--ink); font-weight: 600; }
 .f3-renders { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 1px; background: var(--rule); }
 .f3-track.is-3d .f3-renders { display: none; }
 .f3-track.is-3d { --f3-h: clamp(440px, 78vh, 720px); }
-.f3-track.is-3d.pinned { --f3-h: min(calc(100vh - var(--nav-h, 72px) - 24px), 860px); height: calc(var(--f3-h) + 220vh); }
+.f3-track.is-3d.pinned { --f3-h: min(calc(100vh - var(--nav-h, 72px) - 24px), 860px); height: calc(var(--f3-h) + 130vh); }
 @supports (height: 100svh) {
   .f3-track.is-3d { --f3-h: clamp(440px, 78svh, 720px); }
-  .f3-track.is-3d.pinned { --f3-h: min(calc(100svh - var(--nav-h, 72px) - 24px), 860px); height: calc(var(--f3-h) + 220svh); }
+  .f3-track.is-3d.pinned { --f3-h: min(calc(100svh - var(--nav-h, 72px) - 24px), 860px); height: calc(var(--f3-h) + 130svh); }
 }
 .f3-track.is-3d .f3 { display: flex; flex-direction: column; height: var(--f3-h); background: var(--paper); }
 .f3-track.pinned .f3 { position: sticky; top: calc(var(--nav-h, 72px) + 12px); }
