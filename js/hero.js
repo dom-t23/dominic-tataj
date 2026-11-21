@@ -1,24 +1,28 @@
-// The hero's drone (images/hero/x00..x23, rendered by tools/hero/explode.cjs from the real
-// assembly): scrolling takes it apart, part by part, as Fig. 02 does in E-03.
+// The hero's drone (rendered by tools/hero/explode.cjs from the real assembly): scrolling takes it
+// apart, part by part, as Fig. 02 does in E-03. Two sets of frames: images/hero/x00..x23 for the
+// dark theme and l00..l23 for the light one (the parts are filled with the page colour).
 //
 // The first frame is an ordinary <img> in the page, so without JS it is a still drawing. With
-// reduced motion, or Save-Data, it is a still of the drone part-way apart and nothing loads. Otherwise the
-// other frames load after the page has, and a canvas takes over once they're in. On large
-// screens the first screen holds (.scrub) while the drone comes apart; on smaller ones it comes
-// apart as the hero scrolls away. The copy never moves out of view or fades.
-import { $, reducedMotion } from "./util.js";
+// reduced motion, or Save-Data, it is a still of the drone part-way apart and nothing else loads.
+// Otherwise the other frames load after the page has, and a canvas takes over once they're in. On
+// large screens the first screen holds (.scrub) while the drone comes apart; on smaller ones it
+// comes apart as the hero scrolls away. A theme change (js/theme.js) swaps the set.
+import { $, root, reducedMotion } from "./util.js";
 import { loop } from "./motion.js";
 
 var N = 24, STILL = 15;
 var hero = $("hero"), stage = $("hero-stage");
-var src = function (i) { return "images/hero/x" + String(i).padStart(2, "0") + ".webp"; };
+var set = function () { return root.getAttribute("data-theme") === "light" ? "l" : "x"; };
+var src = function (i, s) { return "images/hero/" + (s || set()) + String(i).padStart(2, "0") + ".webp"; };
 
 if (hero && stage) {
-  var img = stage.querySelector("img"), hs = stage.querySelector(".hs"), specs = stage.querySelector(".hero-specs");
+  var img = stage.querySelector("img"), hs = stage.querySelector(".hs");
   var save = navigator.connection && navigator.connection.saveData;
   if (reducedMotion() || save) {
     img.src = src(STILL);
+    addEventListener("themechange", function () { img.src = src(STILL); });
   } else {
+    if (set() !== "x") img.src = src(0);   // a saved light theme: the page's <img> is the dark first frame
     scrub();
   }
 }
@@ -26,7 +30,7 @@ if (hero && stage) {
 function scrub() {
   var pin = hero.querySelector(".hero-pin");
   var wide = window.matchMedia("(min-width: 900px) and (min-height: 600px)");
-  var frames = new Array(N), canvas = null, ctx = null, shown = -1;
+  var sets = {}, canvas = null, ctx = null, shown = -1, started = false;
   var p = 0, q = 0;   // where the scroll is (0 to 1), and where the drawing is, easing after it
 
   function setWide() { hero.classList.toggle("scrub", wide.matches); measure(); if (anim) anim.start(); }
@@ -53,11 +57,11 @@ function scrub() {
   addEventListener("resize", wake);
 
   function draw() {
-    // the stage leans in a little as the drone opens out; the specs brighten at the end
+    // the stage leans in a little as the drone opens out
     hs.style.transform = "translate3d(0," + (-3 * q).toFixed(2) + "%,0) scale(" + (1 + 0.05 * q).toFixed(4) + ")";
-    if (specs) specs.style.setProperty("--x", smooth(0.55, 0.95, q).toFixed(3));
-    if (!ctx) return;
-    var want = Math.round(q * (N - 1)), i = want;
+    var frames = sets[set()];
+    if (!ctx || !frames) return;
+    var i = Math.round(q * (N - 1));
     while (i > 0 && !frames[i]) i--;   // the nearest frame that has loaded
     if (i === shown || !frames[i]) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -65,31 +69,45 @@ function scrub() {
     shown = i;
   }
 
-  // the frames load once the page has, in order, so the start of the scroll is ready first
-  function load() {
+  // a set's frames load in order, so the start of the scroll is ready first
+  function load(s) {
+    if (sets[s]) return;
+    var frames = sets[s] = new Array(N), i = 0;
+    (function next() {
+      if (i >= N) return;
+      var k = i++, im = new Image();
+      im.decoding = "async"; im.src = src(k, s);
+      (im.decode ? im.decode() : Promise.resolve()).then(function () {
+        frames[k] = im;
+        if (s === set()) { shown = -1; draw(); if (k === 0) stage.classList.add("live"); }
+        next();
+      }, next);
+    })();
+  }
+  function start() {
+    started = true;
     canvas = document.createElement("canvas");
     canvas.width = 960; canvas.height = 720;
     canvas.setAttribute("aria-hidden", "true");
     ctx = canvas.getContext("2d");
     hs.appendChild(canvas);
-    var i = 0;
-    (function next() {
-      if (i >= N) return;
-      var k = i++, im = new Image();
-      im.decoding = "async"; im.src = src(k);
-      (im.decode ? im.decode() : Promise.resolve()).then(function () {
-        frames[k] = im;
-        shown = -1; draw();
-        if (k === 0) stage.classList.add("live");
-        next();
-      }, next);
-    })();
+    load(set());
   }
-  if (document.readyState === "complete") idle(load); else addEventListener("load", function () { idle(load); });
+  if (document.readyState === "complete") idle(start); else addEventListener("load", function () { idle(start); });
+
+  // the other theme's set loads only if the visitor switches to it
+  addEventListener("themechange", function () {
+    img.src = src(0);
+    if (!started) return;
+    var frames = sets[set()];
+    if (!frames || !frames[0]) stage.classList.remove("live");
+    load(set());
+    shown = -1; draw();
+    if (sets[set()][0]) stage.classList.add("live");
+  });
 
   anim.start();
 }
 
 function idle(f) { (window.requestIdleCallback || setTimeout)(f, { timeout: 1200 }); }
 function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
-function smooth(a, b, v) { var t = clamp((v - a) / (b - a)); return t * t * (3 - 2 * t); }
