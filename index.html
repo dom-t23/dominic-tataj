@@ -359,18 +359,18 @@
                   <rect x="20" y="62" width="70.2" height="28" fill="var(--signal)"/>
                   <rect x="90.2" y="62" width="384" height="28" fill="var(--ink)" opacity="0.82"/>
                   <line x1="481.5" y1="40" x2="481.5" y2="104" stroke="var(--link)" stroke-width="2" stroke-dasharray="4 3"/>
-                  <text x="512" y="32" text-anchor="end" font-size="11" fill="var(--link)">CAA LIMIT 250 G</text>
-                  <text x="20" y="52" font-size="11" fill="var(--ink)">FRAME 38 G</text>
-                  <text x="470" y="56" text-anchor="end" font-size="11" fill="var(--ink)">ALL-UP 246 G</text>
+                  <text x="512" y="32" text-anchor="end" font-size="11" fill="var(--link)">CAA limit 250 g</text>
+                  <text x="20" y="52" font-size="11" fill="var(--ink)">Frame 38 g</text>
+                  <text x="470" y="56" text-anchor="end" font-size="11" fill="var(--ink)">All-up 246 g</text>
                   <g font-size="10" fill="var(--muted)">
                     <line x1="20" y1="96" x2="20" y2="102" stroke="var(--muted)"/><text x="20" y="118" text-anchor="middle">0</text>
                     <line x1="112.3" y1="96" x2="112.3" y2="102" stroke="var(--muted)"/><text x="112.3" y="118" text-anchor="middle">50</text>
                     <line x1="204.6" y1="96" x2="204.6" y2="102" stroke="var(--muted)"/><text x="204.6" y="118" text-anchor="middle">100</text>
                     <line x1="296.9" y1="96" x2="296.9" y2="102" stroke="var(--muted)"/><text x="296.9" y="118" text-anchor="middle">150</text>
                     <line x1="389.2" y1="96" x2="389.2" y2="102" stroke="var(--muted)"/><text x="389.2" y="118" text-anchor="middle">200</text>
-                    <text x="500" y="118" text-anchor="end">G</text>
+                    <text x="500" y="118" text-anchor="end">g</text>
                   </g>
-                  <text x="20" y="150" font-size="11" fill="var(--muted)">MARGIN TO LIMIT: 4 G</text>
+                  <text x="20" y="150" font-size="11" fill="var(--muted)">Margin to limit: 4 g</text>
                 </svg>
               </div>
               <figcaption><b>Fig. 03</b> — Mass budget. Frame vs. complete drone, against the CAA 250 g threshold.</figcaption>
@@ -451,17 +451,17 @@
                   <defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--ink)"/></marker></defs>
                   <g font-size="11" fill="var(--ink)" text-anchor="middle">
                     <rect x="16" y="24" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
-                    <text x="86" y="44">STATE</text><text x="86" y="58" fill="var(--muted)" font-size="10">x, v at step n</text>
+                    <text x="86" y="44">State</text><text x="86" y="58" fill="var(--muted)" font-size="10">x, v at step n</text>
                     <rect x="190" y="24" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
-                    <text x="260" y="44">MOTOR TORQUE</text><text x="260" y="58" fill="var(--muted)" font-size="10">at current speed</text>
+                    <text x="260" y="44">Motor torque</text><text x="260" y="58" fill="var(--muted)" font-size="10">at current speed</text>
                     <rect x="364" y="24" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
-                    <text x="434" y="44">DRIVE FORCE</text><text x="434" y="58" fill="var(--muted)" font-size="10">via gears and wheel</text>
+                    <text x="434" y="44">Drive force</text><text x="434" y="58" fill="var(--muted)" font-size="10">via gears and wheel</text>
                     <rect x="364" y="120" width="140" height="44" fill="var(--paper)" stroke="var(--signal)" stroke-width="1.5"/>
-                    <text x="434" y="140">SLIP CHECK</text><text x="434" y="154" fill="var(--muted)" font-size="10">μN ≥ drive force?</text>
+                    <text x="434" y="140">Slip check</text><text x="434" y="154" fill="var(--muted)" font-size="10">μN ≥ drive force?</text>
                     <rect x="190" y="120" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
-                    <text x="260" y="140">NET ACCELERATION</text><text x="260" y="154" fill="var(--muted)" font-size="10">minus weight &amp; chain</text>
+                    <text x="260" y="140">Net acceleration</text><text x="260" y="154" fill="var(--muted)" font-size="10">minus weight &amp; chain</text>
                     <rect x="16" y="120" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
-                    <text x="86" y="140">EXPLICIT EULER</text><text x="86" y="154" fill="var(--muted)" font-size="10">Δt = 10 ms</text>
+                    <text x="86" y="140">Explicit Euler</text><text x="86" y="154" fill="var(--muted)" font-size="10">Δt = 10 ms</text>
                   </g>
                   <g stroke="var(--ink)" stroke-width="1.2" fill="none" marker-end="url(#ah)">
                     <line x1="156" y1="46" x2="186" y2="46"/>
@@ -474,8 +474,8 @@
                   <g stroke="var(--link)" stroke-width="1.2" fill="none" marker-end="url(#ah)">
                     <path class="fc-reject" d="M434 164 L434 196 L300 196"/>
                   </g>
-                  <text x="292" y="200" font-size="10" fill="var(--link)" text-anchor="end">SLIPS → SETUP REJECTED</text>
-                  <text x="16" y="232" font-size="10" fill="var(--muted)">REPEAT UNTIL TOP OF PIPE OR 3 MIN</text>
+                  <text x="292" y="200" font-size="10" fill="var(--link)" text-anchor="end">Slips → setup rejected</text>
+                  <text x="16" y="232" font-size="10" fill="var(--muted)">Repeat until the top of the pipe or 3 min</text>
                 </svg>
               </div>
               <figcaption><b>Fig. 05</b> — One step of the Excel model, repeated every 10 ms.</figcaption>
@@ -485,10 +485,10 @@
                 <svg class="drawing" viewBox="0 0 520 132" role="img" aria-label="Climb time reduction: 22 percent predicted, 16 percent measured">
                   <!-- scale: 0% at x=118, 25% at x=498 → 15.2 px per % -->
                   <g font-size="11">
-                    <text x="16" y="38" fill="var(--ink)">PREDICTED</text>
+                    <text x="16" y="38" fill="var(--ink)">Predicted</text>
                     <rect x="118" y="24" width="334.4" height="22" fill="var(--ink)" opacity="0.82"/>
                     <text x="460" y="40" fill="var(--ink)">22%</text>
-                    <text x="16" y="78" fill="var(--ink)">MEASURED</text>
+                    <text x="16" y="78" fill="var(--ink)">Measured</text>
                     <rect x="118" y="64" width="243.2" height="22" fill="var(--signal)"/>
                     <text x="369" y="80" fill="var(--ink)">16%</text>
                   </g>

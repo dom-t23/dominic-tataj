@@ -433,7 +433,7 @@ function overlay(e, f) {
   tag.setAttribute("opacity", focus ? 1 : 0);
   if (focus) {
     var row = groups[focus].row, qty = +row.cells[2].textContent;
-    var label = row.querySelector("button").textContent.toUpperCase() + (qty > 1 ? " ×" + qty : "");
+    var label = row.querySelector("button").textContent + (qty > 1 ? " ×" + qty : "");
     if (tagText.textContent !== label) { tagText.textContent = label; tag.firstChild.setAttribute("width", (tagText.getComputedTextLength() + 14).toFixed(1)); }
     var at = focus === overPart && pointer ? [pointer.x + 14, pointer.y - 30] : ab > 0.5 ? [bal[focus].at[0] + 16, bal[focus].at[1] - 10] : px(anchorAt(groups[focus]));
     var tw = +tag.firstChild.getAttribute("width");

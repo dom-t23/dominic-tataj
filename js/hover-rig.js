@@ -125,8 +125,8 @@ function setGains(kp, kd, fromSliders) {
   var dom = poles.reduce(function (a, p) { return p[0] > a[0] ? p : a; });
   var unstable = dom[0] > 0;
   stab.className = "stab" + (unstable ? " bad" : "");
-  stab.textContent = unstable ? "UNSTABLE: RAISE Kd OR LOWER Kp" :
-    "STABLE · ζ " + (-dom[0] / Math.hypot(dom[0], dom[1])).toFixed(2) + " · Kp LIMIT " + lim.toFixed(1);
+  stab.textContent = unstable ? "Unstable: raise Kd or lower Kp" :
+    "Stable · ζ " + (-dom[0] / Math.hypot(dom[0], dom[1])).toFixed(2) + " · Kp limit " + lim.toFixed(1);
   if (L) drawPoles();
 }
 
@@ -143,17 +143,17 @@ function build() {
 
   // frame: tag, ground with hatching
   make("rect", { x: 10.5, y: 10.5, width: 168, height: 19, class: "rule paper" }, svg);
-  label("ELEVATION · HOVER TEST", { x: 17.5, y: 23.5, class: "ink" }, svg);
+  label("Elevation · hover test", { x: 17.5, y: 23.5, class: "ink" }, svg);
   make("line", { x1: 14, y1: gy, x2: W - 14, y2: gy, class: "ln" }, svg);
   for (var hx = 20; hx <= W - 14; hx += 8) make("line", { x1: hx, y1: gy + 1, x2: hx - 6, y2: gy + 7, class: "thin" }, svg);
-  label("GROUND", { x: W - 14, y: gy + 22, "text-anchor": "end" }, svg);
+  label("Ground", { x: W - 14, y: gy + 22, "text-anchor": "end" }, svg);
   L.readout = label("", { x: 12, y: wide ? 52 : 50, class: "big" }, svg);
 
   // error trace (last 6 s) and, on wide screens, the s-plane
   var cw = wide ? 230 : W - 24, ch = wide ? 64 : 44, chx = wide ? W - 12 - 104 - 12 - cw : 12, chy = wide ? 12 : 62;
   make("rect", { x: chx + 0.5, y: chy + 0.5, width: cw, height: ch, class: "rule paper" }, svg);
   make("line", { x1: chx, y1: chy + 10 + ch / 2 + 0.5, x2: chx + cw, y2: chy + 10 + ch / 2 + 0.5, class: "rule" }, svg);
-  label("ERROR · LAST 6 S", { x: chx + 6, y: chy + 12 }, svg);
+  label("Error · last 6 s", { x: chx + 6, y: chy + 12 }, svg);
   label("x", { x: chx + cw - 22, y: chy + 12, class: "ink" }, svg);
   make("line", { x1: chx + cw - 36, y1: chy + 8.5, x2: chx + cw - 26, y2: chy + 8.5, class: "truth" }, svg);
   label("z", { x: chx + cw - 6, y: chy + 12, class: "ink", "text-anchor": "end" }, svg);
@@ -171,7 +171,7 @@ function build() {
     for (var h = -ph; h < px + pw - ox; h += 6) make("line", { x1: ox + h, y1: py + ph, x2: ox + h + ph, y2: py, class: "hatch" }, hatch);
     make("line", { x1: ox + 0.5, y1: py, x2: ox + 0.5, y2: py + ph, class: "thin" }, svg);
     make("line", { x1: px, y1: py + ph / 2 + 0.5, x2: px + pw, y2: py + ph / 2 + 0.5, class: "thin" }, svg);
-    label("s-PLANE", { x: px + 6, y: py + 12 }, svg);
+    label("s-plane", { x: px + 6, y: py + 12 }, svg);
     L.splane = { ox: ox, oy: py + ph / 2, sx: (ox - px - 4) / 30, sy: (ph / 2 - 4) / 25, g: make("g", { class: "poles" }, svg) };
   } else L.splane = null;
 
@@ -179,7 +179,7 @@ function build() {
   L.sp = make("g", {}, svg);
   make("circle", { cx: 0, cy: 0, r: 7, class: "proj" }, L.sp);
   make("path", { d: "M-13 0h26M0 -13v26", class: "thin" }, L.sp);
-  label("SETPOINT", { x: 14, y: 22 }, L.sp);
+  label("Setpoint", { x: 14, y: 22 }, L.sp);
   L.err = make("line", { class: "proj" }, svg);
   L.dim = make("g", {}, svg);
   L.dimLine = make("line", { class: "ln" }, L.dim);
@@ -208,7 +208,7 @@ function build() {
   make("rect", { x: -26, y: -4, width: 6, height: 7, class: "solid" }, L.drone);
   make("rect", { x: 20, y: -4, width: 6, height: 7, class: "solid" }, L.drone);
   L.blades = [-23, 23].map(function (x, i) { return { el: make("line", { y1: -6.5, y2: -6.5, class: "ln" }, L.drone), x: x, ph: i * 1.3 }; });
-  L.hint = label("DRAG ME", { "text-anchor": "middle", class: "sig" }, svg);
+  L.hint = label("Drag me", { "text-anchor": "middle", class: "sig" }, svg);
   drawPoles();
 }
 
@@ -275,12 +275,12 @@ function draw() {
     if (lost) {
       L.noteLine.setAttribute("d", "");
       L.noteText.setAttribute("x", r1(L.W / 2)); L.noteText.setAttribute("y", r1(L.gy - 12)); L.noteText.setAttribute("text-anchor", "middle");
-      L.noteText.textContent = "LOST: FLEW OUT OF THE FRAME";
+      L.noteText.textContent = "Lost: flew out of the frame";
     } else {
       var ix = X(impact.x), right = ix < L.W - 180;
       L.noteLine.setAttribute("d", "M" + r1(ix) + " " + r1(L.gy - 6) + "l" + (right ? 24 : -24) + " -30h" + (right ? 12 : -12));
       L.noteText.setAttribute("x", r1(ix + (right ? 40 : -40))); L.noteText.setAttribute("y", r1(L.gy - 32)); L.noteText.setAttribute("text-anchor", right ? "start" : "end");
-      L.noteText.textContent = "IMPACT " + impact.speed.toFixed(1) + " M/S";
+      L.noteText.textContent = "Impact " + impact.speed.toFixed(1) + " m/s";
     }
   }
   L.puffs.textContent = "";
@@ -305,10 +305,10 @@ function draw() {
 
   // readout, and a state for anything that wants to know (tests, assistive tech via the controls)
   var state = crashT >= 0 ? "crashed" : cut ? "failsafe" : held ? "held" : settledIn >= 0 ? "settled" : "settling";
-  var status = crashT >= 0 ? (lost ? "LOST" : "CRASHED") + " · RESTART IN " + Math.max(0, RESPAWN - (t - crashT)).toFixed(1) + " S" :
-    cut ? "FAILSAFE: OSCILLATING, MOTORS CUT" : held ? "HELD" : settledIn >= 0 ? "SETTLED IN " + settledIn.toFixed(1) + " S" : "SETTLING " + (t - eventT).toFixed(1) + " S";
-  var parts = ["θ " + (Math.atan2(Math.sin(q.th), Math.cos(q.th)) * 180 / Math.PI).toFixed(1) + "°", "ERROR " + Math.hypot(sp.x - q.x, sp.z - q.z).toFixed(2) + " M",
-    "THRUST " + Math.round(100 * q.T / Q.T_MAX) + "%", status];
+  var status = crashT >= 0 ? (lost ? "Lost" : "Crashed") + " · restart in " + Math.max(0, RESPAWN - (t - crashT)).toFixed(1) + " s" :
+    cut ? "Failsafe: oscillating, motors cut" : held ? "Held" : settledIn >= 0 ? "Settled in " + settledIn.toFixed(1) + " s" : "Settling " + (t - eventT).toFixed(1) + " s";
+  var parts = ["θ " + (Math.atan2(Math.sin(q.th), Math.cos(q.th)) * 180 / Math.PI).toFixed(1) + "°", "error " + Math.hypot(sp.x - q.x, sp.z - q.z).toFixed(2) + " m",
+    "thrust " + Math.round(100 * q.T / Q.T_MAX) + "%", status];
   L.readout.textContent = L.wide ? parts.join("  ·  ") : parts.slice(0, 2).join("  ·  ") + "  ·  " + status;
   svg.dataset.state = state;
   svg.dataset.sp = sp.x.toFixed(2) + "," + sp.z.toFixed(2);

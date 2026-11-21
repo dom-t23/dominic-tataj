@@ -29,10 +29,10 @@ test("each stage reports what it did in that frame", async ({ page }) => {
   await loaded(page);
   await seek(page, 30);   // course 1, tracking gate 1 from 3 m
   await expect(panel(page, "detect")).toHaveClass(/\bon\b/);
-  await expect(panel(page, "detect").locator(".pp-r")).toHaveText(/^\d+ OUTLINES?, \d+ OPENINGS?$/);
-  await expect(panel(page, "measure").locator(".pp-r")).toHaveText(/^OUTLINE \d+\.\d M · /);
-  await expect(panel(page, "fuse").locator(".pp-r")).toHaveText(/^FUSED · σ \d\.\d\d M · ERROR \d\.\d\d M$/);
-  await expect(panel(page, "fly").locator(".pp-r")).toHaveText(/^THRUST \d\.\d\d G · RATES /);
+  await expect(panel(page, "detect").locator(".pp-r")).toHaveText(/^\d+ outlines?, \d+ openings?$/);
+  await expect(panel(page, "measure").locator(".pp-r")).toHaveText(/^Outline \d+\.\d m · /);
+  await expect(panel(page, "fuse").locator(".pp-r")).toHaveText(/^Fused · σ \d\.\d\d m · error \d\.\d\d m$/);
+  await expect(panel(page, "fly").locator(".pp-r")).toHaveText(/^Thrust \d\.\d\d g · rates /);
   // the colour mask is drawn: some of the canvas is ink
   const ink = await panel(page, "detect").locator("canvas").evaluate((c) => {
     const d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data;
@@ -50,7 +50,7 @@ test("course 3 with the IMU: the filter rejects measurements as it locks onto cl
   await page.click("#play");
   await seek(page, 75);
   await expect(panel(page, "fuse")).toHaveClass(/\bbad\b/);
-  await expect(panel(page, "fuse").locator(".pp-r")).toHaveText(/^REJECTED \(χ² GATE\)/);
+  await expect(panel(page, "fuse").locator(".pp-r")).toHaveText(/^Rejected \(χ² gate\)/);
   // its uncertainty over the flight, with the rejections marked
   await expect(panel(page, "fuse").locator("path.tick-bad")).toHaveCount(1);
   expect((await panel(page, "fuse").locator("path.spark").getAttribute("d")).length).toBeGreaterThan(200);

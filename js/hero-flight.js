@@ -45,7 +45,7 @@ function build() {
   var plan = side ? { x: 0, y: 0, w: split, h: H } : { x: 0, y: 0, w: W, h: split };
   var elev = side ? { x: split, y: 0, w: W - split, h: H } : { x: 0, y: split, w: W, h: H - split };
   make("line", side ? { x1: split + 0.5, y1: 0, x2: split + 0.5, y2: H, class: "rule" } : { x1: 0, y1: split + 0.5, x2: W, y2: split + 0.5, class: "rule" }, svg);
-  viewTag("PLAN", plan); viewTag("ELEVATION", elev);
+  viewTag("Plan", plan); viewTag("Elevation", elev);
 
   // ---- plan view: metres to px, +y up ----
   var xs = [F.start[0]], ys = [F.start[1]];
@@ -89,7 +89,7 @@ function build() {
   var st = P(F.start[0], F.start[1]);
   make("circle", { cx: r1(st[0]), cy: r1(st[1]), r: 4, class: "thin" }, svg);
   make("path", { d: "M" + r1(st[0] - 7) + " " + r1(st[1]) + "h14M" + r1(st[0]) + " " + r1(st[1] - 7) + "v14", class: "thin" }, svg);
-  label("START", { x: r1(st[0]), y: r1(st[1] + 19), "text-anchor": "middle" }, svg);
+  label("Start", { x: r1(st[0]), y: r1(st[1] + 19), "text-anchor": "middle" }, svg);
 
   // scale bar: 5 m, or 10 m when 5 m would be too short to read
   var m = 5 * s >= 36 ? 5 : 10, sx = plan.x + pad, sy = plan.y + plan.h - 14;
@@ -122,7 +122,7 @@ function build() {
   var gy = elev.y + elev.h - 32;
   make("line", { x1: elev.x + 14, y1: gy, x2: elev.x + elev.w - 14, y2: gy, class: "ln" }, svg);
   for (var hx = elev.x + 20; hx <= elev.x + elev.w - 14; hx += 8) make("line", { x1: hx, y1: gy + 1, x2: hx - 6, y2: gy + 7, class: "thin" }, svg);
-  label("GROUND", { x: elev.x + elev.w - 14, y: gy + 22, "text-anchor": "end" }, svg);
+  label("Ground", { x: elev.x + elev.w - 14, y: gy + 22, "text-anchor": "end" }, svg);
   var se = (gy - (elev.y + 64)) / 3, ex = elev.x + elev.w * 0.6, z0 = last[2];
 
   var ge = make("g", { display: "none" }, svg);
@@ -191,7 +191,7 @@ function render(c) {
     show(L.gp, true);
     L.gp.setAttribute("transform", "translate(" + r1(here[0]) + " " + r1(here[1]) + ") rotate(" + r1(hd) + ") scale(" + kp + " " + r1(kp * roll * 100) / 100 + ")");
     show(L.ge, false); show(L.proj, false); show(L.dim, false); show(L.finish, false);
-    L.readout.textContent = "T " + tf.toFixed(2) + " S  ·  " + lerp(speed(i), speed(j), u).toFixed(1) + " M/S  ·  GATE " +
+    L.readout.textContent = "t " + tf.toFixed(2) + " s  ·  " + lerp(speed(i), speed(j), u).toFixed(1) + " m/s  ·  gate " +
       Math.min(g + 1, F.n) + "/" + F.n + "  ·  ×" + SPEED;
     return;
   }
@@ -228,7 +228,7 @@ function render(c) {
     L.dimText.setAttribute("y", r1((L.gy + yb) / 2 + 3.5));
     L.dimText.textContent = (L.z0 + bob).toFixed(2) + " m";
   }
-  L.readout.textContent = "T " + F.T.toFixed(2) + " S  ·  " + F.n + "/" + F.n + " GATES  ·  " + (v >= 1 ? "HOVER" : "LANDED");
+  L.readout.textContent = "t " + F.T.toFixed(2) + " s  ·  " + F.n + "/" + F.n + " gates  ·  " + (v >= 1 ? "hover" : "end of recording");
 }
 
 // How far through an acro-mode flip the drone is at clock c (0 when not flipping).

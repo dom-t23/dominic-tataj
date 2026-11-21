@@ -6,7 +6,7 @@ var FRAME = String.raw`
    '--'\\         //'--'
          \\_____//
          | [===] |      E-03  GENERATIVE FPV FRAME
-         |_______|      38 G · PC/ABS · 246 G ALL-UP
+         |_______|      38 g · PC/ABS · 246 g all-up
          //     \\
    .--.//         \\.--.
   ( () )           ( () )

@@ -11,8 +11,8 @@ test("flies the course, flips into the elevation view and hovers", async ({ page
   await page.goto("/", { waitUntil: "networkidle" });
   await toStrip(page);
   await expect(readout(page)).toContainText("×3", { timeout: 3000 });
-  await expect(readout(page)).toContainText("GATE");
-  await expect(readout(page)).toContainText("8/8 GATES · HOVER", { timeout: 8000 });
+  await expect(readout(page)).toContainText("gate");
+  await expect(readout(page)).toContainText("8/8 gates · hover", { timeout: 8000 });
   // every gate passed, and the height dimension follows the hover bob
   expect(await page.$$eval("#fv .gate", (gs) => gs.map((g) => g.getAttribute("class")))).toEqual(Array(8).fill("gate done"));
   const a = await height(page).textContent();
@@ -24,7 +24,7 @@ test("flies the course, flips into the elevation view and hovers", async ({ page
 test("REPLAY flies it again", async ({ page }) => {
   await page.goto("/");
   await toStrip(page);
-  await expect(readout(page)).toContainText("HOVER", { timeout: 8000 });
+  await expect(readout(page)).toContainText("hover", { timeout: 8000 });
   await page.click("#fv-replay");
   await expect(readout(page)).toContainText("×3");
 });
@@ -33,7 +33,7 @@ test("waits until the strip is in view before taking off", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 600 });   // strip below the fold
   await page.goto("/", { waitUntil: "networkidle" });
   await page.waitForTimeout(1500);
-  await expect(readout(page)).toHaveText(/^T 0\.00 S/);
+  await expect(readout(page)).toHaveText(/^t 0\.00 s/);
 });
 
 test.describe("reduced motion", () => {
@@ -41,7 +41,7 @@ test.describe("reduced motion", () => {
   test("shows the finished drawing, still", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });
     await toStrip(page);
-    await expect(readout(page)).toContainText("8/8 GATES · HOVER");
+    await expect(readout(page)).toContainText("8/8 gates · hover");
     const a = await height(page).textContent();
     await page.waitForTimeout(600);
     expect(await height(page).textContent()).toBe(a);
@@ -53,7 +53,7 @@ test.describe("phone", () => {
   test("stacks the views and fits the width", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });
     await toStrip(page);
-    await expect(readout(page)).toContainText("HOVER", { timeout: 8000 });
+    await expect(readout(page)).toContainText("hover", { timeout: 8000 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
     const box = await page.locator("#fv").boundingBox();
     expect(box.height).toBeGreaterThan(300);

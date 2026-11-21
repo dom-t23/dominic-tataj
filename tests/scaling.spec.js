@@ -9,23 +9,23 @@ test("603 models; linear axes until in view, then log axes and the fit", async (
   const errors = trackErrors(page);
   await page.goto("/", { waitUntil: "networkidle" });   // loads after the load event
   await expect(page.locator("#scaling circle.pt")).toHaveCount(603);
-  await expect(title(page)).toHaveText("LINEAR AXES");
+  await expect(title(page)).toHaveText("Linear axes");
   await expect(page.locator("#scaling text.fit-t").first()).toHaveText("P ∝ N⁰·⁵⁵ · R² 0.44");   // fitted in the page
   await expect(page.locator("#scaling text.fit-t").nth(1)).toHaveText("GPT-5 ≈590 kW");
   await toView(page);
-  await expect(title(page)).toHaveText("LOG₁₀ AXES", { timeout: 5000 });
+  await expect(title(page)).toHaveText("Log₁₀ axes", { timeout: 5000 });
   await expect.poll(() => page.locator("#scaling path.fit").first().getAttribute("stroke-dashoffset"), { timeout: 5000 }).toBe("0");
   // back to linear: the fit goes, the switch says so
   await page.click(".sc-axes button[data-log='0']");
   await expect(page.locator(".sc-axes button[data-log='0']")).toHaveAttribute("aria-pressed", "true");
-  await expect(title(page)).toHaveText("LINEAR AXES", { timeout: 5000 });
+  await expect(title(page)).toHaveText("Linear axes", { timeout: 5000 });
   expect(errors).toEqual([]);
 });
 
 test("pointing at a point names the model", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
   await toView(page);
-  await expect(title(page)).toHaveText("LOG₁₀ AXES", { timeout: 5000 });
+  await expect(title(page)).toHaveText("Log₁₀ axes", { timeout: 5000 });
   await page.waitForTimeout(1800);   // the sweep settles
   const at = await page.evaluate(() => {
     const c = [...document.querySelectorAll("#scaling circle.pt")].pop(), s = document.getElementById("scaling");
@@ -41,7 +41,7 @@ test.describe("reduced motion", () => {
   test.use({ contextOptions: { reducedMotion: "reduce" } });
   test("log axes and the fit at once", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });
-    await expect(title(page)).toHaveText("LOG₁₀ AXES");
+    await expect(title(page)).toHaveText("Log₁₀ axes");
     await expect(page.locator("#scaling path.fit").first()).toHaveAttribute("stroke-dashoffset", "0");
   });
 });
