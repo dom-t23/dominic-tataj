@@ -25,7 +25,8 @@ if (links.length && window.HTMLDialogElement) {
     var best = webp ? webp.getAttribute("srcset").split(",").pop().trim().split(" ")[0] : a.getAttribute("href");
     img.src = best; img.alt = pic.alt;
     if (!reducedMotion()) { img.style.animation = "none"; void img.offsetWidth; img.style.animation = ""; }
-    cap.textContent = a.querySelector(".cap").textContent;
+    var c = a.parentNode.querySelector(".cap");   // the caption under the photo: its number, then the place
+    cap.textContent = c ? c.querySelector("b").textContent + " · " + c.lastChild.textContent : "";
     num.textContent = (at + 1) + " / " + links.length;
     // load the neighbours, so stepping is instant
     [at - 1, at + 1].forEach(function (k) { var l = links[(k + links.length) % links.length].querySelector("source"); if (l) new Image().src = l.getAttribute("srcset").split(",").pop().trim().split(" ")[0]; });

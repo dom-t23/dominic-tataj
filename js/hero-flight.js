@@ -1,6 +1,6 @@
 // Fig. 00, the hero's flight log (direction A). The simulated flight from the drone-racing
 // project (E-04, course 1, camera + IMU) draws itself as a plan view beside the name: the true
-// path in amber, the drone's own estimate dashed cyan, the gates turning from "next" to "passed".
+// path in blue, the drone's own estimate dashed orange, the gates turning from "next" to "passed".
 // Under it, a strip chart of the estimate's error over the flight, and an HTML readout in
 // tabular figures. Everything drawn is a function of one clock, so replaying, resizing and
 // reduced motion (which draws the finished flight at once) share render(). The loop stops once
