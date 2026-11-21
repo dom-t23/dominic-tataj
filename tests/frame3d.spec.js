@@ -1,4 +1,4 @@
-// Fig. 01, the drone in 3D (js/frame3d-boot.js, js/frame3d.js).
+// Fig. 02, the drone in 3D (js/frame3d-boot.js, js/frame3d.js).
 const { test, expect } = require("@playwright/test");
 const { phone, trackErrors } = require("./helpers");
 

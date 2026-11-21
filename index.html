@@ -60,7 +60,7 @@
       </div>
     </div>
 
-    <!-- The drone from E-03, drawn offline in Fig. 01's style (tools/hero/): it hovers, turning a
+    <!-- The drone from E-03, drawn offline in Fig. 02's style (tools/hero/): it hovers, turning a
          little, and climbs away as you scroll on (js/hero-drone.js) -->
     <a class="hero-drone" id="hero-drone" href="#e-03" aria-label="E-03, generative FPV drone frame">
       <span class="hd-floor" aria-hidden="true"></span>
@@ -75,21 +75,21 @@
     <div class="register" aria-label="Project register">
       <header><span class="label">Projects</span></header>
       <ol>
-        <li><a href="#e-03">
-          <span class="r-no">E-03</span><span class="r-title">Generative FPV drone frame</span>
-          <span class="r-meta">Fusion · Ansys</span>
-        </a></li>
         <li><a href="#e-04">
           <span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span>
-          <span class="r-meta">Python · OpenCV</span>
+          <span class="r-result">98.6% of gates passed over 300 courses, with clutter</span><span class="r-meta">Python · OpenCV</span>
+        </a></li>
+        <li><a href="#e-03">
+          <span class="r-no">E-03</span><span class="r-title">Generative FPV drone frame</span>
+          <span class="r-result">38 g frame, 36% lighter; 246 g all-up, under the CAA's 250 g</span><span class="r-meta">Fusion · Ansys</span>
         </a></li>
         <li><a href="#e-02">
           <span class="r-no">E-02</span><span class="r-title">Pipe-climbing robot, IMechE Design Challenge</span>
-          <span class="r-meta">Excel · Fusion</span>
+          <span class="r-result">Completed the climb; 16% faster in real runs</span><span class="r-meta">Excel · Fusion</span>
         </a></li>
         <li><a href="#e-01">
           <span class="r-no">E-01</span><span class="r-title">AI training-cost analysis</span>
-          <span class="r-meta">MATLAB</span>
+          <span class="r-result">Power law fitted: P ∝ N<sup>0.55</sup>, R² 0.44</span><span class="r-meta">MATLAB</span>
         </a></li>
       </ol>
     </div>
@@ -117,103 +117,6 @@
       <div class="eyebrow">Selected work</div>
       <h2>Projects</h2>
     </div>
-
-    <!-- E-03 FRAME -->
-    <article class="sheet" id="e-03" aria-labelledby="e03-h">
-      <div class="sheet-meta">
-        <span class="pno">E-03</span><span class="chip"><span class="k">Role</span>Design, analysis &amp; build</span><span class="chip"><span class="k">Tools</span>Fusion generative · Ansys Mechanical</span><span class="chip"><span class="k">Date</span>Jul – Sep 2026</span><span class="chip"><span class="k">Status</span>Built &amp; tested</span>
-      </div>
-      <div class="sheet-body">
-        <div class="sheet-title">
-          <h3 id="e03-h">A generatively designed 3-inch FPV drone frame</h3>
-          <p class="summary">The frame needed to survive crashes and avoid resonance with the motors, while keeping the complete drone under the UK CAA's 250 g threshold.</p>
-        </div>
-
-        <!-- Fig. 01: with WebGL, js/frame3d-boot.js swaps the renders for the real model in
-             three scroll-driven views (js/frame3d.js); without it, the renders stay. -->
-        <div class="f3-track" id="f3-track">
-          <figure class="f3" id="frame3d">
-            <div class="f3-renders">
-              <img class="render" src="images/frame-render-three-quarter.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone on cracked ground, three-quarter view, showing the white generatively designed frame with four motors and the battery mounted on top">
-              <img class="render" src="images/frame-render-top.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone from above, showing the organic X-shaped frame arms and the battery on the centre line">
-            </div>
-            <div class="f3-stage" hidden>
-              <div class="f3-steps" role="group" aria-label="Views of the model">
-                <button type="button" data-cap="As modelled in Fusion: 47 parts, 246 g all-up. Drag to turn it; point at a part to name it."><span>01</span> Assembly</button>
-                <button type="button" data-cap="Exploded. Point at a part, or a row of the parts list, to pick it out."><span>02</span> Exploded</button>
-                <button type="button" data-cap="The generated frame alone: 38 g of PC/ABS, motors 96 mm apart, 136 mm across the diagonal."><span>03</span> Frame only</button>
-              </div>
-              <div class="f3-view"><p class="f3-load" aria-live="polite">Loading model</p></div>
-              <table class="f3-parts">
-                <caption>Parts list</caption>
-                <thead><tr><th scope="col">Item</th><th scope="col">Part</th><th scope="col">Qty</th><th scope="col">Mass</th></tr></thead>
-                <tbody>
-                  <tr data-part="frame"><td>1</td><td><button type="button">Frame, PC/ABS</button></td><td>1</td><td>38 g</td></tr>
-                  <tr data-part="motor"><td>2</td><td><button type="button">Motor 1404</button></td><td>4</td><td></td></tr>
-                  <tr data-part="prop"><td>3</td><td><button type="button">Propeller 3016</button></td><td>4</td><td></td></tr>
-                  <tr data-part="battery"><td>4</td><td><button type="button">Battery 4S 650</button></td><td>1</td><td></td></tr>
-                  <tr data-part="fc"><td>5</td><td><button type="button">Flight controller</button></td><td>1</td><td></td></tr>
-                  <tr data-part="vtx"><td>6</td><td><button type="button">Video transmitter</button></td><td>1</td><td></td></tr>
-                  <tr data-part="camera"><td>7</td><td><button type="button">Camera</button></td><td>1</td><td></td></tr>
-                  <tr data-part="standoff"><td>8</td><td><button type="button">Standoff</button></td><td>8</td><td></td></tr>
-                  <tr data-part="bolt"><td>9</td><td><button type="button">Bolt M2</button></td><td>26</td><td></td></tr>
-                </tbody>
-                <tfoot><tr><td></td><td>All-up</td><td>47</td><td>246 g</td></tr></tfoot>
-              </table>
-            </div>
-            <figcaption><b>Fig. 01</b> — <span class="f3-cap">Fusion renders of the assembled drone, three-quarter and top views, showing the generated arm geometry.</span></figcaption>
-          </figure>
-        </div>
-
-        <div class="specs" aria-label="Key figures">
-          <div><span class="label">Safety factor</span><span class="n">1.5</span></div>
-          <div><span class="label">Modal constraint</span><span class="n">&gt;300<small>Hz</small></span></div>
-          <div><span class="label">Vs plate design</span><span class="n">−36%<small>mass</small></span></div>
-          <div><span class="label">Printed frame</span><span class="n">38<small>g</small></span></div>
-        </div>
-
-        <div class="cols">
-          <div class="prose">
-            <div>
-              <h4>Approach</h4>
-              <p>I derived eight operational load cases, including maximum thrust, arm collision and battery impact, to define the design envelope and starting geometry.</p>
-              <p>I then ran Fusion's generative optimisation under those loads with buckling, modal frequency (above 300 Hz) and 1.5 safety-factor constraints. The selected topology is 36% lighter than a comparable plate-based frame.</p>
-            </div>
-            <div>
-              <h4>Build and testing</h4>
-              <p>I printed the frame in PC/ABS for impact toughness. It weighs 38 g, and the fully assembled drone comes to 246 g, under the 250 g threshold.</p>
-              <p>I measured arm deflection at maximum thrust and compared it with Ansys Mechanical; the two agreed to within 18%.</p>
-            </div>
-          </div>
-          <div class="fig-stack">
-            <figure>
-              <div class="plate">
-                <svg class="drawing" viewBox="0 0 520 170" role="img" aria-label="Mass budget: 246 grams all-up against a 250 gram limit, of which the frame is 38 grams">
-                  <!-- scale: 0 g at x=20, 260 g at x=500 → 1.846 px/g -->
-                  <line x1="20" y1="96" x2="500" y2="96" stroke="var(--rule)" stroke-width="1"/>
-                  <rect x="20" y="62" width="70.2" height="28" fill="var(--signal)"/>
-                  <rect x="90.2" y="62" width="384" height="28" fill="var(--ink)" opacity="0.82"/>
-                  <line x1="481.5" y1="40" x2="481.5" y2="104" stroke="var(--link)" stroke-width="2" stroke-dasharray="4 3"/>
-                  <text x="512" y="32" text-anchor="end" font-size="11" fill="var(--link)">CAA LIMIT 250 G</text>
-                  <text x="20" y="52" font-size="11" fill="var(--ink)">FRAME 38 G</text>
-                  <text x="470" y="56" text-anchor="end" font-size="11" fill="var(--ink)">ALL-UP 246 G</text>
-                  <g font-size="10" fill="var(--muted)">
-                    <line x1="20" y1="96" x2="20" y2="102" stroke="var(--muted)"/><text x="20" y="118" text-anchor="middle">0</text>
-                    <line x1="112.3" y1="96" x2="112.3" y2="102" stroke="var(--muted)"/><text x="112.3" y="118" text-anchor="middle">50</text>
-                    <line x1="204.6" y1="96" x2="204.6" y2="102" stroke="var(--muted)"/><text x="204.6" y="118" text-anchor="middle">100</text>
-                    <line x1="296.9" y1="96" x2="296.9" y2="102" stroke="var(--muted)"/><text x="296.9" y="118" text-anchor="middle">150</text>
-                    <line x1="389.2" y1="96" x2="389.2" y2="102" stroke="var(--muted)"/><text x="389.2" y="118" text-anchor="middle">200</text>
-                    <text x="500" y="118" text-anchor="end">G</text>
-                  </g>
-                  <text x="20" y="150" font-size="11" fill="var(--muted)">MARGIN TO LIMIT: 4 G</text>
-                </svg>
-              </div>
-              <figcaption><b>Fig. 02</b> — Mass budget. Frame vs. complete drone, against the CAA 250 g threshold.</figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </article>
 
     <!-- E-04 DRONE -->
     <article class="sheet" id="e-04" aria-labelledby="e04-h">
@@ -329,10 +232,107 @@
                 </div>
                 <svg class="bench-chart" id="bench-chart" viewBox="0 0 520 168" role="img" aria-label="Gates missed per set of 400, for the chosen column" hidden></svg>
               </div>
-              <figcaption><b>Fig. 03</b> — Gate pass rate on six sets of 50 random 8-gate courses, in a clean world and with orange clutter beside the course. A run ends at the first crash or missed gate.</figcaption>
+              <figcaption><b>Fig. 01</b> — Gate pass rate on six sets of 50 random 8-gate courses, in a clean world and with orange clutter beside the course. A run ends at the first crash or missed gate.</figcaption>
             </figure>
             <p class="note">Single sets of 50 courses move by a few points from noise alone, so the pooled row is the one to compare. "Camera only" drops the IMU and predicts motion between frames from the drone's own commands. The clutter is up to 20 flat panels and cones beside the course, painted within the gate's colour range. That world is harder by design, so its numbers start a new baseline rather than continuing the clean one. Clean: runs 20 and 23 (camera only); clutter: run 26.</p>
             <p class="note">Source code: <a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">github.com/dom-t23/vision-drone-racing ↗</a></p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- E-03 FRAME -->
+    <article class="sheet" id="e-03" aria-labelledby="e03-h">
+      <div class="sheet-meta">
+        <span class="pno">E-03</span><span class="chip"><span class="k">Role</span>Design, analysis &amp; build</span><span class="chip"><span class="k">Tools</span>Fusion generative · Ansys Mechanical</span><span class="chip"><span class="k">Date</span>Jul – Sep 2026</span><span class="chip"><span class="k">Status</span>Built &amp; tested</span>
+      </div>
+      <div class="sheet-body">
+        <div class="sheet-title">
+          <h3 id="e03-h">A generatively designed 3-inch FPV drone frame</h3>
+          <p class="summary">The frame needed to survive crashes and avoid resonance with the motors, while keeping the complete drone under the UK CAA's 250 g threshold.</p>
+        </div>
+
+        <!-- Fig. 02: with WebGL, js/frame3d-boot.js swaps the renders for the real model in
+             three scroll-driven views (js/frame3d.js); without it, the renders stay. -->
+        <div class="f3-track" id="f3-track">
+          <figure class="f3" id="frame3d">
+            <div class="f3-renders">
+              <img class="render" src="images/frame-render-three-quarter.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone on cracked ground, three-quarter view, showing the white generatively designed frame with four motors and the battery mounted on top">
+              <img class="render" src="images/frame-render-top.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone from above, showing the organic X-shaped frame arms and the battery on the centre line">
+            </div>
+            <div class="f3-stage" hidden>
+              <div class="f3-steps" role="group" aria-label="Views of the model">
+                <button type="button" data-cap="As modelled in Fusion: 47 parts, 246 g all-up. Drag to turn it; point at a part to name it."><span>01</span> Assembly</button>
+                <button type="button" data-cap="Exploded. Point at a part, or a row of the parts list, to pick it out."><span>02</span> Exploded</button>
+                <button type="button" data-cap="The generated frame alone: 38 g of PC/ABS, motors 96 mm apart, 136 mm across the diagonal."><span>03</span> Frame only</button>
+              </div>
+              <div class="f3-view"><p class="f3-load" aria-live="polite">Loading model</p></div>
+              <table class="f3-parts">
+                <caption>Parts list</caption>
+                <thead><tr><th scope="col">Item</th><th scope="col">Part</th><th scope="col">Qty</th><th scope="col">Mass</th></tr></thead>
+                <tbody>
+                  <tr data-part="frame"><td>1</td><td><button type="button">Frame, PC/ABS</button></td><td>1</td><td>38 g</td></tr>
+                  <tr data-part="motor"><td>2</td><td><button type="button">Motor 1404</button></td><td>4</td><td></td></tr>
+                  <tr data-part="prop"><td>3</td><td><button type="button">Propeller 3016</button></td><td>4</td><td></td></tr>
+                  <tr data-part="battery"><td>4</td><td><button type="button">Battery 4S 650</button></td><td>1</td><td></td></tr>
+                  <tr data-part="fc"><td>5</td><td><button type="button">Flight controller</button></td><td>1</td><td></td></tr>
+                  <tr data-part="vtx"><td>6</td><td><button type="button">Video transmitter</button></td><td>1</td><td></td></tr>
+                  <tr data-part="camera"><td>7</td><td><button type="button">Camera</button></td><td>1</td><td></td></tr>
+                  <tr data-part="standoff"><td>8</td><td><button type="button">Standoff</button></td><td>8</td><td></td></tr>
+                  <tr data-part="bolt"><td>9</td><td><button type="button">Bolt M2</button></td><td>26</td><td></td></tr>
+                </tbody>
+                <tfoot><tr><td></td><td>All-up</td><td>47</td><td>246 g</td></tr></tfoot>
+              </table>
+            </div>
+            <figcaption><b>Fig. 02</b> — <span class="f3-cap">Fusion renders of the assembled drone, three-quarter and top views, showing the generated arm geometry.</span></figcaption>
+          </figure>
+        </div>
+
+        <div class="specs" aria-label="Key figures">
+          <div><span class="label">Safety factor</span><span class="n">1.5</span></div>
+          <div><span class="label">Modal constraint</span><span class="n">&gt;300<small>Hz</small></span></div>
+          <div><span class="label">Vs plate design</span><span class="n">−36%<small>mass</small></span></div>
+          <div><span class="label">Printed frame</span><span class="n">38<small>g</small></span></div>
+        </div>
+
+        <div class="cols">
+          <div class="prose">
+            <div>
+              <h4>Approach</h4>
+              <p>I derived eight operational load cases, including maximum thrust, arm collision and battery impact, to define the design envelope and starting geometry.</p>
+              <p>I then ran Fusion's generative optimisation under those loads with buckling, modal frequency (above 300 Hz) and 1.5 safety-factor constraints. The selected topology is 36% lighter than a comparable plate-based frame.</p>
+            </div>
+            <div>
+              <h4>Build and testing</h4>
+              <p>I printed the frame in PC/ABS for impact toughness. It weighs 38 g, and the fully assembled drone comes to 246 g, under the 250 g threshold.</p>
+              <p>I measured arm deflection at maximum thrust and compared it with Ansys Mechanical; the two agreed to within 18%.</p>
+            </div>
+          </div>
+          <div class="fig-stack">
+            <figure>
+              <div class="plate">
+                <svg class="drawing" viewBox="0 0 520 170" role="img" aria-label="Mass budget: 246 grams all-up against a 250 gram limit, of which the frame is 38 grams">
+                  <!-- scale: 0 g at x=20, 260 g at x=500 → 1.846 px/g -->
+                  <line x1="20" y1="96" x2="500" y2="96" stroke="var(--rule)" stroke-width="1"/>
+                  <rect x="20" y="62" width="70.2" height="28" fill="var(--signal)"/>
+                  <rect x="90.2" y="62" width="384" height="28" fill="var(--ink)" opacity="0.82"/>
+                  <line x1="481.5" y1="40" x2="481.5" y2="104" stroke="var(--link)" stroke-width="2" stroke-dasharray="4 3"/>
+                  <text x="512" y="32" text-anchor="end" font-size="11" fill="var(--link)">CAA LIMIT 250 G</text>
+                  <text x="20" y="52" font-size="11" fill="var(--ink)">FRAME 38 G</text>
+                  <text x="470" y="56" text-anchor="end" font-size="11" fill="var(--ink)">ALL-UP 246 G</text>
+                  <g font-size="10" fill="var(--muted)">
+                    <line x1="20" y1="96" x2="20" y2="102" stroke="var(--muted)"/><text x="20" y="118" text-anchor="middle">0</text>
+                    <line x1="112.3" y1="96" x2="112.3" y2="102" stroke="var(--muted)"/><text x="112.3" y="118" text-anchor="middle">50</text>
+                    <line x1="204.6" y1="96" x2="204.6" y2="102" stroke="var(--muted)"/><text x="204.6" y="118" text-anchor="middle">100</text>
+                    <line x1="296.9" y1="96" x2="296.9" y2="102" stroke="var(--muted)"/><text x="296.9" y="118" text-anchor="middle">150</text>
+                    <line x1="389.2" y1="96" x2="389.2" y2="102" stroke="var(--muted)"/><text x="389.2" y="118" text-anchor="middle">200</text>
+                    <text x="500" y="118" text-anchor="end">G</text>
+                  </g>
+                  <text x="20" y="150" font-size="11" fill="var(--muted)">MARGIN TO LIMIT: 4 G</text>
+                </svg>
+              </div>
+              <figcaption><b>Fig. 03</b> — Mass budget. Frame vs. complete drone, against the CAA 250 g threshold.</figcaption>
+            </figure>
           </div>
         </div>
       </div>
@@ -608,7 +608,7 @@
   </div>
 </footer>
 
-<!-- three.js (r170, js/vendor/three) is loaded only when Fig. 01 is close; its addons import "three" by name -->
+<!-- three.js (r170, js/vendor/three) is loaded only when Fig. 02 is close; its addons import "three" by name -->
 <script type="importmap">{ "imports": { "three": "./js/vendor/three/three.module.min.js", "three/addons/": "./js/vendor/three/addons/" } }</script>
 <link rel="modulepreload" href="js/util.js">
 <link rel="modulepreload" href="js/theme.js">

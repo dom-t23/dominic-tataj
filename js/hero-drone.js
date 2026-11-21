@@ -1,4 +1,4 @@
-// The hero's drone (E-03), drawn offline in Fig. 01's style by tools/hero/. It hovers: a slow bob
+// The hero's drone (E-03), drawn offline in Fig. 02's style by tools/hero/. It hovers: a slow bob
 // and roll, its shadow tightening as it dips, and on wide screens a slow turn of ±8° through 33
 // frames 0.5° apart, cross-faded so no step shows. Scrolling on, it climbs away. The bob, roll and
 // climb are transforms, so they move smoothly at any frame rate. Reduced motion keeps it still;

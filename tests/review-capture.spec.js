@@ -13,11 +13,11 @@ const SIZES = [
   ["desktop", { viewport: { width: 1920, height: 1080 }, deviceScaleFactor: 1 }],
 ];
 
-// ANGLE's software renderer, as in frame3d.spec.js, so Fig. 01 renders whole
+// ANGLE's software renderer, as in frame3d.spec.js, so Fig. 02 renders whole
 test.use({ launchOptions: { args: ["--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"] } });
 test.setTimeout(180000);
 
-// Scroll the whole page once so every reveal plays, every lazy image loads and Fig. 01 starts;
+// Scroll the whole page once so every reveal plays, every lazy image loads and Fig. 02 starts;
 // then wait for fonts, images and the figures that draw themselves once near.
 async function settle(page) {
   await page.evaluate(() => document.fonts.ready);
@@ -35,7 +35,7 @@ async function settle(page) {
 }
 
 // A full-page capture paints beyond the viewport, where the browser skips sheets that use
-// content-visibility: auto; lay them all out for the capture only. The pinned Fig. 01 still
+// content-visibility: auto; lay them all out for the capture only. The pinned Fig. 02 still
 // shows as tall white space: on screen that height is scroll that turns the model.
 const PAINT_ALL = ".sheet { content-visibility: visible !important; }";
 

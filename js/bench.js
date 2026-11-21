@@ -1,4 +1,4 @@
-// Fig. 03, the benchmark (DESIGN_PLAN.md 3.5). A data column's header charts that column as
+// Fig. 01, the benchmark (DESIGN_PLAN.md 3.5). A data column's header charts that column as
 // gates missed per set (out of 400, from a zero baseline, on one scale for every column) and
 // sorts the table by it, worst set first; pressing it again, or "Course set", restores the
 // course order. A set's row and its bar pick each other out. The pooled row pulses once when

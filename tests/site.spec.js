@@ -13,8 +13,8 @@ test("renders in standards mode with no errors", async ({ page }) => {
 test("content: order, numbering, figures and links", async ({ page }) => {
   await page.goto("/");
   const ids = (sel) => page.$$eval(sel, (es) => es.map((e) => e.id || e.getAttribute("href")));
-  expect(await ids(".register a")).toEqual(["#e-03", "#e-04", "#e-02", "#e-01"]);
-  expect(await ids("article.sheet")).toEqual(["e-03", "e-04", "e-02", "e-01"]);
+  expect(await ids(".register a")).toEqual(["#e-04", "#e-03", "#e-02", "#e-01"]);
+  expect(await ids("article.sheet")).toEqual(["e-04", "e-03", "e-02", "e-01"]);
   expect(await page.$$eval("figcaption b", (bs) => bs.map((b) => b.textContent)))
     .toEqual(["Fig. 00", "Fig. 01", "Fig. 02", "Fig. 03", "Fig. 04", "Fig. 05", "Fig. 06", "Fig. 07", "Contact sheet"]);
   expect(await page.$$eval(".nav ul a", (as) => as.map((a) => a.textContent))).toEqual(["Work", "About", "Contact"]);

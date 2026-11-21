@@ -1,4 +1,4 @@
-// Fig. 03, the benchmark table and its chart (js/bench.js).
+// Fig. 01, the benchmark table and its chart (js/bench.js).
 const { test, expect } = require("@playwright/test");
 const { phone, trackErrors } = require("./helpers");
 

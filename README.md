@@ -13,7 +13,7 @@ No build step: GitHub Pages serves these files as they are.
   - `hero-flight.js` (the hero's flight-test strip, Fig. 00) and `replay.js` (the drone
     replay), which share the flight data loaded by `flights.js`; `pipeline.js` draws the
     strip under the replay (detect, measure, fuse, fly at the current frame)
-  - after the load event: `bench.js` (Fig. 03's chart), `climber.js` (Fig. 04, the pipe
+  - after the load event: `bench.js` (Fig. 01's chart), `climber.js` (Fig. 04, the pipe
     climber on a corrected version of the team's Excel model), `scaling.js` (Fig. 07, with
     its points in `data/scaling.js`) and small quirks, `acro.js` (type
     fpv), `hello.js` (the console note), `cursor.js` (the crosshair cursor),
@@ -21,13 +21,13 @@ No build step: GitHub Pages serves these files as they are.
     hovering, then climbing away as you scroll); the theme wipe is in `theme.js`
   - `rig-button.js`, which loads `hover-rig.js` (the hover test rig) and `quad.js` (its drone
     model and controller, no DOM) on first use
-  - `frame3d-boot.js`, which sets up Fig. 01 and loads `frame3d.js` (the drone in 3D) and
+  - `frame3d-boot.js`, which sets up Fig. 02 and loads `frame3d.js` (the drone in 3D) and
     three.js once the figure is near
 
   `motion.js` is the animation toolkit (one-shot reveals and on-screen-only loops) and
-  `util.js` holds shared helpers. `vendor/three/` is three.js r170 and the four addons Fig. 01
+  `util.js` holds shared helpers. `vendor/three/` is three.js r170 and the four addons Fig. 02
   uses, unchanged; the import map in `index.html` points the addons' `"three"` at it.
-- `models/frame.glb` — the drone for Fig. 01: the Fusion assembly exported as OBJ, converted
+- `models/frame.glb` — the drone for Fig. 02: the Fusion assembly exported as OBJ, converted
   to glTF (metres, Y up), simplified and meshopt-compressed (47 parts, 187 KB)
 - `models/pipe-climber.glb` — the pipe climber, from the team's Fusion STL (168 parts,
   simplified within 1 mm, 575 KB). The page doesn't load it: Fig. 04 draws it in
@@ -57,7 +57,7 @@ flight stack unchanged and also records each stage's output for the pipeline str
 
     python3 tools/export_flights.py path/to/vision-drone-racing    # writes flights/
 
-Fig. 03's numbers come from that repo's committed results files:
+Fig. 01's numbers come from that repo's committed results files:
 
     python3 tools/benchmark_table.py path/to/vision-drone-racing   # prints the table rows
 
@@ -76,7 +76,7 @@ second; this repo's Playwright for the third). Each reproduces the committed fil
     node tools/robot/web_glb.mjs robot-raw.glb models/pipe-climber.glb  # simplify, meshopt
     node tools/robot/iso.cjs                                            # writes images/robot-iso-*.png
 
-The hero's drone frames are drawn from `models/frame.glb` in Fig. 01's style, with its shaders
+The hero's drone frames are drawn from `models/frame.glb` in Fig. 02's style, with its shaders
 and camera pose taken from `js/frame3d.js` (needs Python with Pillow for the WebP step):
 
     node tools/hero/render.cjs                                          # writes images/hero/*.webp

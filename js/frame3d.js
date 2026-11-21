@@ -1,4 +1,4 @@
-// Fig. 01: the real drone (models/frame.glb, converted from the Fusion assembly) in three
+// Fig. 02: the real drone (models/frame.glb, converted from the Fusion assembly) in three
 // views, ASSEMBLY, EXPLODED and FRAME ONLY (DESIGN_PLAN.md 3.1, 3.2). Pinned, the page's
 // scroll moves it through them; otherwise the view buttons do. It is drawn like the rest of
 // the site: matte surfaces and ink lines, the lines found from a pass that renders every

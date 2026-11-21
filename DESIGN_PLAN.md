@@ -216,7 +216,9 @@ values before and during the count).
 S.1 [x] **Targeting copy** (P0): hero, title, meta, OG, hidden h1, About, Contact (R-01, R-28, R-29).
 S.2 [ ] **Foundations**: tokens for the chosen direction, contrast fixes, fonts (R-11, R-25, R-24, R-34).
 S.3 [ ] **Hero**: visible name and role, availability as a spec list, hero visual, one-row phone nav, theme button before paint (R-02, R-19, R-18).
-S.4 [ ] **E-04 leads**: project order E-04, E-03, E-02, E-01; figures renumbered; result line on each card (R-04, R-23).
+S.4 [x] **E-04 leads**: project order E-04, E-03, E-02, E-01; figures renumbered; result line on each card (R-04, R-23).
+   Figures now run in page order: Fig. 01 is the benchmark (was 03), Fig. 02 the 3D frame (was 01),
+   Fig. 03 the mass budget (was 02). Sections 1 to 4 above keep the old numbers as history.
 S.5 [ ] **Project anatomy**: new sheet layout, metadata line, key figures under each summary, E-04 key figures, results first (R-03, R-05, R-06, R-09, R-21).
 S.6 [x] **Accuracy**: Fig. 00 and rig wording, E-04 title, E-01 count, E-02 limitation, count-ups removed (R-10, R-13, R-14, R-15).
 S.7 [ ] **Phone length and legibility**: Fig. 01 unpinned on phones, Fig. 02/05/06 for phones, parts list (R-08, R-20, R-27, R-31).
