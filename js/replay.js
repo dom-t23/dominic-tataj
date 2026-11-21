@@ -191,6 +191,7 @@ function draw() {
   var fr = flight.frames[idx];
   if (posterMode) {   // the scrubber waits for LOAD; the readout shows the poster's frame, not dashes (R-05)
     $("r-out").textContent = "Course 1 · camera + IMU";
+    $("clock").textContent = fr.t.toFixed(2) + " s";   // the poster frame's own time, not 0.00
     $("r-gates").textContent = Math.min(fr.g, flight.n_gates) + " / " + flight.n_gates;
     $("r-speed").textContent = speedAt(idx).toFixed(1) + " m/s";
     if (fr.e) { var ex = fr.e[0] - fr.p[0], ey = fr.e[1] - fr.p[1], ez = fr.e[2] - fr.p[2]; $("r-err").textContent = Math.sqrt(ex * ex + ey * ey + ez * ez).toFixed(2) + " m"; }
