@@ -839,6 +839,7 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 .ph-head h1 { font: 650 var(--fs-hero)/0.9 var(--font-display); letter-spacing: -0.055em; background: linear-gradient(180deg, #FFFFFF 30%, #B9B9C4); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .ph-head p { max-width: 38em; color: var(--ink-2); font-size: var(--fs-2); line-height: 1.5; }
 .ph-head .photo-stats { max-width: 420px; margin-top: var(--s-3); }
+.bleed { padding-inline: max(6px, env(safe-area-inset-left, 0px)) max(6px, env(safe-area-inset-right, 0px)); }
 .gallery { list-style: none; margin: 0; padding: 0 0 var(--s-9); display: grid; gap: 6px; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: dense; }
 @media (min-width: 760px) { .gallery { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; } }
 @media (min-width: 1300px) { .gallery { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
