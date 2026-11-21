@@ -1,11 +1,12 @@
 // Renders tools/hero/explode.html in headless Chromium (software WebGL) and writes the hero's
 // frames to images/hero/x00.webp ... (WebP with alpha, encoded by Chromium; no Python needed).
-// Usage: [GLOW=0] [INK=hex] [FILL=hex] [FRAME=hex] node tools/hero/explode.cjs [width] [height] [frames] [quality]
+// Usage: [PREFIX=x] [GLOW=0] [INK=hex] [FILL=hex] [FRAME=hex] node tools/hero/explode.cjs [width] [height] [frames] [quality]
 // (hex without #; serves the repo on port 8813)
 const { chromium } = require("playwright");
 const fs = require("fs"), http = require("http"), path = require("path");
 const ROOT = path.join(__dirname, "../.."), OUT = path.join(ROOT, "images/hero");
 const [W = 1280, H = 960, N = 36, QL = 0.8] = process.argv.slice(2).map(Number);
+const PREFIX = process.env.PREFIX || "x";   // x: the dark theme's frames, l: the light theme's
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".glb": "model/gltf-binary" };
 const srv = http.createServer((q, s) => {
   const f = path.join(ROOT, decodeURIComponent(q.url.split("?")[0]));
@@ -24,11 +25,11 @@ const srv = http.createServer((q, s) => {
   await b.close(); srv.close();
   if (!frames) process.exit(1);
   fs.mkdirSync(OUT, { recursive: true });
-  fs.readdirSync(OUT).filter((f) => /^x\d\d\.webp$/.test(f)).forEach((f) => fs.unlinkSync(path.join(OUT, f)));
+  fs.readdirSync(OUT).filter((f) => new RegExp("^" + PREFIX + "\\d\\d\\.webp$").test(f)).forEach((f) => fs.unlinkSync(path.join(OUT, f)));
   let total = 0;
   for (const [k, d] of Object.entries(frames)) {
     const buf = Buffer.from(d.split(",")[1], "base64"); total += buf.length;
-    fs.writeFileSync(path.join(OUT, k + ".webp"), buf);
+    fs.writeFileSync(path.join(OUT, k.replace(/^x/, PREFIX) + ".webp"), buf);
   }
   console.log(Object.keys(frames).length, "frames,", (total / 1024).toFixed(0), "KB in all");
 })();

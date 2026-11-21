@@ -11,6 +11,12 @@
 <base href="/dominic-tataj/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<script>
+  // The "js" class lets scripted parts of the page take their place from the first frame; a saved
+  // light theme is applied here, before first paint, so the page never flashes dark first (js/theme.js).
+  document.documentElement.classList.add("js");
+  try { if (localStorage.getItem("theme") === "light") { document.documentElement.setAttribute("data-theme", "light"); document.querySelector('meta[name="theme-color"]').content = "#F4F1EA"; } } catch (e) {}
+</script>
 <link rel="stylesheet" href="css/site.css?v=20261121x">
 </head>
 <body>

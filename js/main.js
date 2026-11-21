@@ -1,4 +1,5 @@
 // Entry point for the homepage: each module wires up its own part of the page.
+import "./theme.js";
 import "./hero.js";
 import "./contact.js";
 import "./replay.js";
