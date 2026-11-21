@@ -99,6 +99,24 @@ test.describe("phone, figures", () => {
   });
 });
 
+test("reflows at 320 px: nothing pushes the page sideways (verification round 1, P1-3)", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 700 });
+  await page.goto("/", { waitUntil: "networkidle" });
+  const h = await page.evaluate(() => document.documentElement.scrollHeight);
+  for (let y = 0; y < h; y += 700) { await page.evaluate((t) => window.scrollTo(0, t), y); await page.waitForTimeout(30); }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
+});
+
+test.describe("phone, in-page links", () => {
+  test.use(phone);
+  test("a project link on a fresh page lands on its project (P1-2)", async ({ page }) => {
+    await page.goto("/", { waitUntil: "networkidle" });
+    await page.tap('.results a[href="#e-01"]');
+    await expect.poll(() => page.evaluate(() => Math.round(document.getElementById("e-01").getBoundingClientRect().top)), { timeout: 4000 })
+      .toBeLessThan(150);
+  });
+});
+
 test("the nav is the name and three links: no sheet counter, no progress line", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
   await expect(page.locator("#sheet-no, #progress, .tblock, #approve")).toHaveCount(0);

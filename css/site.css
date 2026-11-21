@@ -110,6 +110,11 @@ html:not(.js) .theme-btn { display: none; }   /* without JS it can't work; with 
   .theme-btn { font-size: 0; gap: 0; width: 40px; justify-content: center; }
   .theme-btn::before { width: 14px; height: 14px; }
 }
+@media (max-width: 360px) {
+  .nav .name { font-size: 14px; letter-spacing: -0.02em; }
+  .nav ul a { padding: 0 4px; font-size: 13px; }
+  .theme-btn { width: 32px; }
+}
 
 /* ---------- the report grid: a margin column for numbers and metadata, a main column ---------- */
 .report, .sheet { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-5) var(--gutter); }
@@ -286,6 +291,7 @@ html:not(.js) .theme-btn { display: none; }   /* without JS it can't work; with 
 /* the email written out among the facts */
 .facts-email { font: 500 15px/1.6 var(--font-data); white-space: nowrap; }
 @media (max-width: 420px) { .facts-email { font-size: 13.5px; letter-spacing: -0.02em; } }
+@media (max-width: 360px) { .facts-email { white-space: normal; overflow-wrap: anywhere; } .facts > div { grid-template-columns: minmax(0, 1fr); gap: 0; } }
 /* phones: the three contact actions in one row */
 @media (max-width: 420px) { .hero .actions { gap: var(--s-2); } .hero .actions .btn { flex: 1 1 0; padding-inline: 8px; font-size: 15px; } }
 /* caption words keyed to the plot's strokes */
@@ -339,7 +345,7 @@ html:not(.js) .theme-btn { display: none; }   /* without JS it can't work; with 
 .specs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5) var(--gutter); }
 @media (min-width: 760px) { .specs { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .specs > div { display: flex; flex-direction: column; gap: 6px; padding-top: var(--s-3); border-top: 1px solid var(--rule-strong); min-width: 0; }
-.specs .n { order: 1; font: 500 var(--fs-4)/1 var(--font-data); letter-spacing: -0.06em; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.specs .n { order: 1; font: 500 clamp(24px, 8.5vw, 33px)/1 var(--font-data); letter-spacing: -0.06em; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .specs .n small { font-size: 0.58em; letter-spacing: 0; margin-left: 2px; color: var(--ink-2); }
 .specs .label { order: 2; font: 400 var(--fs-0)/1.4 var(--font-body); color: var(--ink-2); }
 @media (min-width: 1200px) { .sheet.lead .specs .n { font-size: var(--fs-5); } }
@@ -372,7 +378,9 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
   .drawing.wide { display: none; }
   .drawing.narrow { display: block; }
 }
+.scroll-cue { display: none; }
 @media (max-width: 520px) {
+  .scroll-cue { display: inline; }
   .plate.scroll-x { overflow-x: auto; overscroll-behavior-x: contain; }
   .plate.scroll-x .drawing { min-width: 480px; }
 }
@@ -504,12 +512,9 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
   .f3-steps { grid-column: 1 / -1; }
   .f3-parts { align-self: end; margin: 0 16px 16px 0; }
 }
-/* phones: the figure runs to the sheet's edges and, pinned, fills the screen under the nav */
 /* phones scroll past the figure (not pinned): give the drawing room above the two-column parts list */
 @media (max-width: 599px) { .f3-track.is-3d:not(.pinned) { --f3-h: clamp(560px, 92svh, 720px); } }
 @media (max-width: 599px) {
-  .f3-track.is-3d { margin-inline: -20px; }
-  .f3-track.is-3d .f3 { border-inline: 0; }
   .f3-track.is-3d.pinned { --f3-h: calc(100vh - var(--nav-h, 72px)); }
   .f3-track.pinned .f3 { top: var(--nav-h, 72px); }
   .f3-track.is-3d figcaption { min-height: calc(3 * 1.5em + 20px); }   /* the longest caption, so the view doesn't jump */
@@ -598,19 +603,7 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
   .f3-track.is-3d .f3-renders { display: grid; }
   .f3-track.is-3d .f3-stage { display: none; }
 }
-.drawing { display: block; width: 100%; height: auto; }
-/* Fig. 03 and 06 have a second drawing for phones; Fig. 05 keeps a legible width and scrolls (R-20) */
-.drawing.narrow { display: none; }
-/* by the figure's own width, so a narrow column on a laptop gets the legible drawing too */
-.plate:has(> .drawing.narrow) { container-type: inline-size; }
-@container (max-width: 500px) {
-  .drawing.wide { display: none; }
-  .drawing.narrow { display: block; }
-}
-@media (max-width: 520px) {
-  .plate.scroll-x { overflow-x: auto; overscroll-behavior-x: contain; }
-  .plate.scroll-x .drawing { min-width: 480px; }
-}
+
 
 /* E-02's climb (Fig. 04, js/climber.js): the robot climbs while the pipe scrolls past it */
 .climb { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 1px; background: var(--rule); }
@@ -625,7 +618,7 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 .climb-world .hatch { stroke: var(--muted); stroke-width: 1; }
 .climb-world .chain { stroke: var(--ink-2); stroke-width: 3; stroke-dasharray: 5 2; fill: none; }
 .climb-world .top { stroke: var(--signal); stroke-width: 1.5; stroke-dasharray: 6 4; }
-.climb-world .top-t { fill: var(--signal); }
+.climb-world .top-t { fill: var(--link); }   /* text in the accent hue, 4.5:1 */
 .climb-world .gauge { stroke: var(--rule); stroke-width: 6; }
 .climb-world .gauge-on { stroke: var(--signal); stroke-width: 6; }
 /* the robot: the isometric drawing's silhouette in paper and its lines in ink, from two masks */

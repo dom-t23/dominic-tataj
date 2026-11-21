@@ -195,7 +195,7 @@
         </div>
 
         <div class="keyfig">
-          <div class="specs" aria-label="Key figures">
+          <div class="specs" role="group" aria-label="Key figures">
             <div><span class="n">99.8<small>%</small></span><span class="label">of gates passed in a clean world, camera + IMU</span></div>
             <div><span class="n">98.6<small>%</small></span><span class="label">with gate-coloured clutter beside the course, camera + IMU</span></div>
             <div><span class="n">97.5<small>%</small></span><span class="label">with clutter, camera only</span></div>
@@ -204,11 +204,11 @@
           <p class="note">Pass rates pooled over 300 seeded courses of 8 gates; a run ends at the first crash or missed gate. Full table in Fig. 01.</p>
         </div>
 
-        <div class="player" aria-label="Simulated flight replay">
+        <div class="player" role="group" aria-label="Simulated flight replay">
           <div class="player-stage">
             <div class="pv" id="pv-fpv">
               <span class="tag">Onboard camera · detector output</span>
-              <canvas id="fpv" width="640" height="480" aria-label="Onboard camera view"></canvas>
+              <canvas id="fpv" width="640" height="480" role="img" aria-label="Onboard camera view"></canvas>
               <div class="rest" id="rest">
                 <span>Six simulated flights · 8 gates · about 6 m/s</span>
                 <button class="btn" id="load" type="button">Load replay</button>
@@ -217,7 +217,7 @@
             </div>
             <div class="pv map" id="pv-map">
               <span class="tag">Top view</span>
-              <canvas id="map" width="640" height="480" aria-label="Top-down course view"></canvas>
+              <canvas id="map" width="640" height="480" role="img" aria-label="Top-down course view"></canvas>
               <div class="rest"><span>Course plot appears with the replay</span></div>
               <div class="legend"><span><i style="background:var(--truth)"></i>true path</span><span><i style="background:var(--signal)"></i>drone's estimate, 95% ellipse</span><span><i style="background:var(--muted)"></i>gates</span></div>
             </div>
@@ -335,7 +335,7 @@
           <p class="summary">A 38 g printed frame, 36% lighter than a comparable plate frame, that keeps the complete drone at 246 g, under the UK CAA's 250 g threshold. Arm deflection measured at maximum thrust agreed with Ansys to within 18%.</p>
         </div>
 
-        <div class="specs" aria-label="Key figures">
+        <div class="specs" role="group" aria-label="Key figures">
           <div><span class="label">Safety factor</span><span class="n">1.5</span></div>
           <div><span class="label">First mode, required</span><span class="n">&gt;300<small>Hz</small></span></div>
           <div><span class="label">Mass vs plate frame</span><span class="n">−36%</span></div>
@@ -459,7 +459,7 @@
           <p class="summary">The robot completed the climb at the IMechE Design Challenge. I built the team's Excel model of the drivetrain and used it to pick the setup from more than 20 simulated: it cut predicted climb time by 22%, and real runs measured 16%. The brief: a 2 m pipe, dragging a chain, inside 400 × 300 mm, on £50, within 3 minutes.</p>
         </div>
 
-        <div class="specs" aria-label="Constraints and results">
+        <div class="specs" role="group" aria-label="Constraints and results">
           <div><span class="label">Pipe height</span><span class="n">2<small>m</small></span></div>
           <div><span class="label">Envelope</span><span class="n">400×300<small>mm</small></span></div>
           <div><span class="label">Setups simulated</span><span class="n">20+</span></div>
@@ -546,7 +546,7 @@
                   <text x="16" y="232" font-size="10" fill="var(--muted)">Repeat until top of pipe or 3 min</text>
                 </svg>
               </div>
-              <figcaption><b>Fig. 05</b> One step of the Excel model, repeated every 10 ms.</figcaption>
+              <figcaption><b>Fig. 05</b> One step of the Excel model, repeated every 10 ms.<span class="scroll-cue"> Scroll sideways to see the whole loop.</span></figcaption>
             </figure>
             <figure>
               <div class="plate">
@@ -605,7 +605,7 @@
           <p class="summary">Statistical analysis of AI training data, 358 models across nine domains in the coursework, used to fit a scaling law and estimate the training power of a frontier model.</p>
         </div>
 
-        <div class="specs" aria-label="Key figures">
+        <div class="specs" role="group" aria-label="Key figures">
           <div><span class="label">Models (coursework)</span><span class="n">358</span></div>
           <div><span class="label">Fitted law</span><span class="n">P&nbsp;∝&nbsp;N<sup>0.55</sup></span></div>
           <div><span class="label">Fit R²</span><span class="n">0.44</span></div>

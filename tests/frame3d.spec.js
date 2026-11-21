@@ -149,6 +149,12 @@ test.describe("phone", () => {
     expect(view.height).toBeGreaterThan(260);
     await page.click(".f3-steps button:nth-child(2)");
     await expect(fig(page)).toHaveAttribute("data-step", "1");
+    // caption and parts list inside the screen, not clipped at its edges (P1-1)
+    for (const sel of ["#frame3d figcaption", ".f3-parts"]) {
+      const b = await page.locator(sel).boundingBox();
+      expect(b.x).toBeGreaterThanOrEqual(0); expect(b.x + b.width).toBeLessThanOrEqual(390);
+    }
+    await expect(page.locator("#frame3d figcaption")).toContainText("Fig. 02");
   });
 });
 
