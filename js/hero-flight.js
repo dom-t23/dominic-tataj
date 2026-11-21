@@ -93,7 +93,7 @@ function build() {
   make("line", { x1: r1(sx + 5 * s) - 0.5, y1: sy - 4, x2: r1(sx + 5 * s) - 0.5, y2: sy, class: "ln" }, svg);
   label("5 m", { x: r1(sx + 5 * s + 7), y: sy + 4, class: "num" }, svg);
 
-  // the whole course, faint, from the first frame (readable at frame 0; REVIEW.md MOT-04)
+  // the whole course, faint, from the first frame (readable at frame 0; design review MOT-04)
   make("polyline", { class: "ghost", points: F.frames.map(function (f) { var a = P(f.p[0], f.p[1]); return r1(a[0]) + "," + r1(a[1]); }).join(" ") }, svg);
   var truth = make("polyline", { class: "truth", points: "" }, svg);
   var est = make("polyline", { class: "est", points: "" }, svg);

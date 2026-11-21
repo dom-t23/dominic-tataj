@@ -19,8 +19,8 @@ strength.
 - Photography folds into About; the nav becomes Work / About / Contact.
 - The hero states full right to work in the UK.
 
-**Finding from the change of direction (20 Nov 2026), P1, fixed 21 Nov 2026 in `REVIEW.md` batch S.1 (R-01), for the copy review (Phase 4
-of the professional review, see `REVIEW.md`):** copy that still says mechanical-first. At the
+**Finding from the change of direction (20 Nov 2026), P1, fixed 21 Nov 2026 in batch S.1 (R-01), for the copy review (Phase 4
+of the professional review, see `DESIGN_PLAN.md` phase S):** copy that still says mechanical-first. At the
 moment that is the hero eyebrow ("Mechanical engineering · UCL"), the hero lede ("Aiming for
 mechanical engineering roles, open to software and autonomy"), the hidden `<h1>`, and the meta
 and OG descriptions. Keep the degree stated accurately (MEng Mechanical Engineering, UCL); only

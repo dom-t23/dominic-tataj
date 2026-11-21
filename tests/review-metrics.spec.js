@@ -1,4 +1,4 @@
-// Design-review metrics (REVIEW.md), written to review/<REVIEW_OUT>/metrics.json.
+// Design-review metrics (design review, Nov 2026), written to review/<REVIEW_OUT>/metrics.json.
 // Run: npm run screens -- review-metrics. In the "screens" project, so npm test skips it.
 // The local server doesn't compress, so "bytes" is what crossed the wire here and "gzip" is an
 // estimate of what GitHub Pages would send.

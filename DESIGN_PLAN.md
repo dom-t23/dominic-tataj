@@ -208,8 +208,8 @@ R.4 [x] **Hero depth:** availability as pills with a live dot; a glow behind the
 Eight independent reviewers (recruiter panel, hiring engineer, art director, motion,
 accessibility, performance and SEO, copy, benchmark) audited the site after Dom's change of
 direction (20 Nov 2026: software, autonomy and systems roles first, particularly UK defence).
-Findings, scores, conflicts and decisions are in `REVIEW.md`; the reports are in
-`review/findings/`. Decision: **redesign the identity layer** (visual design 6/10, recruiter
+The full review (findings, scores, conflicts and decisions) is kept locally, not in the
+repo. Decision: **redesign the identity layer** (visual design 6/10, recruiter
 10-second test failed, three reviewers called the shell generic). The figures stay. H.3 is
 reopened for a visible name-and-role line (not a slogan); 2.4's count-ups go (they show false
 values before and during the count).
@@ -224,10 +224,10 @@ S.6 [x] **Accuracy**: Fig. 00 and rig wording, E-04 title, E-01 count, E-02 limi
 S.7 [x] **Phone length and legibility**: Fig. 01 unpinned on phones, Fig. 02/05/06 for phones, parts list (R-08, R-20, R-27, R-31).
 S.8 [x] **Figure language**: sentence case and correct units; one tag, segmented control and slider (R-12, R-26).
 S.9 [x] **About and Contact**: skills table on phones, mailto, CV slot (R-07, R-09, R-29, R-30).
-S.10 [x] **Accessibility**: semantics, loops that settle (R-30, R-32). The rig on touch (R-33) is in REVIEW.md's backlog.
+S.10 [x] **Accessibility**: semantics, loops that settle (R-30, R-32). The rig on touch (R-33) is in the backlog.
 S.11 [x] **Performance and SEO**: JSON-LD, OG image, theme-color, loading fixes, perf test (R-17, R-34, R-35).
 S.12 [x] **Dark theme pass** (R-24).
-   Direction (phase 3, `review/directions/`): three prototypes in separate worktrees, judged blind.
+   Direction (phase 3): three prototypes in separate worktrees, judged blind.
    Built: direction A's "flight log" visual system (Archivo semi-expanded headings, Plex Sans and
    Mono, warm white, hairline rules, no cards, only interactive figures raised, Fig. 00 as a
    complete flight log with its error trace) with B's recruiter information (the email written

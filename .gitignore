@@ -3,7 +3,8 @@ test-results/
 playwright-report/
 __pycache__/
 
-# design review: full-resolution screenshots stay local (JPEG copies are committed), and scratch work
-review/**/*.png
-review/scratch/
-review/*-jpg/*-full-*.jpg
+# Design review (Nov 2026): kept local, not published
+review/
+REVIEW.md
+TODO.md
+tools/review/

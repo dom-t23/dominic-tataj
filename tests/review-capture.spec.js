@@ -1,4 +1,4 @@
-// Design-review screenshots (REVIEW.md). Run: npm run screens -- review-capture
+// Design-review screenshots (design review, Nov 2026). Run: npm run screens -- review-capture
 // Saves full-page and above-the-fold shots at four sizes, light and dark, plus a phone run with
 // reduced motion, to review/<REVIEW_OUT>/ (default "baseline"; "after" for the re-audit).
 // In the "screens" project (playwright.config.js), so npm test skips it.

@@ -7,7 +7,7 @@ module.exports = defineConfig({
   timeout: 60000,
   fullyParallel: true,
   // three.js renders in software WebGL here, which is CPU-heavy: more workers than this made the
-  // 3D-figure tests time out on a laptop (REVIEW.md, baseline NOTES)
+  // 3D-figure tests time out on a laptop (design review baseline)
   workers: 2,
   reporter: [["list"]],
   use: {

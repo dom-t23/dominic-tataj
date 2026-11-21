@@ -42,7 +42,7 @@ No build step: GitHub Pages serves these files as they are.
 - `DESIGN_PLAN.md`, `IMPROVEMENTS.md` — work plans
 - `tests/`, `playwright.config.js`, `package.json` — browser tests (not part of the site); `tests/serve.cjs` is the
   tests' static server (gzip, no dependencies), and `tests/review-*.spec.js` capture the design
-  review's screenshots and metrics (`REVIEW.md`)
+  review's screenshots and metrics into `review/` (kept out of the repo)
 
 To view it locally, serve the folder (ES modules don't load from `file://`):
 
@@ -53,7 +53,7 @@ Tests (Playwright, Chromium):
 
     npm install && npx playwright install chromium   # first time only
     npm test            # structure, hero and its flight log, rig, 3D frame, replay and its strip, benchmark, climb, scatter, photos, quirks, contact, motion; then performance, on its own
-    npm run screens     # review screenshots in test-results/screens/, and the design review's captures (REVIEW.md)
+    npm run screens     # review screenshots in test-results/screens/, and the design review's captures (into `review/`, not committed)
 
 `npm test` runs on two workers: Fig. 02 renders three.js in software WebGL, which is CPU-heavy.
 
