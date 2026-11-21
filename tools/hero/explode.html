@@ -1,0 +1,88 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}canvas{display:block}</style>
+<script type="importmap">{ "imports": { "three": "../../js/vendor/three/three.module.min.js", "three/addons/": "../../js/vendor/three/addons/" } }</script></head>
+<body><script type="module">
+// The homepage hero ("Exploded view"), drawn offline from the real assembly (models/frame.glb)
+// and driven by tools/hero/explode.cjs. Frames x00..xNN: the drone turns and comes apart part by
+// part, using Fig. 02's own explode moves (js/frame3d.js MOVES), as glowing accent lines on dark
+// surfaces, saved as WebP with alpha. The page's scroll scrubs through them.
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
+import { GROUPS, POSES, MOVES, FOV, G_VERT, G_FRAG, INK_VERT, INK_FRAG } from "../../js/frame3d.js";
+
+const Q = new URLSearchParams(location.search);
+const W = +(Q.get("w") || 1280), H = +(Q.get("h") || 960), N = +(Q.get("n") || 36), QUAL = +(Q.get("q") || 0.8);
+const INK = Q.get("ink") || "#3DDCFF", FILL = Q.get("fill") || "#0D0E11", GLOW = Q.get("glow") !== "0";
+const MM = 0.001, DEG = Math.PI / 180;
+const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+const ease = (t) => { t = clamp(t, 0, 1); return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(2 - 2 * t, 3) / 2; };
+
+const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+r.setPixelRatio(1); r.setSize(W, H); r.setClearColor(0, 0);
+
+new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load("../../models/frame.glb", (gltf) => {
+  const scene = new THREE.Scene(), model = new THREE.Group(); scene.add(model);
+  gltf.scene.updateMatrixWorld(true);
+  const meshes = []; gltf.scene.traverse((o) => { if (o.isMesh) meshes.push(o); });
+  meshes.forEach((m) => model.attach(m));
+  const centre = (o) => new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3());
+  const c0 = centre(meshes.find((m) => GROUPS[0][1].test(m.name)));
+  meshes.forEach((m) => m.position.sub(c0)); model.updateMatrixWorld(true);
+  const fill = new THREE.MeshBasicMaterial({ color: new THREE.Color(FILL) });
+  // as js/frame3d.js builds the explode: each part's offset and when it starts
+  const parts = meshes.map((mesh, i) => {
+    const c = centre(mesh), off = new THREE.Vector3(), mv = MOVES.find((x) => x[0].test(mesh.name));
+    if (mv) {
+      const out = mv[5] === "side" ? new THREE.Vector3(Math.sign(c.x), 0, 0) : new THREE.Vector3(Math.sign(c.x), 0, Math.sign(c.z)).normalize();
+      off.addScaledVector(out, mv[1] * MM); off.y += mv[2] * MM; off.z -= mv[3] * MM;
+    }
+    return { mesh, base: mesh.position.clone(), off, t: mv ? mv[4] : 0,
+      gmat: new THREE.ShaderMaterial({ vertexShader: G_VERT, fragmentShader: G_FRAG, uniforms: { uId: { value: (i + 1) / 255 }, uInk: { value: 1 } } }) };
+  });
+  // a little further apart than Fig. 02 (K), so the parts read at hero size
+  const K = 1.35;
+  const place = (e) => parts.forEach((q) => q.mesh.position.copy(q.base).addScaledVector(q.off, ease((e - q.t * 0.6) / 0.4) * K));
+  place(1); model.updateMatrixWorld(true);
+  const bx = new THREE.Box3(); meshes.forEach((m) => bx.expandByObject(m));
+  const s0 = bx.getBoundingSphere(new THREE.Sphere());   // framed on the exploded drone, so nothing leaves the frame
+  const cam = new THREE.PerspectiveCamera(FOV, W / H, 0.005, 3);
+  const half = Math.min(FOV / 2 * DEG, Math.atan(Math.tan(FOV / 2 * DEG) * W / H));
+  const aim = (yaw, pitch, zoom) => {
+    const dist = s0.radius * zoom / Math.sin(half), t = s0.center;
+    cam.position.set(Math.sin(yaw) * Math.cos(pitch), Math.sin(pitch), Math.cos(yaw) * Math.cos(pitch)).multiplyScalar(dist).add(t);
+    cam.near = Math.max(0.005, dist - 0.4); cam.far = dist + 0.4; cam.lookAt(t); cam.updateProjectionMatrix();
+  };
+  const rt = new THREE.WebGLRenderTarget(W, H, { samples: 4, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter, depthTexture: new THREE.DepthTexture(W, H) });
+  const inkMat = new THREE.ShaderMaterial({ vertexShader: INK_VERT, fragmentShader: INK_FRAG, transparent: true, depthTest: false, depthWrite: false,
+    uniforms: { tG: { value: rt.texture }, tD: { value: rt.depthTexture }, uPx: { value: new THREE.Vector2(1 / W, 1 / H) }, uInk: { value: new THREE.Color(INK) }, uN: { value: 0.1 }, uF: { value: 1 } } });
+  const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), inkMat); quad.frustumCulled = false;
+  const inkScene = new THREE.Scene(); inkScene.add(quad);
+  // the glow is baked in: blurred copies of the lines under the sharp ones
+  const out2d = document.createElement("canvas"); out2d.width = W; out2d.height = H; const g = out2d.getContext("2d");
+  const shot = (u) => {
+    place(smooth(0.12, 0.92, u));
+    // starts close on the assembled drone, pulls back as it comes apart
+    aim((POSES[0].yaw - 34 + 62 * ease(u)) * DEG, (POSES[0].pitch - 6 * u) * DEG, 0.6 + 0.3 * smooth(0.05, 0.7, u));
+    model.updateMatrixWorld(true);
+    parts.forEach((q) => { q.mesh.material = q.gmat; });
+    r.setRenderTarget(rt); r.render(scene, cam);
+    parts.forEach((q) => { q.mesh.material = fill; });
+    r.setRenderTarget(null); r.render(scene, cam);
+    inkMat.uniforms.uN.value = cam.near; inkMat.uniforms.uF.value = cam.far;
+    r.autoClear = false; r.render(inkScene, new THREE.Camera()); r.autoClear = true;
+    g.clearRect(0, 0, W, H);
+    if (GLOW) {
+      g.filter = "blur(10px)"; g.globalAlpha = 0.55; g.drawImage(r.domElement, 0, 0);
+      g.filter = "blur(3px)"; g.globalAlpha = 0.6; g.drawImage(r.domElement, 0, 0);
+    }
+    g.filter = "none"; g.globalAlpha = 1; g.drawImage(r.domElement, 0, 0);
+    return out2d.toDataURL("image/webp", QUAL);
+  };
+  const out = {};
+  for (let i = 0; i < N; i++) out["x" + String(i).padStart(2, "0")] = shot(i / (N - 1));
+  window.__frames = out;
+  document.title = "ok " + N + " frames " + W + "x" + H;
+}, undefined, (e) => { document.title = "error " + e; });
+</script></body></html>

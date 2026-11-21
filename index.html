@@ -6,9 +6,13 @@
 <title>Dominic Tataj · Engineering portfolio: software, autonomy and systems</title>
 <meta name="description" content="Dominic Tataj, MEng Mechanical Engineering student at UCL, looking for software, autonomy and systems roles: a summer 2027 internship or 2027–28 placement.">
 <link rel="canonical" href="https://dom-t23.github.io/dominic-tataj/">
+<meta name="theme-color" content="#0A0A0B">
+<meta name="color-scheme" content="dark">
+<meta name="author" content="Dominic Tataj">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" id="theme-color" content="#F7F6F3">
+<link rel="manifest" href="site.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Dominic Tataj, engineering portfolio: software, autonomy and systems">
 <meta property="og:description" content="MEng Mechanical Engineering at UCL. Looking for software, autonomy and systems roles: a summer 2027 internship or a 2027–28 placement year in the UK. Projects: vision-based autonomous drone racing, a generatively designed drone frame, a pipe-climbing robot.">
@@ -16,16 +20,17 @@
 <meta property="og:image" content="https://dom-t23.github.io/dominic-tataj/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Dominic Tataj: software, autonomy and systems, MEng Mechanical Engineering, UCL. Looking for a summer 2027 internship or 2027–28 placement year; full right to work in the UK. Four projects with one result each.">
+<meta property="og:image:alt" content="Dominic Tataj: software, autonomy and systems, MEng, UCL. Summer 2027 internship or 2027–28 placement; full right to work in the UK. Four projects with one result each, beside a line drawing of his drone coming apart.">
 <meta property="og:site_name" content="Dominic Tataj">
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dominic Tataj, engineering portfolio: software, autonomy and systems">
+<meta name="twitter:description" content="MEng Mechanical Engineering at UCL, looking for software, autonomy and systems roles: a summer 2027 internship or 2027–28 placement year in the UK.">
+<meta name="twitter:image" content="https://dom-t23.github.io/dominic-tataj/og-image.png">
+<meta name="twitter:image:alt" content="Dominic Tataj: software, autonomy and systems, MEng Mechanical Engineering, UCL.">
 <script>
-  // Apply a saved theme before first paint so the page doesn't flash.
-  // Light first: only a saved choice of dark changes it.
-  // The "js" class lets the theme button take its place in the nav from the first frame (R-18).
+  // The "js" class lets scripted parts of the page take their place from the first frame.
   document.documentElement.classList.add("js");
-  try { if (localStorage.getItem("theme") === "dark") { document.documentElement.setAttribute("data-theme", "dark"); document.getElementById("theme-color").content = "#0E1012"; } } catch (e) {}
 </script>
 <script type="application/ld+json">
 {
@@ -67,114 +72,145 @@
  }
 }
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@108..118,600..700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="css/site.css?v=20261121s">
+<link rel="stylesheet" href="css/site.css?v=20261121x">
 </head>
 <body>
 <a class="skip" href="#top">Skip to content</a>
 
+<!-- TODO(Dom): add your CV as Dominic-Tataj-CV.pdf in the repo root (a version without your phone
+     number). Every CV link on the site (nav, hero, contact, photography page) points at that file. -->
 <nav class="nav" aria-label="Main">
   <div class="wrap">
-    <div class="brand"><a class="name" href="#top">Dominic Tataj</a></div>
+    <div class="brand"><a class="name" href="./">Dominic Tataj</a></div>
     <ul>
       <li><a href="#work">Work</a></li>
-      <li><a href="#about">About</a></li>
+      <li class="opt"><a href="#about">About</a></li>
+      <li><a href="photography.html">Photos</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><button class="theme-btn" id="theme" type="button" aria-label="Switch to dark theme">Dark mode</button></li>
+      <li><a class="nav-cv" href="Dominic-Tataj-CV.pdf" download>CV</a></li>
     </ul>
   </div>
 </nav>
 
 <main id="top">
 
-<!-- ============ HERO: the name, the roles, the facts a recruiter screens on; beside it, the flight log ============ -->
-<header class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-text">
+<!-- ============ HERO: who, what, available when, and the CV; behind it the drone (E-03) comes apart as the page scrolls ============ -->
+<header class="hero" id="hero">
+  <div class="hero-pin">
+    <div class="hero-stage" id="hero-stage">
+      <div class="hs">
+        <img src="images/hero/x00.webp" width="960" height="720" decoding="async" alt="Line drawing of my 3-inch FPV drone from its Fusion assembly, which comes apart into its parts as the page scrolls">
+      </div>
+      <dl class="hero-specs" aria-label="The drone on show (E-03)">
+        <div><dt>Printed frame</dt><dd>38 g · <span>−36%</span></dd></div>
+        <div><dt>All-up mass</dt><dd>246 g <span>&lt; 250 g</span></dd></div>
+        <div><dt>Arm deflection</dt><dd>within 18% of Ansys</dd></div>
+      </dl>
+    </div>
+
+    <div class="wrap hero-copy">
       <h1><span class="h1-name"><span>Dominic</span> <span>Tataj</span></span> <span class="h1-role"><span>Software, autonomy and systems</span><span class="sep"> · </span><span>MEng, UCL</span></span></h1>
-      <p class="lede">Second-year MEng Mechanical Engineering student at UCL. I'm looking for software, autonomy and systems roles, particularly in UK defence, with mechanical design (CAD, generative design and FEA) as a supporting strength.</p>
-      <dl class="facts" aria-label="Availability">
+      <dl class="avail" aria-label="Availability">
         <div><dt>Looking for</dt><dd>Summer 2027 internship or 2027–28 placement year</dd></div>
         <div><dt>Available</dt><dd>From 27 June 2027</dd></div>
         <div><dt>Right to work</dt><dd>Full right to work in the UK</dd></div>
         <div><dt>Based</dt><dd>London</dd></div>
-        <div><dt>Degree</dt><dd>Second-year, graduating 2029, predicted 2:1</dd></div>
-        <div><dt>Email</dt><dd><a class="facts-email" href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a></dd></div>
+        <div><dt>Degree</dt><dd>Graduating 2029, predicted 2:1</dd></div>
       </dl>
+      <p class="lede">Second-year MEng Mechanical Engineering student at UCL. I'm looking for software, autonomy and systems roles, particularly in UK defence, with mechanical design (CAD, generative design and FEA) as a supporting strength.</p>
       <div class="actions">
-        <a class="btn primary" href="mailto:dominic_tataj@icloud.com">Email me</a>
+        <a class="btn primary" href="Dominic-Tataj-CV.pdf" download><svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0L4.5 6.5M8 10l3.5-3.5M3 13h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Download CV</a>
+        <a class="btn" href="mailto:dominic_tataj@icloud.com">Email me</a>
         <a class="btn" href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a class="btn" href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
-      <!-- CV: add the PDF, then uncomment:
-      <a class="btn" href="Dominic-Tataj-CV.pdf">CV (PDF)</a> -->
+      <ol class="proof" aria-label="Headline results">
+        <li><a href="#e-04"><span class="pr-no">E-04 · Autonomy</span><b>98.6%</b><span class="pr-l">of gates passed by camera, with clutter, over 300 courses</span></a></li>
+        <li><a href="#e-03"><span class="pr-no">E-03 · Design</span><b>246&nbsp;g</b><span class="pr-l">drone, under the CAA's 250&nbsp;g; frame 36% lighter</span></a></li>
+        <li><a href="#e-02"><span class="pr-no">E-02 · Systems</span><b>Climbed</b><span class="pr-l">the 2&nbsp;m pipe at the IMechE Design Challenge</span></a></li>
+      </ol>
     </div>
-
-    <figure class="flight" id="flight">
-      <div class="fv" id="fv">
-        <svg class="flight-svg" aria-hidden="true"></svg>
-        <svg class="rig-svg" id="rig" tabindex="-1" role="group" aria-label="Hover test rig. Drag the drone, or click to move its setpoint. Arrow keys move the setpoint, G sends a gust, R resets."></svg>
-      </div>
-      <dl class="fv-read" aria-hidden="true">
-        <div><dt id="fv-t-l">Time</dt><dd id="fv-t">–</dd></div>
-        <div><dt>Gate</dt><dd id="fv-g">–</dd></div>
-        <div><dt id="fv-v-l">Speed</dt><dd id="fv-v">–</dd></div>
-        <div><dt id="fv-e-l">Estimate error</dt><dd id="fv-e">–</dd></div>
-      </dl>
-      <div class="rig-controls" id="rig-controls" hidden>
-        <label class="gain">K<sub>p</sub><input type="range" id="kp" min="0" max="1000" step="1" aria-label="Position gain Kp"><output id="kp-out" for="kp"></output></label>
-        <label class="gain">K<sub>d</sub><input type="range" id="kd" min="0" max="1000" step="1" aria-label="Damping gain Kd"><output id="kd-out" for="kd"></output></label>
-        <span class="stab" id="stab"></span>
-        <span class="rig-buttons"><button class="btn" id="gust" type="button">Gust →</button><button class="btn" id="rig-reset" type="button">Reset</button><button class="btn" id="rig-close" type="button">Back to the flight</button></span>
-      </div>
-      <figcaption><span><b>Fig. 00</b> <span id="cap-flight">A simulated flight of my vision-based racing drone (<a href="#e-04">E-04</a>), camera + IMU, played at 3× speed: <span class="key truth">true path in blue</span>, <span class="key est">the drone's own estimate dashed orange</span>. Under it, the estimate's error over the flight.</span><span id="cap-rig" hidden>Hover test: a planar model of my 246 g drone (<a href="#e-03">E-03</a>), held by a cascaded PD controller (a position loop feeding an attitude loop). Drag it, click to move the setpoint or send a gust, and push the gains past the Routh–Hurwitz limit to watch it go unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>Replay ↺</button><button class="link-btn" id="rig-open" type="button" hidden>Try the hover controller →</button></span></figcaption>
-    </figure>
-  </div>
-
-  <!-- the projects as a contents list: one result each -->
-  <div class="wrap">
-    <section class="register" aria-labelledby="register-h">
-      <div class="register-head"><h2 class="register-h" id="register-h">Projects and results</h2><p class="register-hint">Newest first</p></div>
-      <table class="results">
-        <caption class="sr-only">Four projects, newest first, each with its main result</caption>
-        <thead><tr><th scope="col">Project</th><th scope="col">What it shows</th><th scope="col">Result</th><th scope="col">Tools</th></tr></thead>
-        <tbody>
-          <tr>
-            <th scope="row"><a href="#e-04"><span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span></a></th>
-            <td class="shows">Detection, pose, filtering and guidance, tested on seeded regression benchmarks</td>
-            <td class="res"><b>98.6%</b><span>of gates with clutter, camera + IMU, over 300 courses</span></td>
-            <td class="tools">Python · OpenCV</td>
-          </tr>
-          <tr>
-            <th scope="row"><a href="#e-03"><span class="r-no">E-03</span><span class="r-title">Generative FPV drone frame</span></a></th>
-            <td class="shows">Generative design and FEA; measured arm deflection within 18% of Ansys</td>
-            <td class="res"><b>246&nbsp;g</b><span>all-up, under the CAA's 250&nbsp;g; frame 36% lighter</span></td>
-            <td class="tools">Fusion · Ansys</td>
-          </tr>
-          <tr>
-            <th scope="row"><a href="#e-02"><span class="r-no">E-02</span><span class="r-title">Pipe-climbing robot, IMechE Design Challenge</span></a></th>
-            <td class="shows">A dynamic model that picked the drivetrain from more than 20 simulated setups</td>
-            <td class="res"><b>Climbed</b><span>the 2&nbsp;m pipe at the challenge; 16% faster in real runs</span></td>
-            <td class="tools">Excel · Fusion</td>
-          </tr>
-          <tr>
-            <th scope="row"><a href="#e-01"><span class="r-no">E-01</span><span class="r-title">AI training-power scaling analysis</span></a></th>
-            <td class="shows">Statistics and curve fitting: a scaling law and a frontier-model estimate</td>
-            <td class="res"><b>P&nbsp;∝&nbsp;N<sup>0.55</sup></b><span>R² 0.44; GPT-5 at about 590&nbsp;kW</span></td>
-            <td class="tools">MATLAB</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
   </div>
 </header>
 
-<!-- ============ WORK ============ -->
+<!-- ============ WORK: one card per project; each opens its write-up below ============ -->
+<!-- TODO(Dom): each card's "Problem" line is restated from that project's summary. Check each one
+     says the problem the way you'd put it in an interview. -->
 <section class="section" id="work" aria-labelledby="work-h">
   <div class="wrap">
-    <h2 class="sr-only" id="work-h">Projects</h2>
+    <header class="section-head">
+      <p class="eyebrow">Selected work · newest first</p>
+      <h2 id="work-h">Projects and results</h2>
+    </header>
+    <ol class="cards" id="cards">
+      <li class="lead">
+        <article class="card lead">
+          <p class="card-no">E-04 · Aug–Oct 2026 · In development</p>
+          <h3><a href="#e-04">Vision-based autonomous drone racing</a></h3>
+          <p class="card-result"><b>98.6%</b><span>of gates passed with gate-coloured clutter beside the course, camera + IMU, pooled over 300 seeded courses</span></p>
+          <dl class="card-facts">
+            <div><dt>Problem</dt><dd>Fly a simulated racing drone through gates by camera, with no GPS, depth sensor or map of the gate positions.</dd></div>
+            <div><dt>Role</dt><dd>Solo; set the design and test rules, directed an AI coding agent.</dd></div>
+            <div><dt>Tools</dt><dd>Python · OpenCV · NumPy</dd></div>
+            <div><dt>Outcome</dt><dd>Detection, pose, filtering and guidance as separate stages. 99.8% of gates in a clean world and 98.6% with clutter, tested on seeded regression benchmarks.</dd></div>
+          </dl>
+          <p class="card-links"><a class="go" href="#e-04">Full write-up ↓</a><a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">Code on GitHub ↗</a></p>
+        </article>
+      </li>
+      <li>
+        <article class="card">
+          <p class="card-no">E-03 · Jul–Sep 2026 · Built and tested</p>
+          <h3><a href="#e-03">Generative FPV drone frame</a></h3>
+          <p class="card-result"><b>246&nbsp;g</b><span>all-up, under the UK CAA's 250&nbsp;g threshold</span></p>
+          <dl class="card-facts">
+            <div><dt>Problem</dt><dd>A 3-inch FPV frame light enough to keep the complete drone under 250&nbsp;g.</dd></div>
+            <div><dt>Role</dt><dd>Design, analysis and build.</dd></div>
+            <div><dt>Tools</dt><dd>Fusion generative · Ansys Mechanical</dd></div>
+            <div><dt>Outcome</dt><dd>A 38&nbsp;g printed frame, 36% lighter than a comparable plate frame; measured arm deflection within 18% of Ansys.</dd></div>
+          </dl>
+          <p class="card-links"><a class="go" href="#e-03">Full write-up ↓</a></p>
+        </article>
+      </li>
+      <li>
+        <article class="card">
+          <p class="card-no">E-02 · Feb–Apr 2026 · IMechE Design Challenge</p>
+          <h3><a href="#e-02">Pipe-climbing robot</a></h3>
+          <p class="card-result"><b>Climbed</b><span>the 2&nbsp;m pipe at the challenge; 16% faster in real runs</span></p>
+          <dl class="card-facts">
+            <div><dt>Problem</dt><dd>Climb a 2&nbsp;m pipe dragging a chain, inside 400&nbsp;×&nbsp;300&nbsp;mm, on £50, within 3 minutes.</dd></div>
+            <div><dt>Role</dt><dd>Team of 6; I built the team's Excel model of the drivetrain and worked on the CAD.</dd></div>
+            <div><dt>Tools</dt><dd>Excel · Fusion CAD</dd></div>
+            <div><dt>Outcome</dt><dd>The model picked the setup from more than 20 simulated: predicted climb time cut by 22%, real runs measured 16%. The robot completed the climb.</dd></div>
+          </dl>
+          <p class="card-links"><a class="go" href="#e-02">Full write-up ↓</a></p>
+        </article>
+      </li>
+      <li>
+        <article class="card">
+          <p class="card-no">E-01 · Oct 2025 · Complete</p>
+          <h3><a href="#e-01">AI training-power scaling analysis</a></h3>
+          <p class="card-result"><b>P&nbsp;∝&nbsp;N<sup>0.55</sup></b><span>R² 0.44; GPT-5 at about 590&nbsp;kW</span></p>
+          <dl class="card-facts">
+            <div><dt>Problem</dt><dd>How AI training power scales with model size, and what a frontier model draws.</dd></div>
+            <div><dt>Role</dt><dd>Analysis and report.</dd></div>
+            <div><dt>Tools</dt><dd>MATLAB</dd></div>
+            <div><dt>Outcome</dt><dd>A power law fitted to 358 models across nine domains, and an order-of-magnitude estimate for GPT-5.</dd></div>
+          </dl>
+          <p class="card-links"><a class="go" href="#e-01">Full write-up ↓</a></p>
+        </article>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ WRITE-UPS: each project in full, with its interactive figures ============ -->
+<section class="section" id="writeups" aria-labelledby="writeups-h">
+  <div class="wrap">
+    <header class="section-head">
+      <p class="eyebrow">In detail</p>
+      <h2 id="writeups-h">How each one was built</h2>
+    </header>
+
 
     <!-- E-04 DRONE: the lead project -->
     <article class="sheet lead" id="e-04" aria-labelledby="e04-h">
@@ -203,6 +239,26 @@
           </div>
           <p class="note">Pass rates pooled over 300 seeded courses of 8 gates; a run ends at the first crash or missed gate. Full table in Fig. 01.</p>
         </div>
+
+        <figure class="flight" id="flight">
+          <div class="fv" id="fv">
+            <svg class="flight-svg" aria-hidden="true"></svg>
+            <svg class="rig-svg" id="rig" tabindex="-1" role="group" aria-label="Hover test rig. Drag the drone, or click to move its setpoint. Arrow keys move the setpoint, G sends a gust, R resets."></svg>
+          </div>
+          <dl class="fv-read" aria-hidden="true">
+            <div><dt id="fv-t-l">Time</dt><dd id="fv-t">–</dd></div>
+            <div><dt>Gate</dt><dd id="fv-g">–</dd></div>
+            <div><dt id="fv-v-l">Speed</dt><dd id="fv-v">–</dd></div>
+            <div><dt id="fv-e-l">Estimate error</dt><dd id="fv-e">–</dd></div>
+          </dl>
+          <div class="rig-controls" id="rig-controls" hidden>
+            <label class="gain">K<sub>p</sub><input type="range" id="kp" min="0" max="1000" step="1" aria-label="Position gain Kp"><output id="kp-out" for="kp"></output></label>
+            <label class="gain">K<sub>d</sub><input type="range" id="kd" min="0" max="1000" step="1" aria-label="Damping gain Kd"><output id="kd-out" for="kd"></output></label>
+            <span class="stab" id="stab"></span>
+            <span class="rig-buttons"><button class="btn" id="gust" type="button">Gust →</button><button class="btn" id="rig-reset" type="button">Reset</button><button class="btn" id="rig-close" type="button">Back to the flight</button></span>
+          </div>
+          <figcaption><span><b>Fig. 00</b> <span id="cap-flight">A simulated flight of my vision-based racing drone (<a href="#e-04">E-04</a>), camera + IMU, played at 3× speed: <span class="key truth">true path in amber</span>, <span class="key est">the drone's own estimate dashed cyan</span>. Under it, the estimate's error over the flight.</span><span id="cap-rig" hidden>Hover test: a planar model of my 246 g drone (<a href="#e-03">E-03</a>), held by a cascaded PD controller (a position loop feeding an attitude loop). Drag it, click to move the setpoint or send a gust, and push the gains past the Routh–Hurwitz limit to watch it go unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>Replay ↺</button><button class="link-btn" id="rig-open" type="button" hidden>Try the hover controller →</button></span></figcaption>
+        </figure>
 
         <div class="player" role="group" aria-label="Simulated flight replay">
           <div class="player-stage">
@@ -625,7 +681,7 @@
                 </div>
                 <svg class="scaling" id="scaling" role="img" aria-label="Training power draw against parameter count for 603 AI models: a power law, P proportional to N to the 0.55, with R squared 0.44"></svg>
               </div>
-              <figcaption><b>Fig. 07</b> Training power draw against parameter count for the 603 models in the dataset (Epoch AI) that have both, refitted here. On log₁₀ axes the fit is P ∝ N<sup>0.55</sup>; orange is the GPT-5 estimate.</figcaption>
+              <figcaption><b>Fig. 07</b> Training power draw against parameter count for the 603 models in the dataset (Epoch AI) that have both, refitted here. On log₁₀ axes the fit is P ∝ N<sup>0.55</sup>; cyan is the GPT-5 estimate.</figcaption>
             </figure>
           </div>
         </div>
@@ -692,41 +748,38 @@
         </div>
       </div>
 
-      <!-- Photographs as a contact sheet: a strip of film that scrolls sideways -->
-      <figure class="contact-sheet">
-        <div class="film" tabindex="0" role="region" aria-label="Contact sheet: eight photographs, scrolls sideways">
-          <ol>
-              <li><img src="images/photos/01.jpg" width="400" height="600" loading="lazy" decoding="async" alt="A painted statue of the Madonna and child, haloes lit, in a chapel cut into the rock"><span class="fr">▸ 01</span><span class="cap">Taormina, Sicily</span></li>
-              <li><img src="images/photos/02.jpg" width="400" height="600" loading="lazy" decoding="async" alt="The bay below Taormina in summer haze, steps zigzagging down the hillside"><span class="fr">▸ 02</span><span class="cap">Taormina, Sicily</span></li>
-              <li><img src="images/photos/03.jpg" width="400" height="600" loading="lazy" decoding="async" alt="A narrow street hung with red, yellow and white umbrellas, their shadows on the paving"><span class="fr">▸ 03</span><span class="cap">Catania, Sicily</span></li>
-              <li><img src="images/photos/04.jpg" width="900" height="600" loading="lazy" decoding="async" alt="An Italian flag on a castle wall above the coast and Giardini Naxos"><span class="fr">▸ 04</span><span class="cap">Castelmola, Sicily</span></li>
-              <li><img src="images/photos/05.jpg" width="900" height="600" loading="lazy" decoding="async" alt="A focacceria hung with lemons under a yellow Limoncello sign"><span class="fr">▸ 05</span><span class="cap">Taormina, Sicily</span></li>
-              <li><img src="images/photos/06.jpg" width="988" height="600" loading="lazy" decoding="async" alt="Rainforest over a rocky stream, looking up from the riverbed"><span class="fr">▸ 06</span><span class="cap">Malaysia</span></li>
-              <li><img src="images/photos/07.jpg" width="582" height="600" loading="lazy" decoding="async" alt="Red lanterns strung over temple roofs, a Sun Wukong statue in the trees beyond"><span class="fr">▸ 07</span><span class="cap">Malaysia</span></li>
-              <li><img src="images/photos/08.jpg" width="404" height="600" loading="lazy" decoding="async" alt="A shaded lane of old shophouses, plants and an old bicycle, people walking towards the shops"><span class="fr">▸ 08</span><span class="cap">Penang, Malaysia</span></li>
-          </ol>
-        </div>
-        <figcaption><span><b>Contact sheet</b> Sicily and Malaysia.</span><span class="cs-nav" hidden><button type="button" id="cs-prev" aria-label="Earlier frames">◂</button><button type="button" id="cs-next" aria-label="Later frames">▸</button></span></figcaption>
-      </figure>
+      <!-- Photography has its own page; three of the frames lead there -->
+      <a class="photo-teaser" href="photography.html">
+        <span class="pt-text">
+          <span class="eyebrow">Photography</span>
+          <h3>Sicily and Malaysia</h3>
+          <p>Eight photographs: streets, coastlines and rainforest, in a full-screen viewer.</p>
+          <span class="go">See the photographs →</span>
+        </span>
+        <span class="pt-stack" aria-hidden="true">
+          <img src="images/photos/w/03-400.webp" width="267" height="400" loading="lazy" decoding="async" alt="">
+          <img src="images/photos/w/06-400.webp" width="659" height="400" loading="lazy" decoding="async" alt="">
+          <img src="images/photos/w/01-400.webp" width="267" height="400" loading="lazy" decoding="async" alt="">
+        </span>
+      </a>
     </div>
   </div>
 </section>
 
 <!-- ============ CONTACT ============ -->
-<section class="section" id="contact" aria-labelledby="contact-h">
-  <div class="wrap report">
-    <div class="margin">
-      <h2 id="contact-h">Contact</h2>
-    </div>
-    <div class="main">
-      <p class="about-lede">Looking for a summer 2027 internship or a 2027–28 placement year in software, autonomy or systems, from 27 June 2027. Full right to work in the UK; based in London.</p>
-      <div class="contact">
-        <div class="contact-row">
-          <a class="email" id="email" href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a>
-          <button class="btn copy-btn" id="copy" type="button">Copy email</button>
-          <span class="sr-only" id="copy-status" role="status"></span>
-        </div>
-        <p class="links"><a href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a> <a href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a></p>
+<section class="section contact-band" id="contact" aria-labelledby="contact-h">
+  <div class="wrap">
+    <p class="eyebrow">Contact</p>
+    <h2 id="contact-h">Let's talk.</h2>
+    <p class="about-lede">Looking for a summer 2027 internship or a 2027–28 placement year in software, autonomy or systems, from 27 June 2027. Full right to work in the UK; based in London.</p>
+    <div class="contact">
+      <a class="email" id="email" href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a>
+      <div class="contact-row">
+        <button class="btn primary copy-btn" id="copy" type="button">Copy email</button>
+        <a class="btn" href="Dominic-Tataj-CV.pdf" download>Download CV</a>
+        <a class="btn" href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn" href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a>
+        <span class="sr-only" id="copy-status" role="status"></span>
       </div>
     </div>
   </div>
@@ -737,23 +790,18 @@
 <footer class="foot">
   <div class="wrap">
     <p class="foot-line"><span>Dominic Tataj</span><span>MEng Mechanical Engineering, UCL</span><span>Updated November 2026</span></p>
-    <p class="foot-hint">Type FPV anywhere for acro mode.</p>
+    <p class="links"><a href="Dominic-Tataj-CV.pdf" download>CV</a> <a href="photography.html">Photography</a> <a href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a> <a href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a></p>
   </div>
 </footer>
 
 <!-- three.js (r170, js/vendor/three) is loaded only when Fig. 02 is close; its addons import "three" by name -->
 <script type="importmap">{ "imports": { "three": "./js/vendor/three/three.module.min.js", "three/addons/": "./js/vendor/three/addons/" } }</script>
 <link rel="modulepreload" href="js/util.js">
-<link rel="modulepreload" href="js/theme.js">
-<link rel="modulepreload" href="js/contact.js">
-<link rel="modulepreload" href="js/replay.js">
-<link rel="modulepreload" href="js/flights.js">
-<link rel="modulepreload" href="js/hero-flight.js">
-<link rel="modulepreload" href="js/rig-button.js">
+<link rel="modulepreload" href="js/hero.js">
 <link rel="modulepreload" href="js/motion.js">
 <link rel="modulepreload" href="js/reveals.js">
+<link rel="modulepreload" href="js/contact.js">
 <link rel="modulepreload" href="js/sheets.js">
-<link rel="modulepreload" href="js/frame3d-boot.js">
 <script type="module" src="js/main.js"></script>
 </body>
 </html>

@@ -73,11 +73,11 @@ test("a visible h1 names Dom and his target roles (R-02; H.3 reopened for a role
   expect((await page.locator("h1 .h1-name").boundingBox()).height).toBeGreaterThan(50);
 });
 
-test("the screening facts: roles and timing, availability, right to work, base, degree, email", async ({ page }) => {
+test("the screening facts: roles and timing, availability, right to work, base, degree; CV and email", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".facts dt")).toHaveText(["Looking for", "Available", "Right to work", "Based", "Degree", "Email"]);
-  await expect(page.locator(".facts")).toContainText("From 27 June 2027");
-  await expect(page.locator(".facts")).toContainText("Full right to work in the UK");
-  await expect(page.locator(".facts a")).toHaveAttribute("href", "mailto:dominic_tataj@icloud.com");
-  await expect(page.locator(".hero .actions a")).toHaveText(["Email me", "LinkedIn ↗", "GitHub ↗"]);
+  await expect(page.locator(".avail dt")).toHaveText(["Looking for", "Available", "Right to work", "Based", "Degree"]);
+  await expect(page.locator(".avail")).toContainText("From 27 June 2027");
+  await expect(page.locator(".avail")).toContainText("Full right to work in the UK");
+  await expect(page.locator('.hero .actions a[href="mailto:dominic_tataj@icloud.com"]')).toHaveCount(1);
+  await expect(page.locator(".hero .actions a")).toHaveText(["Download CV", "Email me", "LinkedIn ↗", "GitHub ↗"]);
 });

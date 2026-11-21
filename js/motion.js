@@ -7,7 +7,7 @@
 import { reducedMotion } from "./util.js";
 
 export var DUR = { quick: 150, base: 400, slow: 900 };
-var EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
+var EASE = "cubic-bezier(0.16, 1, 0.3, 1)";   // --ease in site.css
 
 var pending = new Map();   // element -> run()
 // An element plays once a fifth of it (or 120 px of it) is in view. No shrunken root margin:
@@ -94,6 +94,8 @@ var EFFECTS = {
 
   fill: function (el) { return stagger(el, Array.prototype.slice.call(el.children), 60); },
   rise: function (el) { return stagger(el, [el], 0); },
+  // bolder, for cards and section heads: each child lifts further and slower, in turn
+  lift: function (el) { return stagger(el, Array.prototype.slice.call(el.children), 90, 36, DUR.slow); },
 
   count: function (el) {
     var node = firstNumberNode(el);
@@ -119,17 +121,18 @@ var EFFECTS = {
   }
 };
 
-function stagger(el, items, gap) {
+function stagger(el, items, gap, dist, dur) {
+  dist = dist || 8; dur = dur || DUR.base;
   items.forEach(function (c, i) {
-    c.style.opacity = "0"; c.style.transform = "translateY(8px)";
+    c.style.opacity = "0"; c.style.transform = "translateY(" + dist + "px)";
     c.dataset.mDelay = String(i * gap);
   });
   return function (now) {
     items.forEach(function (c) {
-      c.style.transition = now ? "" : "opacity " + DUR.base + "ms ease " + c.dataset.mDelay + "ms, transform " + DUR.base + "ms " + EASE + " " + c.dataset.mDelay + "ms";
+      c.style.transition = now ? "" : "opacity " + Math.round(dur * 0.7) + "ms ease " + c.dataset.mDelay + "ms, transform " + dur + "ms " + EASE + " " + c.dataset.mDelay + "ms";
       c.style.opacity = ""; c.style.transform = "";
       delete c.dataset.mDelay;
-      if (!now) setTimeout(function () { c.style.transition = ""; tidy(c); }, DUR.base + items.length * gap + 100); else tidy(c);
+      if (!now) setTimeout(function () { c.style.transition = ""; tidy(c); }, dur + items.length * gap + 100); else tidy(c);
     });
   };
 }
