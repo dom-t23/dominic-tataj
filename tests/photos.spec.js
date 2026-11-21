@@ -1,61 +1,68 @@
-// About's contact sheet (DESIGN_PLAN.md 4.2; js/contact-sheet.js).
+// The photography page (photography.html, js/lightbox.js) and its teaser in About.
 const { test, expect } = require("@playwright/test");
 const { phone, trackErrors } = require("./helpers");
 
-const toView = (page) => page.locator(".contact-sheet").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
-
-test("eight numbered, captioned frames, lazy-loaded, each with a description", async ({ page }) => {
-  const errors = trackErrors(page);
+test("About leads to the photography page; the homepage loads no full photographs", async ({ page }) => {
   const photos = [];
-  page.on("request", (r) => { if (r.url().includes("/images/photos/")) photos.push(r.url()); });
+  page.on("request", (r) => { if (/\/images\/photos\/\d\d\.jpg/.test(r.url())) photos.push(r.url()); });
   await page.goto("/", { waitUntil: "networkidle" });
-  expect(photos).toEqual([]);   // nothing until the strip is near
-  const frames = page.locator(".film li");
-  await expect(frames).toHaveCount(8);
-  await expect(frames.locator(".fr")).toHaveText(["01", "02", "03", "04", "05", "06", "07", "08"].map((n) => "▸ " + n));
-  await expect(frames.nth(2).locator(".cap")).toHaveText("Catania, Sicily");
-  for (const img of await frames.locator("img").all()) {
-    await expect(img).toHaveAttribute("loading", "lazy");
-    expect((await img.getAttribute("alt")).length).toBeGreaterThan(20);
+  await expect(page.locator(".photo-teaser")).toHaveAttribute("href", "photography.html");
+  expect(photos).toEqual([]);
+});
+
+test("eight captioned photographs, WebP with a JPEG fallback, described, lazy below the fold", async ({ page }) => {
+  const errors = trackErrors(page);
+  await page.goto("/photography.html", { waitUntil: "networkidle" });
+  const items = page.locator("#gallery li");
+  await expect(items).toHaveCount(8);
+  await expect(items.nth(3).locator(".cap")).toHaveText("03 · Catania, Sicily");
+  for (const li of await items.all()) {
+    await expect(li.locator("source")).toHaveAttribute("type", "image/webp");
+    expect((await li.locator("img").getAttribute("alt")).length).toBeGreaterThan(20);
+    expect(await li.locator("a").getAttribute("href")).toMatch(/^images\/photos\/\d\d\.jpg$/);
   }
-  await toView(page);
-  await expect.poll(() => frames.first().locator("img").evaluate((i) => i.complete && i.naturalHeight)).toBe(600);
+  await expect(items.last().locator("img")).toHaveAttribute("loading", "lazy");
+  // the WebP is what loads
+  expect(await items.first().locator("img").evaluate((i) => i.currentSrc)).toMatch(/\.webp$/);
+  await expect(page.locator(".nav a[aria-current=page]")).toHaveText("Photos");
   expect(errors).toEqual([]);
 });
 
-test.describe("paging", () => {
-  // reduced motion: each page is a jump, so the loop below never clicks mid-scroll
-  test.use({ contextOptions: { reducedMotion: "reduce" } });
-  test("the buttons page the strip and stop at its ends", async ({ page }) => {
-  await page.goto("/", { waitUntil: "networkidle" });   // loads after the load event
-  await toView(page);
-  // the photos are lazy: wait until they have all loaded, or the strip's width changes mid-paging
-  await page.locator(".film img").evaluateAll((is) => is.forEach((i) => { i.loading = "eager"; }));
-  await page.waitForFunction(() => [...document.querySelectorAll(".film img")].every((i) => i.complete && i.naturalWidth));
-  await expect(page.locator(".cs-nav")).toBeVisible();
-  await expect(page.locator("#cs-prev")).toBeDisabled();
-  const left = () => page.locator(".film").evaluate((f) => f.scrollLeft);
-  await page.click("#cs-next");
-  await expect.poll(left).toBeGreaterThan(300);
-  await expect(page.locator("#cs-prev")).toBeEnabled();
-  while (await page.locator("#cs-next").isEnabled()) await page.click("#cs-next");
-  const end = await page.locator(".film").evaluate((f) => f.scrollWidth - f.clientWidth);
-  await expect.poll(left).toBeGreaterThan(end - 3);
-  await page.click("#cs-prev");
-  await expect.poll(left).toBeLessThan(end - 3);
+test("the lightbox: opens on the photo clicked, arrows step and wrap, Esc closes and focus returns", async ({ page }) => {
+  await page.goto("/photography.html", { waitUntil: "networkidle" });
+  await page.locator("#gallery a").nth(7).click();
+  const dlg = page.locator("dialog.lightbox");
+  await expect(dlg).toHaveAttribute("open", "");
+  await expect(dlg.locator(".lb-n")).toHaveText("8 / 8");
+  await page.keyboard.press("ArrowRight");
+  await expect(dlg.locator(".lb-n")).toHaveText("1 / 8");
+  await expect(dlg.locator(".lb-cap")).toHaveText("01 · Taormina, Sicily");
+  expect(await dlg.locator("img").getAttribute("alt")).toMatch(/Madonna/);
+  await page.keyboard.press("ArrowLeft");
+  await expect(dlg.locator(".lb-n")).toHaveText("8 / 8");
+  await page.keyboard.press("Escape");
+  await expect(dlg).not.toHaveAttribute("open", "");
+  expect(await page.evaluate(() => document.activeElement.getAttribute("href"))).toBe("images/photos/08.jpg");
+});
+
+test.describe("without JS", () => {
+  test.use({ javaScriptEnabled: false });
+  test("each photo is a plain link to its image", async ({ page }) => {
+    await page.goto("/photography.html");
+    await page.locator("#gallery a").first().click();
+    await expect(page).toHaveURL(/images\/photos\/01\.jpg$/);
   });
 });
 
 test.describe("phone", () => {
   test.use(phone);
-  test("the strip scrolls inside itself; the page does not", async ({ page }) => {
-    await page.goto("/", { waitUntil: "networkidle" });
-    await toView(page);
-    const [sw, iw, fw, cw] = await page.evaluate(() => {
-      const f = document.querySelector(".film");
-      return [document.documentElement.scrollWidth, innerWidth, f.scrollWidth, f.clientWidth];
-    });
-    expect(sw).toBeLessThanOrEqual(iw);
-    expect(fw).toBeGreaterThan(cw * 3);
+  test("two columns, no sideways scroll; a swipe steps the lightbox", async ({ page }) => {
+    await page.goto("/photography.html", { waitUntil: "networkidle" });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
+    await page.locator("#gallery a").first().tap();
+    const dlg = page.locator("dialog.lightbox");
+    await expect(dlg.locator(".lb-n")).toHaveText("1 / 8");
+    await page.locator(".lb-next").tap();
+    await expect(dlg.locator(".lb-n")).toHaveText("2 / 8");
   });
 });

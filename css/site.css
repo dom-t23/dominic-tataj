@@ -14,10 +14,10 @@
   --grid: rgba(255, 255, 255, 0.05);
   --rule: rgba(255, 255, 255, 0.10);   /* hairlines */
   --rule-strong: rgba(255, 255, 255, 0.24);
-  --ink: #F2F2F3;       /* text: 18:1 */
-  --ink-2: #C5C5CD;     /* secondary text: 12:1 */
-  --muted: #9C9CA6;     /* labels: 7.4:1 on --bg, 6.5:1 on --panel */
-  --signal: #3DDCFF;    /* the accent: 12:1 */
+  --ink: #F2F2F3;       /* text: 17.7:1 */
+  --ink-2: #C5C5CD;     /* secondary text: 11.5:1 */
+  --muted: #9C9CA6;     /* labels: 7.3:1 on --bg, 6.3:1 on --panel */
+  --signal: #3DDCFF;    /* the accent: 12.1:1 */
   --signal-strong: #3DDCFF;
   --signal-soft: rgba(61, 220, 255, 0.14);
   --on-signal: #03141A; /* text on the accent */
@@ -61,7 +61,7 @@
 
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-html { scroll-behavior: smooth; scroll-padding-top: calc(72px + env(safe-area-inset-top, 0px)); -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(76px + env(safe-area-inset-top, 0px)); -webkit-text-size-adjust: 100%; }
 body {
   margin: 0; background: var(--bg); color: var(--ink);
   font: 400 var(--fs-1)/1.6 var(--font-body);
@@ -109,7 +109,7 @@ p { margin: 0; }
   .nav ul .nav-cv { margin-left: 4px; padding: 0 12px; }
   .nav .opt { display: none; }   /* About: reached by scrolling on a phone */
 }
-@media (max-width: 360px) { .nav .name { font-size: 14px; } .nav ul a { padding: 0 6px; font-size: 13px; } }
+@media (max-width: 360px) { .nav .name { font-size: 14px; letter-spacing: -0.03em; } .nav ul a { padding: 0 5px; font-size: 13px; } .nav ul .nav-cv { margin-left: 2px; padding: 0 10px; } }
 
 /* ---------- the report grid: a margin column for numbers and metadata, a main column ---------- */
 .report, .sheet { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-5) var(--gutter); }
@@ -201,7 +201,7 @@ p { margin: 0; }
   .proof .pr-l { font-size: 12.5px; }
 }
 @media (max-width: 520px) {
-  .hero-copy { padding-top: var(--s-8); }
+  .hero-copy { padding-top: var(--s-6); gap: var(--s-3); }
   .h1-name { font-size: clamp(50px, 15.5vw, 72px); }
   .h1-role { font-size: 19px; }
   .avail { gap: 6px; } .avail dd { font-size: 12.5px; padding: 5px 10px; }
@@ -379,7 +379,7 @@ p { margin: 0; }
 .sheet-meta dt { font: 400 12.5px/1.4 var(--font-body); color: var(--muted); }
 .sheet-meta dd { margin: 0; font: 500 14.5px/1.45 var(--font-body); color: var(--ink); }
 @media (min-width: 1000px) {
-  .sheet-meta { position: sticky; top: calc(56px + var(--s-6)); }
+  .sheet-meta { position: sticky; top: calc(60px + var(--s-6)); }
   .sheet-meta dl { padding-right: var(--s-5); }
 }
 /* phones and tablets: one metadata row, values only, under the number */
