@@ -44,6 +44,23 @@ test("targeting: software, autonomy and systems first; the degree stays accurate
   await expect(page.locator(".foot-line")).toContainText("MEng Mechanical Engineering, UCL");
 });
 
+test("structured data names Dom and his targeting; theme-color follows the theme", async ({ page }) => {
+  await page.goto("/");
+  const ld = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+  expect(ld["@type"]).toBe("ProfilePage");
+  expect(ld.mainEntity.name).toBe("Dominic Tataj");
+  expect(ld.mainEntity.description).toMatch(/software, autonomy and systems/);
+  await expect(page.locator("#theme-color")).toHaveAttribute("content", "#F3F4F7");
+  await page.click("#theme");
+  await expect(page.locator("#theme-color")).toHaveAttribute("content", "#090B0F");
+});
+
+test("the theme button is in the nav from the first frame, so the nav doesn't reflow (R-18)", async ({ page }) => {
+  await page.route("**/js/main.js", (r) => r.fulfill({ status: 200, contentType: "text/javascript", body: "" }));   // modules never run
+  await page.goto("/");
+  await expect(page.locator("#theme")).toBeVisible();
+});
+
 test("light first: a dark device still gets light; the toggle saves dark and clears it again", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");

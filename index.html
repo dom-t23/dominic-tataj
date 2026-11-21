@@ -8,7 +8,7 @@
 <link rel="canonical" href="https://dom-t23.github.io/dominic-tataj/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" content="#F3F4F7">
+<meta name="theme-color" id="theme-color" content="#F3F4F7">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Dominic Tataj, engineering portfolio: software, autonomy and systems">
 <meta property="og:description" content="MEng Mechanical Engineering at UCL. Looking for software, autonomy and systems roles: a summer 2027 internship or a 2027–28 placement year in the UK. Projects: vision-based autonomous drone racing, a generatively designed drone frame, a pipe-climbing robot.">
@@ -21,7 +21,49 @@
 <script>
   // Apply a saved theme before first paint so the page doesn't flash.
   // Light first: only a saved choice of dark changes it.
-  try { if (localStorage.getItem("theme") === "dark") document.documentElement.setAttribute("data-theme", "dark"); } catch (e) {}
+  // The "js" class lets the theme button take its place in the nav from the first frame (R-18).
+  document.documentElement.classList.add("js");
+  try { if (localStorage.getItem("theme") === "dark") { document.documentElement.setAttribute("data-theme", "dark"); document.getElementById("theme-color").content = "#090B0F"; } } catch (e) {}
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ProfilePage",
+ "url": "https://dom-t23.github.io/dominic-tataj/",
+ "mainEntity": {
+  "@type": "Person",
+  "name": "Dominic Tataj",
+  "url": "https://dom-t23.github.io/dominic-tataj/",
+  "jobTitle": "MEng Mechanical Engineering student",
+  "description": "Looking for software, autonomy and systems roles: a summer 2027 internship or a 2027–28 placement year in the UK.",
+  "alumniOf": {
+   "@type": "CollegeOrUniversity",
+   "name": "University College London"
+  },
+  "address": {
+   "@type": "PostalAddress",
+   "addressLocality": "London",
+   "addressCountry": "GB"
+  },
+  "knowsAbout": [
+   "Autonomous systems",
+   "Computer vision",
+   "State estimation",
+   "Python",
+   "OpenCV",
+   "Generative design",
+   "Finite element analysis",
+   "Fusion",
+   "Ansys",
+   "MATLAB"
+  ],
+  "sameAs": [
+   "https://www.linkedin.com/in/dominic-tataj",
+   "https://github.com/dom-t23",
+   "https://unsplash.com/@dominic_t"
+  ]
+ }
+}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,7 +81,7 @@
       <li><a href="#work">Work</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><button class="theme-btn" id="theme" type="button" hidden>Dark</button></li>
+      <li><button class="theme-btn" id="theme" type="button" aria-label="Switch to dark theme">Dark</button></li>
     </ul>
   </div>
 </nav>
@@ -588,8 +630,9 @@
     </div>
     <div class="contact">
       <div class="contact-row">
-        <span class="email" id="email">dominic_tataj@icloud.com</span>
+        <a class="email" id="email" href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a>
         <button class="btn primary copy-btn" id="copy" type="button">Copy email</button>
+        <span class="sr-only" id="copy-status" role="status"></span>
       </div>
       <div class="actions">
         <a class="btn" href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a>

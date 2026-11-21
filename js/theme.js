@@ -15,6 +15,7 @@ $("theme").addEventListener("click", function () {
     if (dark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme");
     try { if (dark) localStorage.setItem("theme", "dark"); else localStorage.removeItem("theme"); } catch (e) {}
     syncThemeBtn();
+    var tc = $("theme-color"); if (tc) tc.content = dark ? "#090B0F" : "#F3F4F7";
   }
   // The new theme spreads in a circle from the button. Where view transitions aren't supported,
   // or with reduced motion, it just switches.
@@ -26,4 +27,4 @@ $("theme").addEventListener("click", function () {
       { duration: 700, easing: "cubic-bezier(0.22, 1, 0.36, 1)", pseudoElement: "::view-transition-new(root)" });
   }, function () {});
 });
-syncThemeBtn(); $("theme").hidden = false;
+syncThemeBtn();

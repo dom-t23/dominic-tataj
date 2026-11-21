@@ -107,6 +107,8 @@ p { margin: 0; }
 }
 .nav ul a:hover, .theme-btn:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent); text-decoration: none; }
 .theme-btn { color: var(--muted); }
+html:not(.js) .theme-btn { display: none; }   /* without JS it can't work; with JS it is there from the first frame */
+.contact .email:hover { text-decoration: none; }
 @media (max-width: 520px) { .nav ul a, .theme-btn { padding: 8px 10px; font-size: 13px; } }
 
 /* ---------- hero ---------- */
