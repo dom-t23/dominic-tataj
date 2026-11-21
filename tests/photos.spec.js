@@ -25,6 +25,8 @@ test("eight captioned photographs, WebP with a JPEG fallback, described, lazy be
   // the WebP is what loads
   expect(await items.first().locator("img").evaluate((i) => i.currentSrc)).toMatch(/\.webp$/);
   await expect(page.locator(".nav a[aria-current=page]")).toHaveText("Photos");
+  // full-bleed, but never wider than the window (wide tiles once forced their columns apart)
+  for (const w of [1440, 768]) { await page.setViewportSize({ width: w, height: 900 }); expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(w); }
   expect(errors).toEqual([]);
 });
 
