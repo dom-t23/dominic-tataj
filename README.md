@@ -9,7 +9,7 @@ No build step: GitHub Pages serves these files as they are.
 - `js/` — ES modules. `main.js` is the entry point and imports:
   - `theme.js` (light/dark toggle; light first, dark only by choice), `contact.js` (copy
     email and its burst), `sheets.js` (lays every project out once after load, so links down
-    the page land) and `reveals.js` (what animates in on scroll and which numbers count up)
+    the page land) and `reveals.js` (what animates in on scroll; numbers no longer count up)
   - `hero-flight.js` (the hero's flight-test strip, Fig. 00) and `replay.js` (the drone
     replay), which share the flight data loaded by `flights.js`; `pipeline.js` draws the
     strip under the replay (detect, measure, fuse, fly at the current frame)

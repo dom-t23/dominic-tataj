@@ -75,15 +75,13 @@ test("the nav is the name and three links: no sheet counter, no progress line", 
   await expect(page.locator("#sheet-no, #progress, .tblock, #approve")).toHaveCount(0);
   await expect(page.locator(".nav .brand")).toHaveText("Dominic Tataj");
 });
-test("key figures count up to their real values once in view", async ({ page }) => {
-  // without WebGL 2, so Fig. 01 just above stays the two renders: compiling its shaders in
-  // software WebGL can hold the main thread for seconds, and this test is about the figures
+test("key figures show their real values from the first frame, with no count-up (R-10)", async ({ page }) => {
   await page.addInitScript(() => { delete window.WebGL2RenderingContext; });
   await page.goto("/", { waitUntil: "networkidle" });
   const values = () => page.$$eval("#e-03 .specs .n", (ns) => ns.map((n) => n.textContent));
-  expect(await values()).toEqual(["0.0", ">0Hz", "−0%mass", "0g"]);
+  expect(await values()).toEqual(["1.5", ">300Hz", "−36%mass", "38g"]);
   await page.locator("#e-03 .specs").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
-  await expect.poll(values, { timeout: 4000 }).toEqual(["1.5", ">300Hz", "−36%mass", "38g"]);
-  // compound values are left alone
+  await page.waitForTimeout(300);
+  expect(await values()).toEqual(["1.5", ">300Hz", "−36%mass", "38g"]);
   await expect(page.locator("#e-02 .specs .n").nth(1)).toHaveText("400×300mm");
 });

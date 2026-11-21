@@ -99,7 +99,7 @@ checkpoint with Dom, merge to `main`.
    progress bar under the nav.
 2.3 [-] (removed in phase R) **Revision cloud on hover** (done in phase G): round each register entry (title
    and line below) and each sheet's title.
-2.4 [x] **Numbers count up** with tabular figures when they enter view (spec strips and the
+2.4 [-] (removed in phase S: a number caught mid-count is a false value, R-10) **Numbers count up** with tabular figures when they enter view (spec strips and the
    Unsplash stats), once only, about 0.9 s. Compound values (400×300, P ∝ N^0.55) stay put.
 2.5 [x] **Theme toggle as a light-table switch** (done in phase G): a view transition
    with the new theme clipped to a circle growing from the button; instant without view
@@ -218,7 +218,7 @@ S.2 [ ] **Foundations**: tokens for the chosen direction, contrast fixes, fonts 
 S.3 [ ] **Hero**: visible name and role, availability as a spec list, hero visual, one-row phone nav, theme button before paint (R-02, R-19, R-18).
 S.4 [ ] **E-04 leads**: project order E-04, E-03, E-02, E-01; figures renumbered; result line on each card (R-04, R-23).
 S.5 [ ] **Project anatomy**: new sheet layout, metadata line, key figures under each summary, E-04 key figures, results first (R-03, R-05, R-06, R-09, R-21).
-S.6 [ ] **Accuracy**: Fig. 00 and rig wording, E-04 title, E-01 count, E-02 limitation, count-ups removed (R-10, R-13, R-14, R-15).
+S.6 [x] **Accuracy**: Fig. 00 and rig wording, E-04 title, E-01 count, E-02 limitation, count-ups removed (R-10, R-13, R-14, R-15).
 S.7 [ ] **Phone length and legibility**: Fig. 01 unpinned on phones, Fig. 02/05/06 for phones, parts list (R-08, R-20, R-27, R-31).
 S.8 [ ] **Figure language**: sentence case and correct units; one tag, segmented control and slider (R-12, R-26).
 S.9 [ ] **About and Contact**: skills table on phones, mailto, CV slot (R-07, R-09, R-29, R-30).

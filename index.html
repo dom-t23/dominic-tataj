@@ -105,7 +105,7 @@
         <span class="stab" id="stab"></span>
         <span class="rig-buttons"><button class="btn" id="gust" type="button">Gust →</button><button class="btn" id="rig-reset" type="button">Reset</button><button class="btn" id="rig-close" type="button">Back to the flight</button></span>
       </div>
-      <figcaption><span><b>Fig. 00</b> — <span id="cap-flight">Flight test from my vision-only racing drone (<a href="#e-04">E-04</a>): true path in blue, its own estimate dashed orange.</span><span id="cap-rig" hidden>Hover test: my 246 g drone as a planar model, held by a cascaded PD controller (a position loop feeding an attitude loop). Drag it, click to move the setpoint or send a gust, and push the gains past the Routh–Hurwitz limit to watch it go unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>Replay ↺</button><button class="link-btn" id="rig-open" type="button" hidden>Try the controller →</button></span></figcaption>
+      <figcaption><span><b>Fig. 00</b> — <span id="cap-flight">A simulated flight of my racing drone (<a href="#e-04">E-04</a>), camera + IMU, replayed from the recording at 3× speed: true path in blue, the drone's own estimate dashed orange.</span><span id="cap-rig" hidden>Hover test: a planar model of my 246 g drone from <a href="#e-03">E-03</a>, held by a cascaded PD controller (a position loop feeding an attitude loop). Drag it, click to move the setpoint or send a gust, and push the gains past the Routh–Hurwitz limit to watch it go unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>Replay ↺</button><button class="link-btn" id="rig-open" type="button" hidden>Try the controller →</button></span></figcaption>
     </figure>
   </div>
 </section>
@@ -218,11 +218,11 @@
     <!-- E-04 DRONE -->
     <article class="sheet" id="e-04" aria-labelledby="e04-h">
       <div class="sheet-meta">
-        <span class="pno">E-04</span><span class="chip"><span class="k">Role</span>Individual, with an AI agent</span><span class="chip"><span class="k">Tools</span>Python · OpenCV · NumPy</span><span class="chip"><span class="k">Date</span>Aug – Oct 2026</span><span class="chip"><span class="k">Status</span>In development</span>
+        <span class="pno">E-04</span><span class="chip"><span class="k">Role</span>Solo: set the design and test rules, directed an AI coding agent</span><span class="chip"><span class="k">Tools</span>Python · OpenCV · NumPy</span><span class="chip"><span class="k">Date</span>Aug – Oct 2026</span><span class="chip"><span class="k">Status</span>In development</span>
       </div>
       <div class="sheet-body">
         <div class="sheet-title">
-          <h3 id="e04-h">A simulated racing drone that flies through gates using only its onboard camera</h3>
+          <h3 id="e04-h">A simulated racing drone that flies through gates by camera, with no GPS or map</h3>
           <p class="summary">There is no GPS, depth sensor or map of the gate positions. The drone detects each gate in its camera image, estimates its position relative to the gate and flies through.</p>
         </div>
 
@@ -232,7 +232,7 @@
               <span class="tag">Onboard camera · detector output</span>
               <canvas id="fpv" width="640" height="480" aria-label="Onboard camera view"></canvas>
               <div class="rest" id="rest">
-                <span>Six recorded flights · 8 gates · about 6 m/s</span>
+                <span>Six recorded flights in simulation · 8 gates · about 6 m/s</span>
                 <button class="btn" id="load" type="button">Load replay</button>
                 <span id="load-note"></span>
               </div>
@@ -311,7 +311,7 @@
                   <!-- js/bench.js: the column headers chart and sort their column -->
                   <table class="bench" id="bench">
                     <thead>
-                      <tr class="world"><th></th><th colspan="2">Clean · run 20</th><th colspan="2">Orange clutter · run 26</th></tr>
+                      <tr class="world"><th></th><th colspan="2">Clean world</th><th colspan="2">With orange clutter</th></tr>
                       <tr><th scope="col">Course set</th><th scope="col">Camera + IMU</th><th scope="col">Camera only</th><th scope="col">Camera + IMU</th><th scope="col">Camera only</th></tr>
                     </thead>
                     <tbody>
@@ -331,7 +331,7 @@
               </div>
               <figcaption><b>Fig. 03</b> — Gate pass rate on six sets of 50 random 8-gate courses, in a clean world and with orange clutter beside the course. A run ends at the first crash or missed gate.</figcaption>
             </figure>
-            <p class="note">Single sets of 50 courses move by a few points from noise alone, so the pooled row is the one to compare. "Camera only" drops the IMU and predicts motion between frames from the drone's own commands. The clutter is up to 20 flat panels and cones beside the course, painted within the gate's colour range. That world is harder by design, so its numbers start a new baseline rather than continuing the clean one.</p>
+            <p class="note">Single sets of 50 courses move by a few points from noise alone, so the pooled row is the one to compare. "Camera only" drops the IMU and predicts motion between frames from the drone's own commands. The clutter is up to 20 flat panels and cones beside the course, painted within the gate's colour range. That world is harder by design, so its numbers start a new baseline rather than continuing the clean one. Clean: runs 20 and 23 (camera only); clutter: run 26.</p>
             <p class="note">Source code: <a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">github.com/dom-t23/vision-drone-racing ↗</a></p>
           </div>
         </div>
@@ -396,6 +396,10 @@
               <p>At the IMechE Design Challenge the robot completed the climb.</p>
               <p>The chosen setup cut predicted climb time by 22%. In real runs it cut climb time by 16%.</p>
               <p>I also produced the full Fusion CAD assembly across two design iterations, including a working geartrain.</p>
+            </div>
+            <div>
+              <h4>Limitations</h4>
+              <p>Looking back, the sheet's 10 ms step was too coarse for the drive's time constant of about 3 ms, and its speed and torque columns used different gear ratios (100 and 150). Fig. 04 corrects both, with a 1 ms step and one ratio, so it is a demonstration rather than the coursework's numbers.</p>
             </div>
           </div>
           <div class="fig-stack">
@@ -467,11 +471,11 @@
       <div class="sheet-body">
         <div class="sheet-title">
           <h3 id="e01-h">How AI training power scales with model size</h3>
-          <p class="summary">Statistical analysis of training data for 358 AI models across nine domains, used to fit a scaling law and estimate the training power of a frontier model.</p>
+          <p class="summary">Statistical analysis of AI training data, 358 models across nine domains in the coursework, used to fit a scaling law and estimate the training power of a frontier model.</p>
         </div>
 
         <div class="specs" aria-label="Key figures">
-          <div><span class="label">Models</span><span class="n">358</span></div>
+          <div><span class="label">Models (coursework)</span><span class="n">358</span></div>
           <div><span class="label">Fitted law</span><span class="n">P&nbsp;∝&nbsp;N<sup>0.55</sup></span></div>
           <div><span class="label">Fit R²</span><span class="n">0.44</span></div>
           <div><span class="label">GPT-5 estimate</span><span class="n">≈590<small>kW</small></span></div>
@@ -490,7 +494,7 @@
                 </div>
                 <svg class="scaling" id="scaling" role="img" aria-label="Training power draw against parameter count for 603 AI models: a power law, P proportional to N to the 0.55, with R squared 0.44"></svg>
               </div>
-              <figcaption><b>Fig. 07</b> — Training power draw against parameter count, 603 models (Epoch AI). On log₁₀ axes the fit is P ∝ N<sup>0.55</sup>; orange is the GPT-5 estimate.</figcaption>
+              <figcaption><b>Fig. 07</b> — Training power draw against parameter count for the 603 models in the dataset (Epoch AI) that have both, refitted here. On log₁₀ axes the fit is P ∝ N<sup>0.55</sup>; orange is the GPT-5 estimate.</figcaption>
             </figure>
           </div>
         </div>
