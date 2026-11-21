@@ -69,3 +69,13 @@ test.describe("phone", () => {
     expect(w[2]).toBeLessThanOrEqual(w[1]);
   });
 });
+
+test("the robot's mask images wait until the figure is near (PERF-07)", async ({ page }) => {
+  const masks = [];
+  page.on("request", (r) => { if (/robot-iso-(ink|fill)\.png/.test(r.url())) masks.push(r.url()); });
+  await page.goto("/", { waitUntil: "networkidle" });
+  await page.waitForTimeout(500);
+  expect(masks).toEqual([]);
+  await page.locator("#climb-stage").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
+  await expect.poll(() => masks.length).toBe(2);
+});

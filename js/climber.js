@@ -200,6 +200,12 @@ if (fig) {
 
   layout(); recompute(); show(run.samples[0]);
   if (window.ResizeObserver) new ResizeObserver(function () { if (Math.abs(stage.clientWidth - W) > 1 || Math.abs(stage.clientHeight - Hs) > 1) { layout(); show(run.cur || run.samples[0]); } }).observe(stage);
+  // the robot's two mask images load only once the figure is within a screen of view
+  if (window.IntersectionObserver) {
+    var near = new IntersectionObserver(function (es) { if (es[es.length - 1].isIntersecting) { stage.classList.add("near"); near.disconnect(); } }, { rootMargin: "100% 0px" });
+    near.observe(stage);
+    addEventListener("beforeprint", function () { stage.classList.add("near"); });
+  } else stage.classList.add("near");
   if (rm || !window.IntersectionObserver) show(run.samples[run.samples.length - 1]);
   else {
     var io = new IntersectionObserver(function (es) {

@@ -571,8 +571,11 @@ figcaption b { color: var(--ink); font-weight: 600; }
 /* the robot: the isometric drawing's silhouette in paper and its lines in ink, from two masks */
 .climb-robot { position: absolute; left: 0; top: 0; will-change: transform; }
 .climb-robot > div { position: absolute; inset: 0; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
-.rb-fill { background: var(--paper); -webkit-mask-image: url(../images/robot-iso-fill.png); mask-image: url(../images/robot-iso-fill.png); }
-.rb-ink { background: var(--ink); -webkit-mask-image: url(../images/robot-iso-ink.png); mask-image: url(../images/robot-iso-ink.png); }
+/* the masks (200 KB) load only once the figure is within a screen (.near, set by js/climber.js) */
+.rb-fill { background: var(--paper); }
+.rb-ink { background: var(--ink); }
+.climb-stage.near .rb-fill { -webkit-mask-image: url(../images/robot-iso-fill.png); mask-image: url(../images/robot-iso-fill.png); }
+.climb-stage.near .rb-ink { -webkit-mask-image: url(../images/robot-iso-ink.png); mask-image: url(../images/robot-iso-ink.png); }
 .climb.slip .rb-ink { background: var(--bad); }
 .climb-tag { position: absolute; left: 12px; top: 12px; background: color-mix(in srgb, var(--paper) 80%, transparent); border: 1px solid var(--rule); border-radius: 999px; padding: 4px 10px; font: 500 12px/1.3 var(--font-data); color: var(--muted); }
 .climb-side { background: var(--paper); padding: 18px 20px; display: grid; gap: 14px; align-content: start; min-width: 0; }
