@@ -71,6 +71,7 @@
 <link rel="stylesheet" href="css/site.css?v=20261120r">
 </head>
 <body>
+<a class="skip" href="#work">Skip to projects</a>
 
 <nav class="nav" aria-label="Main">
   <div class="wrap">
@@ -130,7 +131,7 @@
           <span class="r-result">Completed the climb; 16% faster in real runs</span><span class="r-meta">Excel · Fusion</span>
         </a></li>
         <li><a href="#e-01">
-          <span class="r-no">E-01</span><span class="r-title">AI training-cost analysis</span>
+          <span class="r-no">E-01</span><span class="r-title">AI training-power scaling analysis</span>
           <span class="r-result">Power law fitted: P ∝ N<sup>0.55</sup>, R² 0.44</span><span class="r-meta">MATLAB</span>
         </a></li>
       </ol>
@@ -262,20 +263,22 @@
                 <div class="tablebox">
                   <!-- js/bench.js: the column headers chart and sort their column -->
                   <table class="bench" id="bench">
+                    <caption class="sr-only">Gate pass rate by course set, in a clean world and with orange clutter, with and without the IMU. Column headers sort the table and chart the column.</caption>
+                    <colgroup><col><col span="2"><col span="2"></colgroup>
                     <thead>
-                      <tr class="world"><th></th><th colspan="2">Clean world</th><th colspan="2">With orange clutter</th></tr>
+                      <tr class="world"><td></td><th colspan="2" scope="colgroup">Clean world</th><th colspan="2" scope="colgroup">With orange clutter</th></tr>
                       <tr><th scope="col">Course set</th><th scope="col">Camera + IMU</th><th scope="col">Camera only</th><th scope="col">Camera + IMU</th><th scope="col">Camera only</th></tr>
                     </thead>
                     <tbody>
-                      <tr><td>0–49</td><td>100.00%</td><td>96.25%</td><td>95.75%</td><td>96.75%</td></tr>
-                      <tr><td>1000–1049</td><td>100.00%</td><td>98.50%</td><td>100.00%</td><td>100.00%</td></tr>
-                      <tr><td>2000–2049</td><td>99.00%</td><td>98.00%</td><td>100.00%</td><td>98.50%</td></tr>
-                      <tr><td>3000–3049</td><td>100.00%</td><td>96.50%</td><td>100.00%</td><td>93.75%</td></tr>
-                      <tr><td>4000–4049</td><td>100.00%</td><td>98.75%</td><td>97.75%</td><td>97.75%</td></tr>
-                      <tr><td>5000–5049</td><td>100.00%</td><td>98.75%</td><td>98.00%</td><td>98.00%</td></tr>
+                      <tr><th scope="row">0–49</th><td>100.00%</td><td>96.25%</td><td>95.75%</td><td>96.75%</td></tr>
+                      <tr><th scope="row">1000–1049</th><td>100.00%</td><td>98.50%</td><td>100.00%</td><td>100.00%</td></tr>
+                      <tr><th scope="row">2000–2049</th><td>99.00%</td><td>98.00%</td><td>100.00%</td><td>98.50%</td></tr>
+                      <tr><th scope="row">3000–3049</th><td>100.00%</td><td>96.50%</td><td>100.00%</td><td>93.75%</td></tr>
+                      <tr><th scope="row">4000–4049</th><td>100.00%</td><td>98.75%</td><td>97.75%</td><td>97.75%</td></tr>
+                      <tr><th scope="row">5000–5049</th><td>100.00%</td><td>98.75%</td><td>98.00%</td><td>98.00%</td></tr>
                     </tbody>
                     <tfoot>
-                      <tr class="pooled"><td>Pooled</td><td>99.83%</td><td>97.79%</td><td>98.58%</td><td>97.46%</td></tr>
+                      <tr class="pooled"><th scope="row">Pooled</th><td>99.83%</td><td>97.79%</td><td>98.58%</td><td>97.46%</td></tr>
                     </tfoot>
                   </table>
                 </div>
@@ -563,7 +566,7 @@
       <div class="prose">
         <p>I'm a second-year MEng Mechanical Engineering student at UCL, graduating in 2029. I'm heading towards software, autonomy and systems: my most recent project is a racing drone's flight stack in simulation, from gate detection to an error-state Kalman filter and guidance. Mechanical design is my other strength: CAD, generative design and FEA on a drone frame I printed and tested.</p>
         <div class="outside">
-          <h4>Outside engineering</h4>
+          <h3>Outside engineering</h3>
           <p>I fly FPV drones, boulder, and photograph landscapes and cities. I publish on Unsplash, where my architecture and landscape work is free to use.</p>
           <div class="photo-stats">
             <div><b>390,000+</b><span class="label">views</span></div>
@@ -581,32 +584,34 @@
         <thead><tr><th scope="col"><span class="sr-only">Number</span></th><th scope="col">Skill or role</th><th scope="col">Projects</th><th scope="col"><span class="sr-only">Which projects</span></th></tr></thead>
         <tbody>
           <tr class="grp"><th scope="rowgroup" colspan="4">Education</th></tr>
-          <tr><td>1</td><td>MEng Mechanical Engineering, UCL<span>2025 – 2029 · predicted 2:1</span></td><td></td><td></td></tr>
+          <tr><td>1</td><td>MEng Mechanical Engineering, UCL<span>2025–2029 · predicted 2:1</span></td><td></td><td></td></tr>
           <tr><td>2</td><td>IB Diploma, 42/45<span>HL Mathematics, Physics, Economics</span></td><td></td><td></td></tr>
         </tbody>
         <tbody>
-          <tr class="grp"><th scope="rowgroup" colspan="4">Engineering</th></tr>
-          <tr class="skill"><td>3</td><td>Fusion: generative design, CAD</td><td>2</td><td><a href="#e-03" data-title="Generative FPV drone frame">E-03</a> <a href="#e-02" data-title="Pipe-climbing robot">E-02</a></td></tr>
-          <tr class="skill"><td>4</td><td>Ansys Mechanical FEA</td><td>1</td><td><a href="#e-03" data-title="Generative FPV drone frame">E-03</a></td></tr>
-          <tr class="skill"><td>5</td><td>Dynamic modelling in Excel</td><td>1</td><td><a href="#e-02" data-title="Pipe-climbing robot">E-02</a></td></tr>
+          <tr class="grp"><th scope="rowgroup" colspan="4">Software and autonomy</th></tr>
+          <tr class="skill"><td>3</td><td>Python: NumPy, pandas, OpenCV, Matplotlib</td><td>1</td><td><a href="#e-04" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
+          <tr class="skill"><td>4</td><td>Autonomy architecture: detection, pose, filtering and guidance as separate stages<span>set the design rules and the simulator/flight-stack wall; code written with an AI agent</span></td><td>1</td><td><a href="#e-04" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
+          <tr class="skill"><td>5</td><td>Test design: seeded regression benchmarks, flagged A/B changes, pooled acceptance</td><td>1</td><td><a href="#e-04" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
+          <tr class="skill"><td>6</td><td>MATLAB: statistics and curve fitting</td><td>1</td><td><a href="#e-01" data-title="AI training-power scaling analysis">E-01</a></td></tr>
         </tbody>
         <tbody>
-          <tr class="grp"><th scope="rowgroup" colspan="4">Programming</th></tr>
-          <tr class="skill"><td>6</td><td>Python: NumPy, pandas, OpenCV, Matplotlib</td><td>1</td><td><a href="#e-04" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
-          <tr class="skill"><td>7</td><td>MATLAB</td><td>1</td><td><a href="#e-01" data-title="AI training-cost analysis">E-01</a></td></tr>
+          <tr class="grp"><th scope="rowgroup" colspan="4">Mechanical design</th></tr>
+          <tr class="skill"><td>7</td><td>Fusion: generative design, CAD</td><td>2</td><td><a href="#e-03" data-title="Generative FPV drone frame">E-03</a> <a href="#e-02" data-title="Pipe-climbing robot">E-02</a></td></tr>
+          <tr class="skill"><td>8</td><td>Ansys Mechanical FEA</td><td>1</td><td><a href="#e-03" data-title="Generative FPV drone frame">E-03</a></td></tr>
+          <tr class="skill"><td>9</td><td>Dynamic modelling in Excel</td><td>1</td><td><a href="#e-02" data-title="Pipe-climbing robot">E-02</a></td></tr>
         </tbody>
         <tbody>
           <tr class="grp"><th scope="rowgroup" colspan="4">Experience</th></tr>
-          <tr><td>8</td><td>Lifeguard, Virgin Active<span>2025 – present · supervising a pool serving 300+ members</span></td><td></td><td></td></tr>
-          <tr><td>9</td><td>Stock photo contributor, Unsplash<span>2024 – present · architecture and landscape portfolio</span></td><td></td><td></td></tr>
+          <tr><td>10</td><td>Lifeguard, Virgin Active<span>2025 – present · supervising a pool serving 300+ members</span></td><td></td><td></td></tr>
+          <tr><td>11</td><td>Stock photo contributor, Unsplash<span>2024 – present · architecture and landscape portfolio</span></td><td></td><td></td></tr>
         </tbody>
         <tbody>
           <tr class="grp"><th scope="rowgroup" colspan="4">Leadership</th></tr>
-          <tr><td>10</td><td>NASA Space Center University, Houston, 2024<span>Led a 4-person team designing a Mars habitat; 3rd of 20 teams</span></td><td></td><td></td></tr>
+          <tr><td>12</td><td>NASA Space Center University, Houston, 2024<span>Led a 4-person team designing a Mars habitat; 3rd of 20 teams</span></td><td></td><td></td></tr>
         </tbody>
         <tbody>
           <tr class="grp"><th scope="rowgroup" colspan="4">Languages</th></tr>
-          <tr><td>11</td><td>German and Spanish (intermediate), Mandarin (beginner)</td><td></td><td></td></tr>
+          <tr><td>13</td><td>German and Spanish (intermediate), Mandarin (beginner)</td><td></td><td></td></tr>
         </tbody>
       </table>
     </div>

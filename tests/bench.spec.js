@@ -2,7 +2,7 @@
 const { test, expect } = require("@playwright/test");
 const { phone, trackErrors } = require("./helpers");
 
-const firstCol = (page) => page.$$eval("#bench tbody tr td:first-child", (t) => t.map((x) => x.textContent));
+const firstCol = (page) => page.$$eval("#bench tbody tr th:first-child", (t) => t.map((x) => x.textContent));
 const header = (page, n) => page.locator(`#bench thead tr:nth-child(2) th:nth-child(${n})`);
 const COURSE_ORDER = ["0–49", "1000–1049", "2000–2049", "3000–3049", "4000–4049", "5000–5049"];
 

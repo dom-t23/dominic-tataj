@@ -116,6 +116,10 @@ html:not(.js) .theme-btn { display: none; }   /* without JS it can't work; with 
 .hero .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 48px 64px; padding-block: clamp(48px, 8vw, 96px) clamp(40px, 6vw, 72px); align-items: start; }
 .hero-text { display: grid; gap: 26px; min-width: 0; align-self: center; }   /* level with the drone beside it */
 /* the page's h1, for screen readers and search: the hero shows no headline */
+.skip { position: absolute; left: 12px; top: -60px; z-index: 100; padding: 10px 16px; border-radius: 8px; background: var(--ink); color: var(--paper); font: 500 14px/1 var(--font-body); }
+.skip:focus { top: 12px; text-decoration: none; }
+/* inline links in running text are underlined so they can be told apart from the words around them */
+figcaption a, .note a, .prose a, .summary a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .hero .lede { font-size: 20px; line-height: 1.55; color: var(--ink-2); max-width: 32em; }
 /* availability as pills; the first carries a live dot */
@@ -489,11 +493,12 @@ figcaption b { color: var(--ink); font-weight: 600; }
 .bench { width: 100%; border-collapse: collapse; font: 400 13px/1.4 var(--font-data); font-variant-numeric: tabular-nums; }
 .bench th, .bench td { text-align: left; padding: 9px 12px 9px 0; border-bottom: 1px solid var(--rule); white-space: nowrap; }
 .bench th { font: 500 12px/1.3 var(--font-body); color: var(--muted); }
-.bench tr.pooled td { font-weight: 500; color: var(--ink); border-bottom-color: var(--ink); }
+.bench tbody th, .bench tfoot th { font: inherit; color: inherit; text-align: left; }
+.bench tr.pooled td, .bench tr.pooled th { font-weight: 500; color: var(--ink); border-bottom-color: var(--ink); }
 /* Fig. 01 (js/bench.js): two worlds side by side; a column header charts and sorts its column */
 .bench .world th { padding-bottom: 0; border-bottom: none; color: var(--ink-2); }
 .bench .world th[colspan] { box-shadow: inset 0 -1px 0 var(--rule); }
-.bench td + td, .bench th + th { padding-left: 8px; }
+.bench td + td, .bench th + th, .bench th + td { padding-left: 8px; }
 .bench thead th { white-space: normal; vertical-align: bottom; }
 .bench th, .bench td { padding-right: 4px; }
 .bench th button { font: inherit; color: inherit; background: none; border: 0; padding: 2px 0 4px; cursor: pointer; text-align: left; }
@@ -502,8 +507,8 @@ figcaption b { color: var(--ink); font-weight: 600; }
 .bench th[aria-sort="ascending"] button::after { content: " ↑"; color: var(--signal); }
 .bench td.sel { color: var(--ink); font-weight: 500; }
 .bench tbody tr { transition: background var(--dur-quick) ease; }
-.bench tbody tr.hl td { background: var(--panel); }
-.bench tbody tr.hl td:first-child { color: var(--link); }
+.bench tbody tr.hl td, .bench tbody tr.hl th { background: var(--panel); }
+.bench tbody tr.hl th { color: var(--link); }
 .bench tr.pooled.pulse td { animation: pooled 1400ms var(--ease) 1; }
 @keyframes pooled { 0%, 100% { background: transparent; } 25% { background: color-mix(in srgb, var(--signal) 16%, transparent); } }
 .bench-fig .plate { padding: 8px 16px 4px; }
@@ -511,7 +516,7 @@ figcaption b { color: var(--ink); font-weight: 600; }
   .bench-fig .plate { padding-inline: 8px; }
   .bench { font-size: 11px; }
   .bench th, .bench td { padding-right: 2px; }
-  .bench td + td, .bench th + th { padding-left: 5px; }
+  .bench td + td, .bench th + th, .bench th + td { padding-left: 5px; }
 }
 .bench-chart { display: block; width: 100%; height: auto; margin: 12px 0 6px; overflow: visible; }
 .bench-chart text { font: 400 10px/1 var(--font-data); letter-spacing: 0.01em; fill: var(--muted); }
@@ -531,7 +536,7 @@ figcaption b { color: var(--ink); font-weight: 600; }
 
 /* about: outside engineering */
 .outside { display: grid; gap: 14px; }
-.outside h4 { margin: 0; }
+.outside h3 { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: 22px; line-height: 1.2; letter-spacing: -0.01em; }
 .photo-stats { display: flex; flex-wrap: wrap; gap: 8px 32px; margin-top: 4px; }
 .photo-stats div { display: flex; align-items: baseline; gap: 8px; }
 .photo-stats b { font: 600 22px/1.2 var(--font-display); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }

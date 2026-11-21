@@ -18,7 +18,7 @@ test("content: order, numbering, figures and links", async ({ page }) => {
   expect(await page.$$eval("figcaption b", (bs) => bs.map((b) => b.textContent)))
     .toEqual(["Fig. 00", "Fig. 01", "Fig. 02", "Fig. 03", "Fig. 04", "Fig. 05", "Fig. 06", "Fig. 07", "Contact sheet"]);
   expect(await page.$$eval(".nav ul a", (as) => as.map((a) => a.textContent))).toEqual(["Work", "About", "Contact"]);
-  expect(await page.$$eval("tr.pooled td", (tds) => tds.map((t) => t.textContent))).toEqual(["Pooled", "99.83%", "97.79%", "98.58%", "97.46%"]);
+  expect(await page.$$eval("tr.pooled > *", (tds) => tds.map((t) => t.textContent))).toEqual(["Pooled", "99.83%", "97.79%", "98.58%", "97.46%"]);
   for (const href of ["https://unsplash.com/@dominic_t", "https://www.instagram.com/dt___xt/",
     "https://www.linkedin.com/in/dominic-tataj", "https://github.com/dom-t23"]) {
     await expect(page.locator(`a[href="${href}"]`)).toHaveCount(1);

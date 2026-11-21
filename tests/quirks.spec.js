@@ -91,9 +91,9 @@ test("the theme switch spreads from the button in a view transition", async ({ p
 
 test("About lists skills and experience; each skill counts and links the projects that used it", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });   // the quirks load after the load event
-  await expect(page.locator(".bom tbody tr:not(.grp)")).toHaveCount(11);
-  await expect(page.locator(".bom .grp th")).toHaveText(["Education", "Engineering", "Programming", "Experience", "Leadership", "Languages"]);
-  const fusion = page.locator(".bom tr.skill").first();
+  await expect(page.locator(".bom tbody tr:not(.grp)")).toHaveCount(13);
+  await expect(page.locator(".bom .grp th")).toHaveText(["Education", "Software and autonomy", "Mechanical design", "Experience", "Leadership", "Languages"]);
+  const fusion = page.locator(".bom tr.skill").filter({ hasText: "Fusion" });
   await expect(fusion.locator("td").nth(2)).toHaveText("2");
   expect(await fusion.locator("a").evaluateAll((as) => as.map((a) => a.getAttribute("href")))).toEqual(["#e-03", "#e-02"]);
   // every linked project exists, and each skill's count matches its links
