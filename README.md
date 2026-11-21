@@ -39,11 +39,14 @@ No build step: GitHub Pages serves these files as they are.
   photographs, 600 px tall, without metadata
 - `og-image.png`, `favicon.svg`, `apple-touch-icon.png` — link preview and icons
 - `DESIGN_PLAN.md`, `IMPROVEMENTS.md` — work plans
-- `tests/`, `playwright.config.js`, `package.json` — browser tests (not part of the site)
+- `tests/`, `playwright.config.js`, `package.json` — browser tests (not part of the site); `tests/serve.cjs` is the
+  tests' static server (gzip, no dependencies), and `tests/review-*.spec.js` capture the design
+  review's screenshots and metrics (`REVIEW.md`)
 
 To view it locally, serve the folder (ES modules don't load from `file://`):
 
-    python3 -m http.server 8000    # then open http://localhost:8000
+    node tests/serve.cjs 8000      # then open http://localhost:8000 (gzips like GitHub Pages)
+    python3 -m http.server 8000    # also fine
 
 Tests (Playwright, Chromium):
 
