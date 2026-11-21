@@ -29,6 +29,21 @@ test("content: order, numbering, figures and links", async ({ page }) => {
   await expect(page.locator(".hero-facts")).toContainText("27 June 2027");
 });
 
+test("targeting: software, autonomy and systems first; the degree stays accurate", async ({ page }) => {
+  await page.goto("/");
+  const meta = await page.evaluate(() => [document.title,
+    document.querySelector('meta[name="description"]').content,
+    document.querySelector('meta[property="og:title"]').content,
+    document.querySelector('meta[property="og:description"]').content,
+    document.querySelector("h1").textContent]);
+  for (const m of meta) expect(m).toMatch(/software, autonomy and systems/i);
+  const hero = await page.textContent(".hero");
+  expect(hero).toMatch(/software, autonomy and systems roles/);
+  expect(hero).toContain("MEng Mechanical Engineering");
+  expect(await page.textContent("body")).not.toMatch(/Aiming for mechanical|mechanical engineering roles|mechanical engineering portfolio/i);
+  await expect(page.locator(".foot-line")).toContainText("MEng Mechanical Engineering, UCL");
+});
+
 test("light first: a dark device still gets light; the toggle saves dark and clears it again", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");

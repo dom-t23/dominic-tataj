@@ -71,7 +71,7 @@ test("without flight data the strip stays empty and REPLAY hidden", async ({ pag
 test("no visible headline; the page's h1 names it for screen readers", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("h1")).toHaveCount(1);
-  await expect(page.locator("h1")).toHaveText("Dominic Tataj, mechanical engineering portfolio");
+  await expect(page.locator("h1")).toHaveText("Dominic Tataj, engineering portfolio: software, autonomy and systems");
   expect(await page.locator("h1").boundingBox()).toMatchObject({ width: 1, height: 1 });
 });
 
@@ -84,7 +84,7 @@ test("the h1 stays hidden even when a cached, older stylesheet loads with the pa
 
 test("availability: four pills, the first marked live", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator(".hero-facts span")).toHaveText(["Summer internship or placement year", "From 27 June 2027", "UK, no sponsorship", "London"]);
+  await expect(page.locator(".hero-facts span")).toHaveText(["Summer internship or placement year", "From 27 June 2027", "Full right to work in the UK", "London"]);
   expect(await page.locator(".hero-facts span").first().evaluate((d) => getComputedStyle(d, "::before").animationName)).toBe("live");
 });
 

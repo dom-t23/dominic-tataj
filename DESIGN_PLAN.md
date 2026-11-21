@@ -213,7 +213,7 @@ Findings, scores, conflicts and decisions are in `REVIEW.md`; the reports are in
 10-second test failed, three reviewers called the shell generic). The figures stay. H.3 is
 reopened for a visible name-and-role line (not a slogan); 2.4's count-ups go (they show false
 values before and during the count).
-S.1 [ ] **Targeting copy** (P0): hero, title, meta, OG, hidden h1, About, Contact (R-01, R-28, R-29).
+S.1 [x] **Targeting copy** (P0): hero, title, meta, OG, hidden h1, About, Contact (R-01, R-28, R-29).
 S.2 [ ] **Foundations**: tokens for the chosen direction, contrast fixes, fonts (R-11, R-25, R-24, R-34).
 S.3 [ ] **Hero**: visible name and role, availability as a spec list, hero visual, one-row phone nav, theme button before paint (R-02, R-19, R-18).
 S.4 [ ] **E-04 leads**: project order E-04, E-03, E-02, E-01; figures renumbered; result line on each card (R-04, R-23).
