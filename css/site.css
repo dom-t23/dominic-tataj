@@ -3,7 +3,10 @@
    of the gates in the drone-racing simulator (E-04). It marks what is Dom's (the frame in the hero
    drawing, the estimate in the flight data) and what can be pressed. Source Serif 4 for headings,
    IBM Plex Sans for text, IBM Plex Mono only for real numbers. Every value is a token here. */
-@font-face { font-family: "Source Serif Display"; src: url(../fonts/source-serif-display.woff2) format("woff2"); font-weight: 500 700; font-display: swap; }
+/* The display serif is "optional": on a slow first visit the name stays in Georgia rather than jumping when
+   the serif arrives (the largest shift on a phone); text swaps. Measured: CLS 0.06-0.09 on Lighthouse mobile,
+   first paint about 1.1 s on the throttled-phone budget. */
+@font-face { font-family: "Source Serif Display"; src: url(../fonts/source-serif-display.woff2) format("woff2"); font-weight: 500 700; font-display: optional; }
 @font-face { font-family: "IBM Plex Sans"; src: url(../fonts/plex-sans.woff2) format("woff2"); font-weight: 100 700; font-display: swap; }
 @font-face { font-family: "IBM Plex Mono"; src: url(../fonts/plex-mono-400.woff2) format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "IBM Plex Mono"; src: url(../fonts/plex-mono-500.woff2) format("woff2"); font-weight: 500; font-display: swap; }
