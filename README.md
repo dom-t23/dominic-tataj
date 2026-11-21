@@ -37,7 +37,8 @@ No build step: GitHub Pages serves these files as they are.
 - `images/` — project images; `images/hero/` holds 33 turn frames of the drone drawing (WebP,
   from `tools/hero/`; the page stopped showing them in phase S, and the link preview uses one); `images/photos/` holds the About contact sheet's eight
   photographs, 600 px tall, without metadata
-- `og-image.png`, `favicon.svg`, `apple-touch-icon.png` — link preview and icons
+- `og-image.png`, `favicon.svg`, `apple-touch-icon.png` — link preview and icons; the preview is
+  rendered from `tools/og/og.html` by `node tools/og/render.cjs`
 - `DESIGN_PLAN.md`, `IMPROVEMENTS.md` — work plans
 - `tests/`, `playwright.config.js`, `package.json` — browser tests (not part of the site); `tests/serve.cjs` is the
   tests' static server (gzip, no dependencies), and `tests/review-*.spec.js` capture the design
