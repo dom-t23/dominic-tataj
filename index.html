@@ -168,7 +168,14 @@
       <div class="sheet-body">
         <div class="sheet-title">
           <h3 id="e04-h">A simulated racing drone that flies through gates by camera, with no GPS or map</h3>
-          <p class="summary">There is no GPS, depth sensor or map of the gate positions. The drone detects each gate in its camera image, estimates its position relative to the gate and flies through.</p>
+          <p class="summary">Pooled over 300 seeded courses, it passes 99.8% of gates in a clean world and 98.6% with gate-coloured clutter beside the course. There is no GPS, depth sensor or map of the gate positions: it finds each gate in its camera image, estimates its own position relative to the gate and flies through.</p>
+        </div>
+
+        <div class="specs" aria-label="Key results">
+          <div><span class="label">Gates passed, clean world</span><span class="n">99.8%</span></div>
+          <div><span class="label">With orange clutter</span><span class="n">98.6%</span></div>
+          <div><span class="label">Camera only, clutter</span><span class="n">97.5%</span></div>
+          <div><span class="label">Courses per benchmark</span><span class="n">300</span></div>
         </div>
 
         <div class="player" aria-label="Recorded flight replay">
@@ -196,7 +203,7 @@
             <input id="scrub" type="range" min="0" max="0" value="0" step="1" aria-label="Flight time">
             <span class="clock" id="clock">0.00 s</span>
           </div>
-          <div class="readout">
+          <div class="readout" id="readout" hidden>
             <div><span class="label">Result</span><b id="r-out">–</b></div>
             <div><span class="label">Gates passed</span><b id="r-gates">–</b></div>
             <div><span class="label">Speed</span><b id="r-speed">–</b></div>
@@ -291,7 +298,14 @@
       <div class="sheet-body">
         <div class="sheet-title">
           <h3 id="e03-h">A generatively designed 3-inch FPV drone frame</h3>
-          <p class="summary">The frame needed to survive crashes and avoid resonance with the motors, while keeping the complete drone under the UK CAA's 250 g threshold.</p>
+          <p class="summary">A 38 g printed frame, 36% lighter than a comparable plate frame, that keeps the complete drone at 246 g, under the UK CAA's 250 g threshold. It had to survive crashes and avoid resonance with the motors; arm deflection measured at maximum thrust agreed with Ansys to within 18%.</p>
+        </div>
+
+        <div class="specs" aria-label="Key figures">
+          <div><span class="label">Safety factor</span><span class="n">1.5</span></div>
+          <div><span class="label">Modal constraint</span><span class="n">&gt;300<small>Hz</small></span></div>
+          <div><span class="label">Vs plate design</span><span class="n">−36%<small>mass</small></span></div>
+          <div><span class="label">Printed frame</span><span class="n">38<small>g</small></span></div>
         </div>
 
         <!-- Fig. 02: with WebGL, js/frame3d-boot.js swaps the renders for the real model in
@@ -330,12 +344,6 @@
           </figure>
         </div>
 
-        <div class="specs" aria-label="Key figures">
-          <div><span class="label">Safety factor</span><span class="n">1.5</span></div>
-          <div><span class="label">Modal constraint</span><span class="n">&gt;300<small>Hz</small></span></div>
-          <div><span class="label">Vs plate design</span><span class="n">−36%<small>mass</small></span></div>
-          <div><span class="label">Printed frame</span><span class="n">38<small>g</small></span></div>
-        </div>
 
         <div class="cols">
           <div class="prose">
@@ -388,7 +396,7 @@
       <div class="sheet-body">
         <div class="sheet-title">
           <h3 id="e02-h">A pipe-climbing robot with its drivetrain chosen by simulation</h3>
-          <p class="summary">The robot had to climb a 2 m pipe while dragging a chain whose load grows as it climbs, inside a 400 × 300 mm envelope, on a £50 budget, within 3 minutes.</p>
+          <p class="summary">The robot completed the climb at the IMechE Design Challenge. I built the team's Excel model of the drivetrain and used it to pick the setup from more than 20 simulated: it cut predicted climb time by 22%, and real runs measured 16%. The brief: a 2 m pipe, dragging a chain whose load grows as it climbs, inside 400 × 300 mm, on £50, within 3 minutes.</p>
         </div>
 
         <div class="specs" aria-label="Constraints and results">

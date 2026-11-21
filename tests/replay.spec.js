@@ -17,7 +17,7 @@ test("poster reuses the index; LOAD fetches one flight; switching uses a cache",
     let n = 0; for (let i = 0; i < d.length; i += 4 * 97) if (d[i] + d[i + 1] + d[i + 2] > 120) n++; return n;
   });
   expect(lit).toBeGreaterThan(200);
-  await expect(page.locator("#r-out")).toHaveText("–");
+  await expect(page.locator("#readout")).toBeHidden();   // no dashes before LOAD (R-05)
 
   await page.click("#load");
   await controlsReady(page);

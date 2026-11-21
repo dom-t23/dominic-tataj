@@ -88,7 +88,7 @@ function seg(el, items, key) {
         $("controls").setAttribute("aria-disabled", "false"); load(f); play(true);
       }, function () {
         cur[key] = prev; renderSeg();
-        $("controls").setAttribute("aria-disabled", "false"); $("r-out").textContent = "Could not load that flight";
+        $("controls").setAttribute("aria-disabled", "false"); $("readout").hidden = false; $("r-out").textContent = "Could not load that flight";
       });
     });
     el.appendChild(b);
@@ -111,6 +111,7 @@ function load(f, at) {
   if (imgs[idx]) imgs[idx].onload = draw;
   draw();
   if (posterMode) return;
+  $("readout").hidden = false;   // the readouts wait for a loaded flight rather than showing dashes
   $("scrub").max = String(flight.frames.length - 1);
   var ok = flight.outcome === "completed";
   $("r-out").innerHTML = '<span class="pill ' + (ok ? "ok" : "bad") + '">' + (OUTCOMES[flight.outcome] || flight.outcome.replace(/_/g, " ")) + "</span>" +
