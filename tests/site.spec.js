@@ -13,7 +13,7 @@ test("renders in standards mode with no errors", async ({ page }) => {
 test("content: order, numbering, figures and links", async ({ page }) => {
   await page.goto("/");
   const ids = (sel) => page.$$eval(sel, (es) => es.map((e) => e.id || e.getAttribute("href")));
-  expect(await ids(".cards h3 a")).toEqual(["#e-04", "#e-03", "#e-02", "#e-01"]);
+  expect(await ids(".index h3 a")).toEqual(["#e-04", "#e-03", "#e-02", "#e-01"]);
   expect(await ids("article.sheet")).toEqual(["e-04", "e-03", "e-02", "e-01"]);
   expect(await page.$$eval("figcaption b", (bs) => bs.map((b) => b.textContent)))
     .toEqual(["Fig. 00", "Fig. 01", "Fig. 02", "Fig. 03", "Fig. 04", "Fig. 05", "Fig. 06", "Fig. 07"]);
@@ -88,7 +88,7 @@ test.describe("phone, in-page links", () => {
   test.use(phone);
   test("a project link on a fresh page lands on its project (P1-2)", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });
-    await page.tap('.card h3 a[href="#e-01"]');
+    await page.tap('.proj h3 a[href="#e-01"]');
     await expect.poll(() => page.evaluate(() => Math.round(document.getElementById("e-01").getBoundingClientRect().top)), { timeout: 4000 })
       .toBeLessThan(150);
   });

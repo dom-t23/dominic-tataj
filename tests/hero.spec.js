@@ -79,5 +79,5 @@ test("the screening facts: roles and timing, availability, right to work, base, 
   await expect(page.locator(".avail")).toContainText("From 27 June 2027");
   await expect(page.locator(".avail")).toContainText("Full right to work in the UK");
   await expect(page.locator('.hero .actions a[href="mailto:dominic_tataj@icloud.com"]')).toHaveCount(1);
-  await expect(page.locator(".hero .actions a")).toHaveText(["Download CV", "Email me", "LinkedIn ↗", "GitHub ↗"]);
+  await expect(page.locator(".hero .actions a")).toHaveText(["Download CV PDF", "dominic_tataj@icloud.com", "LinkedIn ↗", "GitHub ↗"]);
 });

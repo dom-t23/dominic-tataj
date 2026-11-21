@@ -13,7 +13,8 @@ import { GROUPS, POSES, MOVES, FOV, G_VERT, G_FRAG, INK_VERT, INK_FRAG } from ".
 
 const Q = new URLSearchParams(location.search);
 const W = +(Q.get("w") || 1280), H = +(Q.get("h") || 960), N = +(Q.get("n") || 36), QUAL = +(Q.get("q") || 0.8);
-const INK = Q.get("ink") || "#3DDCFF", FILL = Q.get("fill") || "#0D0E11", GLOW = Q.get("glow") !== "0";
+// INK draws every part; FRAME redraws the frame alone (Body1, the part Dom designed) on top, so it stands out
+const INK = "#" + (Q.get("ink") || "3DDCFF"), FILL = "#" + (Q.get("fill") || "0D0E11"), FRAME = Q.get("frame") ? "#" + Q.get("frame") : null, GLOW = Q.get("glow") !== "0";
 const MM = 0.001, DEG = Math.PI / 180;
 const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
 const smooth = (a, b, v) => { const t = clamp((v - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
@@ -38,7 +39,7 @@ new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load("../../models/frame.glb"
       const out = mv[5] === "side" ? new THREE.Vector3(Math.sign(c.x), 0, 0) : new THREE.Vector3(Math.sign(c.x), 0, Math.sign(c.z)).normalize();
       off.addScaledVector(out, mv[1] * MM); off.y += mv[2] * MM; off.z -= mv[3] * MM;
     }
-    return { mesh, base: mesh.position.clone(), off, t: mv ? mv[4] : 0,
+    return { mesh, base: mesh.position.clone(), off, t: mv ? mv[4] : 0, frame: GROUPS[0][1].test(mesh.name),
       gmat: new THREE.ShaderMaterial({ vertexShader: G_VERT, fragmentShader: G_FRAG, uniforms: { uId: { value: (i + 1) / 255 }, uInk: { value: 1 } } }) };
   });
   // a little further apart than Fig. 02 (K), so the parts read at hero size
@@ -72,6 +73,15 @@ new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load("../../models/frame.glb"
     r.setRenderTarget(null); r.render(scene, cam);
     inkMat.uniforms.uN.value = cam.near; inkMat.uniforms.uF.value = cam.far;
     r.autoClear = false; r.render(inkScene, new THREE.Camera()); r.autoClear = true;
+    if (FRAME) {
+      // the frame's lines again, in its own colour: the other parts still write depth, so they hide it where they're in front
+      parts.forEach((q) => { q.gmat.uniforms.uInk.value = q.frame ? 1 : 0; q.mesh.material = q.gmat; });
+      r.setRenderTarget(rt); r.render(scene, cam); r.setRenderTarget(null);
+      inkMat.uniforms.uInk.value.set(FRAME);
+      r.autoClear = false; r.render(inkScene, new THREE.Camera()); r.autoClear = true;
+      inkMat.uniforms.uInk.value.set(INK);
+      parts.forEach((q) => { q.gmat.uniforms.uInk.value = 1; });
+    }
     g.clearRect(0, 0, W, H);
     if (GLOW) {
       g.filter = "blur(10px)"; g.globalAlpha = 0.55; g.drawImage(r.domElement, 0, 0);

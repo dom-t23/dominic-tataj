@@ -4,10 +4,12 @@ Engineering portfolio site, hosted with GitHub Pages: https://dom-t23.github.io/
 
 No build step: GitHub Pages serves these files as they are (from `main`, at the root).
 
-**Look:** "Exploded view" (redesign, Nov 2026): one dark theme, Geist and Geist Mono
-(self-hosted in `fonts/`, OFL), one accent (`#3DDCFF`). Every colour, size, radius, shadow,
-easing and duration is a token at the top of `css/site.css`; `node tests/contrast.cjs` checks
-the text colours against WCAG AA on each surface.
+**Look:** dark, warm and typeset (Nov 2026): Source Serif 4 for headings, IBM Plex Sans for text and
+IBM Plex Mono for numbers (self-hosted in `fonts/`, OFL); warm graphite with one accent, the orange of the
+simulator's gates, marking what is Dom's and what can be pressed. It deliberately avoids the common
+"AI-generated" defaults (gradient text, glows, glass, pills, eyebrow labels, card grids, fade-in-everything);
+`tests/redesign.spec.js` fails if they creep back. Every value is a token at the top of `css/site.css`;
+`node tests/contrast.cjs` checks the text colours against WCAG AA on each surface.
 
 - `index.html` — the homepage: hero, project cards, the write-ups, About, Contact
 - `photography.html` — the photographs, full-bleed, with a lightbox (`js/lightbox.js`)
@@ -17,7 +19,7 @@ the text colours against WCAG AA on each surface.
 - `js/` — ES modules. `main.js` is the homepage's entry point and imports:
   - `hero.js` (the hero's drone, which comes apart as the page scrolls: frames
     `images/hero/x00–x23`, pinned on large screens, a still for reduced motion or Save-Data),
-    `cards.js` (the cards' pointer spotlight), `contact.js` (copy email and its burst),
+    `contact.js` (copy email and its burst),
     `sheets.js` (lays every project out once after load, so links down the page land) and
     `reveals.js` (what animates in on scroll; numbers don't count up)
   - `hero-flight.js` (Fig. 00, in E-04: the simulated flight drawn as a plan
@@ -92,9 +94,9 @@ second; this repo's Playwright for the third). Each reproduces the committed fil
     node tools/robot/iso.cjs                                            # writes images/robot-iso-*.png
 
 The hero's frames are drawn from `models/frame.glb` with Fig. 02's shaders and explode moves
-(`js/frame3d.js`), as accent lines on dark surfaces; Chromium encodes the WebP, so no Python is needed.
-Arguments: width, height, frames, quality (`GLOW=0` leaves the glow to CSS, as the page does):
+(`js/frame3d.js`), in neutral ink with the frame redrawn in the accent; Chromium encodes the WebP, so no
+Python is needed. Arguments: width, height, frames, quality; colours as hex without `#`:
 
-    GLOW=0 node tools/hero/explode.cjs 960 720 24 0.72                  # writes images/hero/x*.webp
+    GLOW=0 INK=A89F93 FILL=141311 FRAME=FF6A2B node tools/hero/explode.cjs 960 720 24 0.72   # images/hero/x*.webp
 
 Drone-racing source: https://github.com/dom-t23/vision-drone-racing
