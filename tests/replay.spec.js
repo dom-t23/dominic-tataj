@@ -77,7 +77,7 @@ test.describe("phone", () => {
   test("replay fits and status colours pass contrast", async ({ page }) => {
     await page.goto("/");
     await page.click("#load"); await controlsReady(page);
-    expect(await page.evaluate(() => getComputedStyle(document.querySelector(".pill")).color)).toBe("rgb(92, 208, 143)");
+    expect(await page.evaluate(() => getComputedStyle(document.querySelector(".pill")).color)).toBe("rgb(134, 201, 154)");
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
   });
 });

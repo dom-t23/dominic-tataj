@@ -6,7 +6,7 @@ test("About leads to the photography page; the homepage loads no full photograph
   const photos = [];
   page.on("request", (r) => { if (/\/images\/photos\/\d\d\.jpg/.test(r.url())) photos.push(r.url()); });
   await page.goto("/", { waitUntil: "networkidle" });
-  await expect(page.locator(".photo-teaser")).toHaveAttribute("href", "photography.html");
+  await expect(page.locator(".photo-link")).toHaveAttribute("href", "photography.html");
   expect(photos).toEqual([]);
 });
 
@@ -15,7 +15,9 @@ test("eight captioned photographs, WebP with a JPEG fallback, described, lazy be
   await page.goto("/photography.html", { waitUntil: "networkidle" });
   const items = page.locator("#gallery li");
   await expect(items).toHaveCount(8);
-  await expect(items.nth(3).locator(".cap")).toHaveText("03 · Catania, Sicily");
+  // the caption sits under the photograph, like a print's, not over it on hover
+  await expect(items.nth(3).locator(".cap")).toHaveText("03Catania, Sicily");
+  await expect(items.nth(3).locator(".cap")).toBeVisible();
   for (const li of await items.all()) {
     await expect(li.locator("source")).toHaveAttribute("type", "image/webp");
     expect((await li.locator("img").getAttribute("alt")).length).toBeGreaterThan(20);
