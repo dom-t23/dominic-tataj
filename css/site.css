@@ -345,7 +345,7 @@ html:not(.js) .theme-btn { display: none; }   /* without JS it can't work; with 
 .specs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5) var(--gutter); }
 @media (min-width: 760px) { .specs { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .specs > div { display: flex; flex-direction: column; gap: 6px; padding-top: var(--s-3); border-top: 1px solid var(--rule-strong); min-width: 0; }
-.specs .n { order: 1; font: 500 clamp(24px, 8.5vw, 33px)/1 var(--font-data); letter-spacing: -0.06em; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.specs .n { order: 1; font: 500 clamp(24px, 8.5vw, 33px)/1 var(--font-data); letter-spacing: -0.02em; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .specs .n small { font-size: 0.58em; letter-spacing: 0; margin-left: 2px; color: var(--ink-2); }
 .specs .label { order: 2; font: 400 var(--fs-0)/1.4 var(--font-body); color: var(--ink-2); }
 @media (min-width: 1200px) { .sheet.lead .specs .n { font-size: var(--fs-5); } }
@@ -530,7 +530,7 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 .f3-steps button span { font: 500 11px/1 var(--font-data); margin-right: 2px; }
 .f3-steps button:hover { color: var(--ink); }
 .f3-steps button[aria-current] { color: var(--ink); background: var(--paper); box-shadow: var(--e-1); }
-.f3-steps button[aria-current] span { color: var(--signal); }
+.f3-steps button[aria-current] span { color: var(--link); }
 /* how far through each view the scroll is: an orange line along the foot of its button */
 .f3-steps button::after {
   content: ""; position: absolute; left: 10px; right: 10px; bottom: 3px; height: 2px; border-radius: 1px; background: var(--signal);
