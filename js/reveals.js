@@ -5,7 +5,8 @@ import { reveal } from "./motion.js";
 // any earlier would hold up that paint on a slow phone.
 requestAnimationFrame(function () {
   setTimeout(function () {
-    document.querySelectorAll("svg.drawing").forEach(function (el) { reveal(el, "draw"); });
+    // only the drawings on show: Fig. 03 and 06 have a phone version, and the hidden one is left drawn
+    document.querySelectorAll("svg.drawing").forEach(function (el) { if (el.getClientRects().length) reveal(el, "draw"); });
     document.querySelectorAll(".sheet-meta").forEach(function (el) { reveal(el, "fill"); });
     // Key figures no longer count up (REVIEW.md R-10): a number caught mid-count, or at 0 before
     // it is reached, is a false value, so they show the real one from the first frame.

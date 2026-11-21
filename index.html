@@ -364,7 +364,7 @@
           <div class="fig-stack">
             <figure>
               <div class="plate">
-                <svg class="drawing" viewBox="0 0 520 170" role="img" aria-label="Mass budget: 246 grams all-up against a 250 gram limit, of which the frame is 38 grams">
+                <svg class="drawing wide" viewBox="0 0 520 170" role="img" aria-label="Mass budget: 246 grams all-up against a 250 gram limit, of which the frame is 38 grams">
                   <!-- scale: 0 g at x=20, 260 g at x=500 → 1.846 px/g -->
                   <line x1="20" y1="96" x2="500" y2="96" stroke="var(--rule)" stroke-width="1"/>
                   <rect x="20" y="62" width="70.2" height="28" fill="var(--signal)"/>
@@ -382,6 +382,26 @@
                     <text x="500" y="118" text-anchor="end">g</text>
                   </g>
                   <text x="20" y="150" font-size="11" fill="var(--muted)">Margin to limit: 4 g</text>
+                </svg>
+                <!-- the same budget drawn for a phone's width, so its labels stay legible (REVIEW.md R-20) -->
+                <svg class="drawing narrow" viewBox="0 0 320 140" role="img" aria-label="Mass budget: 246 grams all-up against a 250 gram limit, of which the frame is 38 grams">
+                  <!-- scale: 0 g at x=12, 260 g at x=308 → 1.1385 px/g -->
+                  <line x1="12" y1="82" x2="308" y2="82" stroke="var(--rule)" stroke-width="1"/>
+                  <rect x="12" y="52" width="43.3" height="24" fill="var(--signal)"/>
+                  <rect x="55.3" y="52" width="236.8" height="24" fill="var(--ink)" opacity="0.82"/>
+                  <line x1="296.6" y1="30" x2="296.6" y2="88" stroke="var(--link)" stroke-width="2" stroke-dasharray="4 3"/>
+                  <text x="310" y="22" text-anchor="end" font-size="11" fill="var(--link)">CAA limit 250 g</text>
+                  <text x="12" y="44" font-size="11" fill="var(--ink)">Frame 38 g</text>
+                  <text x="288" y="44" text-anchor="end" font-size="11" fill="var(--ink)">All-up 246 g</text>
+                  <g font-size="10" fill="var(--muted)" text-anchor="middle">
+                    <line x1="12" y1="82" x2="12" y2="88" stroke="var(--muted)"/><text x="12" y="102">0</text>
+                    <line x1="68.9" y1="82" x2="68.9" y2="88" stroke="var(--muted)"/><text x="68.9" y="102">50</text>
+                    <line x1="125.9" y1="82" x2="125.9" y2="88" stroke="var(--muted)"/><text x="125.9" y="102">100</text>
+                    <line x1="182.8" y1="82" x2="182.8" y2="88" stroke="var(--muted)"/><text x="182.8" y="102">150</text>
+                    <line x1="239.7" y1="82" x2="239.7" y2="88" stroke="var(--muted)"/><text x="239.7" y="102">200</text>
+                    <text x="308" y="102" text-anchor="end">g</text>
+                  </g>
+                  <text x="12" y="128" font-size="11" fill="var(--muted)">Margin to limit: 4 g</text>
                 </svg>
               </div>
               <figcaption><b>Fig. 03</b> — Mass budget. Frame vs. complete drone, against the CAA 250 g threshold.</figcaption>
@@ -457,7 +477,7 @@
           </div>
           <div class="fig-stack">
             <figure>
-              <div class="plate">
+              <div class="plate scroll-x" tabindex="0" role="region" aria-label="Fig. 05, scrolls sideways on narrow screens">
                 <svg class="drawing" id="flowchart" viewBox="0 0 520 250" role="img" aria-label="Simulation loop: state, motor torque at current speed, drive force, slip check, acceleration, integrate over 10 milliseconds, repeat">
                   <defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--ink)"/></marker></defs>
                   <g font-size="11" fill="var(--ink)" text-anchor="middle">
@@ -493,7 +513,7 @@
             </figure>
             <figure>
               <div class="plate">
-                <svg class="drawing" viewBox="0 0 520 132" role="img" aria-label="Climb time reduction: 22 percent predicted, 16 percent measured">
+                <svg class="drawing wide" viewBox="0 0 520 132" role="img" aria-label="Climb time reduction: 22 percent predicted, 16 percent measured">
                   <!-- scale: 0% at x=118, 25% at x=498 → 15.2 px per % -->
                   <g font-size="11">
                     <text x="16" y="38" fill="var(--ink)">Predicted</text>
@@ -506,6 +526,21 @@
                   <line x1="118" y1="98" x2="498" y2="98" stroke="var(--rule)"/>
                   <g font-size="10" fill="var(--muted)" text-anchor="middle">
                     <text x="118" y="116">0</text><text x="194" y="116">5</text><text x="270" y="116">10</text><text x="346" y="116">15</text><text x="422" y="116">20</text><text x="498" y="116">25%</text>
+                  </g>
+                </svg>
+                <svg class="drawing narrow" viewBox="0 0 320 112" role="img" aria-label="Climb time reduction: 22 percent predicted, 16 percent measured">
+                  <!-- scale: 0% at x=88, 25% at x=300 → 8.48 px per % -->
+                  <g font-size="11">
+                    <text x="8" y="31" fill="var(--ink)">Predicted</text>
+                    <rect x="88" y="16" width="186.6" height="20" fill="var(--ink)" opacity="0.82"/>
+                    <text x="280.6" y="31" fill="var(--ink)">22%</text>
+                    <text x="8" y="67" fill="var(--ink)">Measured</text>
+                    <rect x="88" y="52" width="135.7" height="20" fill="var(--signal)"/>
+                    <text x="229.7" y="67" fill="var(--ink)">16%</text>
+                  </g>
+                  <line x1="88" y1="84" x2="300" y2="84" stroke="var(--rule)"/>
+                  <g font-size="10" fill="var(--muted)" text-anchor="middle">
+                    <text x="88" y="100">0</text><text x="130.4" y="100">5</text><text x="172.8" y="100">10</text><text x="215.2" y="100">15</text><text x="257.6" y="100">20</text><text x="300" y="100" text-anchor="end">25%</text>
                   </g>
                 </svg>
               </div>

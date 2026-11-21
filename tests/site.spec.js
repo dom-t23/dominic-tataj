@@ -87,6 +87,18 @@ test.describe("phone", () => {
   });
 });
 
+test.describe("phone, figures", () => {
+  test.use(phone);
+  test("figure labels stay legible on a phone (R-20): at least 9 px, and no sideways page scroll", async ({ page }) => {
+    await page.goto("/", { waitUntil: "networkidle" });
+    const sizes = await page.$$eval("svg.drawing", (svgs) => svgs.filter((s) => s.getClientRects().length).flatMap((s) =>
+      Array.from(s.querySelectorAll("text")).map((t) => t.getBoundingClientRect().height)));
+    expect(sizes.length).toBeGreaterThan(20);
+    expect(Math.min(...sizes)).toBeGreaterThan(9);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
+  });
+});
+
 test("the nav is the name and three links: no sheet counter, no progress line", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
   await expect(page.locator("#sheet-no, #progress, .tblock, #approve")).toHaveCount(0);

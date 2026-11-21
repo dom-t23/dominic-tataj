@@ -416,6 +416,14 @@ figcaption b { color: var(--ink); font-weight: 600; }
   .f3-track.is-3d .f3-stage { display: none; }
 }
 .drawing { display: block; width: 100%; height: auto; }
+/* Fig. 03 and 06 have a second drawing for phones; Fig. 05 keeps a legible width and scrolls (R-20) */
+.drawing.narrow { display: none; }
+@media (max-width: 520px) {
+  .drawing.wide { display: none; }
+  .drawing.narrow { display: block; }
+  .plate.scroll-x { overflow-x: auto; overscroll-behavior-x: contain; }
+  .plate.scroll-x .drawing { min-width: 480px; }
+}
 .drawing text { font-family: var(--font-data); letter-spacing: 0.01em; }
 
 /* replay player */

@@ -221,7 +221,7 @@ S.4 [x] **E-04 leads**: project order E-04, E-03, E-02, E-01; figures renumbered
    Fig. 03 the mass budget (was 02). Sections 1 to 4 above keep the old numbers as history.
 S.5 [ ] **Project anatomy**: new sheet layout, metadata line, key figures under each summary, E-04 key figures, results first (R-03, R-05, R-06, R-09, R-21).
 S.6 [x] **Accuracy**: Fig. 00 and rig wording, E-04 title, E-01 count, E-02 limitation, count-ups removed (R-10, R-13, R-14, R-15).
-S.7 [ ] **Phone length and legibility**: Fig. 01 unpinned on phones, Fig. 02/05/06 for phones, parts list (R-08, R-20, R-27, R-31).
+S.7 [x] **Phone length and legibility**: Fig. 01 unpinned on phones, Fig. 02/05/06 for phones, parts list (R-08, R-20, R-27, R-31).
 S.8 [ ] **Figure language**: sentence case and correct units; one tag, segmented control and slider (R-12, R-26).
 S.9 [ ] **About and Contact**: skills table on phones, mailto, CV slot (R-07, R-09, R-29, R-30).
 S.10 [ ] **Accessibility**: semantics, loops that settle, rig on touch (R-30, R-32, R-33).

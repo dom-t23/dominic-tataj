@@ -11,7 +11,7 @@ test("first screen is never hidden; figures draw and each project's chips fill i
   expect(await page.evaluate(() => [...document.querySelectorAll(".hero *")].filter((e) => e.style.opacity === "0").length)).toBe(0);
   expect(await prepared(page)).toBeGreaterThan(20);
   await jump(page, "#e-03 > .sheet-meta");
-  await jump(page, "#e-03 svg.drawing");
+  await jump(page, "#e-03 svg.drawing.wide");
   await expect.poll(() => page.locator("#e-03 svg.drawing *[style]").count(), { timeout: 8000 }).toBe(0);
   expect(await page.locator("#e-03 > .sheet-meta > *").evaluateAll((ds) => ds.every((d) => getComputedStyle(d).opacity === "1"))).toBe(true);
 });
