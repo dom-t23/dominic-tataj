@@ -222,11 +222,11 @@ S.4 [x] **E-04 leads**: project order E-04, E-03, E-02, E-01; figures renumbered
 S.5 [x] **Project anatomy**: new sheet layout, metadata line, key figures under each summary, E-04 key figures, results first (R-03, R-05, R-06, R-09, R-21).
 S.6 [x] **Accuracy**: Fig. 00 and rig wording, E-04 title, E-01 count, E-02 limitation, count-ups removed (R-10, R-13, R-14, R-15).
 S.7 [x] **Phone length and legibility**: Fig. 01 unpinned on phones, Fig. 02/05/06 for phones, parts list (R-08, R-20, R-27, R-31).
-S.8 [ ] **Figure language**: sentence case and correct units; one tag, segmented control and slider (R-12, R-26).
-S.9 [ ] **About and Contact**: skills table on phones, mailto, CV slot (R-07, R-09, R-29, R-30).
-S.10 [ ] **Accessibility**: semantics, loops that settle, rig on touch (R-30, R-32, R-33).
-S.11 [ ] **Performance and SEO**: JSON-LD, OG image, theme-color, loading fixes, perf test (R-17, R-34, R-35).
-S.12 [ ] **Dark theme pass** (R-24).
+S.8 [x] **Figure language**: sentence case and correct units; one tag, segmented control and slider (R-12, R-26).
+S.9 [x] **About and Contact**: skills table on phones, mailto, CV slot (R-07, R-09, R-29, R-30).
+S.10 [x] **Accessibility**: semantics, loops that settle (R-30, R-32). The rig on touch (R-33) is in REVIEW.md's backlog.
+S.11 [x] **Performance and SEO**: JSON-LD, OG image, theme-color, loading fixes, perf test (R-17, R-34, R-35).
+S.12 [x] **Dark theme pass** (R-24).
    Direction (phase 3, `review/directions/`): three prototypes in separate worktrees, judged blind.
    Built: direction A's "flight log" visual system (Archivo semi-expanded headings, Plex Sans and
    Mono, warm white, hairline rules, no cards, only interactive figures raised, Fig. 00 as a
@@ -234,7 +234,7 @@ S.12 [ ] **Dark theme pass** (R-24).
    out among the facts, LinkedIn and GitHub beside Email me, a projects-and-results table) and C's
    colour-keyed caption words. The hero drone (H.1) is gone: the hero's one moving thing is now
    the flight, which carries information (MOT-03).
-S.13 [ ] Independent re-audit, after screenshots, scorecard "after" column, PR.
+S.13 [x] Independent re-audit, after screenshots, scorecard "after" column, PR.
 
 ## 4. About & contact
 

@@ -1,7 +1,7 @@
 // Design-review screenshots (REVIEW.md). Run: npm run screens -- review-capture
 // Saves full-page and above-the-fold shots at four sizes, light and dark, plus a phone run with
 // reduced motion, to review/<REVIEW_OUT>/ (default "baseline"; "after" for the re-audit).
-// Tagged @screens, so npm test skips it.
+// In the "screens" project (playwright.config.js), so npm test skips it.
 const { test } = require("@playwright/test");
 const { phone } = require("./helpers");
 

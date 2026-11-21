@@ -20,90 +20,115 @@ Status of the plan is tracked in `DESIGN_PLAN.md`, phase S.
    more reviewers calling the look generic: all three hold), this is a **redesign** of the identity
    layer: type, hero, project anatomy and surfaces. The figures and the engineering underneath
    stay.
-5. The order of work: the targeting copy first; then new tokens; then the hero, E-04 leading, phone
-   density, honesty fixes in the figures, accessibility and performance. Several items need content
-   only Dom has (CV, hardware photos, E-03 baselines, the E-01 model count).
+5. Outcome: the targeting copy, E-04 first, honest figure captions, a recruiter-first hero (name,
+   roles, availability, right to work and email on the first phone screen) and a "flight log"
+   identity chosen by a blind study of three prototypes; a second independent verification found
+   no P0 or P1 left, and every reviewer's score rose (visual design 6 → 8, recruiter 5 → 8).
+   Several items still need content only Dom has: a CV, hardware photos, E-03 baselines and the
+   E-01 model count.
 
 ## Scorecard
 
-Each reviewer scored its own dimensions (1 to 10). "After" is filled in by the independent
-verifier in phase 5.
+Each reviewer scored its own dimensions (1 to 10). "After" is the second independent
+verification (`review/verify/round-2.md`), on the final build; the first round
+(`round-1.md`) scored recruiter 8, hiring engineer 8.5, visual design 8, interaction 7.5,
+accessibility 8, performance and SEO 8.5, copy 8.5, benchmark 7.5, and found three P1s, since fixed.
 
 | Reviewer | Dimension | Before | After |
 |---|---|---|---|
-| recruiter | 10-second clarity | 6 | |
-| | 30-second skim | 4 | |
-| | CTA and CV findability | 4 | |
-| | Fit for defence/autonomy recruiters | 5 | |
-| | Fit for software recruiters | 3 | |
-| | Memorability | 6 | |
-| | **Overall** (10-second test: FAIL) | **5** | |
-| hiring-engineer | Ownership clarity | 6 | |
-| | Quantified results | 7 | |
-| | Method, testing and limitations | 6 | |
-| | Value of the interactive figures | 7 | |
-| | Project ordering for the target roles | 4 | |
-| | Technical credibility | 7 | |
-| | **Overall** | **6** | |
-| visual-design | Typography | 6 | |
-| | Grid and alignment | 6 | |
-| | Spacing system | 6 | |
-| | Colour and contrast | 6 | |
-| | Hierarchy | 5 | |
-| | Component consistency | 6 | |
-| | Depth and elevation | 6 | |
-| | Imagery | 6 | |
-| | Dark theme | 6 | |
-| | Distinctiveness and premium feel | 5 | |
-| | **Overall** | **6** | |
-| interaction-motion | Purposefulness | 6 | |
-| | Smoothness | 7 | |
-| | Discoverability | 6 | |
-| | Interruptibility and control | 7 | |
-| | Reduced-motion fallbacks | 9 | |
-| | Touch behaviour | 6 | |
-| | Scroll-linked effects | 4 | |
-| | Cursor and micro-interactions | 7 | |
-| | **Overall** | **6** | |
-| accessibility | Contrast (light) | 5 | |
-| | Contrast (dark) | 8 | |
-| | Keyboard and focus | 7 | |
-| | Semantics, landmarks and headings | 6 | |
-| | Alternatives for non-text content | 8 | |
-| | Target size | 6 | |
-| | Reflow and zoom | 6 | |
-| | Motion and reduced motion | 8 | |
-| | **Overall** | **6.5** | |
-| performance-seo | First-load weight | 7 | |
-| | LCP | 7 | |
-| | CLS | 5 | |
-| | Font loading | 5 | |
-| | Images | 7 | |
-| | Lazy-loading and main thread | 6 | |
-| | Metadata and SEO | 5 | |
-| | Social cards | 3 | |
-| | Structured data | 1 | |
-| | **Overall** | **5** | |
-| copy | Headline and first impression | 4 | |
-| | Role and target clarity | 3 | |
-| | Availability and logistics | 6 | |
-| | Project titles and summaries | 5 | |
-| | Scanability | 5 | |
-| | Voice and consistency | 7 | |
-| | UK spelling and mechanics | 7 | |
-| | Microcopy and CTAs | 5 | |
-| | **Overall** | **5** | |
-| benchmark | Memorability | 6 | |
-| | 10-second clarity | 5 | |
-| | Craft | 7 | |
-| | Proof of work | 6 | |
-| | Credibility for engineering hiring | 6 | |
-| | Distinctiveness | 6 | |
-| | **Overall** | **6** | |
+| recruiter | 10-second clarity | 6 | 9 |
+| | 30-second skim | 4 | 8 |
+| | CTA and CV findability | 4 | 7 |
+| | Fit for defence/autonomy recruiters | 5 | 8 |
+| | Fit for software recruiters | 3 | 7 |
+| | Memorability | 6 | 7 |
+| | **Overall** (10-second test: FAIL → PASS) | **5** | **8** |
+| hiring-engineer | Ownership clarity | 6 | 9 |
+| | Quantified results | 7 | 9 |
+| | Method, testing and limitations | 6 | 9 |
+| | Value of the interactive figures | 7 | 8 |
+| | Project ordering for the target roles | 4 | 9 |
+| | Technical credibility | 7 | 8 |
+| | **Overall** | **6** | **9** |
+| visual-design | Typography | 6 | 8 |
+| | Grid and alignment | 6 | 8 |
+| | Spacing system | 6 | 8 |
+| | Colour and contrast | 6 | 8 |
+| | Hierarchy | 5 | 9 |
+| | Component consistency | 6 | 7 |
+| | Depth and elevation | 6 | 7 |
+| | Imagery | 6 | 7 |
+| | Dark theme | 6 | 8 |
+| | Distinctiveness and premium feel | 5 | 7 |
+| | **Overall** | **6** | **8** |
+| interaction-motion | Purposefulness | 6 | 8 |
+| | Smoothness | 7 | 7 |
+| | Discoverability | 6 | 7 |
+| | Interruptibility and control | 7 | 8 |
+| | Reduced-motion fallbacks | 9 | 9 |
+| | Touch behaviour | 6 | 7 |
+| | Scroll-linked effects | 4 | 7 |
+| | Cursor and micro-interactions | 7 | 7 |
+| | **Overall** | **6** | **7** |
+| accessibility | Contrast (light) | 5 | 8 |
+| | Contrast (dark) | 8 | 9 |
+| | Keyboard and focus | 7 | 9 |
+| | Semantics, landmarks and headings | 6 | 9 |
+| | Alternatives for non-text content | 8 | 8 |
+| | Target size | 6 | 8 |
+| | Reflow and zoom | 6 | 9 |
+| | Motion and reduced motion | 8 | 9 |
+| | **Overall** | **6.5** | **9** |
+| performance-seo | First-load weight | 7 | 8 |
+| | LCP | 7 | 9 |
+| | CLS | 5 | 8 |
+| | Font loading | 5 | 7 |
+| | Images | 7 | 8 |
+| | Lazy-loading and main thread | 6 | 8 |
+| | Metadata and SEO | 5 | 9 |
+| | Social cards | 3 | 9 |
+| | Structured data | 1 | 9 |
+| | **Overall** | **5** | **8** |
+| copy | Headline and first impression | 4 | 9 |
+| | Role and target clarity | 3 | 9 |
+| | Availability and logistics | 6 | 9 |
+| | Project titles and summaries | 5 | 8 |
+| | Scanability | 5 | 8 |
+| | Voice and consistency | 7 | 9 |
+| | UK spelling and mechanics | 7 | 9 |
+| | Microcopy and CTAs | 5 | 8 |
+| | **Overall** | **5** | **9** |
+| benchmark | Memorability | 6 | 7 |
+| | 10-second clarity | 5 | 9 |
+| | Craft | 7 | 8 |
+| | Proof of work | 6 | 8 |
+| | Credibility for engineering hiring | 6 | 8 |
+| | Distinctiveness | 6 | 6 |
+| | **Overall** | **6** | **7** |
 
 "Generic or template-like?": recruiter **yes**, visual-design **yes**, benchmark **yes (at the
 fold)**; hiring-engineer no, interaction-motion no, copy no (voice); accessibility and
 performance-seo did not assess it.
+
+## Before and after
+
+Screenshots are JPEG copies of `review/baseline/` and `review/after/` (same capture spec,
+`tests/review-capture.spec.js`). Phone: 375×812; laptop: 1440×900.
+
+| | Before | After |
+|---|---|---|
+| Phone hero | ![before](review/baseline-jpg/phone-light-fold.jpg) | ![after](review/after-jpg/phone-light-fold.jpg) |
+| Desktop hero | ![before](review/baseline-jpg/laptop-light-fold.jpg) | ![after](review/after-jpg/laptop-light-fold.jpg) |
+| A project: E-04 | ![before](review/baseline-jpg/scroll/laptop-light-06.jpg) | ![after](review/after-jpg/scroll/laptop-light-02.jpg) |
+| About | ![before](review/baseline-jpg/scroll/laptop-light-12.jpg) | ![after](review/after-jpg/scroll/laptop-light-12.jpg) |
+| Dark mode | ![before](review/baseline-jpg/laptop-dark-fold.jpg) | ![after](review/after-jpg/laptop-dark-fold.jpg) |
+| Dark, phone | ![before](review/baseline-jpg/phone-dark-fold.jpg) | ![after](review/after-jpg/phone-dark-fold.jpg) |
+| Link preview | (drawing-set card, see git history of `og-image.png`) | ![after](og-image.png) |
+
+Measured (details in `review/after/NOTES.md`): throttled-phone first paint 1280 → about 950 ms
+(budget 1200), first-load JS 18 → 19 KB gzipped (budget 60), CLS 0.01 → 0.001, phone page 25 → 22
+screens, axe-core 0 violations in both themes at 1440 and 375 px. Fonts grew from 81 to 147 KB
+(Archivo's variable file; see the backlog).
 
 ## Merged findings
 
@@ -256,8 +281,9 @@ The losing directions, as prototyped (JPEG copies; full PNGs are regenerable):
 
 ## Plan
 
-Each batch is one commit and references finding IDs. P0 first, then P1, then P2 as time allows.
-The visual batches follow the winning direction.
+Each batch is one or more commits referencing finding IDs. P0 first, then P1, then P2 as time allows.
+The visual batches follow the winning direction. **Status: all twelve batches done** (S.10's rig-on-touch
+item and some P2s are in the backlog below); see `git log` on `claude/design-review`.
 
 | Batch | Contents | Findings |
 |---|---|---|
@@ -312,6 +338,22 @@ The visual batches follow the winning direction.
 7. **Artefacts** he can share: the E-01 report, the E-02 model, an E-03 Ansys image (R-38).
 8. **Optional**: whether to state UK security-clearance eligibility (only if true).
 9. **Search Console**: verify the site property and request re-indexing after merge (PERF-12).
+
+## Known issues and backlog after verification
+
+Two independent verification rounds (`review/verify/round-1.md`, `round-2.md`). Round 1 found
+three P1s (phone figure clipping, short in-page jumps on phones, 320 px reflow), fixed with
+regression tests; round 2 found **no P0 or P1**. Its remaining P2s, not yet done:
+
+- Under instant programmatic scroll jumps, `content-visibility: auto` on the project sheets can
+  still shift layout (0 with wheel or touch scrolling; CLS 0.002 in normal use).
+- Fig. 01's column-header buttons share accessible names across the two worlds; give each an
+  `aria-label` with its world.
+- Caption link-buttons (Replay, Try the hover controller) are 20 px tall and the gain sliders
+  16 px on phones; they pass 2.5.8 by spacing, but bigger thumbs would be kinder.
+- The open hover rig still captures vertical touch scrolls (MOT-05).
+- Self-host an instanced, subset Archivo (about 25 KB instead of 90 KB) if fonts matter more
+  than the build-free simplicity of Google Fonts.
 
 ## P3 backlog
 

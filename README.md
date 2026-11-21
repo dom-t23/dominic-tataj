@@ -52,8 +52,10 @@ To view it locally, serve the folder (ES modules don't load from `file://`):
 Tests (Playwright, Chromium):
 
     npm install && npx playwright install chromium   # first time only
-    npm test            # structure, hero and its drone, rig, 3D frame, replay and its strip, benchmark, climb, scatter, photos, quirks, contact, motion, performance
-    npm run screens     # review screenshots in test-results/screens/
+    npm test            # structure, hero and its flight log, rig, 3D frame, replay and its strip, benchmark, climb, scatter, photos, quirks, contact, motion; then performance, on its own
+    npm run screens     # review screenshots in test-results/screens/, and the design review's captures (REVIEW.md)
+
+`npm test` runs on two workers: Fig. 02 renders three.js in software WebGL, which is CPU-heavy.
 
 To re-record the replay, fly the courses from a checkout of the drone-racing repo (it needs
 that repo's requirements: numpy, opencv-python-headless, scipy). This runs its simulator and

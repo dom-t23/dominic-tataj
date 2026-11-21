@@ -29,6 +29,9 @@ test.describe("paging", () => {
   test("the buttons page the strip and stop at its ends", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });   // loads after the load event
   await toView(page);
+  // the photos are lazy: wait until they have all loaded, or the strip's width changes mid-paging
+  await page.locator(".film img").evaluateAll((is) => is.forEach((i) => { i.loading = "eager"; }));
+  await page.waitForFunction(() => [...document.querySelectorAll(".film img")].every((i) => i.complete && i.naturalWidth));
   await expect(page.locator(".cs-nav")).toBeVisible();
   await expect(page.locator("#cs-prev")).toBeDisabled();
   const left = () => page.locator(".film").evaluate((f) => f.scrollLeft);

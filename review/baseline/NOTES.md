@@ -19,7 +19,7 @@
 - Sizes: phone 375×812 (iPhone 13 metrics in Chromium, DPR 3, touch), tablet 768×1024,
   laptop 1440×900, desktop 1920×1080.
 
-Regenerate: `REVIEW_OUT=baseline npx playwright test tests/review-capture.spec.js tests/review-metrics.spec.js --grep @screens`
+Regenerate: `REVIEW_OUT=baseline npx playwright test tests/review-capture.spec.js tests/review-metrics.spec.js --project=screens`
 (needs a server on 127.0.0.1:4173; on this machine `python -m http.server 4173 --bind 127.0.0.1`).
 
 ## Metrics (`metrics.json`)

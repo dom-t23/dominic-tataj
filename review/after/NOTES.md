@@ -8,7 +8,7 @@ by screen: phone 375×812, **22 screens**, was 25; laptop 1440×900, 15 screens)
 phone run. In the full-page parts the pinned Fig. 02 (pinned only on screens 600 px or wider) shows
 as about 1.5 screens of empty panel: on screen that height is the scroll that turns the model.
 
-Regenerate: `REVIEW_OUT=after npx playwright test tests/review-capture.spec.js tests/review-metrics.spec.js --grep @screens`
+Regenerate: `REVIEW_OUT=after npx playwright test tests/review-capture.spec.js tests/review-metrics.spec.js --project=screens`
 (Playwright starts `node tests/serve.cjs 4173` if nothing is serving 127.0.0.1:4173).
 
 ## Metrics (`metrics.json`), before and after

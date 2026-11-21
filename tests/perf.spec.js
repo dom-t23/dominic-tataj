@@ -5,6 +5,7 @@ const { test, expect } = require("@playwright/test");
 const { phone } = require("./helpers");
 
 test.use(phone);
+test.describe.configure({ mode: "serial" });   // one at a time, after the rest (playwright.config.js)
 
 test("first paint under 1.2 s on a throttled phone; under 60 KB of gzipped JS", async ({ page, context }) => {
   const cdp = await context.newCDPSession(page);
