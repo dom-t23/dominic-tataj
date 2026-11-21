@@ -219,7 +219,40 @@ Direction study: see **Direction** below (three prototypes in separate worktrees
 
 ## Direction
 
-*(Filled in after phase 3.)*
+Three directions were briefed (`review/directions/BRIEFS.md`) and prototyped, each in its own git
+worktree (branches `proto/dir-A`, `proto/dir-B`, `proto/dir-C`, kept locally; the worktrees have
+been removed). Each covered the hero, E-04 and About with real content. A fresh judge who had
+seen none of the work scored only the screenshots, the brief and the benchmark
+(`review/directions/JUDGEMENT.md`). Weighting: 10-second clarity 30%, credibility 30%,
+memorability 15%, craft 15%, fit 10%.
+
+| Direction | Concept | 10-s clarity | Memorability | Craft | Credibility | Fit | **Weighted** |
+|---|---|---|---|---|---|---|---|
+| A, "Flight log" | Archivo semi-expanded, Plex Sans/Mono, warm white, hairline rules, no cards; Fig. 00 as a complete flight log beside the name | 8 | 7 | 8 | 8 | 8 | **7.85** |
+| B, "Brief" | Geist/Geist Mono, navy on white; an "at a glance" fact card and a projects-and-results table in the first screen | 9 | 7 | 8 | 9 | 9 | **8.55** |
+| C, "Field notes" | Instrument Sans with Source Serif body, editorial; full-width Fig. 00, colour-keyed prose, sticky index | 8 | 7 | 7 | 7 | 8 | **7.40** |
+
+**Decision: B's information design in A's visual system, with C's colour-keyed captions** (the
+judge's hybrid). B won the two heaviest criteria (the only phone fold with every screening fact,
+the written-out email and LinkedIn/GitHub; the only desktop fold with a result for every
+project). Its weakness was looking closest to the generic shell; the judge's hybrid takes A's
+answer to that (flat ruled fact list, square buttons, unboxed projects with a margin column, the
+complete Fig. 00) and C's caption keys. B's card-with-labelled-cells project header was flagged
+as reading like a drawing-set title block, so it was not used.
+
+Built on the main branch in `b7cec75` and the commits after it. One judgement call beyond the
+spec: A's type and palette (Archivo/Plex, warm white) were kept for the whole page rather than
+B's Geist/navy, because the judge's grafts already took A's treatment for every visible component
+and mixing two systems would have undone the consistency the art director asked for. C's sticky
+index was left out (the judge's fallback: A's metadata column and the index don't both fit).
+
+The losing directions, as prototyped (JPEG copies; full PNGs are regenerable):
+
+| | Phone fold | Desktop fold | E-04, desktop |
+|---|---|---|---|
+| A | ![A phone](review/directions/A/phone-light-fold.jpg) | ![A desktop](review/directions/A/desktop-light-fold.jpg) | ![A E-04](review/directions/A/desktop-light-e04.jpg) |
+| B | ![B phone](review/directions/B/phone-light-fold.jpg) | ![B desktop](review/directions/B/desktop-light-fold.jpg) | ![B E-04](review/directions/B/desktop-light-e04.jpg) |
+| C | ![C phone](review/directions/C/phone-light-fold.jpg) | ![C desktop](review/directions/C/desktop-light-fold.jpg) | ![C E-04](review/directions/C/desktop-light-e04.jpg) |
 
 ## Plan
 

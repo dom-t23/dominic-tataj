@@ -2,3 +2,8 @@ node_modules/
 test-results/
 playwright-report/
 __pycache__/
+
+# design review: full-resolution screenshots stay local (JPEG copies are committed), and scratch work
+review/**/*.png
+review/scratch/
+review/*-jpg/*-full-*.jpg
