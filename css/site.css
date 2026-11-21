@@ -284,7 +284,10 @@ html:not(.js) .theme-btn { display: none; }   /* without JS it can't work; with 
 }
 
 /* the email written out among the facts */
-.facts-email { font: 500 var(--fs-0)/1.6 var(--font-data); font-size: 15px; overflow-wrap: anywhere; }
+.facts-email { font: 500 15px/1.6 var(--font-data); white-space: nowrap; }
+@media (max-width: 420px) { .facts-email { font-size: 13.5px; letter-spacing: -0.02em; } }
+/* phones: the three contact actions in one row */
+@media (max-width: 420px) { .hero .actions { gap: var(--s-2); } .hero .actions .btn { flex: 1 1 0; padding-inline: 8px; font-size: 15px; } }
 /* caption words keyed to the plot's strokes */
 .key.truth { color: var(--truth); font-weight: 500; }
 .key.est { color: var(--link); font-weight: 500; }
@@ -294,7 +297,8 @@ html:not(.js) .theme-btn { display: none; }   /* without JS it can't work; with 
 @media (min-width: 1000px) { .section { padding-block: var(--s-9); } }
 #work { padding-top: 0; }
 .margin h2 { font: 700 var(--fs-5)/1 var(--font-display); font-stretch: var(--wide); letter-spacing: -0.025em; }
-.report { border-top: 2px solid var(--rule-strong); padding-top: var(--s-5); }
+/* the heavy rule over About and Contact spans the content, not the page gutters (.report is also .wrap) */
+.report::before { content: ""; grid-column: 1 / -1; border-top: 2px solid var(--rule-strong); }
 
 /* a project: a heavy rule over it, the number and metadata in the margin, the report in the main column */
 .sheet { border-top: 2px solid var(--rule-strong); padding-top: var(--s-5); }
@@ -362,9 +366,13 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 .drawing { display: block; width: 100%; height: auto; }
 /* Fig. 03 and 06 have a second drawing for phones; Fig. 05 keeps a legible width and scrolls (R-20) */
 .drawing.narrow { display: none; }
-@media (max-width: 520px) {
+/* by the figure's own width, so a narrow column on a laptop gets the legible drawing too */
+.plate:has(> .drawing.narrow) { container-type: inline-size; }
+@container (max-width: 500px) {
   .drawing.wide { display: none; }
   .drawing.narrow { display: block; }
+}
+@media (max-width: 520px) {
   .plate.scroll-x { overflow-x: auto; overscroll-behavior-x: contain; }
   .plate.scroll-x .drawing { min-width: 480px; }
 }
@@ -591,9 +599,13 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 .drawing { display: block; width: 100%; height: auto; }
 /* Fig. 03 and 06 have a second drawing for phones; Fig. 05 keeps a legible width and scrolls (R-20) */
 .drawing.narrow { display: none; }
-@media (max-width: 520px) {
+/* by the figure's own width, so a narrow column on a laptop gets the legible drawing too */
+.plate:has(> .drawing.narrow) { container-type: inline-size; }
+@container (max-width: 500px) {
   .drawing.wide { display: none; }
   .drawing.narrow { display: block; }
+}
+@media (max-width: 520px) {
   .plate.scroll-x { overflow-x: auto; overscroll-behavior-x: contain; }
   .plate.scroll-x .drawing { min-width: 480px; }
 }
