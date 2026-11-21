@@ -4,9 +4,13 @@
    drawing, the estimate in the flight data) and what can be pressed. Source Serif 4 for headings,
    IBM Plex Sans for text, IBM Plex Mono only for real numbers. Every value is a token here. */
 @font-face { font-family: "Source Serif Display"; src: url(../fonts/source-serif-display.woff2) format("woff2"); font-weight: 500 700; font-display: swap; }
-@font-face { font-family: "IBM Plex Sans"; src: url(../fonts/plex-sans.woff2) format("woff2"); font-weight: 100 700; font-display: swap; }
-@font-face { font-family: "IBM Plex Mono"; src: url(../fonts/plex-mono-400.woff2) format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "IBM Plex Mono"; src: url(../fonts/plex-mono-500.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "IBM Plex Sans"; src: url(../fonts/plex-sans.woff2) format("woff2"); font-weight: 100 700; font-display: optional; }
+/* fallbacks sized to the real fonts' metrics (measured with fontTools). Text and numbers use font-display: optional,
+   so a slow first visit keeps the fallback rather than re-wrapping every line; the serif headings swap. */
+@font-face { font-family: "Serif Fallback"; src: local("Georgia"); size-adjust: 95.2%; ascent-override: 108.8%; descent-override: 35.2%; line-gap-override: 0%; }
+@font-face { font-family: "Sans Fallback"; src: local("Arial"), local("Helvetica"); size-adjust: 100.4%; ascent-override: 102.1%; descent-override: 27.4%; line-gap-override: 0%; }
+@font-face { font-family: "IBM Plex Mono"; src: url(../fonts/plex-mono-400.woff2) format("woff2"); font-weight: 400; font-display: optional; }
+@font-face { font-family: "IBM Plex Mono"; src: url(../fonts/plex-mono-500.woff2) format("woff2"); font-weight: 500; font-display: optional; }
 :root {
   color-scheme: dark;
   /* colour roles (contrast on each surface: node tests/contrast.cjs) */
@@ -35,8 +39,8 @@
   --lift: 0 0 0 1px rgba(237, 232, 224, 0.06), 0 24px 50px -32px rgba(0, 0, 0, 0.9);
   --e-1: none; --e-2: var(--lift); --e-3: var(--lift); --hi: none;
   /* type */
-  --font-display: "Source Serif Display", Georgia, "Times New Roman", serif;
-  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Source Serif Display", "Serif Fallback", Georgia, serif;
+  --font-body: "IBM Plex Sans", "Sans Fallback", system-ui, sans-serif;
   --font-data: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
   --wide: 100%; --semi: 100%;
   /* a 1.25 scale from 17 px, then display sizes that follow the viewport */
@@ -184,7 +188,8 @@ p { margin: 0; }
   .hero-stage { right: -20vw; top: 1%; width: 112vw; transform: none; opacity: 0.42;
     -webkit-mask-image: linear-gradient(180deg, #000 35%, transparent 85%); mask-image: linear-gradient(180deg, #000 35%, transparent 85%); }
   .hero-cap { display: none; }
-  .hero-copy { padding-block: var(--s-9) var(--s-5); gap: var(--s-4); }
+  /* anchored to the top: the lede comes last here, and a late reflow in it must not move what is above it */
+  .hero-copy { align-self: start; padding-block: var(--s-9) var(--s-5); gap: var(--s-4); }
   .hero .lede { order: 5; }
   .brief { grid-template-columns: minmax(0, 1fr); }
   .brief a { padding: 8px 0; }
