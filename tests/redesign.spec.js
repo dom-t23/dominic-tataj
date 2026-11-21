@@ -68,12 +68,42 @@ test("the CV is one click away: nav, hero, contact and footer, all to the same f
   await expect(page.locator('#contact a[href="Dominic-Tataj-CV.pdf"]')).toHaveCount(1);
 });
 
-test("one dark theme, whatever the device asks for", async ({ page }) => {
+test("dark by default, whatever the device asks for; the toggle switches to light and remembers it", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "light" });
-  await page.goto("/");
+  await page.goto("/", { waitUntil: "networkidle" });
   expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe("rgb(20, 19, 17)");
   await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#141311");
-  await expect(page.locator("#theme")).toHaveCount(0);
+  await expect(page.locator("#theme")).toHaveAttribute("aria-pressed", "false");
+  await page.click("#theme");
+  await expect.poll(() => page.evaluate(() => [document.documentElement.dataset.theme, localStorage.getItem("theme")])).toEqual(["light", "light"]);
+  expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe("rgb(244, 241, 234)");
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute("content", "#F4F1EA");
+  await expect(page.locator("#theme")).toHaveAttribute("aria-pressed", "true");
+  // the hero drawing switches to its light set (parts filled with the paper colour)
+  await expect(page.locator("#hero-stage img")).toHaveAttribute("src", "images/hero/l00.webp");
+  // remembered, applied before first paint, on every page
+  await page.reload();
+  expect(await page.evaluate(() => document.documentElement.dataset.theme)).toBe("light");
+  await page.goto("/photography.html");
+  expect(await page.evaluate(() => getComputedStyle(document.body).backgroundColor)).toBe("rgb(244, 241, 234)");
+  await page.click("#theme");
+  await expect.poll(() => page.evaluate(() => [document.documentElement.hasAttribute("data-theme"), localStorage.getItem("theme")])).toEqual([false, null]);
+});
+
+test("the name fades up on arrival, a line at a time; it is readable once done", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  const anim = await page.$$eval(".hero .h1-name > span, .hero .h1-role", (es) => es.map((e) => [getComputedStyle(e).animationName, getComputedStyle(e).animationDelay]));
+  expect(anim).toEqual([["name-in", "0s"], ["name-in", "0.12s"], ["name-in", "0.26s"]]);
+  await page.waitForTimeout(1300);
+  expect(await page.$$eval(".hero .h1-name > span", (es) => es.map((e) => getComputedStyle(e).opacity))).toEqual(["1", "1"]);
+});
+
+test.describe("reduced motion, the name", () => {
+  test.use({ contextOptions: { reducedMotion: "reduce" } });
+  test("the name doesn't animate", async ({ page }) => {
+    await page.goto("/");
+    expect(await page.$$eval(".hero .h1-name > span", (es) => es.map((e) => getComputedStyle(e).animationName))).toEqual(["none", "none"]);
+  });
 });
 
 test("social tags and icons", async ({ page }) => {

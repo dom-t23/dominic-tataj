@@ -4,7 +4,7 @@ Engineering portfolio site, hosted with GitHub Pages: https://dom-t23.github.io/
 
 No build step: GitHub Pages serves these files as they are (from `main`, at the root).
 
-**Look:** dark, warm and typeset (Nov 2026): Source Serif 4 for headings, IBM Plex Sans for text and
+**Look:** dark by default with a light mode (the nav's toggle, `js/theme.js`, saved per visitor), warm and typeset (Nov 2026): Source Serif 4 for headings, IBM Plex Sans for text and
 IBM Plex Mono for numbers (self-hosted in `fonts/`, OFL); warm graphite with one accent, the orange of the
 simulator's gates, marking what is Dom's and what can be pressed. It deliberately avoids the common
 "AI-generated" defaults (gradient text, glows, glass, pills, eyebrow labels, card grids, fade-in-everything);
@@ -17,8 +17,9 @@ simulator's gates, marking what is Dom's and what can be pressed. It deliberatel
 - `Dominic-Tataj-CV.pdf` — **not in the repo yet**: every CV link points at this path
 - `css/site.css` — all styles
 - `js/` — ES modules. `main.js` is the homepage's entry point and imports:
-  - `hero.js` (the hero's drone, which comes apart as the page scrolls: frames
-    `images/hero/x00–x23`, pinned on large screens, a still for reduced motion or Save-Data),
+  - `theme.js` (the light/dark toggle; the saved theme is applied by an inline script before first paint),
+    `hero.js` (the hero's drone, which comes apart as the page scrolls: frames
+    `images/hero/x00–x23`, and `l00–l23` in light mode, pinned on large screens, a still for reduced motion or Save-Data),
     `contact.js` (copy email and its burst),
     `sheets.js` (lays every project out once after load, so links down the page land) and
     `reveals.js` (what animates in on scroll; numbers don't count up)
@@ -97,6 +98,7 @@ The hero's frames are drawn from `models/frame.glb` with Fig. 02's shaders and e
 (`js/frame3d.js`), in neutral ink with the frame redrawn in the accent; Chromium encodes the WebP, so no
 Python is needed. Arguments: width, height, frames, quality; colours as hex without `#`:
 
-    GLOW=0 INK=A89F93 FILL=141311 FRAME=FF6A2B node tools/hero/explode.cjs 960 720 24 0.72   # images/hero/x*.webp
+    GLOW=0 INK=A89F93 FILL=141311 FRAME=FF6A2B node tools/hero/explode.cjs 960 720 24 0.72             # dark: x*.webp
+    PREFIX=l GLOW=0 INK=6E675C FILL=F4F1EA FRAME=C2410C node tools/hero/explode.cjs 960 720 24 0.72    # light: l*.webp
 
 Drone-racing source: https://github.com/dom-t23/vision-drone-racing
