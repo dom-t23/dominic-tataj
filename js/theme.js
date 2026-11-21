@@ -6,7 +6,7 @@ import { $, root, reducedMotion } from "./util.js";
 function isDark() { return root.getAttribute("data-theme") === "dark"; }
 function syncThemeBtn() {
   var d = isDark();
-  $("theme").textContent = d ? "Light" : "Dark";
+  $("theme").textContent = d ? "Light mode" : "Dark mode";
   $("theme").setAttribute("aria-label", d ? "Switch to light theme" : "Switch to dark theme");
 }
 $("theme").addEventListener("click", function () {
@@ -15,7 +15,7 @@ $("theme").addEventListener("click", function () {
     if (dark) root.setAttribute("data-theme", "dark"); else root.removeAttribute("data-theme");
     try { if (dark) localStorage.setItem("theme", "dark"); else localStorage.removeItem("theme"); } catch (e) {}
     syncThemeBtn();
-    var tc = $("theme-color"); if (tc) tc.content = dark ? "#090B0F" : "#F3F4F7";
+    var tc = $("theme-color"); if (tc) tc.content = dark ? "#0E1012" : "#F7F6F3";
   }
   // The new theme spreads in a circle from the button. Where view transitions aren't supported,
   // or with reduced motion, it just switches.

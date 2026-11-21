@@ -79,7 +79,7 @@ test.describe("phone, dark", () => {
     await page.addInitScript(() => localStorage.setItem("theme", "dark"));
     await page.goto("/");
     await page.click("#load"); await controlsReady(page);
-    expect(await page.evaluate(() => getComputedStyle(document.querySelector(".pill")).color)).toBe("rgb(76, 185, 122)");
+    expect(await page.evaluate(() => getComputedStyle(document.querySelector(".pill")).color)).toBe("rgb(92, 194, 138)");
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
   });
 });

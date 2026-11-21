@@ -174,15 +174,15 @@ checkpoint with Dom, merge to `main`.
    point names the model.
 
 ### Hero, after the first round (3 Nov 2026)
-H.1 [x] **The drone on the cover**: E-03's drone, drawn offline in Fig. 01's style
+H.1 [-] (replaced in phase S by Fig. 00 as the hero figure) **The drone on the cover**: E-03's drone, drawn offline in Fig. 01's style
    (`tools/hero/`), on the right of the headline. It hovers (a bob and roll as transforms, a
    shadow that tightens as it dips, and on wide screens a ±8° turn through frames 0.5° apart,
    cross-faded) and climbs away as you scroll on. Revised on 5 Nov: the first version swayed
    ±24° in 1.5° steps, which looked choppy, and exploded like Fig. 01 below it. Reduced motion
    keeps it still; phones hover without turning. The project register moves under it as a row.
-H.3 [x] **No visible headline** (14 Nov 2026, Dom's call): "I design, simulate and build drones
+H.3 [-] (reopened in phase S: a visible h1 with the name and a role line, not a slogan) **No visible headline** (14 Nov 2026, Dom's call): "I design, simulate and build drones
    and robots" and its underline and hover quirks are gone; a visually hidden h1 names the page.
-H.2 [x] **Availability in one line** instead of the four-cell block, with the pen pass kept.
+H.2 [-] (replaced in phase S by a ruled fact list) **Availability in one line** instead of the four-cell block, with the pen pass kept.
 
 ### Phase R: redesign as smooth panels (20 Nov 2026)
 R.1 [x] **Foundations.** Tokens for a page background, raised panels and inset surfaces;
@@ -214,12 +214,12 @@ Findings, scores, conflicts and decisions are in `REVIEW.md`; the reports are in
 reopened for a visible name-and-role line (not a slogan); 2.4's count-ups go (they show false
 values before and during the count).
 S.1 [x] **Targeting copy** (P0): hero, title, meta, OG, hidden h1, About, Contact (R-01, R-28, R-29).
-S.2 [ ] **Foundations**: tokens for the chosen direction, contrast fixes, fonts (R-11, R-25, R-24, R-34).
-S.3 [ ] **Hero**: visible name and role, availability as a spec list, hero visual, one-row phone nav, theme button before paint (R-02, R-19, R-18).
+S.2 [x] **Foundations**: tokens for the chosen direction, contrast fixes, fonts (R-11, R-25, R-24, R-34).
+S.3 [x] **Hero**: visible name and role, availability as a spec list, hero visual, one-row phone nav, theme button before paint (R-02, R-19, R-18).
 S.4 [x] **E-04 leads**: project order E-04, E-03, E-02, E-01; figures renumbered; result line on each card (R-04, R-23).
    Figures now run in page order: Fig. 01 is the benchmark (was 03), Fig. 02 the 3D frame (was 01),
    Fig. 03 the mass budget (was 02). Sections 1 to 4 above keep the old numbers as history.
-S.5 [ ] **Project anatomy**: new sheet layout, metadata line, key figures under each summary, E-04 key figures, results first (R-03, R-05, R-06, R-09, R-21).
+S.5 [x] **Project anatomy**: new sheet layout, metadata line, key figures under each summary, E-04 key figures, results first (R-03, R-05, R-06, R-09, R-21).
 S.6 [x] **Accuracy**: Fig. 00 and rig wording, E-04 title, E-01 count, E-02 limitation, count-ups removed (R-10, R-13, R-14, R-15).
 S.7 [x] **Phone length and legibility**: Fig. 01 unpinned on phones, Fig. 02/05/06 for phones, parts list (R-08, R-20, R-27, R-31).
 S.8 [ ] **Figure language**: sentence case and correct units; one tag, segmented control and slider (R-12, R-26).
@@ -227,6 +227,13 @@ S.9 [ ] **About and Contact**: skills table on phones, mailto, CV slot (R-07, R-
 S.10 [ ] **Accessibility**: semantics, loops that settle, rig on touch (R-30, R-32, R-33).
 S.11 [ ] **Performance and SEO**: JSON-LD, OG image, theme-color, loading fixes, perf test (R-17, R-34, R-35).
 S.12 [ ] **Dark theme pass** (R-24).
+   Direction (phase 3, `review/directions/`): three prototypes in separate worktrees, judged blind.
+   Built: direction A's "flight log" visual system (Archivo semi-expanded headings, Plex Sans and
+   Mono, warm white, hairline rules, no cards, only interactive figures raised, Fig. 00 as a
+   complete flight log with its error trace) with B's recruiter information (the email written
+   out among the facts, LinkedIn and GitHub beside Email me, a projects-and-results table) and C's
+   colour-keyed caption words. The hero drone (H.1) is gone: the hero's one moving thing is now
+   the flight, which carries information (MOT-03).
 S.13 [ ] Independent re-audit, after screenshots, scorecard "after" column, PR.
 
 ## 4. About & contact

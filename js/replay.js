@@ -4,6 +4,7 @@ import { loadScript, flightIndex } from "./flights.js";
 /* ---------- drone replay ---------- */
 var fpv = $("fpv"), fctx = fpv.getContext("2d"), map = $("map"), mctx = map.getContext("2d");
 var TRUTH = "#2C6E9C";
+function truth() { return css("--truth") || TRUTH; }
 var OUTCOMES = { completed: "Completed", crash_gate: "Crashed", missed_gate: "Missed gate", wrong_gate: "Wrong gate", timeout: "Timed out" };
 var FL = [], seeds = [], methods = [], cur = {}, flight = null, idx = 0, playing = false, t0 = 0, tStart = 0, imgs = [], bounds = null;
 var cache = {}, want = null, posterMode = false;
@@ -88,7 +89,7 @@ function seg(el, items, key) {
         $("controls").setAttribute("aria-disabled", "false"); load(f); play(true);
       }, function () {
         cur[key] = prev; renderSeg();
-        $("controls").setAttribute("aria-disabled", "false"); $("readout").hidden = false; $("r-out").textContent = "Could not load that flight";
+        $("controls").setAttribute("aria-disabled", "false"); $("r-out").textContent = "Could not load that flight";
       });
     });
     el.appendChild(b);
@@ -111,7 +112,6 @@ function load(f, at) {
   if (imgs[idx]) imgs[idx].onload = draw;
   draw();
   if (posterMode) return;
-  $("readout").hidden = false;   // the readouts wait for a loaded flight rather than showing dashes
   $("scrub").max = String(flight.frames.length - 1);
   var ok = flight.outcome === "completed";
   $("r-out").innerHTML = '<span class="pill ' + (ok ? "ok" : "bad") + '">' + (OUTCOMES[flight.outcome] || flight.outcome.replace(/_/g, " ")) + "</span>" +
@@ -145,10 +145,10 @@ function drawMap() {
     }
     c.stroke(); c.setLineDash([]);
   }
-  path("p", TRUTH, []);
+  path("p", truth(), []);
   path("e", css("--signal"), [5, 4]);
   var now = toMap(fr[idx].p[0], fr[idx].p[1]);
-  c.fillStyle = TRUTH; c.beginPath(); c.arc(now[0], now[1], 5, 0, 2 * Math.PI); c.fill();
+  c.fillStyle = truth(); c.beginPath(); c.arc(now[0], now[1], 5, 0, 2 * Math.PI); c.fill();
   if (fr[idx].e) {
     var en = toMap(fr[idx].e[0], fr[idx].e[1]), cv = fr[idx].cv;
     if (cv) {
@@ -188,8 +188,14 @@ function speedAt(i) {
 function draw() {
   if (!flight) return;
   drawFpv(); drawMap(); if (pipe) pipe.show(flight, idx);
-  if (posterMode) return;   // the readouts and scrubber wait for LOAD
   var fr = flight.frames[idx];
+  if (posterMode) {   // the scrubber waits for LOAD; the readout shows the poster's frame, not dashes (R-05)
+    $("r-out").textContent = "Course 1 · camera + IMU";
+    $("r-gates").textContent = Math.min(fr.g, flight.n_gates) + " / " + flight.n_gates;
+    $("r-speed").textContent = speedAt(idx).toFixed(1) + " m/s";
+    if (fr.e) { var ex = fr.e[0] - fr.p[0], ey = fr.e[1] - fr.p[1], ez = fr.e[2] - fr.p[2]; $("r-err").textContent = Math.sqrt(ex * ex + ey * ey + ez * ez).toFixed(2) + " m"; }
+    return;
+  }
   $("scrub").value = String(idx);
   $("clock").textContent = fr.t.toFixed(2) + " s";
   $("r-gates").textContent = Math.min(fr.g, flight.n_gates) + " / " + flight.n_gates;

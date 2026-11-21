@@ -8,7 +8,7 @@
 <link rel="canonical" href="https://dom-t23.github.io/dominic-tataj/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
-<meta name="theme-color" id="theme-color" content="#F3F4F7">
+<meta name="theme-color" id="theme-color" content="#F7F6F3">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Dominic Tataj, engineering portfolio: software, autonomy and systems">
 <meta property="og:description" content="MEng Mechanical Engineering at UCL. Looking for software, autonomy and systems roles: a summer 2027 internship or a 2027–28 placement year in the UK. Projects: vision-based autonomous drone racing, a generatively designed drone frame, a pipe-climbing robot.">
@@ -23,7 +23,7 @@
   // Light first: only a saved choice of dark changes it.
   // The "js" class lets the theme button take its place in the nav from the first frame (R-18).
   document.documentElement.classList.add("js");
-  try { if (localStorage.getItem("theme") === "dark") { document.documentElement.setAttribute("data-theme", "dark"); document.getElementById("theme-color").content = "#090B0F"; } } catch (e) {}
+  try { if (localStorage.getItem("theme") === "dark") { document.documentElement.setAttribute("data-theme", "dark"); document.getElementById("theme-color").content = "#0E1012"; } } catch (e) {}
 </script>
 <script type="application/ld+json">
 {
@@ -67,74 +67,47 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="css/site.css?v=20261120r">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<link rel="stylesheet" href="css/site.css?v=20261121s">
 </head>
 <body>
-<a class="skip" href="#work">Skip to projects</a>
+<a class="skip" href="#top">Skip to content</a>
 
 <nav class="nav" aria-label="Main">
   <div class="wrap">
-    <div class="brand">
-      <a class="name" href="#top">Dominic Tataj</a>
-    </div>
+    <div class="brand"><a class="name" href="#top">Dominic Tataj</a></div>
     <ul>
       <li><a href="#work">Work</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><button class="theme-btn" id="theme" type="button" aria-label="Switch to dark theme">Dark</button></li>
+      <li><button class="theme-btn" id="theme" type="button" aria-label="Switch to dark theme">Dark mode</button></li>
     </ul>
   </div>
 </nav>
 
 <main id="top">
 
-<!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="wrap">
+<!-- ============ HERO: the name, the roles, the facts a recruiter screens on; beside it, the flight log ============ -->
+<header class="hero">
+  <div class="wrap hero-grid">
     <div class="hero-text">
-      <div class="eyebrow">Software, autonomy and systems · MEng, UCL</div>
-      <h1 class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0">Dominic Tataj, engineering portfolio: software, autonomy and systems</h1>
-      <p class="hero-facts" aria-label="Availability"><span>Summer internship or placement year</span><span>From 27 June 2027</span><span>Full right to work in the UK</span><span>London</span></p>
+      <h1><span class="h1-name"><span>Dominic</span> <span>Tataj</span></span> <span class="h1-role"><span>Software, autonomy and systems</span><span class="sep"> · </span><span>MEng, UCL</span></span></h1>
       <p class="lede">Second-year MEng Mechanical Engineering student at UCL. I'm looking for software, autonomy and systems roles, particularly in UK defence, with mechanical design (CAD, generative design and FEA) as a supporting strength.</p>
+      <dl class="facts" aria-label="Availability">
+        <div><dt>Looking for</dt><dd>Summer 2027 internship or 2027–28 placement year</dd></div>
+        <div><dt>Available</dt><dd>From 27 June 2027</dd></div>
+        <div><dt>Right to work</dt><dd>Full right to work in the UK</dd></div>
+        <div><dt>Based</dt><dd>London</dd></div>
+        <div><dt>Degree</dt><dd>Second-year, graduating 2029, predicted 2:1</dd></div>
+        <div><dt>Email</dt><dd><a class="facts-email" href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a></dd></div>
+      </dl>
       <div class="actions">
-        <a class="btn primary" href="#work">View projects</a>
-        <a class="btn" href="#contact">Get in touch</a>
+        <a class="btn primary" href="mailto:dominic_tataj@icloud.com">Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn" href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
-    </div>
-
-    <!-- The drone from E-03, drawn offline in Fig. 02's style (tools/hero/): it hovers, turning a
-         little, and climbs away as you scroll on (js/hero-drone.js) -->
-    <a class="hero-drone" id="hero-drone" href="#e-03" aria-label="E-03, generative FPV drone frame">
-      <span class="hd-floor" aria-hidden="true"></span>
-      <span class="hd-shadow" aria-hidden="true"></span>
-      <span class="hd-art">
-        <img class="hd-still" src="images/hero/t16.webp" width="840" height="630" alt="Line drawing of my generative FPV drone, assembled" decoding="async">
-        <canvas class="hd-canvas" width="840" height="630" aria-hidden="true" hidden></canvas>
-      </span>
-      <span class="hd-tag">E-03 · Generative frame</span>
-    </a>
-
-    <div class="register" aria-label="Project register">
-      <header><span class="label">Projects</span></header>
-      <ol>
-        <li><a href="#e-04">
-          <span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span>
-          <span class="r-result">98.6% of gates passed over 300 courses, with clutter</span><span class="r-meta">Python · OpenCV</span>
-        </a></li>
-        <li><a href="#e-03">
-          <span class="r-no">E-03</span><span class="r-title">Generative FPV drone frame</span>
-          <span class="r-result">38 g frame, 36% lighter; 246 g all-up, under the CAA's 250 g</span><span class="r-meta">Fusion · Ansys</span>
-        </a></li>
-        <li><a href="#e-02">
-          <span class="r-no">E-02</span><span class="r-title">Pipe-climbing robot, IMechE Design Challenge</span>
-          <span class="r-result">Completed the climb; 16% faster in real runs</span><span class="r-meta">Excel · Fusion</span>
-        </a></li>
-        <li><a href="#e-01">
-          <span class="r-no">E-01</span><span class="r-title">AI training-power scaling analysis</span>
-          <span class="r-result">Power law fitted: P ∝ N<sup>0.55</sup>, R² 0.44</span><span class="r-meta">MATLAB</span>
-        </a></li>
-      </ol>
+      <!-- CV: no file yet (REVIEW.md conflict 6). When Dom supplies one:
+      <a class="btn" href="Dominic-Tataj-CV.pdf">CV (PDF)</a> -->
     </div>
 
     <figure class="flight" id="flight">
@@ -142,29 +115,76 @@
         <svg class="flight-svg" aria-hidden="true"></svg>
         <svg class="rig-svg" id="rig" tabindex="-1" role="group" aria-label="Hover test rig. Drag the drone, or click to move its setpoint. Arrow keys move the setpoint, G sends a gust, R resets."></svg>
       </div>
+      <dl class="fv-read" aria-hidden="true">
+        <div><dt id="fv-t-l">Time</dt><dd id="fv-t">–</dd></div>
+        <div><dt>Gate</dt><dd id="fv-g">–</dd></div>
+        <div><dt id="fv-v-l">Speed</dt><dd id="fv-v">–</dd></div>
+        <div><dt id="fv-e-l">Estimate error</dt><dd id="fv-e">–</dd></div>
+      </dl>
       <div class="rig-controls" id="rig-controls" hidden>
         <label class="gain">K<sub>p</sub><input type="range" id="kp" min="0" max="1000" step="1" aria-label="Position gain Kp"><output id="kp-out" for="kp"></output></label>
         <label class="gain">K<sub>d</sub><input type="range" id="kd" min="0" max="1000" step="1" aria-label="Damping gain Kd"><output id="kd-out" for="kd"></output></label>
         <span class="stab" id="stab"></span>
         <span class="rig-buttons"><button class="btn" id="gust" type="button">Gust →</button><button class="btn" id="rig-reset" type="button">Reset</button><button class="btn" id="rig-close" type="button">Back to the flight</button></span>
       </div>
-      <figcaption><span><b>Fig. 00</b> — <span id="cap-flight">A simulated flight of my racing drone (<a href="#e-04">E-04</a>), camera + IMU, replayed from the recording at 3× speed: true path in blue, the drone's own estimate dashed orange.</span><span id="cap-rig" hidden>Hover test: a planar model of my 246 g drone from <a href="#e-03">E-03</a>, held by a cascaded PD controller (a position loop feeding an attitude loop). Drag it, click to move the setpoint or send a gust, and push the gains past the Routh–Hurwitz limit to watch it go unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>Replay ↺</button><button class="link-btn" id="rig-open" type="button" hidden>Try the controller →</button></span></figcaption>
+      <figcaption><span><b>Fig. 00</b> <span id="cap-flight">A simulated flight of my vision-based racing drone (<a href="#e-04">E-04</a>), camera + IMU, played at 3× speed: <span class="key truth">true path in blue</span>, <span class="key est">the drone's own estimate dashed orange</span>. Under it, the estimate's error over the flight.</span><span id="cap-rig" hidden>Hover test: a planar model of my 246 g drone (<a href="#e-03">E-03</a>), held by a cascaded PD controller (a position loop feeding an attitude loop). Drag it, click to move the setpoint or send a gust, and push the gains past the Routh–Hurwitz limit to watch it go unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>Replay ↺</button><button class="link-btn" id="rig-open" type="button" hidden>Try the hover controller →</button></span></figcaption>
     </figure>
   </div>
-</section>
+
+  <!-- the projects as a contents list: one result each -->
+  <div class="wrap">
+    <section class="register" aria-labelledby="register-h">
+      <div class="register-head"><h2 class="register-h" id="register-h">Projects and results</h2><p class="register-hint">Newest first</p></div>
+      <table class="results">
+        <caption class="sr-only">Four projects, newest first, each with its main result</caption>
+        <thead><tr><th scope="col">Project</th><th scope="col">What it shows</th><th scope="col">Result</th><th scope="col">Tools</th></tr></thead>
+        <tbody>
+          <tr>
+            <th scope="row"><a href="#e-04"><span class="r-no">E-04</span><span class="r-title">Vision-based autonomous drone racing</span></a></th>
+            <td class="shows">Detection, pose, filtering and guidance, tested on seeded regression benchmarks</td>
+            <td class="res"><b>98.6%</b><span>of gates with clutter, camera + IMU, over 300 courses</span></td>
+            <td class="tools">Python · OpenCV</td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="#e-03"><span class="r-no">E-03</span><span class="r-title">Generative FPV drone frame</span></a></th>
+            <td class="shows">Generative design and FEA; measured arm deflection within 18% of Ansys</td>
+            <td class="res"><b>246&nbsp;g</b><span>all-up, under the CAA's 250&nbsp;g; frame 36% lighter</span></td>
+            <td class="tools">Fusion · Ansys</td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="#e-02"><span class="r-no">E-02</span><span class="r-title">Pipe-climbing robot, IMechE Design Challenge</span></a></th>
+            <td class="shows">A dynamic model that picked the drivetrain from more than 20 simulated</td>
+            <td class="res"><b>Climbed</b><span>the 2&nbsp;m pipe at the challenge; 16% faster in real runs</span></td>
+            <td class="tools">Excel · Fusion</td>
+          </tr>
+          <tr>
+            <th scope="row"><a href="#e-01"><span class="r-no">E-01</span><span class="r-title">AI training-power scaling analysis</span></a></th>
+            <td class="shows">Statistics and curve fitting: a scaling law and a frontier-model estimate</td>
+            <td class="res"><b>P&nbsp;∝&nbsp;N<sup>0.55</sup></b><span>R² 0.44; GPT-5 at about 590&nbsp;kW</span></td>
+            <td class="tools">MATLAB</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</header>
 
 <!-- ============ WORK ============ -->
-<section class="section" id="work">
+<section class="section" id="work" aria-labelledby="work-h">
   <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Selected work</div>
-      <h2>Projects</h2>
-    </div>
+    <h2 class="sr-only" id="work-h">Projects</h2>
 
-    <!-- E-04 DRONE -->
-    <article class="sheet" id="e-04" aria-labelledby="e04-h">
+    <!-- E-04 DRONE: the lead project -->
+    <article class="sheet lead" id="e-04" aria-labelledby="e04-h">
       <div class="sheet-meta">
-        <span class="pno">E-04</span><span class="chip"><span class="k">Role</span>Solo: set the design and test rules, directed an AI coding agent</span><span class="chip"><span class="k">Tools</span>Python · OpenCV · NumPy</span><span class="chip"><span class="k">Date</span>Aug – Oct 2026</span><span class="chip"><span class="k">Status</span>In development</span>
+        <p class="pno">E-04</p>
+        <dl>
+          <div><dt>Role</dt><dd>Solo; set the design and test rules, directed an AI coding agent</dd></div>
+          <div><dt>Tools</dt><dd>Python · OpenCV · NumPy</dd></div>
+          <div><dt>Date</dt><dd>Aug–Oct 2026</dd></div>
+          <div><dt>Status</dt><dd>In development</dd></div>
+          <div><dt>Code</dt><dd><a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">vision-drone-racing ↗</a></dd></div>
+        </dl>
       </div>
       <div class="sheet-body">
         <div class="sheet-title">
@@ -172,29 +192,32 @@
           <p class="summary">Pooled over 300 seeded courses, it passes 99.8% of gates in a clean world and 98.6% with gate-coloured clutter beside the course. There is no GPS, depth sensor or map of the gate positions: it finds each gate in its camera image, estimates its own position relative to the gate and flies through.</p>
         </div>
 
-        <div class="specs" aria-label="Key results">
-          <div><span class="label">Gates passed, clean world</span><span class="n">99.8%</span></div>
-          <div><span class="label">With orange clutter</span><span class="n">98.6%</span></div>
-          <div><span class="label">Camera only, clutter</span><span class="n">97.5%</span></div>
-          <div><span class="label">Courses per benchmark</span><span class="n">300</span></div>
+        <div class="keyfig">
+          <div class="specs" aria-label="Key figures">
+            <div><span class="n">99.8<small>%</small></span><span class="label">of gates passed in a clean world, camera + IMU</span></div>
+            <div><span class="n">98.6<small>%</small></span><span class="label">with gate-coloured clutter beside the course, camera + IMU</span></div>
+            <div><span class="n">97.5<small>%</small></span><span class="label">with clutter, camera only</span></div>
+            <div><span class="n">None</span><span class="label">GPS, depth sensor or map of the gates</span></div>
+          </div>
+          <p class="note">Pass rates pooled over 300 seeded courses of 8 gates; a run ends at the first crash or missed gate. Full table in Fig. 01.</p>
         </div>
 
-        <div class="player" aria-label="Recorded flight replay">
+        <div class="player" aria-label="Simulated flight replay">
           <div class="player-stage">
             <div class="pv" id="pv-fpv">
               <span class="tag">Onboard camera · detector output</span>
               <canvas id="fpv" width="640" height="480" aria-label="Onboard camera view"></canvas>
               <div class="rest" id="rest">
-                <span>Six recorded flights in simulation · 8 gates · about 6 m/s</span>
+                <span>Six simulated flights · 8 gates · about 6 m/s</span>
                 <button class="btn" id="load" type="button">Load replay</button>
                 <span id="load-note"></span>
               </div>
             </div>
             <div class="pv map" id="pv-map">
-              <span class="tag">Top view · from the recording</span>
+              <span class="tag">Top view</span>
               <canvas id="map" width="640" height="480" aria-label="Top-down course view"></canvas>
               <div class="rest"><span>Course plot appears with the replay</span></div>
-              <div class="legend"><span><i style="background:#2C6E9C"></i>true path</span><span><i style="background:var(--signal)"></i>drone's estimate, 95% ellipse</span><span><i style="background:var(--muted)"></i>gates</span></div>
+              <div class="legend"><span><i style="background:var(--truth)"></i>true path</span><span><i style="background:var(--signal)"></i>drone's estimate, 95% ellipse</span><span><i style="background:var(--muted)"></i>gates</span></div>
             </div>
           </div>
           <div class="controls" id="controls" aria-disabled="true">
@@ -204,9 +227,9 @@
             <input id="scrub" type="range" min="0" max="0" value="0" step="1" aria-label="Flight time">
             <span class="clock" id="clock">0.00 s</span>
           </div>
-          <div class="readout" id="readout" hidden>
-            <div><span class="label">Result</span><b id="r-out">–</b></div>
-            <div><span class="label">Gates passed</span><b id="r-gates">–</b></div>
+          <div class="readout">
+            <div><span class="label">Result</span><b id="r-out">Course 1 · camera + IMU</b></div>
+            <div><span class="label">Gates passed</span><b id="r-gates">– / 8</b></div>
             <div><span class="label">Speed</span><b id="r-speed">–</b></div>
             <div><span class="label">Estimate error</span><b id="r-err">–</b></div>
           </div>
@@ -284,7 +307,7 @@
                 </div>
                 <svg class="bench-chart" id="bench-chart" viewBox="0 0 520 168" role="img" aria-label="Gates missed per set of 400, for the chosen column" hidden></svg>
               </div>
-              <figcaption><b>Fig. 01</b> — Gate pass rate on six sets of 50 random 8-gate courses, in a clean world and with orange clutter beside the course. A run ends at the first crash or missed gate.</figcaption>
+              <figcaption><b>Fig. 01</b> Gate pass rate on six sets of 50 random 8-gate courses, in a clean world and with orange clutter beside the course. A run ends at the first crash or missed gate. Select a column header to chart it.</figcaption>
             </figure>
             <p class="note">Single sets of 50 courses move by a few points from noise alone, so the pooled row is the one to compare. "Camera only" drops the IMU and predicts motion between frames from the drone's own commands. The clutter is up to 20 flat panels and cones beside the course, painted within the gate's colour range. That world is harder by design, so its numbers start a new baseline rather than continuing the clean one. Clean: runs 20 and 23 (camera only); clutter: run 26.</p>
             <p class="note">Source code: <a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">github.com/dom-t23/vision-drone-racing ↗</a></p>
@@ -296,22 +319,28 @@
     <!-- E-03 FRAME -->
     <article class="sheet" id="e-03" aria-labelledby="e03-h">
       <div class="sheet-meta">
-        <span class="pno">E-03</span><span class="chip"><span class="k">Role</span>Design, analysis &amp; build</span><span class="chip"><span class="k">Tools</span>Fusion generative · Ansys Mechanical</span><span class="chip"><span class="k">Date</span>Jul – Sep 2026</span><span class="chip"><span class="k">Status</span>Built &amp; tested</span>
+        <p class="pno">E-03</p>
+        <dl>
+          <div><dt>Role</dt><dd>Design, analysis and build</dd></div>
+          <div><dt>Tools</dt><dd>Fusion generative · Ansys Mechanical</dd></div>
+          <div><dt>Date</dt><dd>Jul–Sep 2026</dd></div>
+          <div><dt>Status</dt><dd>Built and tested</dd></div>
+        </dl>
       </div>
       <div class="sheet-body">
         <div class="sheet-title">
           <h3 id="e03-h">A generatively designed 3-inch FPV drone frame</h3>
-          <p class="summary">A 38 g printed frame, 36% lighter than a comparable plate frame, that keeps the complete drone at 246 g, under the UK CAA's 250 g threshold. It had to survive crashes and avoid resonance with the motors; arm deflection measured at maximum thrust agreed with Ansys to within 18%.</p>
+          <p class="summary">A 38 g printed frame, 36% lighter than a comparable plate frame, that keeps the complete drone at 246 g, under the UK CAA's 250 g threshold. Arm deflection measured at maximum thrust agreed with Ansys to within 18%.</p>
         </div>
 
         <div class="specs" aria-label="Key figures">
           <div><span class="label">Safety factor</span><span class="n">1.5</span></div>
-          <div><span class="label">Modal constraint</span><span class="n">&gt;300<small>Hz</small></span></div>
-          <div><span class="label">Vs plate design</span><span class="n">−36%<small>mass</small></span></div>
+          <div><span class="label">First mode, required</span><span class="n">&gt;300<small>Hz</small></span></div>
+          <div><span class="label">Mass vs plate frame</span><span class="n">−36%</span></div>
           <div><span class="label">Printed frame</span><span class="n">38<small>g</small></span></div>
         </div>
 
-        <!-- Fig. 02: with WebGL, js/frame3d-boot.js swaps the renders for the real model in
+        <!-- Fig. 01: with WebGL, js/frame3d-boot.js swaps the renders for the real model in
              three scroll-driven views (js/frame3d.js); without it, the renders stay. -->
         <div class="f3-track" id="f3-track">
           <figure class="f3" id="frame3d">
@@ -343,7 +372,7 @@
                 <tfoot><tr><td></td><td>All-up</td><td>47</td><td>246 g</td></tr></tfoot>
               </table>
             </div>
-            <figcaption><b>Fig. 02</b> — <span class="f3-cap">Fusion renders of the assembled drone, three-quarter and top views, showing the generated arm geometry.</span></figcaption>
+            <figcaption><b>Fig. 02</b> <span class="f3-cap">Fusion renders of the assembled drone, three-quarter and top views, showing the generated arm geometry.</span></figcaption>
           </figure>
         </div>
 
@@ -383,7 +412,6 @@
                   </g>
                   <text x="20" y="150" font-size="11" fill="var(--muted)">Margin to limit: 4 g</text>
                 </svg>
-                <!-- the same budget drawn for a phone's width, so its labels stay legible (REVIEW.md R-20) -->
                 <svg class="drawing narrow" viewBox="0 0 320 140" role="img" aria-label="Mass budget: 246 grams all-up against a 250 gram limit, of which the frame is 38 grams">
                   <!-- scale: 0 g at x=12, 260 g at x=308 → 1.1385 px/g -->
                   <line x1="12" y1="82" x2="308" y2="82" stroke="var(--rule)" stroke-width="1"/>
@@ -404,7 +432,7 @@
                   <text x="12" y="128" font-size="11" fill="var(--muted)">Margin to limit: 4 g</text>
                 </svg>
               </div>
-              <figcaption><b>Fig. 03</b> — Mass budget. Frame vs. complete drone, against the CAA 250 g threshold.</figcaption>
+              <figcaption><b>Fig. 03</b> Mass budget. Frame vs complete drone, against the CAA 250 g threshold.</figcaption>
             </figure>
           </div>
         </div>
@@ -414,19 +442,26 @@
     <!-- E-02 ROBOT -->
     <article class="sheet" id="e-02" aria-labelledby="e02-h">
       <div class="sheet-meta">
-        <span class="pno">E-02</span><span class="chip"><span class="k">Role</span>Team of 6 · model &amp; CAD</span><span class="chip"><span class="k">Tools</span>Excel · Fusion CAD</span><span class="chip"><span class="k">Date</span>Feb – Apr 2026</span><span class="chip"><span class="k">Context</span>IMechE Design Challenge</span><span class="chip"><span class="k">Result</span>Completed the climb</span>
+        <p class="pno">E-02</p>
+        <dl>
+          <div><dt>Role</dt><dd>Team of 6 · model and CAD</dd></div>
+          <div><dt>Tools</dt><dd>Excel · Fusion CAD</dd></div>
+          <div><dt>Date</dt><dd>Feb–Apr 2026</dd></div>
+          <div><dt>Context</dt><dd>IMechE Design Challenge</dd></div>
+          <div><dt>Result</dt><dd>Completed the climb</dd></div>
+        </dl>
       </div>
       <div class="sheet-body">
         <div class="sheet-title">
           <h3 id="e02-h">A pipe-climbing robot with its drivetrain chosen by simulation</h3>
-          <p class="summary">The robot completed the climb at the IMechE Design Challenge. I built the team's Excel model of the drivetrain and used it to pick the setup from more than 20 simulated: it cut predicted climb time by 22%, and real runs measured 16%. The brief: a 2 m pipe, dragging a chain whose load grows as it climbs, inside 400 × 300 mm, on £50, within 3 minutes.</p>
+          <p class="summary">The robot completed the climb at the IMechE Design Challenge. I built the team's Excel model of the drivetrain and used it to pick the setup from more than 20 simulated: it cut predicted climb time by 22%, and real runs measured 16%. The brief: a 2 m pipe, dragging a chain, inside 400 × 300 mm, on £50, within 3 minutes.</p>
         </div>
 
         <div class="specs" aria-label="Constraints and results">
           <div><span class="label">Pipe height</span><span class="n">2<small>m</small></span></div>
           <div><span class="label">Envelope</span><span class="n">400×300<small>mm</small></span></div>
           <div><span class="label">Setups simulated</span><span class="n">20+</span></div>
-          <div><span class="label">Measured gain</span><span class="n">−16%<small>time</small></span></div>
+          <div><span class="label">Measured climb time</span><span class="n">−16%</span></div>
         </div>
 
         <!-- Fig. 04: the climb, on a corrected version of the Excel model (js/climber.js) -->
@@ -442,7 +477,7 @@
                 <label><span>Gear ratio</span><input type="range" id="cl-g" min="50" max="300" step="5" value="150"><output id="cl-g-o">150</output></label>
                 <label><span>Wheel diameter</span><input type="range" id="cl-d" min="10" max="40" step="1" value="20"><output id="cl-d-o">20 mm</output></label>
                 <label><span>Normal force</span><input type="range" id="cl-n" min="5" max="50" step="1" value="30"><output id="cl-n-o">30 N</output></label>
-                <div class="climb-btns"><button class="btn primary" type="button" id="cl-run">Climb</button><button class="btn" type="button" id="cl-reset">The sheet's setup</button></div>
+                <div class="climb-btns"><button class="btn primary" type="button" id="cl-run">Climb</button><button class="btn" type="button" id="cl-reset">Reset to team's setup</button></div>
               </div>
               <p class="climb-result" id="cl-result" aria-live="polite"></p>
               <div class="climb-read">
@@ -454,7 +489,7 @@
               <svg class="climb-plot" id="cl-plot" role="img" aria-label="Height against time for this setup, against the sheet's setup and the 3 minute limit"></svg>
             </div>
           </div>
-          <figcaption><b>Fig. 04</b> — The climb, on a corrected version of the Excel model: a demonstration, not the coursework's numbers. Robot from the team's Fusion model.</figcaption>
+          <figcaption><b>Fig. 04</b> The climb, on a corrected version of the Excel model: a demonstration, not the coursework's numbers. Robot from the team's Fusion model.</figcaption>
         </figure>
 
         <div class="cols">
@@ -506,10 +541,10 @@
                     <path class="fc-reject" d="M434 164 L434 196 L300 196"/>
                   </g>
                   <text x="292" y="200" font-size="10" fill="var(--link)" text-anchor="end">Slips → setup rejected</text>
-                  <text x="16" y="232" font-size="10" fill="var(--muted)">Repeat until the top of the pipe or 3 min</text>
+                  <text x="16" y="232" font-size="10" fill="var(--muted)">Repeat until top of pipe or 3 min</text>
                 </svg>
               </div>
-              <figcaption><b>Fig. 05</b> — One step of the Excel model, repeated every 10 ms.</figcaption>
+              <figcaption><b>Fig. 05</b> One step of the Excel model, repeated every 10 ms.</figcaption>
             </figure>
             <figure>
               <div class="plate">
@@ -544,7 +579,7 @@
                   </g>
                 </svg>
               </div>
-              <figcaption><b>Fig. 06</b> — Cut in climb time for the chosen drivetrain, model vs. real runs.</figcaption>
+              <figcaption><b>Fig. 06</b> Cut in climb time for the chosen drivetrain, model vs real runs.</figcaption>
             </figure>
           </div>
         </div>
@@ -554,7 +589,13 @@
     <!-- E-01 AI COST -->
     <article class="sheet" id="e-01" aria-labelledby="e01-h">
       <div class="sheet-meta">
-        <span class="pno">E-01</span><span class="chip"><span class="k">Role</span>Analysis &amp; report</span><span class="chip"><span class="k">Tools</span>MATLAB</span><span class="chip"><span class="k">Date</span>Oct 2025</span><span class="chip"><span class="k">Status</span>Complete</span>
+        <p class="pno">E-01</p>
+        <dl>
+          <div><dt>Role</dt><dd>Analysis and report</dd></div>
+          <div><dt>Tools</dt><dd>MATLAB</dd></div>
+          <div><dt>Date</dt><dd>Oct 2025</dd></div>
+          <div><dt>Status</dt><dd>Complete</dd></div>
+        </dl>
       </div>
       <div class="sheet-body">
         <div class="sheet-title">
@@ -582,7 +623,7 @@
                 </div>
                 <svg class="scaling" id="scaling" role="img" aria-label="Training power draw against parameter count for 603 AI models: a power law, P proportional to N to the 0.55, with R squared 0.44"></svg>
               </div>
-              <figcaption><b>Fig. 07</b> — Training power draw against parameter count for the 603 models in the dataset (Epoch AI) that have both, refitted here. On log₁₀ axes the fit is P ∝ N<sup>0.55</sup>; orange is the GPT-5 estimate.</figcaption>
+              <figcaption><b>Fig. 07</b> Training power draw against parameter count for the 603 models in the dataset (Epoch AI) that have both, refitted here. On log₁₀ axes the fit is P ∝ N<sup>0.55</sup>; orange is the GPT-5 estimate.</figcaption>
             </figure>
           </div>
         </div>
@@ -592,99 +633,98 @@
 </section>
 
 <!-- ============ ABOUT ============ -->
-<section class="section" id="about">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>About</h2>
+<section class="section" id="about" aria-labelledby="about-h">
+  <div class="wrap report">
+    <div class="margin">
+      <h2 id="about-h">About</h2>
     </div>
-    <div class="about">
-      <div class="prose">
-        <p>I'm a second-year MEng Mechanical Engineering student at UCL, graduating in 2029. I'm heading towards software, autonomy and systems: my most recent project is a racing drone's flight stack in simulation, from gate detection to an error-state Kalman filter and guidance. Mechanical design is my other strength: CAD, generative design and FEA on a drone frame I printed and tested.</p>
+    <div class="main">
+      <p class="about-lede">I'm a second-year MEng Mechanical Engineering student at UCL, graduating in 2029. I'm heading towards software, autonomy and systems: my most recent project is a racing drone's flight stack in simulation, from gate detection to an error-state Kalman filter and guidance. Mechanical design is my other strength: CAD, generative design and FEA on a drone frame I printed and tested.</p>
+
+      <div class="about-grid">
+        <!-- skills and experience; each skill links the projects that used it -->
+        <table class="bom">
+          <caption>Skills and experience</caption>
+          <thead><tr><th scope="col">Skill or role</th><th scope="col">Projects</th></tr></thead>
+          <tbody>
+            <tr class="grp"><th scope="rowgroup" colspan="2">Software and autonomy</th></tr>
+            <tr class="skill"><td>Python: NumPy, pandas, OpenCV, Matplotlib</td><td><a href="#e-04" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
+            <tr class="skill"><td>Autonomy architecture: detection, pose, filtering and guidance as separate stages<span>set the design rules and the simulator/flight-stack wall; code written with an AI agent</span></td><td><a href="#e-04" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
+            <tr class="skill"><td>Test design: seeded regression benchmarks, flagged A/B changes, pooled acceptance</td><td><a href="#e-04" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
+            <tr class="skill"><td>MATLAB: statistics and curve fitting</td><td><a href="#e-01" data-title="AI training-power scaling analysis">E-01</a></td></tr>
+          </tbody>
+          <tbody>
+            <tr class="grp"><th scope="rowgroup" colspan="2">Mechanical design</th></tr>
+            <tr class="skill"><td>Fusion: generative design, CAD</td><td><a href="#e-03" data-title="Generative FPV drone frame">E-03</a> <a href="#e-02" data-title="Pipe-climbing robot">E-02</a></td></tr>
+            <tr class="skill"><td>Ansys Mechanical FEA</td><td><a href="#e-03" data-title="Generative FPV drone frame">E-03</a></td></tr>
+            <tr class="skill"><td>Dynamic modelling in Excel</td><td><a href="#e-02" data-title="Pipe-climbing robot">E-02</a></td></tr>
+          </tbody>
+          <tbody>
+            <tr class="grp"><th scope="rowgroup" colspan="2">Education</th></tr>
+            <tr><td>MEng Mechanical Engineering, UCL<span>2025–2029 · second-year, predicted 2:1</span></td><td></td></tr>
+            <tr><td>IB Diploma, 42/45<span>HL Mathematics, Physics, Economics</span></td><td></td></tr>
+          </tbody>
+          <tbody>
+            <tr class="grp"><th scope="rowgroup" colspan="2">Leadership</th></tr>
+            <tr><td>NASA Space Center University, Houston, 2024<span>Led a 4-person team designing a Mars habitat; 3rd of 20 teams</span></td><td></td></tr>
+          </tbody>
+          <tbody>
+            <tr class="grp"><th scope="rowgroup" colspan="2">Experience</th></tr>
+            <tr><td>Lifeguard, Virgin Active<span>2025–present · supervising a pool serving 300+ members</span></td><td></td></tr>
+            <tr><td>Stock photo contributor, Unsplash<span>2024–present · architecture and landscape portfolio</span></td><td></td></tr>
+          </tbody>
+          <tbody>
+            <tr class="grp"><th scope="rowgroup" colspan="2">Languages</th></tr>
+            <tr><td>German and Spanish (intermediate), Mandarin (beginner)</td><td></td></tr>
+          </tbody>
+        </table>
+
         <div class="outside">
           <h3>Outside engineering</h3>
           <p>I fly FPV drones, boulder, and photograph landscapes and cities. I publish on Unsplash, where my architecture and landscape work is free to use.</p>
-          <div class="photo-stats">
-            <div><b>390,000+</b><span class="label">views</span></div>
-            <div><b>5,000+</b><span class="label">downloads</span></div>
-          </div>
-          <div class="actions">
-            <a class="btn" href="https://unsplash.com/@dominic_t" target="_blank" rel="noopener">Unsplash ↗</a>
-            <a class="btn" href="https://www.instagram.com/dt___xt/" target="_blank" rel="noopener">Instagram ↗</a>
-          </div>
+          <dl class="photo-stats">
+            <div><dt>Views</dt><dd>390,000+</dd></div>
+            <div><dt>Downloads</dt><dd>5,000+</dd></div>
+          </dl>
+          <p class="links"><a href="https://unsplash.com/@dominic_t" target="_blank" rel="noopener">Unsplash ↗</a> <a href="https://www.instagram.com/dt___xt/" target="_blank" rel="noopener">Instagram ↗</a></p>
         </div>
       </div>
-      <!-- About: skills and experience; each skill names the projects that used it (DESIGN_PLAN.md 4.1) -->
-      <table class="bom">
-        <caption>Skills and experience</caption>
-        <thead><tr><th scope="col"><span class="sr-only">Number</span></th><th scope="col">Skill or role</th><th scope="col">Projects</th><th scope="col"><span class="sr-only">Which projects</span></th></tr></thead>
-        <tbody>
-          <tr class="grp"><th scope="rowgroup" colspan="4">Education</th></tr>
-          <tr><td>1</td><td>MEng Mechanical Engineering, UCL<span>2025–2029 · predicted 2:1</span></td><td></td><td></td></tr>
-          <tr><td>2</td><td>IB Diploma, 42/45<span>HL Mathematics, Physics, Economics</span></td><td></td><td></td></tr>
-        </tbody>
-        <tbody>
-          <tr class="grp"><th scope="rowgroup" colspan="4">Software and autonomy</th></tr>
-          <tr class="skill"><td>3</td><td>Python: NumPy, pandas, OpenCV, Matplotlib</td><td>1</td><td><a href="#e-04" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
-          <tr class="skill"><td>4</td><td>Autonomy architecture: detection, pose, filtering and guidance as separate stages<span>set the design rules and the simulator/flight-stack wall; code written with an AI agent</span></td><td>1</td><td><a href="#e-04" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
-          <tr class="skill"><td>5</td><td>Test design: seeded regression benchmarks, flagged A/B changes, pooled acceptance</td><td>1</td><td><a href="#e-04" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
-          <tr class="skill"><td>6</td><td>MATLAB: statistics and curve fitting</td><td>1</td><td><a href="#e-01" data-title="AI training-power scaling analysis">E-01</a></td></tr>
-        </tbody>
-        <tbody>
-          <tr class="grp"><th scope="rowgroup" colspan="4">Mechanical design</th></tr>
-          <tr class="skill"><td>7</td><td>Fusion: generative design, CAD</td><td>2</td><td><a href="#e-03" data-title="Generative FPV drone frame">E-03</a> <a href="#e-02" data-title="Pipe-climbing robot">E-02</a></td></tr>
-          <tr class="skill"><td>8</td><td>Ansys Mechanical FEA</td><td>1</td><td><a href="#e-03" data-title="Generative FPV drone frame">E-03</a></td></tr>
-          <tr class="skill"><td>9</td><td>Dynamic modelling in Excel</td><td>1</td><td><a href="#e-02" data-title="Pipe-climbing robot">E-02</a></td></tr>
-        </tbody>
-        <tbody>
-          <tr class="grp"><th scope="rowgroup" colspan="4">Experience</th></tr>
-          <tr><td>10</td><td>Lifeguard, Virgin Active<span>2025 – present · supervising a pool serving 300+ members</span></td><td></td><td></td></tr>
-          <tr><td>11</td><td>Stock photo contributor, Unsplash<span>2024 – present · architecture and landscape portfolio</span></td><td></td><td></td></tr>
-        </tbody>
-        <tbody>
-          <tr class="grp"><th scope="rowgroup" colspan="4">Leadership</th></tr>
-          <tr><td>12</td><td>NASA Space Center University, Houston, 2024<span>Led a 4-person team designing a Mars habitat; 3rd of 20 teams</span></td><td></td><td></td></tr>
-        </tbody>
-        <tbody>
-          <tr class="grp"><th scope="rowgroup" colspan="4">Languages</th></tr>
-          <tr><td>13</td><td>German and Spanish (intermediate), Mandarin (beginner)</td><td></td><td></td></tr>
-        </tbody>
-      </table>
+
+      <!-- Photographs as a contact sheet: a strip of film that scrolls sideways -->
+      <figure class="contact-sheet">
+        <div class="film" tabindex="0" role="region" aria-label="Contact sheet: eight photographs, scrolls sideways">
+          <ol>
+              <li><img src="images/photos/01.jpg" width="400" height="600" loading="lazy" decoding="async" alt="A painted statue of the Madonna and child, haloes lit, in a chapel cut into the rock"><span class="fr">▸ 01</span><span class="cap">Taormina, Sicily</span></li>
+              <li><img src="images/photos/02.jpg" width="400" height="600" loading="lazy" decoding="async" alt="The bay below Taormina in summer haze, steps zigzagging down the hillside"><span class="fr">▸ 02</span><span class="cap">Taormina, Sicily</span></li>
+              <li><img src="images/photos/03.jpg" width="400" height="600" loading="lazy" decoding="async" alt="A narrow street hung with red, yellow and white umbrellas, their shadows on the paving"><span class="fr">▸ 03</span><span class="cap">Catania, Sicily</span></li>
+              <li><img src="images/photos/04.jpg" width="900" height="600" loading="lazy" decoding="async" alt="An Italian flag on a castle wall above the coast and Giardini Naxos"><span class="fr">▸ 04</span><span class="cap">Castelmola, Sicily</span></li>
+              <li><img src="images/photos/05.jpg" width="900" height="600" loading="lazy" decoding="async" alt="A focacceria hung with lemons under a yellow Limoncello sign"><span class="fr">▸ 05</span><span class="cap">Taormina, Sicily</span></li>
+              <li><img src="images/photos/06.jpg" width="988" height="600" loading="lazy" decoding="async" alt="Rainforest over a rocky stream, looking up from the riverbed"><span class="fr">▸ 06</span><span class="cap">Malaysia</span></li>
+              <li><img src="images/photos/07.jpg" width="582" height="600" loading="lazy" decoding="async" alt="Red lanterns strung over temple roofs, a Sun Wukong statue in the trees beyond"><span class="fr">▸ 07</span><span class="cap">Malaysia</span></li>
+              <li><img src="images/photos/08.jpg" width="404" height="600" loading="lazy" decoding="async" alt="A shaded lane of old shophouses, plants and an old bicycle, people walking towards the shops"><span class="fr">▸ 08</span><span class="cap">Penang, Malaysia</span></li>
+          </ol>
+        </div>
+        <figcaption><span><b>Contact sheet</b> Sicily and Malaysia.</span><span class="cs-nav" hidden><button type="button" id="cs-prev" aria-label="Earlier frames">◂</button><button type="button" id="cs-next" aria-label="Later frames">▸</button></span></figcaption>
+      </figure>
     </div>
-    <!-- Photographs as a contact sheet (DESIGN_PLAN.md 4.2): a strip of film that scrolls sideways -->
-    <figure class="contact-sheet">
-      <div class="film" tabindex="0" role="region" aria-label="Contact sheet: eight photographs, scrolls sideways">
-        <ol>
-            <li><img src="images/photos/01.jpg" width="400" height="600" loading="lazy" decoding="async" alt="A painted statue of the Madonna and child, haloes lit, in a chapel cut into the rock"><span class="fr">▸ 01</span><span class="cap">Taormina, Sicily</span></li>
-            <li><img src="images/photos/02.jpg" width="400" height="600" loading="lazy" decoding="async" alt="The bay below Taormina in summer haze, steps zigzagging down the hillside"><span class="fr">▸ 02</span><span class="cap">Taormina, Sicily</span></li>
-            <li><img src="images/photos/03.jpg" width="400" height="600" loading="lazy" decoding="async" alt="A narrow street hung with red, yellow and white umbrellas, their shadows on the paving"><span class="fr">▸ 03</span><span class="cap">Catania, Sicily</span></li>
-            <li><img src="images/photos/04.jpg" width="900" height="600" loading="lazy" decoding="async" alt="An Italian flag on a castle wall above the coast and Giardini Naxos"><span class="fr">▸ 04</span><span class="cap">Castelmola, Sicily</span></li>
-            <li><img src="images/photos/05.jpg" width="900" height="600" loading="lazy" decoding="async" alt="A focacceria hung with lemons under a yellow Limoncello sign"><span class="fr">▸ 05</span><span class="cap">Taormina, Sicily</span></li>
-            <li><img src="images/photos/06.jpg" width="988" height="600" loading="lazy" decoding="async" alt="Rainforest over a rocky stream, looking up from the riverbed"><span class="fr">▸ 06</span><span class="cap">Malaysia</span></li>
-            <li><img src="images/photos/07.jpg" width="582" height="600" loading="lazy" decoding="async" alt="Red lanterns strung over temple roofs, a Sun Wukong statue in the trees beyond"><span class="fr">▸ 07</span><span class="cap">Malaysia</span></li>
-            <li><img src="images/photos/08.jpg" width="404" height="600" loading="lazy" decoding="async" alt="A shaded lane of old shophouses, plants and an old bicycle, people walking towards the shops"><span class="fr">▸ 08</span><span class="cap">Penang, Malaysia</span></li>
-        </ol>
-      </div>
-      <figcaption><span><b>Contact sheet</b> — Sicily and Malaysia.</span><span class="cs-nav" hidden><button type="button" id="cs-prev" aria-label="Earlier frames">◂</button><button type="button" id="cs-next" aria-label="Later frames">▸</button></span></figcaption>
-    </figure>
   </div>
 </section>
 
 <!-- ============ CONTACT ============ -->
-<section class="section" id="contact">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Contact</h2>
-      <p>Looking for a summer 2027 internship or a 2027–28 placement year in software, autonomy or systems, from 27 June 2027. Full right to work in the UK; based in London.</p>
+<section class="section" id="contact" aria-labelledby="contact-h">
+  <div class="wrap report">
+    <div class="margin">
+      <h2 id="contact-h">Contact</h2>
     </div>
-    <div class="contact">
-      <div class="contact-row">
-        <a class="email" id="email" href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a>
-        <button class="btn primary copy-btn" id="copy" type="button">Copy email</button>
-        <span class="sr-only" id="copy-status" role="status"></span>
-      </div>
-      <div class="actions">
-        <a class="btn" href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <a class="btn" href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a>
+    <div class="main">
+      <p class="about-lede">Looking for a summer 2027 internship or a 2027–28 placement year in software, autonomy or systems, from 27 June 2027. Full right to work in the UK; based in London.</p>
+      <div class="contact">
+        <div class="contact-row">
+          <a class="email" id="email" href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a>
+          <button class="btn copy-btn" id="copy" type="button">Copy email</button>
+          <span class="sr-only" id="copy-status" role="status"></span>
+        </div>
+        <p class="links"><a href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a> <a href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a></p>
       </div>
     </div>
   </div>

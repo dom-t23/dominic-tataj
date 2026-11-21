@@ -137,7 +137,7 @@ function build() {
   if (!W || !H) return;
   svg.setAttribute("viewBox", "0 0 " + W + " " + H);
   svg.textContent = "";
-  var wide = W >= 700, top = wide ? 74 : 118, gy = H - 40, se = (gy - top) / 3, cx = wide ? W * 0.4 : W / 2, k = wide ? 1.6 : 1.25;
+  var wide = W >= 560, top = wide ? 74 : 118, gy = H - 40, se = (gy - top) / 3, cx = wide ? W * 0.4 : W / 2, k = wide ? 1.6 : 1.25;
   L = { W: W, H: H, wide: wide, gy: gy, se: se, cx: cx, k: k,
     xmin: (14 - cx) / se, xmax: (W - 14 - cx) / se, zmax: (gy - 20) / se };
 

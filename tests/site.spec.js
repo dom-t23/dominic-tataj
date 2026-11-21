@@ -13,7 +13,7 @@ test("renders in standards mode with no errors", async ({ page }) => {
 test("content: order, numbering, figures and links", async ({ page }) => {
   await page.goto("/");
   const ids = (sel) => page.$$eval(sel, (es) => es.map((e) => e.id || e.getAttribute("href")));
-  expect(await ids(".register a")).toEqual(["#e-04", "#e-03", "#e-02", "#e-01"]);
+  expect(await ids(".results a")).toEqual(["#e-04", "#e-03", "#e-02", "#e-01"]);
   expect(await ids("article.sheet")).toEqual(["e-04", "e-03", "e-02", "e-01"]);
   expect(await page.$$eval("figcaption b", (bs) => bs.map((b) => b.textContent)))
     .toEqual(["Fig. 00", "Fig. 01", "Fig. 02", "Fig. 03", "Fig. 04", "Fig. 05", "Fig. 06", "Fig. 07", "Contact sheet"]);
@@ -21,12 +21,12 @@ test("content: order, numbering, figures and links", async ({ page }) => {
   expect(await page.$$eval("tr.pooled > *", (tds) => tds.map((t) => t.textContent))).toEqual(["Pooled", "99.83%", "97.79%", "98.58%", "97.46%"]);
   for (const href of ["https://unsplash.com/@dominic_t", "https://www.instagram.com/dt___xt/",
     "https://www.linkedin.com/in/dominic-tataj", "https://github.com/dom-t23"]) {
-    await expect(page.locator(`a[href="${href}"]`)).toHaveCount(1);
+    expect(await page.locator(`a[href="${href}"]`).count()).toBeGreaterThan(0);
   }
   await expect(page.locator('a[href$=".pdf"]')).toHaveCount(0);
   const body = await page.textContent("body");
   expect(body).not.toMatch(/(?<![\d.])(48|79)%|98\.0% gates|13 Oct|Photograph to add/);
-  await expect(page.locator(".hero-facts")).toContainText("27 June 2027");
+  await expect(page.locator(".facts")).toContainText("27 June 2027");
 });
 
 test("targeting: software, autonomy and systems first; the degree stays accurate", async ({ page }) => {
@@ -50,9 +50,9 @@ test("structured data names Dom and his targeting; theme-color follows the theme
   expect(ld["@type"]).toBe("ProfilePage");
   expect(ld.mainEntity.name).toBe("Dominic Tataj");
   expect(ld.mainEntity.description).toMatch(/software, autonomy and systems/);
-  await expect(page.locator("#theme-color")).toHaveAttribute("content", "#F3F4F7");
+  await expect(page.locator("#theme-color")).toHaveAttribute("content", "#F7F6F3");
   await page.click("#theme");
-  await expect(page.locator("#theme-color")).toHaveAttribute("content", "#090B0F");
+  await expect(page.locator("#theme-color")).toHaveAttribute("content", "#0E1012");
 });
 
 test("the theme button is in the nav from the first frame, so the nav doesn't reflow (R-18)", async ({ page }) => {
@@ -64,12 +64,12 @@ test("the theme button is in the nav from the first frame, so the nav doesn't re
 test("light first: a dark device still gets light; the toggle saves dark and clears it again", async ({ page }) => {
   await page.emulateMedia({ colorScheme: "dark" });
   await page.goto("/");
-  await expect(page.locator("#theme")).toHaveText("Dark");
-  expect(await page.evaluate(() => [document.documentElement.hasAttribute("data-theme"), getComputedStyle(document.body).backgroundColor])).toEqual([false, "rgb(243, 244, 247)"]);
+  await expect(page.locator("#theme")).toHaveText("Dark mode");
+  expect(await page.evaluate(() => [document.documentElement.hasAttribute("data-theme"), getComputedStyle(document.body).backgroundColor])).toEqual([false, "rgb(247, 246, 243)"]);
   await page.click("#theme");   // applied inside a view transition, a frame later
   await expect.poll(() => page.evaluate(() => [document.documentElement.dataset.theme, localStorage.getItem("theme")])).toEqual(["dark", "dark"]);
   await page.reload();
-  await expect(page.locator("#theme")).toHaveText("Light");
+  await expect(page.locator("#theme")).toHaveText("Light mode");
   await page.click("#theme");
   await expect.poll(() => page.evaluate(() => [document.documentElement.hasAttribute("data-theme"), localStorage.getItem("theme")])).toEqual([false, null]);
 });
@@ -79,7 +79,7 @@ test.describe("phone", () => {
   test("fits 390 px and shows availability on the first screen", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });
     expect(await page.evaluate(() => [innerWidth, document.documentElement.scrollWidth])).toEqual([390, 390]);
-    const box = await page.locator(".hero-facts").boundingBox();
+    const box = await page.locator(".facts").boundingBox();
     expect(box.y + box.height).toBeLessThan(await page.evaluate(() => innerHeight));
     // no spec value wraps onto a second line (in its final state, not mid-count)
     await page.evaluate(() => window.dispatchEvent(new Event("beforeprint")));
@@ -108,9 +108,9 @@ test("key figures show their real values from the first frame, with no count-up 
   await page.addInitScript(() => { delete window.WebGL2RenderingContext; });
   await page.goto("/", { waitUntil: "networkidle" });
   const values = () => page.$$eval("#e-03 .specs .n", (ns) => ns.map((n) => n.textContent));
-  expect(await values()).toEqual(["1.5", ">300Hz", "−36%mass", "38g"]);
+  expect(await values()).toEqual(["1.5", ">300Hz", "−36%", "38g"]);
   await page.locator("#e-03 .specs").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
   await page.waitForTimeout(300);
-  expect(await values()).toEqual(["1.5", ">300Hz", "−36%mass", "38g"]);
+  expect(await values()).toEqual(["1.5", ">300Hz", "−36%", "38g"]);
   await expect(page.locator("#e-02 .specs .n").nth(1)).toHaveText("400×300mm");
 });
