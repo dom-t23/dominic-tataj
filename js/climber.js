@@ -1,4 +1,4 @@
-// E-02's climb, Fig. 04 (DESIGN_PLAN.md 3.6, 3.7): the pipe climber on a corrected version of
+// E-02's climb, Fig. 05 (DESIGN_PLAN.md 3.6, 3.7): the pipe climber on a corrected version of
 // the team's Excel model. Same equations (a DC motor's straight torque-speed line, the gear ratio,
 // the drive wheel, friction from the normal force, a chain whose weight grows with height), with
 // the gear ratio used consistently, a 1 ms step (10 ms explicit Euler is unstable here: the drive
@@ -132,7 +132,7 @@ function play() {
 }
 function stop() { anim++; loopDot(-1); if (run) say(true); }
 
-// Fig. 05 follows a run: a dot goes round the model's loop (state → torque → force → slip check →
+// Fig. 06 follows a run: a dot goes round the model's loop (state → torque → force → slip check →
 // acceleration → step), once every 0.4 s on screen.
 var LOOP = [[86, 46], [434, 46], [434, 142], [86, 142], [86, 46]];
 function loopDot(now) {

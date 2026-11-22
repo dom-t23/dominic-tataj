@@ -426,9 +426,20 @@ figcaption { padding: 10px 0 0; font: 400 var(--fs-0)/1.5 var(--font-body); colo
 figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 .flight figcaption, .raised figcaption { padding: 11px 16px 12px; border-top: 1px solid var(--rule); }
 .fig-stack { display: grid; gap: var(--s-5); min-width: 0; }
+/* lists of findings in the prose: a bold lead-in, then the point */
+.prose ul.gains { margin: var(--s-3) 0 0; padding: 0; list-style: none; display: grid; gap: var(--s-3); }
+.prose ul.gains li { padding-left: 16px; position: relative; }
+.prose ul.gains li::before { content: ""; position: absolute; left: 0; top: 0.68em; width: 7px; height: 2px; background: var(--signal); }
+.prose ul.gains b { font-weight: 600; color: var(--ink); }
+/* Fig. 04 on the frame page: V1 against V2, words as well as numbers, so cells wrap */
+.bench.cmp th, .bench.cmp td { white-space: normal; vertical-align: top; }
+.bench.cmp td { font: 400 13.5px/1.4 var(--font-body); }
+.bench.cmp td:first-of-type { padding-right: 12px; }
+.bench.cmp tbody th { color: var(--muted); font: 500 12.5px/1.4 var(--font-body); width: 32%; }
+.bench.cmp thead th { color: var(--ink); font-weight: 600; }
 .render { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; max-width: 100%; object-fit: cover; background: var(--panel); }
 .drawing { display: block; width: 100%; height: auto; }
-/* Fig. 03 and 06 have a second drawing for phones; Fig. 05 keeps a legible width and scrolls (R-20) */
+/* Fig. 03 and 07 have a second drawing for phones; Fig. 06 keeps a legible width and scrolls (R-20) */
 .drawing.narrow { display: none; }
 /* by the figure's own width, so a narrow column on a laptop gets the legible drawing too */
 .plate:has(> .drawing.narrow) { container-type: inline-size; }
@@ -567,7 +578,6 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 .f3-stage { flex: 1; min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; background: var(--paper); }
 @media (min-width: 760px) {
   .f3-stage { grid-template-columns: minmax(0, 1fr) 300px; grid-template-rows: auto minmax(0, 1fr); }
-  .f3-steps { grid-column: 1 / -1; }
   .f3-parts { align-self: end; margin: 0 16px 16px 0; }
 }
 /* phones scroll past the figure (not pinned): give the drawing room above the two-column parts list */
@@ -579,15 +589,19 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 }
 @supports (height: 100svh) { @media (max-width: 599px) { .f3-track.is-3d.pinned { --f3-h: calc(100svh - var(--nav-h, 72px)); } } }
 
-/* the views as a segmented control floating over the drawing */
-.f3-steps { display: flex; gap: 4px; justify-self: start; margin: 12px 0 0 12px; padding: 3px; border-radius: var(--r-2); background: var(--panel); border: 1px solid var(--rule); position: relative; z-index: 2; }
-.f3-steps button {
+/* the version and the views as segmented controls floating over the drawing */
+.f3-bar { display: flex; flex-wrap: wrap; gap: 8px; justify-self: start; margin: 12px 12px 0; position: relative; z-index: 2; }
+@media (min-width: 760px) { .f3-bar { grid-column: 1 / -1; } }
+.f3-steps, .f3-ver { display: flex; gap: 4px; padding: 3px; border-radius: var(--r-2); background: var(--panel); border: 1px solid var(--rule); }
+.f3-steps button, .f3-ver button {
   position: relative; flex: 0 1 auto; padding: 9px 14px; border: 0; border-radius: var(--r-1); background: none; cursor: pointer; overflow: hidden;
   font: 500 13px/1 var(--font-body); color: var(--muted); white-space: nowrap; transition: color var(--dur-quick) ease, background var(--dur-quick) ease, box-shadow var(--dur-quick) ease;
 }
 .f3-steps button span { font: 500 11px/1 var(--font-data); margin-right: 2px; }
-.f3-steps button:hover { color: var(--ink); }
-.f3-steps button[aria-current] { color: var(--ink); background: var(--paper); box-shadow: var(--e-1); }
+.f3-steps button:hover, .f3-ver button:hover { color: var(--ink); }
+.f3-steps button[aria-current], .f3-ver button[aria-pressed="true"] { color: var(--ink); background: var(--paper); box-shadow: var(--e-1); }
+.f3-ver button { font-family: var(--font-data); font-size: 12px; }
+.f3-ver button[aria-pressed="true"] { box-shadow: var(--e-1), inset 0 -2px 0 var(--signal); }
 .f3-steps button[aria-current] span { color: var(--link); }
 /* how far through each view the scroll is: an orange line along the foot of its button */
 .f3-steps button::after {
@@ -595,7 +609,9 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
   transform: scaleX(var(--f, 0)); transform-origin: left;
 }
 @media (max-width: 520px) {
-  .f3-steps button { flex: 1 1 auto; padding: 12px 8px; }
+  .f3-bar { justify-self: stretch; flex-wrap: nowrap; }
+  .f3-steps { flex: 1; }
+  .f3-steps button, .f3-ver button { flex: 1 1 auto; padding: 12px 8px; }
   .f3-steps button span { display: none; }
 }
 
@@ -629,6 +645,7 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 .f3-ov .tag text { fill: var(--paper); }
 
 /* parts list: a drawing's bill of materials, and a way to pick parts out */
+.f3-parts[hidden] { display: none !important; }
 .f3-parts { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--raised); border-top: 1px solid var(--rule); font: 400 12px/1.3 var(--font-body); color: var(--ink-2); }
 .f3-parts caption { caption-side: top; text-align: left; padding: 9px 12px; font-weight: 500; color: var(--ink); }
 .f3-parts th { padding: 6px 8px 5px; font-weight: 400; color: var(--muted); text-align: left; border-bottom: 1px solid var(--rule); }
@@ -648,6 +665,7 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 /* narrower: the list in two columns, read down, so the drawing keeps the room */
 @media (max-width: 759px) {
   .f3-parts { display: grid; grid-template-rows: repeat(5, auto); grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); padding-block: 4px; font-size: 10px; }
+  .f3-parts[data-ver="v2"] { grid-template-rows: repeat(7, auto); }
   .f3-parts caption, .f3-parts thead { display: none; }
   .f3-parts tbody, .f3-parts tfoot { display: contents; }
   .f3-parts tr { display: flex; align-items: baseline; gap: 8px; padding: 1px 10px; }
@@ -665,7 +683,7 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 }
 
 
-/* E-02's climb (Fig. 04, js/climber.js): the robot climbs while the pipe scrolls past it */
+/* E-02's climb (Fig. 05, js/climber.js): the robot climbs while the pipe scrolls past it */
 .climb { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 1px; background: var(--rule); }
 @media (max-width: 760px) { .climb { grid-template-columns: minmax(0, 1fr); } }
 .climb-stage { position: relative; height: 440px; overflow: hidden; background: var(--paper); }
@@ -712,11 +730,11 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 .climb-plot .run { stroke: var(--signal); stroke-width: 2; fill: none; stroke-linejoin: round; }
 .climb-plot .limit { stroke: var(--bad); stroke-width: 1; stroke-dasharray: 2 3; }
 .climb-plot .now { fill: var(--signal); }
-/* the flowchart beside it (Fig. 05) follows a run: a dot goes round its loop, a slip lights the reject branch */
+/* the flowchart beside it (Fig. 06) follows a run: a dot goes round its loop, a slip lights the reject branch */
 #flowchart .fc-dot { fill: var(--signal); }
 #flowchart.reject .fc-reject { stroke: var(--bad); stroke-width: 2.5; }
 
-/* E-01's scatter (Fig. 07, js/scaling.js): linear axes un-skew into log axes, then the fit draws */
+/* E-01's scatter (Fig. 08, js/scaling.js): linear axes un-skew into log axes, then the fit draws */
 .scaling-fig .plate { padding: 10px 12px 6px; }
 .sc-axes { display: flex; gap: 3px; padding: 3px; width: max-content; margin: 0 0 8px auto; border-radius: var(--r-2); background: color-mix(in srgb, var(--ink) 5%, transparent); border: 1px solid var(--rule); }
 .sc-axes button { font: 500 12px/1.3 var(--font-body); background: none; color: var(--muted); border: 0; border-radius: var(--r-1); padding: 6px 11px; cursor: pointer; }

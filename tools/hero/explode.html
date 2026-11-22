@@ -2,18 +2,19 @@
 <html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}canvas{display:block}</style>
 <script type="importmap">{ "imports": { "three": "../../js/vendor/three/three.module.min.js", "three/addons/": "../../js/vendor/three/addons/" } }</script></head>
 <body><script type="module">
-// The homepage hero ("Exploded view"), drawn offline from the real assembly (models/frame.glb)
+// The homepage hero ("Exploded view"), drawn offline from the real assembly (models/frame-v2.glb, V2)
 // and driven by tools/hero/explode.cjs. Frames x00..xNN: the drone turns and comes apart part by
 // part, using Fig. 02's own explode moves (js/frame3d.js MOVES), as glowing accent lines on dark
 // surfaces, saved as WebP with alpha. The page's scroll scrubs through them.
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
-import { GROUPS, POSES, MOVES, FOV, G_VERT, G_FRAG, INK_VERT, INK_FRAG } from "../../js/frame3d.js";
+import { MODELS, POSES, FOV, G_VERT, G_FRAG, INK_VERT, INK_FRAG } from "../../js/frame3d.js";
+const { groups: GROUPS, moves: MOVES, url: URL_ } = MODELS[new URLSearchParams(location.search).get("ver") || "v2"];
 
 const Q = new URLSearchParams(location.search);
 const W = +(Q.get("w") || 1280), H = +(Q.get("h") || 960), N = +(Q.get("n") || 36), QUAL = +(Q.get("q") || 0.8);
-// INK draws every part; FRAME redraws the frame alone (Body1, the part Dom designed) on top, so it stands out
+// INK draws every part; FRAME redraws the frame alone (the part Dom designed) on top, so it stands out
 const INK = "#" + (Q.get("ink") || "3DDCFF"), FILL = "#" + (Q.get("fill") || "0D0E11"), FRAME = Q.get("frame") ? "#" + Q.get("frame") : null, GLOW = Q.get("glow") !== "0";
 const MM = 0.001, DEG = Math.PI / 180;
 const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
@@ -23,7 +24,7 @@ const ease = (t) => { t = clamp(t, 0, 1); return t < 0.5 ? 4 * t * t * t : 1 - M
 const r = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
 r.setPixelRatio(1); r.setSize(W, H); r.setClearColor(0, 0);
 
-new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load("../../models/frame.glb", (gltf) => {
+new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load("../../" + URL_, (gltf) => {
   const scene = new THREE.Scene(), model = new THREE.Group(); scene.add(model);
   gltf.scene.updateMatrixWorld(true);
   const meshes = []; gltf.scene.traverse((o) => { if (o.isMesh) meshes.push(o); });

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Generative FPV drone frame · Dominic Tataj</title>
-<meta name="description" content="A generatively designed 3-inch FPV frame: 38 g printed, 36% lighter than a comparable plate frame, keeping the drone at 246 g, under the UK CAA&#x27;s 250 g. Fusion generative design and Ansys.">
+<meta name="description" content="A 3-inch FPV frame in two versions, both under the UK CAA&#x27;s 250 g: V1 generatively designed, 38 g and 36% lighter than a plate frame; V2 redesigned to print, one 52 g part, safety factor 5, first mode 200 Hz.">
 <link rel="canonical" href="https://dom-t23.github.io/dominic-tataj/drone-frame.html">
 <meta name="theme-color" content="#141311">
 <meta name="color-scheme" content="dark light">
@@ -15,7 +15,7 @@
 <link rel="manifest" href="site.webmanifest">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Generative FPV drone frame, by Dominic Tataj">
-<meta property="og:description" content="A generatively designed 3-inch FPV frame: 38 g printed, 36% lighter than a comparable plate frame, keeping the drone at 246 g, under the UK CAA&#x27;s 250 g. Fusion generative design and Ansys.">
+<meta property="og:description" content="A 3-inch FPV frame in two versions, both under the UK CAA&#x27;s 250 g: V1 generatively designed, 38 g and 36% lighter than a plate frame; V2 redesigned to print, one 52 g part, safety factor 5, first mode 200 Hz.">
 <meta property="og:url" content="https://dom-t23.github.io/dominic-tataj/drone-frame.html">
 <meta property="og:image" content="https://dom-t23.github.io/dominic-tataj/og/drone-frame.png">
 <meta property="og:image:width" content="1200">
@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Generative FPV drone frame, by Dominic Tataj">
-<meta name="twitter:description" content="A generatively designed 3-inch FPV frame: 38 g printed, 36% lighter than a comparable plate frame, keeping the drone at 246 g, under the UK CAA&#x27;s 250 g. Fusion generative design and Ansys.">
+<meta name="twitter:description" content="A 3-inch FPV frame in two versions, both under the UK CAA&#x27;s 250 g: V1 generatively designed, 38 g and 36% lighter than a plate frame; V2 redesigned to print, one 52 g part, safety factor 5, first mode 200 Hz.">
 <meta name="twitter:image" content="https://dom-t23.github.io/dominic-tataj/og/drone-frame.png">
 <script>
   // The "js" class lets scripted parts of the page take their place from the first frame; a saved
@@ -33,7 +33,7 @@
   document.documentElement.classList.add("js");
   try { if (localStorage.getItem("theme") === "light") { document.documentElement.setAttribute("data-theme", "light"); document.querySelector('meta[name="theme-color"]').content = "#F4F1EA"; } } catch (e) {}
 </script>
-<link rel="stylesheet" href="css/site.css?v=20261122p">
+<link rel="stylesheet" href="css/site.css?v=20261122q">
 </head>
 <body>
 <a class="skip" href="#top">Skip to content</a>
@@ -69,25 +69,26 @@
         <dl>
           <div><dt>Role</dt><dd>Design, analysis and build</dd></div>
           <div><dt>Tools</dt><dd>Fusion generative · Ansys Mechanical</dd></div>
-          <div><dt>Date</dt><dd>Jul–Sep 2026</dd></div>
-          <div><dt>Status</dt><dd>Built and tested</dd></div>
+          <div><dt>Date</dt><dd>V1 Jul–Sep 2026<br>V2 Oct–Nov 2026</dd></div>
+          <div><dt>Status</dt><dd>Both built and flown</dd></div>
         </dl>
       </div>
       <div class="sheet-body">
         <div class="sheet-title">
           <h1 id="e03-h">A generatively designed 3-inch FPV drone frame</h1>
-          <p class="summary">A 38 g printed frame, 36% lighter than a comparable plate frame, that keeps the complete drone at 246 g, under the UK CAA's 250 g threshold. Arm deflection measured at maximum thrust agreed with Ansys to within 18%.</p>
+          <p class="summary">Two printed frames that keep the complete drone under the UK CAA's 250 g threshold. V1 is a 38 g generated frame, 36% lighter than a comparable plate frame; its arm deflection at maximum thrust agreed with Ansys to within 18%. V2 redesigns it to print and assemble easily: one 52 g part with the camera cage and battery deck built in, a safety factor of 5 and a first mode at 200 Hz, flying at about 240 g with an action camera on top.</p>
         </div>
 
         <div class="specs" role="group" aria-label="Key figures">
-          <div><span class="label">Safety factor</span><span class="n">1.5</span></div>
-          <div><span class="label">First mode, required</span><span class="n">&gt;300<small>Hz</small></span></div>
-          <div><span class="label">Mass vs plate frame</span><span class="n">−36%</span></div>
-          <div><span class="label">Printed frame</span><span class="n">38<small>g</small></span></div>
+          <div><span class="label">V2 safety factor</span><span class="n">5</span></div>
+          <div><span class="label">V2 first mode</span><span class="n">200<small>Hz</small></span></div>
+          <div><span class="label">V2 all-up</span><span class="n">240<small>g</small></span></div>
+          <div><span class="label">V1 vs plate frame</span><span class="n">−36%</span></div>
         </div>
 
-        <!-- Fig. 01: with WebGL, js/frame3d-boot.js swaps the renders for the real model in
-             three scroll-driven views (js/frame3d.js); without it, the renders stay. -->
+        <!-- Fig. 02: with WebGL, js/frame3d-boot.js swaps the renders for the real model in
+             three scroll-driven views (js/frame3d.js), V2 first, with buttons for V1; without it,
+             the renders (of V1) stay. Each view button has a caption per version. -->
         <div class="f3-track" id="f3-track">
           <figure class="f3" id="frame3d">
             <div class="f3-renders">
@@ -95,14 +96,46 @@
               <img class="render" src="images/frame-render-top.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone from above, showing the organic X-shaped frame arms and the battery on the centre line">
             </div>
             <div class="f3-stage" hidden>
-              <div class="f3-steps" role="group" aria-label="Views of the model">
-                <button type="button" data-cap="As modelled in Fusion: 47 parts, 246 g all-up. Drag to turn it; point at a part to name it."><span>01</span> Assembly</button>
-                <button type="button" data-cap="Exploded. Point at a part, or a row of the parts list, to pick it out."><span>02</span> Exploded</button>
-                <button type="button" data-cap="The generated frame alone: 38 g of PC/ABS, motors 96 mm apart, 136 mm across the diagonal."><span>03</span> Frame only</button>
+              <div class="f3-bar">
+                <div class="f3-ver" role="group" aria-label="Version">
+                  <button type="button" data-ver="v2" aria-pressed="true">V2</button>
+                  <button type="button" data-ver="v1" aria-pressed="false">V1</button>
+                </div>
+                <div class="f3-steps" role="group" aria-label="Views of the model">
+                  <button type="button"
+                    data-cap="V2 as modelled in Fusion: 25 parts, about 240 g all-up with the action camera. Drag to turn it; point at a part to name it."
+                    data-cap-v2="V2 as modelled in Fusion: 25 parts, about 240 g all-up with the action camera. Drag to turn it; point at a part to name it."
+                    data-cap-v1="V1 as modelled in Fusion: 47 parts, 246 g all-up. Drag to turn it; point at a part to name it."><span>01</span> Assembly</button>
+                  <button type="button"
+                    data-cap-v2="V2, exploded. Point at a part, or a row of the parts list, to pick it out."
+                    data-cap-v1="V1, exploded. Point at a part, or a row of the parts list, to pick it out."><span>02</span> Exploded</button>
+                  <button type="button"
+                    data-cap-v2="The V2 frame alone: 52 g, one printed part with the camera cage and battery deck built in. Motors 125 × 98 mm apart, 159 mm across the diagonal."
+                    data-cap-v1="The generated V1 frame alone: 38 g of PC/ABS, motors 96 mm apart, 136 mm across the diagonal."><span>03</span> Frame only</button>
+                </div>
               </div>
               <div class="f3-view"><p class="f3-load" aria-live="polite">Loading model</p></div>
-              <table class="f3-parts">
-                <caption>Parts list</caption>
+              <table class="f3-parts" data-ver="v2">
+                <caption>Parts list, V2</caption>
+                <thead><tr><th scope="col">Item</th><th scope="col">Part</th><th scope="col">Qty</th><th scope="col">Mass</th></tr></thead>
+                <tbody>
+                  <tr data-part="frame"><td>1</td><td><button type="button">Frame, printed</button></td><td>1</td><td>52 g</td></tr>
+                  <tr data-part="motor"><td>2</td><td><button type="button">Motor</button></td><td>4</td><td></td></tr>
+                  <tr data-part="prop"><td>3</td><td><button type="button">Propeller, 3-inch</button></td><td>4</td><td></td></tr>
+                  <tr data-part="battery"><td>4</td><td><button type="button">Battery 4S</button></td><td>1</td><td></td></tr>
+                  <tr data-part="fc"><td>5</td><td><button type="button">Flight controller</button></td><td>1</td><td></td></tr>
+                  <tr data-part="esc"><td>6</td><td><button type="button">ESC, 4-in-1</button></td><td>1</td><td></td></tr>
+                  <tr data-part="grommet"><td>7</td><td><button type="button">Soft-mount grommet</button></td><td>8</td><td></td></tr>
+                  <tr data-part="camera"><td>8</td><td><button type="button">FPV camera</button></td><td>1</td><td></td></tr>
+                  <tr data-part="vtx"><td>9</td><td><button type="button">Video transmitter</button></td><td>1</td><td></td></tr>
+                  <tr data-part="rx"><td>10</td><td><button type="button">Receiver, ELRS</button></td><td>1</td><td></td></tr>
+                  <tr data-part="action"><td>11</td><td><button type="button">Action camera</button></td><td>1</td><td></td></tr>
+                  <tr data-part="mount"><td>12</td><td><button type="button">Camera mount</button></td><td>1</td><td></td></tr>
+                </tbody>
+                <tfoot><tr><td></td><td>All-up</td><td>25</td><td>~240 g</td></tr></tfoot>
+              </table>
+              <table class="f3-parts" data-ver="v1" hidden>
+                <caption>Parts list, V1</caption>
                 <thead><tr><th scope="col">Item</th><th scope="col">Part</th><th scope="col">Qty</th><th scope="col">Mass</th></tr></thead>
                 <tbody>
                   <tr data-part="frame"><td>1</td><td><button type="button">Frame, PC/ABS</button></td><td>1</td><td>38 g</td></tr>
@@ -118,7 +151,7 @@
                 <tfoot><tr><td></td><td>All-up</td><td>47</td><td>246 g</td></tr></tfoot>
               </table>
             </div>
-            <figcaption><b>Fig. 02</b> <span class="f3-cap">Fusion renders of the assembled drone, three-quarter and top views, showing the generated arm geometry.</span></figcaption>
+            <figcaption><b>Fig. 02</b> <span class="f3-cap">Fusion renders of the assembled V1 drone, three-quarter and top views, showing the generated arm geometry.</span></figcaption>
           </figure>
         </div>
 
@@ -126,12 +159,12 @@
         <div class="cols">
           <div class="prose">
             <div>
-              <h2>Approach</h2>
+              <h2>V1: approach</h2>
               <p>I derived eight operational load cases, including maximum thrust, arm collision and battery impact, to define the design envelope and starting geometry.</p>
-              <p>I then ran Fusion's generative optimisation under those loads with buckling, modal frequency (above 300 Hz) and 1.5 safety-factor constraints. The selected topology is 36% lighter than a comparable plate-based frame.</p>
+              <p>I then ran Fusion's generative optimisation under those loads with buckling and 1.5 safety-factor constraints. The selected topology is 36% lighter than a comparable plate-based frame.</p>
             </div>
             <details class="more" open>
-              <summary><h2>Build and testing</h2></summary>
+              <summary><h2>V1: build and testing</h2></summary>
               <p>I printed the frame in PC/ABS for impact toughness. It weighs 38 g, and the fully assembled drone comes to 246 g, under the 250 g threshold.</p>
               <p>I measured arm deflection at maximum thrust and compared it with Ansys Mechanical; the two agreed to within 18%.</p>
             </details>
@@ -139,49 +172,111 @@
           <div class="fig-stack">
             <figure>
               <div class="plate">
-                <svg class="drawing wide" viewBox="0 0 520 170" role="img" aria-label="Mass budget: 246 grams all-up against a 250 gram limit, of which the frame is 38 grams">
+                <svg class="drawing wide" viewBox="0 0 520 210" role="img" aria-label="Mass budget against the 250 gram limit: V1 246 grams all-up with a 38 gram frame; V2 about 240 grams all-up with a 52 gram frame">
                   <!-- scale: 0 g at x=20, 260 g at x=500 → 1.846 px/g -->
-                  <line x1="20" y1="96" x2="500" y2="96" stroke="var(--rule)" stroke-width="1"/>
-                  <rect x="20" y="62" width="70.2" height="28" fill="var(--signal)"/>
-                  <rect x="90.2" y="62" width="384" height="28" fill="var(--ink)" opacity="0.82"/>
-                  <line x1="481.5" y1="40" x2="481.5" y2="104" stroke="var(--link)" stroke-width="2" stroke-dasharray="4 3"/>
-                  <text x="512" y="32" text-anchor="end" font-size="11" fill="var(--link)">CAA limit 250 g</text>
-                  <text x="20" y="52" font-size="11" fill="var(--ink)">Frame 38 g</text>
-                  <text x="470" y="56" text-anchor="end" font-size="11" fill="var(--ink)">All-up 246 g</text>
-                  <g font-size="10" fill="var(--muted)">
-                    <line x1="20" y1="96" x2="20" y2="102" stroke="var(--muted)"/><text x="20" y="118" text-anchor="middle">0</text>
-                    <line x1="112.3" y1="96" x2="112.3" y2="102" stroke="var(--muted)"/><text x="112.3" y="118" text-anchor="middle">50</text>
-                    <line x1="204.6" y1="96" x2="204.6" y2="102" stroke="var(--muted)"/><text x="204.6" y="118" text-anchor="middle">100</text>
-                    <line x1="296.9" y1="96" x2="296.9" y2="102" stroke="var(--muted)"/><text x="296.9" y="118" text-anchor="middle">150</text>
-                    <line x1="389.2" y1="96" x2="389.2" y2="102" stroke="var(--muted)"/><text x="389.2" y="118" text-anchor="middle">200</text>
-                    <text x="500" y="118" text-anchor="end">g</text>
-                  </g>
-                  <text x="20" y="150" font-size="11" fill="var(--muted)">Margin to limit: 4 g</text>
-                </svg>
-                <svg class="drawing narrow" viewBox="0 0 320 140" role="img" aria-label="Mass budget: 246 grams all-up against a 250 gram limit, of which the frame is 38 grams">
-                  <!-- scale: 0 g at x=12, 260 g at x=308 → 1.1385 px/g -->
-                  <line x1="12" y1="82" x2="308" y2="82" stroke="var(--rule)" stroke-width="1"/>
-                  <rect x="12" y="52" width="43.3" height="24" fill="var(--signal)"/>
-                  <rect x="55.3" y="52" width="236.8" height="24" fill="var(--ink)" opacity="0.82"/>
-                  <line x1="296.6" y1="30" x2="296.6" y2="88" stroke="var(--link)" stroke-width="2" stroke-dasharray="4 3"/>
-                  <text x="310" y="22" text-anchor="end" font-size="11" fill="var(--link)">CAA limit 250 g</text>
-                  <text x="12" y="44" font-size="11" fill="var(--ink)">Frame 38 g</text>
-                  <text x="288" y="44" text-anchor="end" font-size="11" fill="var(--ink)">All-up 246 g</text>
+                  <line x1="481.5" y1="26" x2="481.5" y2="154" stroke="var(--link)" stroke-width="2" stroke-dasharray="4 3"/>
+                  <text x="512" y="18" text-anchor="end" font-size="11" fill="var(--link)">CAA limit 250 g</text>
+                  <text x="20" y="44" font-size="11" fill="var(--ink)"><tspan font-weight="600">V1</tspan>  frame 38 g</text>
+                  <text x="468.1" y="44" text-anchor="end" font-size="11" fill="var(--ink)">All-up 246 g</text>
+                  <rect x="20" y="52" width="70.1" height="26" fill="var(--signal)"/>
+                  <rect x="90.1" y="52" width="384.0" height="26" fill="var(--ink)" opacity="0.82"/>
+                  <text x="20" y="104" font-size="11" fill="var(--ink)"><tspan font-weight="600">V2</tspan>  frame 52 g, with the action camera</text>
+                  <text x="457.0" y="104" text-anchor="end" font-size="11" fill="var(--ink)">All-up ~240 g</text>
+                  <rect x="20" y="112" width="96.0" height="26" fill="var(--signal)"/>
+                  <rect x="116.0" y="112" width="347.0" height="26" fill="var(--ink)" opacity="0.82"/>
+                  <line x1="20" y1="148" x2="500" y2="148" stroke="var(--rule)" stroke-width="1"/>
                   <g font-size="10" fill="var(--muted)" text-anchor="middle">
-                    <line x1="12" y1="82" x2="12" y2="88" stroke="var(--muted)"/><text x="12" y="102">0</text>
-                    <line x1="68.9" y1="82" x2="68.9" y2="88" stroke="var(--muted)"/><text x="68.9" y="102">50</text>
-                    <line x1="125.9" y1="82" x2="125.9" y2="88" stroke="var(--muted)"/><text x="125.9" y="102">100</text>
-                    <line x1="182.8" y1="82" x2="182.8" y2="88" stroke="var(--muted)"/><text x="182.8" y="102">150</text>
-                    <line x1="239.7" y1="82" x2="239.7" y2="88" stroke="var(--muted)"/><text x="239.7" y="102">200</text>
-                    <text x="308" y="102" text-anchor="end">g</text>
+                    <line x1="20" y1="148" x2="20" y2="154" stroke="var(--muted)"/><text x="20" y="170">0</text>
+                    <line x1="112.3" y1="148" x2="112.3" y2="154" stroke="var(--muted)"/><text x="112.3" y="170">50</text>
+                    <line x1="204.6" y1="148" x2="204.6" y2="154" stroke="var(--muted)"/><text x="204.6" y="170">100</text>
+                    <line x1="296.9" y1="148" x2="296.9" y2="154" stroke="var(--muted)"/><text x="296.9" y="170">150</text>
+                    <line x1="389.2" y1="148" x2="389.2" y2="154" stroke="var(--muted)"/><text x="389.2" y="170">200</text>
+                    <text x="500" y="170" text-anchor="end">g</text>
                   </g>
-                  <text x="12" y="128" font-size="11" fill="var(--muted)">Margin to limit: 4 g</text>
+                  <text x="20" y="200" font-size="11" fill="var(--muted)">Margin to limit: V1 4 g, V2 about 10 g</text>
+                </svg>
+                <svg class="drawing narrow" viewBox="0 0 320 190" role="img" aria-label="Mass budget against the 250 gram limit: V1 246 grams all-up with a 38 gram frame; V2 about 240 grams all-up with a 52 gram frame">
+                  <!-- scale: 0 g at x=12, 260 g at x=308 → 1.1385 px/g -->
+                  <line x1="296.6" y1="24" x2="296.6" y2="138" stroke="var(--link)" stroke-width="2" stroke-dasharray="4 3"/>
+                  <text x="310" y="16" text-anchor="end" font-size="11" fill="var(--link)">CAA limit 250 g</text>
+                  <text x="12" y="40" font-size="11" fill="var(--ink)"><tspan font-weight="600">V1</tspan>  frame 38 g · 246 g</text>
+                  <rect x="12" y="47" width="43.3" height="22" fill="var(--signal)"/>
+                  <rect x="55.3" y="47" width="236.8" height="22" fill="var(--ink)" opacity="0.82"/>
+                  <text x="12" y="94" font-size="11" fill="var(--ink)"><tspan font-weight="600">V2</tspan>  frame 52 g · ~240 g</text>
+                  <rect x="12" y="101" width="59.2" height="22" fill="var(--signal)"/>
+                  <rect x="71.2" y="101" width="214.0" height="22" fill="var(--ink)" opacity="0.82"/>
+                  <line x1="12" y1="132" x2="308" y2="132" stroke="var(--rule)" stroke-width="1"/>
+                  <g font-size="10" fill="var(--muted)" text-anchor="middle">
+                    <line x1="12" y1="132" x2="12" y2="138" stroke="var(--muted)"/><text x="12" y="152">0</text>
+                    <line x1="68.9" y1="132" x2="68.9" y2="138" stroke="var(--muted)"/><text x="68.9" y="152">50</text>
+                    <line x1="125.9" y1="132" x2="125.9" y2="138" stroke="var(--muted)"/><text x="125.9" y="152">100</text>
+                    <line x1="182.8" y1="132" x2="182.8" y2="138" stroke="var(--muted)"/><text x="182.8" y="152">150</text>
+                    <line x1="239.7" y1="132" x2="239.7" y2="138" stroke="var(--muted)"/><text x="239.7" y="152">200</text>
+                    <text x="308" y="152" text-anchor="end">g</text>
+                  </g>
+                  <text x="12" y="180" font-size="11" fill="var(--muted)">Margin to limit: V1 4 g, V2 about 10 g</text>
                 </svg>
               </div>
-              <figcaption><b>Fig. 03</b> Mass budget. Frame vs complete drone, against the CAA 250 g threshold.</figcaption>
+              <figcaption><b>Fig. 03</b> Mass budget, V1 and V2. Frame vs complete drone, against the CAA 250 g threshold.</figcaption>
             </figure>
           </div>
         </div>
+
+        <section class="cols v2" id="v2" aria-labelledby="v2-h">
+          <div class="prose">
+            <div>
+              <h2 id="v2-h">V2: redesigned to be made</h2>
+              <p>V1 met its targets, but the generated arms were thin, branching struts that were hard to print well, and the electronics hung off the frame on stacked standoffs. For V2 I kept the 3-inch layout and the 250 g limit and redesigned the frame around how it is printed and put together.</p>
+              <p>The frame is one printed part again, now with thicker members and the camera cage, battery deck and stack mounts built into it. The flight controller and ESC sit on eight soft-mount grommets. It weighs 52 g, 14 g more than V1, yet the drone flies at about 240 g with an action camera on top, 6 g lighter than V1.</p>
+            </div>
+            <div>
+              <h2>V2: analysis</h2>
+              <p>I loaded each motor mount with 40 N, applied before any safety factor, and checked the frame for strength, buckling and resonance.</p>
+              <ul class="gains">
+                <li><b>Static strength.</b> Safety factor 5 on that load. V1 was designed to 1.5 at maximum thrust, a much lighter load, so V2's margin is far larger even though the two numbers aren't directly comparable.</li>
+                <li><b>Buckling.</b> Safety factor 5 on the same load, the same margin as in strength.</li>
+                <li><b>Resonance.</b> A modal analysis puts the first natural frequency at 200 Hz. That is the figure to keep apart from the motors' and propellers' running frequencies, so the frame doesn't amplify their vibration into the flight controller's gyro.</li>
+              </ul>
+            </div>
+            <div>
+              <h2>What V2 improves</h2>
+              <ul class="gains">
+                <li><b>Printable.</b> Thicker members in place of the thin generated struts that were hard to print.</li>
+                <li><b>Fewer parts.</b> Camera cage, battery deck and stack mounts printed in one with the frame, so there are fewer separate parts and fasteners to make and assemble.</li>
+                <li><b>Stronger.</b> Safety factor 5 in strength and in buckling under 40 N on each motor mount.</li>
+                <li><b>Resonance checked.</b> First mode at 200 Hz, from a modal analysis of the frame.</li>
+                <li><b>Carries more, weighs less.</b> An action camera on a mount, and the drone still 6 g lighter than V1, about 10 g under the 250 g limit.</li>
+                <li><b>Softer electronics mounting.</b> The flight controller and ESC sit on soft-mount grommets.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="fig-stack">
+            <figure class="cmp-fig">
+              <div class="plate">
+                <div class="tablebox">
+                  <table class="bench cmp">
+                    <caption class="sr-only">V1 and V2 compared: mass, size, analysis and what each carries</caption>
+                    <thead><tr><th scope="col"></th><th scope="col">V1</th><th scope="col">V2</th></tr></thead>
+                    <tbody>
+                      <tr><th scope="row">Frame</th><td>38 g, generated, PC/ABS</td><td>52 g, one printed part</td></tr>
+                      <tr><th scope="row">Drone, all-up</th><td>246 g</td><td>~240 g</td></tr>
+                      <tr><th scope="row">Margin to 250 g</th><td>4 g</td><td>~10 g</td></tr>
+                      <tr><th scope="row">Frame size</th><td>111 × 111 mm</td><td>147 × 125 mm</td></tr>
+                      <tr><th scope="row">Motor centres</th><td>96 × 96 mm</td><td>125 × 98 mm</td></tr>
+                      <tr><th scope="row">Diagonal</th><td>136 mm</td><td>159 mm</td></tr>
+                      <tr><th scope="row">Safety factor</th><td>1.5, max. thrust</td><td>5, 40 N per mount</td></tr>
+                      <tr><th scope="row">Buckling SF</th><td>constrained</td><td>5, 40 N per mount</td></tr>
+                      <tr><th scope="row">First mode</th><td>–</td><td>200 Hz</td></tr>
+                      <tr><th scope="row">Electronics</th><td>FC and VTX on 8 standoffs</td><td>FC and ESC on 8 soft-mount grommets</td></tr>
+                      <tr><th scope="row">Carries</th><td>FPV camera</td><td>FPV camera and action camera</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <figcaption><b>Fig. 04</b> V1 against V2. Sizes measured off the two Fusion models; frame size is the frame's outline in plan.</figcaption>
+            </figure>
+          </div>
+        </section>
       </div>
     </article>
   </div>

@@ -29,7 +29,7 @@ test("content: the index, the four project pages, figure numbering and links", a
     const body = await page.textContent("body");
     expect(body).not.toMatch(/(?<![\d.])(48|79)%|98\.0% gates|13 Oct|Photograph to add/);
   }
-  expect(figs).toEqual(["Fig. 00", "Fig. 01", "Fig. 02", "Fig. 03", "Fig. 04", "Fig. 05", "Fig. 06", "Fig. 07"]);
+  expect(figs).toEqual(["Fig. 00", "Fig. 01", "Fig. 02", "Fig. 03", "Fig. 04", "Fig. 05", "Fig. 06", "Fig. 07", "Fig. 08"]);
   await page.goto("/drone-racing.html");
   expect(await page.$$eval("tr.pooled > *", (tds) => tds.map((t) => t.textContent))).toEqual(["Pooled", "99.83%", "97.79%", "98.58%", "97.46%"]);
 });
@@ -113,10 +113,10 @@ test("key figures show their real values from the first frame, with no count-up 
   await page.addInitScript(() => { delete window.WebGL2RenderingContext; });
   await page.goto("/drone-frame.html", { waitUntil: "networkidle" });
   const values = () => page.$$eval("#e-03 .specs .n", (ns) => ns.map((n) => n.textContent));
-  expect(await values()).toEqual(["1.5", ">300Hz", "−36%", "38g"]);
+  expect(await values()).toEqual(["5", "200Hz", "240g", "−36%"]);
   await page.locator("#e-03 .specs").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
   await page.waitForTimeout(300);
-  expect(await values()).toEqual(["1.5", ">300Hz", "−36%", "38g"]);
+  expect(await values()).toEqual(["5", "200Hz", "240g", "−36%"]);
   await page.goto("/pipe-climber.html");
   await expect(page.locator("#e-02 .specs .n").nth(1)).toHaveText("400×300mm");
 });
