@@ -6,7 +6,7 @@ const toPlayer = (page) => page.locator(".player").evaluate((e) => e.scrollIntoV
 
 test("poster reuses the index; LOAD fetches one flight; switching uses a cache", async ({ page }) => {
   const errors = trackErrors(page), reqs = trackFlights(page);
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
   expect(reqs).toEqual(["index.js"]);   // fetched at load for the hero's flight strip
   await toPlayer(page);
   await page.waitForFunction(() => document.querySelector("#pv-map .rest").hidden);
@@ -40,14 +40,14 @@ test("poster reuses the index; LOAD fetches one flight; switching uses a cache",
 });
 
 test("map and camera panels are the same height side by side", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/drone-racing.html");
   const [a, b] = await Promise.all(["#pv-fpv", "#pv-map"].map((s) => page.locator(s).boundingBox()));
   expect(Math.round(a.height)).toBe(Math.round(b.height));
 });
 
 test("a flight that fails to load reverts the pick", async ({ page }) => {
   await page.route("**/flights/2034-default.js", (r) => r.fulfill({ status: 404, body: "" }));
-  await page.goto("/");
+  await page.goto("/drone-racing.html");
   await page.click("#load"); await controlsReady(page);
   await page.click("#seeds button:nth-child(2)");
   await expect(page.locator("#r-out")).toHaveText("Could not load that flight");
@@ -56,7 +56,7 @@ test("a flight that fails to load reverts the pick", async ({ page }) => {
 
 test("a missing index shows RETRY", async ({ page }) => {
   await page.route("**/flights/index.js", (r) => r.fulfill({ status: 500, body: "" }));
-  await page.goto("/");
+  await page.goto("/drone-racing.html");
   await page.click("#load");
   await expect(page.locator("#load")).toHaveText("Retry");
 });
@@ -64,7 +64,7 @@ test("a missing index shows RETRY", async ({ page }) => {
 test.describe("reduced motion", () => {
   test.use({ contextOptions: { reducedMotion: "reduce" } });
   test("no autoplay, but PLAY plays", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/drone-racing.html");
     await page.click("#load"); await controlsReady(page);
     await expect(page.locator("#play")).toHaveText("Play");
     await page.click("#play");
@@ -75,7 +75,7 @@ test.describe("reduced motion", () => {
 test.describe("phone", () => {
   test.use(phone);
   test("replay fits and status colours pass contrast", async ({ page }) => {
-    await page.goto("/");
+    await page.goto("/drone-racing.html");
     await page.click("#load"); await controlsReady(page);
     expect(await page.evaluate(() => getComputedStyle(document.querySelector(".pill")).color)).toBe("rgb(134, 201, 154)");
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
@@ -88,12 +88,12 @@ test("playback holds while the player is off screen and resumes where it stopped
     const raf = window.requestAnimationFrame.bind(window);
     window.requestAnimationFrame = (cb) => { window.__raf++; return raf(cb); };
   });
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
   await toPlayer(page);
   await page.click("#load");
   await controlsReady(page);
   await expect(page.locator("#play")).toHaveText("Pause");
-  await page.locator("#contact").evaluate((e) => e.scrollIntoView({ behavior: "instant" }));
+  await page.locator(".foot").evaluate((e) => e.scrollIntoView({ behavior: "instant" }));
   await page.waitForTimeout(2500);   // let other reveals settle
   const before = await page.evaluate(() => window.__raf), at = await page.inputValue("#scrub");
   await page.waitForTimeout(1000);

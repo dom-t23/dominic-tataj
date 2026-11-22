@@ -35,10 +35,10 @@ test("About lists skills and experience, software first; each skill links the pr
   await expect(page.locator(".bom tbody tr:not(.grp)")).toHaveCount(13);
   await expect(page.locator(".bom .grp th")).toHaveText(["Software and autonomy", "Mechanical design", "Education", "Leadership", "Experience", "Languages"]);
   const fusion = page.locator(".bom tr.skill").filter({ hasText: "Fusion" });
-  expect(await fusion.locator("a").evaluateAll((as) => as.map((a) => a.getAttribute("href")))).toEqual(["#e-03", "#e-02"]);
+  expect(await fusion.locator("a").evaluateAll((as) => as.map((a) => a.getAttribute("href")))).toEqual(["drone-frame.html", "pipe-climber.html"]);
   for (const row of await page.locator(".bom tr.skill").all()) {
     const links = await row.locator("a").evaluateAll((as) => as.map((a) => a.getAttribute("href")));
     expect(links.length).toBeGreaterThan(0);
-    for (const h of links) await expect(page.locator(h)).toHaveCount(1);
+    for (const h of links) expect(["drone-racing.html", "drone-frame.html", "pipe-climber.html", "ai-scaling.html"]).toContain(h);
   }
 });
