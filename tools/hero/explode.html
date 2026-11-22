@@ -51,8 +51,8 @@ new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load("../../" + URL_, (gltf) 
   const s0 = bx.getBoundingSphere(new THREE.Sphere());   // framed on the exploded drone, so nothing leaves the frame
   const cam = new THREE.PerspectiveCamera(FOV, W / H, 0.005, 3);
   const half = Math.min(FOV / 2 * DEG, Math.atan(Math.tan(FOV / 2 * DEG) * W / H));
-  const aim = (yaw, pitch, zoom) => {
-    const dist = s0.radius * zoom / Math.sin(half), t = s0.center;
+  const aim = (yaw, pitch, zoom, t) => {
+    const dist = s0.radius * zoom / Math.sin(half);
     cam.position.set(Math.sin(yaw) * Math.cos(pitch), Math.sin(pitch), Math.cos(yaw) * Math.cos(pitch)).multiplyScalar(dist).add(t);
     cam.near = Math.max(0.005, dist - 0.4); cam.far = dist + 0.4; cam.lookAt(t); cam.updateProjectionMatrix();
   };
@@ -65,8 +65,11 @@ new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load("../../" + URL_, (gltf) 
   const out2d = document.createElement("canvas"); out2d.width = W; out2d.height = H; const g = out2d.getContext("2d");
   const shot = (u) => {
     place(smooth(0.12, 0.92, u));
-    // starts close on the assembled drone, pulls back as it comes apart
-    aim((POSES[0].yaw - 34 + 62 * ease(u)) * DEG, (POSES[0].pitch - 6 * u) * DEG, 0.6 + 0.3 * smooth(0.05, 0.7, u));
+    // starts close on the assembled drone, pulls back as it comes apart, always looking at the
+    // middle of the parts where they are now, so the drawing stays centred in the frame
+    model.updateMatrixWorld(true);
+    const now = new THREE.Box3(); meshes.forEach((m) => now.expandByObject(m));
+    aim((POSES[0].yaw - 34 + 62 * ease(u)) * DEG, (POSES[0].pitch - 6 * u) * DEG, 0.6 + 0.3 * smooth(0.05, 0.7, u), now.getCenter(new THREE.Vector3()));
     model.updateMatrixWorld(true);
     parts.forEach((q) => { q.mesh.material = q.gmat; });
     r.setRenderTarget(rt); r.render(scene, cam);
