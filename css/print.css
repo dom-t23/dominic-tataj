@@ -1,0 +1,90 @@
+/* Print (loaded with media="print", so it never holds up the page on screen). The homepage prints as a
+   two-page summary; a project page as its write-up without the interactive controls. */
+  :root, :root[data-theme="light"] {
+  color-scheme: light; --bg: #FFFFFF; --paper: #FFFFFF; --raised: #FFFFFF; --panel: #F2F2F2; --film: #FFFFFF;
+  --ink: #000000; --ink-2: #222222; --muted: #555555; --rule: #BBBBBB; --rule-strong: #888888;
+  --signal: #000000; --signal-strong: #000000; --link: #000000; --truth: #1F5E8C; --lift: none;
+}
+body { font-size: 10.5pt; line-height: 1.45; }
+.nav, .skip, .hero-stage, .theme-btn, .pl-row, .copy-btn, .dc-ticks, .dc-read, .burst, .cap-actions, .rig-controls,
+.player, .controls, .climb-side .climb-ctl, .climb-btns, .sc-axes, .f3-steps, .menu-panel { display: none !important; }
+.hero.scrub { height: auto; }
+.hero-pin, .hero.scrub .hero-pin { position: static; min-height: 0; height: auto; display: block; }
+.hero-copy { padding: 0 0 12pt; gap: 8pt; }
+.h1-name { font-size: 40pt; }
+.h1-name > span, .h1-role { animation: none !important; }
+.section, .contact-band { padding-block: 10pt; }
+.section-head { margin-bottom: 8pt; }
+.section-head h2, .contact-band h2, .margin h2 { font-size: 20pt; }
+.proj, .avail, .brief li, figure, .specs, .bom tr { break-inside: avoid; }
+h1, h2, h3 { break-after: avoid; }
+.proj { padding: 8pt 0; }
+.email { font-size: 16pt; text-decoration: none; }
+a { color: inherit; text-decoration: none; }
+/* the addresses behind the links a reader would type */
+.hero .actions a[href^="http"]::after, .contact a[href^="http"]::after, .foot .links a[href^="http"]::after {
+  content: " (" attr(href) ")"; font: 400 8.5pt/1 var(--font-data); color: var(--muted); }
+.proj-links a[href$=".html"]::after { content: " (dom-t23.github.io/dominic-tataj/" attr(href) ")"; font: 400 8.5pt/1 var(--font-data); color: var(--muted); }
+.bom a::after { display: none; }
+.photo-link { display: none !important; }
+.btn, .btn.primary { background: none; border: 1px solid #000000; color: #000000; min-height: 0; padding: 3pt 8pt; }
+.btn small { opacity: 1; }
+details.more > summary::after { display: none; }
+.anchor, .toc { display: none !important; }
+.raised, .flight, .player { box-shadow: none; }
+/* the homepage on paper: a two-page summary */
+@page { margin: 12mm 13mm 13mm; }
+body { font-size: 9.5pt; line-height: 1.4; }
+.h1-name { font-size: 30pt; line-height: 0.95; }
+.h1-name > span { display: inline; }
+.h1-role { font-size: 12pt; }
+.hero .lede { font-size: 9.5pt; }
+.brief, .section-note, .colophon, .outside .links, .contact-row .btn, .hero .actions .btn { display: none !important; }
+.avail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.avail > div { padding: 2pt 0; grid-template-columns: 6.5em minmax(0, 1fr); }
+.avail dt, .avail dd { font-size: 9pt; }
+.hero .actions { gap: 2pt 14pt; }
+.tlink { font-size: 9pt; }
+.section, .contact-band { padding-block: 6pt; }
+.section-head { margin-bottom: 4pt; }
+.section-head h2, .contact-band h2, .margin h2 { font-size: 15pt; }
+/* each project: its head beside its four facts */
+.proj { display: grid; grid-template-columns: 30% minmax(0, 1fr); gap: 2pt 12pt; padding: 5pt 0; }
+.proj-head { grid-row: 1 / span 2; gap: 1pt; }
+.proj h3 { font-size: 12pt; }
+.proj-no, .proj-when { font-size: 8pt; }
+.proj-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3pt 12pt; }
+.proj-facts dt { font-size: 7.5pt; }
+.proj-facts dd { font-size: 8.5pt; line-height: 1.35; }
+.proj-links { grid-column: 2; }
+.proj-links a { font-size: 8pt; }
+.proj-links a[href^="http"] { display: none; }
+/* About: the lede short, the skills table flowing in two columns */
+.report { gap: 4pt; }
+.report::before { display: none; }
+.about-lede { font-size: 9.5pt !important; line-height: 1.4; }
+.about-grid { display: block; margin-top: 6pt; }
+.bom, .bom tbody { display: block; }
+.bom { columns: 2; column-gap: 16pt; }
+.bom caption { display: block; font-size: 10pt; column-span: all; }
+.bom tbody { break-inside: avoid; }
+.bom tr { display: flex; justify-content: space-between; gap: 6pt; }
+.bom th, .bom td { padding: 1.5pt 0; font-size: 8.5pt !important; border: 0; }
+.bom .grp th { padding: 5pt 0 1pt; font-size: 8pt; }
+.bom td span { font-size: 7.5pt; }
+.outside { margin-top: 6pt; gap: 2pt; }
+.outside h3 { font-size: 10pt; padding: 0; border: 0; }
+.outside p { font-size: 8.5pt; }
+.photo-stats { display: none; }
+.email { font-size: 12pt; }
+.contact { gap: 3pt; margin: 0; }
+.contact-band .about-lede { font-size: 9pt !important; }
+.foot .wrap { padding-block: 4pt; }
+.foot-top { gap: 2pt 12pt; }
+.foot-line, .foot .links { font-size: 8pt; }
+.bom td:last-child { display: none; }   /* the project codes: links, not much use on paper */
+.contact-band .about-lede, .foot .links { display: none; }   /* the hero already says it; the address is above */
+.contact-band .wrap { gap: 2pt; }
+.proj-links a[href$=".html"]::after { content: " (…/" attr(href) ")"; }
+.hero-copy { gap: 5pt; }
+.foot-line::after { content: "dom-t23.github.io/dominic-tataj"; font: 500 8pt/1.5 var(--font-data); color: #000000; }

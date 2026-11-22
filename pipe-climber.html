@@ -33,7 +33,35 @@
   document.documentElement.classList.add("js");
   try { if (localStorage.getItem("theme") === "light") { document.documentElement.setAttribute("data-theme", "light"); document.querySelector('meta[name="theme-color"]').content = "#F4F1EA"; } } catch (e) {}
 </script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "CreativeWork",
+ "name": "Pipe-climbing robot, IMechE Design Challenge",
+ "headline": "Pipe-climbing robot, IMechE Design Challenge",
+ "description": "A pipe-climbing robot whose drivetrain was chosen by simulation from more than 20 setups; it completed the climb at the IMechE Design Challenge. Excel dynamic model and Fusion CAD.",
+ "url": "https://dom-t23.github.io/dominic-tataj/pipe-climber.html",
+ "image": "https://dom-t23.github.io/dominic-tataj/og/pipe-climber.png",
+ "inLanguage": "en-GB",
+ "temporalCoverage": "2026-02/2026-04",
+ "keywords": [
+  "Excel dynamic model",
+  "Fusion CAD",
+  "IMechE Design Challenge"
+ ],
+ "author": {
+  "@type": "Person",
+  "name": "Dominic Tataj",
+  "url": "https://dom-t23.github.io/dominic-tataj/"
+ },
+ "isPartOf": {
+  "@type": "ProfilePage",
+  "url": "https://dom-t23.github.io/dominic-tataj/"
+ }
+}
+</script>
 <link rel="stylesheet" href="css/site.css?v=20261122q">
+<link rel="stylesheet" href="css/print.css?v=20261122" media="print">
 </head>
 <body>
 <a class="skip" href="#top">Skip to content</a>
@@ -118,18 +146,18 @@
         <div class="cols">
           <div class="prose">
             <div>
-              <h2>Approach</h2>
+              <h2 id="e02-approach">Approach</h2>
               <p>I built the team's dynamic performance model in Excel. It combines the motor and vehicle equations of motion and integrates them with explicit Euler at a 10 ms time step. Each step checks for slip, so the model only accepts a setup if the wheels have enough friction to carry the drive force.</p>
               <p>I used it to simulate more than 20 combinations of gear ratio, motor torque, wheel radius and normal force, and picked the drivetrain with the fastest predicted climb.</p>
             </div>
             <details class="more" open>
-              <summary><h2>Result</h2></summary>
+              <summary><h2 id="e02-result">Result</h2></summary>
               <p>At the IMechE Design Challenge the robot completed the climb.</p>
               <p>The chosen setup cut predicted climb time by 22%. In real runs it cut climb time by 16%.</p>
               <p>I also produced the full Fusion CAD assembly across two design iterations, including a working geartrain.</p>
             </details>
             <details class="more" open>
-              <summary><h2>Limitations</h2></summary>
+              <summary><h2 id="e02-limitations">Limitations</h2></summary>
               <p>Looking back, the sheet's 10 ms step was too coarse for the drive's time constant of about 3 ms, and its speed and torque columns used different gear ratios (100 and 150). Fig. 05 corrects both, with a 1 ms step and one ratio, so it is a demonstration rather than the coursework's numbers.</p>
             </details>
           </div>

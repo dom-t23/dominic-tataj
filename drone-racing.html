@@ -33,7 +33,39 @@
   document.documentElement.classList.add("js");
   try { if (localStorage.getItem("theme") === "light") { document.documentElement.setAttribute("data-theme", "light"); document.querySelector('meta[name="theme-color"]').content = "#F4F1EA"; } } catch (e) {}
 </script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "CreativeWork",
+ "name": "Vision-based autonomous drone racing",
+ "headline": "Vision-based autonomous drone racing",
+ "description": "A simulated racing drone that flies through gates by camera, with no GPS or map: 99.8% of gates in a clean world and 98.6% with clutter, over 300 seeded courses. Python, OpenCV, an error-state Kalman filter.",
+ "url": "https://dom-t23.github.io/dominic-tataj/drone-racing.html",
+ "image": "https://dom-t23.github.io/dominic-tataj/og/drone-racing.png",
+ "inLanguage": "en-GB",
+ "temporalCoverage": "2026-08/2026-10",
+ "keywords": [
+  "Python",
+  "OpenCV",
+  "NumPy",
+  "Computer vision",
+  "State estimation",
+  "Kalman filter"
+ ],
+ "author": {
+  "@type": "Person",
+  "name": "Dominic Tataj",
+  "url": "https://dom-t23.github.io/dominic-tataj/"
+ },
+ "isPartOf": {
+  "@type": "ProfilePage",
+  "url": "https://dom-t23.github.io/dominic-tataj/"
+ },
+ "sameAs": "https://github.com/dom-t23/vision-drone-racing"
+}
+</script>
 <link rel="stylesheet" href="css/site.css?v=20261122q">
+<link rel="stylesheet" href="css/print.css?v=20261122" media="print">
 </head>
 <body>
 <a class="skip" href="#top">Skip to content</a>
@@ -73,6 +105,17 @@
           <div><dt>Status</dt><dd>In development</dd></div>
           <div><dt>Code</dt><dd><a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">vision-drone-racing ↗</a></dd></div>
         </dl>
+        <nav class="toc" aria-label="On this page">
+          <p>On this page</p>
+          <ol>
+            <li><a href="#flight">Flight log</a></li>
+            <li><a href="#replay">Replay and pipeline</a></li>
+            <li><a href="#e04-approach">Approach</a></li>
+            <li><a href="#e04-how-it-was-built">How it was built</a></li>
+            <li><a href="#e04-testing">Testing</a></li>
+            <li><a href="#results">Results by course set</a></li>
+          </ol>
+        </nav>
       </div>
       <div class="sheet-body">
         <div class="sheet-title">
@@ -110,7 +153,7 @@
           <figcaption><span><b>Fig. 00</b> <span id="cap-flight">A simulated flight of my vision-based racing drone (<a href="#e-04">E-04</a>), camera + IMU, played at 3× speed: <span class="key truth">true path in blue</span>, <span class="key est">the drone's own estimate dashed orange</span>. Under it, the estimate's error over the flight.</span><span id="cap-rig" hidden>Hover test: a planar model of my 246 g drone (<a href="drone-frame.html">E-03</a>), held by a cascaded PD controller (a position loop feeding an attitude loop). Drag it, click to move the setpoint or send a gust, and push the gains past the Routh–Hurwitz limit to watch it go unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>Replay ↺</button><button class="link-btn" id="rig-open" type="button" hidden>Try the hover controller →</button></span></figcaption>
         </figure>
 
-        <div class="player" role="group" aria-label="Simulated flight replay">
+        <div class="player" id="replay" role="group" aria-label="Simulated flight replay">
           <div class="player-stage">
             <div class="pv" id="pv-fpv">
               <span class="tag">Onboard camera · detector output</span>
@@ -169,7 +212,7 @@
         <div class="cols">
           <div class="prose">
             <div>
-              <h2>Approach</h2>
+              <h2 id="e04-approach">Approach</h2>
               <ol class="steps">
                 <li><span><strong>Detect.</strong> Threshold the gate colour and fit a four-cornered outline to each gate and to its opening.</span></li>
                 <li><span><strong>Measure.</strong> The gate's known size and its four image corners give its pose relative to the camera, using OpenCV solvePnP with IPPE_SQUARE. Gates stand upright, so the pose is then refined for position and yaw only, with the up direction taken from gravity.</span></li>
@@ -178,18 +221,18 @@
               </ol>
             </div>
             <details class="more" open>
-              <summary><h2>How it was built</h2></summary>
+              <summary><h2 id="e04-how-it-was-built">How it was built</h2></summary>
               <p>I set the problem and the design decisions that stay fixed: acro thrust and body-rate commands, identical gates with no IDs, a strict wall between the simulator and the flight stack, and the benchmark rules. Most of the code was written by an AI coding agent (Claude) in scheduled overnight runs. Each night it tried one change behind a flag, flew the same seeded courses with it on and off, and kept it only if it clearly helped. I reviewed the results and worked through some changes with it directly.</p>
             </details>
             <details class="more" open>
-              <summary><h2>Testing</h2></summary>
+              <summary><h2 id="e04-testing">Testing</h2></summary>
               <p>A deterministic regression harness flies every change on the same seeded courses in lockstep (also over UDP, with identical results) and reports the gate pass rate. On the first set of 50 courses the pass rate rose from 89.2% at the first committed baseline to 100%. Because one set moves by a few points from noise alone, a change is kept only if it helps pooled over 300 courses, where the pass rate reached 99.8%.</p>
               <p>With that benchmark saturated, the world was made harder: orange panels and cones beside the course, in the gate's own colour. Pooled over the same 300 courses the pass rate is now 98.6% with the IMU and 97.5% camera only. Course 3 in the replay is one of the failures: with the IMU, the drone twice takes a distractor for the gate, and the pipeline strip shows its filter rejecting measurements and re-initialising before it misses gate 2.</p>
               <p>One bug came from the simulator itself: its sign convention was the reverse of what its documentation said. I found it by comparing commanded inputs against logged attitude, confirmed it with single-axis tests, and corrected the controller.</p>
             </details>
           </div>
           <div class="fig-stack">
-            <figure class="bench-fig">
+            <figure class="bench-fig" id="results">
               <div class="plate">
                 <div class="tablebox">
                   <!-- js/bench.js: the column headers chart and sort their column -->

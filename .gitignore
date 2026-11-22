@@ -8,3 +8,8 @@ review/
 REVIEW.md
 TODO.md
 tools/review/
+
+# Planning notes and the unused robot model: kept locally, off the public site (Nov 2026)
+DESIGN_PLAN.md
+IMPROVEMENTS.md
+models/pipe-climber.glb

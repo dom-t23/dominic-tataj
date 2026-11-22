@@ -85,3 +85,26 @@ test("print: no nav, buttons or menu; folded sections open; link addresses writt
   await page.evaluate(() => { document.querySelectorAll("details.more").forEach((d) => { d.open = false; }); window.dispatchEvent(new Event("beforeprint")); });
   for (const d of await page.locator("details.more").all()) await expect(d).toHaveAttribute("open", "");
 });
+
+test.describe("section links", () => {
+  test.use({ permissions: ["clipboard-read", "clipboard-write"] });
+  test("each section heading's # copies its address without folding the section; On this page links them", async ({ page }) => {
+    await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
+    await expect(page.locator(".toc a")).toHaveText(["Flight log", "Replay and pipeline", "Approach", "How it was built", "Testing", "Results by course set"]);
+    for (const a of await page.locator(".toc a").all()) await expect(page.locator(await a.getAttribute("href"))).toHaveCount(1);
+    await page.hover("#e04-testing");
+    await page.click("#e04-testing .anchor");
+    await expect(page.locator("#e04-testing .anchor")).toHaveText("Copied");
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toMatch(/drone-racing\.html#e04-testing$/);
+    expect(await page.evaluate(() => document.getElementById("e04-testing").closest("details").open)).toBe(true);
+  });
+});
+
+test.describe("phone, a link into a folded section", () => {
+  test.use(phone);
+  test("opens that section", async ({ page }) => {
+    await page.goto("/drone-racing.html#e04-testing", { waitUntil: "networkidle" });
+    await expect(page.locator("details.more").filter({ hasText: "Testing" })).toHaveAttribute("open", "");
+    await expect(page.locator("details.more").filter({ hasText: "How it was built" })).not.toHaveAttribute("open", "");
+  });
+});

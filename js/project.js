@@ -3,6 +3,7 @@
 import "./theme.js";
 import "./menu.js";
 import "./more.js";
+import "./anchors.js";
 import "./reveals.js";
 import "./sheets.js";
 import { $ } from "./util.js";

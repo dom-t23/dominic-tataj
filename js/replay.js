@@ -75,6 +75,26 @@ if (window.IntersectionObserver) {
   io.observe(document.querySelector(".player"));
 }
 
+// Once half the player is on screen, LOAD presses itself, so the replay simply plays (as in the
+// site's critique: no gate in front of the best figure). Only where that's welcome: never with
+// reduced motion or Save-Data; on a connection the browser reports as fast; and, where it doesn't
+// report one (Safari, Firefox), only on a wide screen. Everyone else keeps the button.
+function autoWelcome() {
+  if (reducedMotion()) return false;
+  var c = navigator.connection;
+  if (c) return !c.saveData && c.effectiveType === "4g";
+  return window.matchMedia("(min-width: 900px)").matches;
+}
+if (window.IntersectionObserver && autoWelcome()) {
+  var auto = new IntersectionObserver(function (es) {
+    if (!es.some(function (en) { return en.isIntersecting; })) return;
+    auto.disconnect();
+    var btn = $("load");
+    if (!btn.disabled && (!flight || posterMode)) btn.click();   // not already loading or playing
+  }, { threshold: 0.5 });
+  auto.observe(document.querySelector(".player"));
+}
+
 function seg(el, items, key) {
   el.innerHTML = "";
   items.forEach(function (it) {

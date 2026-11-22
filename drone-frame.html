@@ -33,7 +33,36 @@
   document.documentElement.classList.add("js");
   try { if (localStorage.getItem("theme") === "light") { document.documentElement.setAttribute("data-theme", "light"); document.querySelector('meta[name="theme-color"]').content = "#F4F1EA"; } } catch (e) {}
 </script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "CreativeWork",
+ "name": "Generative FPV drone frame",
+ "headline": "Generative FPV drone frame",
+ "description": "A generatively designed 3-inch FPV frame: 38 g printed, 36% lighter than a comparable plate frame, keeping the drone at 246 g, under the UK CAA's 250 g. Fusion generative design and Ansys.",
+ "url": "https://dom-t23.github.io/dominic-tataj/drone-frame.html",
+ "image": "https://dom-t23.github.io/dominic-tataj/og/drone-frame.png",
+ "inLanguage": "en-GB",
+ "temporalCoverage": "2026-07/2026-09",
+ "keywords": [
+  "Fusion generative design",
+  "Ansys Mechanical",
+  "FEA",
+  "3D printing"
+ ],
+ "author": {
+  "@type": "Person",
+  "name": "Dominic Tataj",
+  "url": "https://dom-t23.github.io/dominic-tataj/"
+ },
+ "isPartOf": {
+  "@type": "ProfilePage",
+  "url": "https://dom-t23.github.io/dominic-tataj/"
+ }
+}
+</script>
 <link rel="stylesheet" href="css/site.css?v=20261122q">
+<link rel="stylesheet" href="css/print.css?v=20261122" media="print">
 </head>
 <body>
 <a class="skip" href="#top">Skip to content</a>
@@ -159,12 +188,12 @@
         <div class="cols">
           <div class="prose">
             <div>
-              <h2>V1: approach</h2>
+              <h2 id="e03-v1-approach">V1: approach</h2>
               <p>I derived eight operational load cases, including maximum thrust, arm collision and battery impact, to define the design envelope and starting geometry.</p>
               <p>I then ran Fusion's generative optimisation under those loads with buckling and 1.5 safety-factor constraints. The selected topology is 36% lighter than a comparable plate-based frame.</p>
             </div>
             <details class="more" open>
-              <summary><h2>V1: build and testing</h2></summary>
+              <summary><h2 id="e03-v1-build-and-testing">V1: build and testing</h2></summary>
               <p>I printed the frame in PC/ABS for impact toughness. It weighs 38 g, and the fully assembled drone comes to 246 g, under the 250 g threshold.</p>
               <p>I measured arm deflection at maximum thrust and compared it with Ansys Mechanical; the two agreed to within 18%.</p>
             </details>
@@ -230,7 +259,7 @@
               <p>The frame is one printed part again, now with thicker members and the camera cage, battery deck and stack mounts built into it. The flight controller and ESC sit on eight soft-mount grommets. It weighs 52 g, 14 g more than V1, yet the drone flies at about 240 g with an action camera on top, 6 g lighter than V1.</p>
             </div>
             <div>
-              <h2>V2: analysis</h2>
+              <h2 id="e03-v2-analysis">V2: analysis</h2>
               <p>I loaded each motor mount with 40 N, applied before any safety factor, and checked the frame for strength, buckling and resonance.</p>
               <ul class="gains">
                 <li><b>Static strength.</b> Safety factor 5 on that load. V1 was designed to 1.5 at maximum thrust, a much lighter load, so V2's margin is far larger even though the two numbers aren't directly comparable.</li>
@@ -239,7 +268,7 @@
               </ul>
             </div>
             <div>
-              <h2>What V2 improves</h2>
+              <h2 id="e03-what-v2-improves">What V2 improves</h2>
               <ul class="gains">
                 <li><b>Printable.</b> Thicker members in place of the thin generated struts that were hard to print.</li>
                 <li><b>Fewer parts.</b> Camera cage, battery deck and stack mounts printed in one with the frame, so there are fewer separate parts and fasteners to make and assemble.</li>

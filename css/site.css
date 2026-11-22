@@ -751,6 +751,14 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 .scaling .ring { fill: none; stroke: var(--signal); stroke-width: 1.5; }
 .scaling .tip rect { fill: var(--ink); }
 .scaling .tip text { fill: var(--paper); }
+/* Try the fit: a slider under the plot; on the plot, a line at the chosen size and a dot on the fit */
+.sc-try { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 6px var(--s-4); padding: 12px 14px 4px; }
+.sc-try label { font: 500 13.5px/1.3 var(--font-body); color: var(--ink); }
+.sc-try input[type=range] { width: 100%; accent-color: var(--signal); }
+.sc-try output { grid-column: 1 / -1; min-height: 3em; font: 400 14px/1.5 var(--font-body); color: var(--ink-2); }
+.scaling .probe-l { stroke: var(--signal); stroke-width: 1; stroke-dasharray: 3 3; }
+.scaling .probe-d { fill: var(--paper); stroke: var(--signal); stroke-width: 2; }
+@media (max-width: 520px) { .sc-try { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- About ---------- */
 .about-lede { font: 400 17.5px/1.5 var(--font-body); color: var(--ink); max-width: 36em; letter-spacing: -0.005em; }
@@ -905,6 +913,22 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 /* ---------- a project's own page ---------- */
 .project .sheet { border-top: 0; padding-top: var(--s-8); padding-bottom: var(--s-9); content-visibility: visible; }
 .project .sheet-title h1 { font: 600 clamp(34px, 4.6vw, 60px)/1.04 var(--font-display); letter-spacing: -0.02em; }
+/* section links (js/anchors.js): a "#" after the heading, shown on hover and focus, always on touch screens */
+.sheet h2 .anchor { margin-left: 0.4em; font: 500 0.85em/1 var(--font-data); color: var(--muted); text-decoration: none; opacity: 0; transition: opacity var(--dur-quick) ease; }
+.sheet h2:hover .anchor, .sheet h2 .anchor:focus-visible, .sheet h2 .anchor.done { opacity: 1; }
+.sheet h2 .anchor:hover, .sheet h2 .anchor.done { color: var(--signal-strong); }
+@media (hover: none) { .sheet h2 .anchor { opacity: 0.6; } }
+/* On this page (drone racing): under the project's details in the margin; a run of links on phones */
+.toc { margin-top: var(--s-6); padding-top: var(--s-3); border-top: 1px solid var(--rule); }
+.toc p { font: 500 12.5px/1.4 var(--font-body); color: var(--muted); }
+.toc ol { list-style: none; margin: var(--s-2) 0 0; padding: 0; display: grid; gap: 2px; }
+.toc a { display: inline-block; padding: 3px 0; font: 500 14px/1.4 var(--font-body); color: var(--ink-2); text-decoration: none; }
+.toc a:hover { color: var(--ink); text-decoration: underline; text-decoration-color: var(--signal); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+@media (max-width: 999px) {
+  .toc { margin-top: var(--s-3); padding-top: var(--s-2); }
+  .toc ol { display: flex; flex-wrap: wrap; gap: 0 var(--s-4); }
+  .toc a { padding: 6px 0; font-size: 14px; }
+}
 /* the longer sections fold (js/more.js folds them on phones); the summary is the section's heading */
 details.more > summary { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-4); cursor: pointer; list-style: none; border-top: 1px solid var(--rule); padding-top: var(--s-3); margin-bottom: var(--s-2); }
 details.more > summary::-webkit-details-marker { display: none; }
@@ -912,42 +936,6 @@ details.more > summary h2 { border: 0; padding: 0; margin: 0; }
 details.more > summary::after { content: "Show"; flex: none; font: 500 13px/1 var(--font-body); color: var(--muted); text-decoration: underline; text-decoration-color: var(--rule-strong); text-underline-offset: 4px; }
 details.more[open] > summary::after { content: "Hide"; }
 details.more > summary:hover::after { color: var(--ink); text-decoration-color: var(--signal); }
-
-/* ---------- print: a clean summary on paper (homepage), the write-up without its controls (project pages) ---------- */
-@media print {
-  :root, :root[data-theme="light"] {
-    color-scheme: light; --bg: #FFFFFF; --paper: #FFFFFF; --raised: #FFFFFF; --panel: #F2F2F2; --film: #FFFFFF;
-    --ink: #000000; --ink-2: #222222; --muted: #555555; --rule: #BBBBBB; --rule-strong: #888888;
-    --signal: #000000; --signal-strong: #000000; --link: #000000; --truth: #1F5E8C; --lift: none;
-  }
-  @page { margin: 16mm 16mm 18mm; }
-  body { font-size: 10.5pt; line-height: 1.45; }
-  .nav, .skip, .hero-stage, .theme-btn, .pl-row, .copy-btn, .dc-ticks, .dc-read, .burst, .cap-actions, .rig-controls,
-  .player, .controls, .climb-side .climb-ctl, .climb-btns, .sc-axes, .f3-steps, .menu-panel { display: none !important; }
-  .hero.scrub { height: auto; }
-  .hero-pin, .hero.scrub .hero-pin { position: static; min-height: 0; height: auto; display: block; }
-  .hero-copy { padding: 0 0 12pt; gap: 8pt; }
-  .h1-name { font-size: 40pt; }
-  .h1-name > span, .h1-role { animation: none !important; }
-  .section, .contact-band { padding-block: 10pt; }
-  .section-head { margin-bottom: 8pt; }
-  .section-head h2, .contact-band h2, .margin h2 { font-size: 20pt; }
-  .proj, .avail, .brief li, figure, .specs, .bom tr { break-inside: avoid; }
-  h1, h2, h3 { break-after: avoid; }
-  .proj { padding: 8pt 0; }
-  .email { font-size: 16pt; text-decoration: none; }
-  a { color: inherit; text-decoration: none; }
-  /* the addresses behind the links a reader would type */
-  .hero .actions a[href^="http"]::after, .contact a[href^="http"]::after, .foot .links a[href^="http"]::after {
-    content: " (" attr(href) ")"; font: 400 8.5pt/1 var(--font-data); color: var(--muted); }
-  .proj-links a[href$=".html"]::after { content: " (dom-t23.github.io/dominic-tataj/" attr(href) ")"; font: 400 8.5pt/1 var(--font-data); color: var(--muted); }
-  .bom a::after { display: none; }
-  .photo-link { display: none !important; }
-  .btn, .btn.primary { background: none; border: 1px solid #000000; color: #000000; min-height: 0; padding: 3pt 8pt; }
-  .btn small { opacity: 1; }
-  details.more > summary::after { display: none; }
-  .raised, .flight, .player { box-shadow: none; }
-}
 
 /* crosshair cursor (js/cursor.js): ticks around the pointer and its position on the page */
 .dc-ticks, .dc-read { position: fixed; z-index: 90; pointer-events: none; opacity: 0; transition: opacity var(--dur-quick) ease; }

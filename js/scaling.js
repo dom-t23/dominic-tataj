@@ -12,6 +12,7 @@ var M = { l: 48, r: 10, t: 30, b: 34 };
 var SWEEP = 1700, HOLD = 700; // ms: the sweep to log axes, and how long the linear view shows first
 
 var pts, fit, W, H, X0, X1, Y0, Y1, lin, lg, els = {}, t = 1, want = 1, anim = 0, hl = -1;
+var LX0, LX1, input, out, tried = false;   // Try the fit: the slider, its readout, and whether it has been moved
 var rm = reducedMotion();
 
 if (fig && svg) import("./data/scaling.js").then(function (m) {
@@ -24,6 +25,7 @@ if (fig && svg) import("./data/scaling.js").then(function (m) {
   fig.querySelectorAll(".sc-axes button").forEach(function (b) {
     b.addEventListener("click", function () { go(+b.dataset.log); });
   });
+  tryFit();
   svg.addEventListener("pointermove", point);
   svg.addEventListener("pointerdown", point);
   svg.addEventListener("pointerleave", function () { pick(-1); });
@@ -42,8 +44,10 @@ function leastSquares(ps) {
   var n = ps.length, mx = 0, my = 0, sxx = 0, sxy = 0, syy = 0;
   ps.forEach(function (q) { mx += q.lx / n; my += q.ly / n; });
   ps.forEach(function (q) { var a = q.lx - mx, b = q.ly - my; sxx += a * a; sxy += a * b; syy += b * b; });
-  var k = sxy / sxx;
-  return { k: k, c: my - k * mx, r2: sxy * sxy / (sxx * syy) };
+  var k = sxy / sxx, c = my - k * mx, ss = 0;
+  ps.forEach(function (q) { var e = q.ly - (c + k * q.lx); ss += e * e; });
+  // sd: the typical scatter of a model about the line, in log10 units (one standard deviation)
+  return { k: k, c: c, r2: sxy * sxy / (sxx * syy), sd: Math.sqrt(ss / (n - 2)) };
 }
 
 // ---------- drawing ----------
@@ -88,12 +92,18 @@ function layout() {
   el("path", { class: "est", d: "M" + f1(ex) + " " + f1(ey - 6) + "l6 6-6 6-6-6z" }, els.gFit);
   el("text", { x: f1(ex), y: f1(ey + 22), class: "fit-t", "text-anchor": "middle" }, els.gFit).textContent = "GPT-5 ≈" + Number((Math.pow(10, gy) / 1e3).toPrecision(2)) + " kW";
 
+  // the slider's model size (Try the fit), on the fit line, log axes only
+  els.probe = el("g", { class: "probe", opacity: 0 }, svg);
+  els.probeLine = el("line", { class: "probe-l", y1: Y0, y2: Y1 }, els.probe);
+  els.probeDot = el("circle", { class: "probe-d", r: 4.5 }, els.probe);
+  LX0 = lx0; LX1 = lx1;
   els.ring = el("circle", { class: "ring", r: 6, opacity: 0 }, svg);
   els.tip = el("g", { class: "tip", opacity: 0 }, svg);
   el("rect", { height: 18 }, els.tip);
   els.tipText = el("text", { x: 6, y: 12.5 }, els.tip);
   draw(t);
   showFit(t === 1, true);
+  probe();
 }
 
 // Each point leaves in turn, smallest model first, so the corner visibly unpacks.
@@ -113,6 +123,7 @@ function draw(tt) {
 
 function showFit(on, now) {
   els.gFit.setAttribute("opacity", on ? 1 : 0);
+  if (els.probe) els.probe.setAttribute("opacity", on && tried ? 1 : 0);
   els.fit.style.transition = now || rm ? "none" : "stroke-dashoffset 900ms cubic-bezier(0.22, 1, 0.36, 1)";
   els.fit.setAttribute("stroke-dashoffset", on ? 0 : 1);
 }
@@ -130,6 +141,45 @@ function go(to, now) {
     draw(from + (to - from) * k);
     if (k < 1) requestAnimationFrame(step); else if (to === 1) showFit(true);
   });
+}
+
+// ---------- Try the fit: a model size in, the fit's power draw and its typical scatter out ----------
+
+function tryFit() {
+  var box = $("sc-try");
+  input = $("sc-n"); out = $("sc-out");
+  if (!box || !input || !out) return;
+  var lo = Math.min.apply(null, pts.map(function (q) { return q.lx; })), hi = Math.max.apply(null, pts.map(function (q) { return q.lx; }));
+  // steps of 0.05 in log10 N, laid so that the coursework's GPT-5 size is exactly one of them
+  var g = Math.log10(GPT5_N), STEP = 0.05;
+  input.min = (g - STEP * Math.floor((g - lo) / STEP)).toFixed(4); input.max = (g + STEP * Math.ceil((hi - g) / STEP)).toFixed(4);
+  input.step = STEP; input.value = g.toFixed(4);
+  DATA_HI = hi;
+  box.hidden = false;
+  input.addEventListener("input", function () { tried = true; if (want !== 1) go(1); probe(); });
+  probe();
+}
+var DATA_HI = Infinity;
+function probe() {
+  if (!input || !fit) return;
+  var lx = +input.value, ly = fit.c + fit.k * lx, n = Math.pow(10, lx);
+  var p = Math.pow(10, ly), lo = Math.pow(10, ly - fit.sd), hi = Math.pow(10, ly + fit.sd);
+  var words = words2(n) + " parameters";
+  var beyond = lx > DATA_HI + 1e-6 ? " Beyond the largest model in the data, so an extrapolation." : "";
+  var gpt = Math.abs(n - GPT5_N) / GPT5_N < 0.02 ? " (the size the coursework assumed for GPT-5)" : "";
+  out.textContent = words + gpt + ": about " + fmt(p, "W") + ". About two-thirds of models this size sit between " + fmt(lo, "W") + " and " + fmt(hi, "W") + "." + beyond;
+  input.setAttribute("aria-valuetext", words);
+  if (els.probe && lg) {
+    var x = lg.x(lx), y = lg.y(ly);
+    els.probeLine.setAttribute("x1", f1(x)); els.probeLine.setAttribute("x2", f1(x));
+    els.probeDot.setAttribute("cx", f1(x)); els.probeDot.setAttribute("cy", f1(Math.max(Y0, Math.min(Y1, y))));
+    els.probe.setAttribute("opacity", tried && t === 1 ? 1 : 0);
+  }
+}
+// 3.3e11 -> "330 billion"
+function words2(v) {
+  var steps = [[1e12, " trillion"], [1e9, " billion"], [1e6, " million"], [1e3, " thousand"], [1, ""]];
+  for (var i = 0; i < steps.length; i++) if (v >= steps[i][0] || i === steps.length - 1) return Number((v / steps[i][0]).toPrecision(2)) + steps[i][1];
 }
 
 // ---------- pointing at a model ----------

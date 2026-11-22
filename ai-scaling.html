@@ -33,7 +33,35 @@
   document.documentElement.classList.add("js");
   try { if (localStorage.getItem("theme") === "light") { document.documentElement.setAttribute("data-theme", "light"); document.querySelector('meta[name="theme-color"]').content = "#F4F1EA"; } } catch (e) {}
 </script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "CreativeWork",
+ "name": "AI training-power scaling analysis",
+ "headline": "AI training-power scaling analysis",
+ "description": "Statistical analysis of AI training power against model size: a fitted scaling law, P ∝ N^0.55 (R² 0.44), and an order-of-magnitude estimate for GPT-5. MATLAB.",
+ "url": "https://dom-t23.github.io/dominic-tataj/ai-scaling.html",
+ "image": "https://dom-t23.github.io/dominic-tataj/og/ai-scaling.png",
+ "inLanguage": "en-GB",
+ "temporalCoverage": "2025-10",
+ "keywords": [
+  "MATLAB",
+  "Statistics",
+  "Curve fitting"
+ ],
+ "author": {
+  "@type": "Person",
+  "name": "Dominic Tataj",
+  "url": "https://dom-t23.github.io/dominic-tataj/"
+ },
+ "isPartOf": {
+  "@type": "ProfilePage",
+  "url": "https://dom-t23.github.io/dominic-tataj/"
+ }
+}
+</script>
 <link rel="stylesheet" href="css/site.css?v=20261122q">
+<link rel="stylesheet" href="css/print.css?v=20261122" media="print">
 </head>
 <body>
 <a class="skip" href="#top">Skip to content</a>
@@ -98,6 +126,12 @@
                   <button type="button" data-log="0" aria-pressed="false">Linear</button><button type="button" data-log="1" aria-pressed="true">Log₁₀</button>
                 </div>
                 <svg class="scaling" id="scaling" role="img" aria-label="Training power draw against parameter count for 603 AI models: a power law, P proportional to N to the 0.55, with R squared 0.44"></svg>
+              </div>
+              <!-- Try the fit (js/scaling.js): pick a model size, read the fit's power draw and its scatter -->
+              <div class="sc-try" id="sc-try" hidden>
+                <label for="sc-n">Try the fit: model size</label>
+                <input type="range" id="sc-n" min="3" max="13" step="0.05" value="11.52">
+                <output id="sc-out" for="sc-n" aria-live="polite"></output>
               </div>
               <figcaption><b>Fig. 08</b> Training power draw against parameter count for the 603 models in the dataset (Epoch AI) that have both, refitted here. On log₁₀ axes the fit is P ∝ N<sup>0.55</sup>; orange is the GPT-5 estimate.</figcaption>
             </figure>
