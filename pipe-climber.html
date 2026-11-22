@@ -33,7 +33,7 @@
   document.documentElement.classList.add("js");
   try { if (localStorage.getItem("theme") === "light") { document.documentElement.setAttribute("data-theme", "light"); document.querySelector('meta[name="theme-color"]').content = "#F4F1EA"; } } catch (e) {}
 </script>
-<link rel="stylesheet" href="css/site.css?v=20261122p">
+<link rel="stylesheet" href="css/site.css?v=20261122q">
 </head>
 <body>
 <a class="skip" href="#top">Skip to content</a>
@@ -87,7 +87,7 @@
           <div><span class="label">Measured climb time</span><span class="n">−16%</span></div>
         </div>
 
-        <!-- Fig. 04: the climb, on a corrected version of the Excel model (js/climber.js) -->
+        <!-- Fig. 05: the climb, on a corrected version of the Excel model (js/climber.js) -->
         <figure class="climb-fig" id="climb-fig" hidden>
           <div class="plate climb">
             <div class="climb-stage" id="climb-stage" aria-hidden="true">
@@ -112,7 +112,7 @@
               <svg class="climb-plot" id="cl-plot" role="img" aria-label="Height against time for this setup, against the sheet's setup and the 3 minute limit"></svg>
             </div>
           </div>
-          <figcaption><b>Fig. 04</b> The climb, on a corrected version of the Excel model: a demonstration, not the coursework's numbers. Robot from the team's Fusion model.</figcaption>
+          <figcaption><b>Fig. 05</b> The climb, on a corrected version of the Excel model: a demonstration, not the coursework's numbers. Robot from the team's Fusion model.</figcaption>
         </figure>
 
         <div class="cols">
@@ -130,12 +130,12 @@
             </details>
             <details class="more" open>
               <summary><h2>Limitations</h2></summary>
-              <p>Looking back, the sheet's 10 ms step was too coarse for the drive's time constant of about 3 ms, and its speed and torque columns used different gear ratios (100 and 150). Fig. 04 corrects both, with a 1 ms step and one ratio, so it is a demonstration rather than the coursework's numbers.</p>
+              <p>Looking back, the sheet's 10 ms step was too coarse for the drive's time constant of about 3 ms, and its speed and torque columns used different gear ratios (100 and 150). Fig. 05 corrects both, with a 1 ms step and one ratio, so it is a demonstration rather than the coursework's numbers.</p>
             </details>
           </div>
           <div class="fig-stack">
             <figure>
-              <div class="plate scroll-x" tabindex="0" role="region" aria-label="Fig. 05, scrolls sideways on narrow screens">
+              <div class="plate scroll-x" tabindex="0" role="region" aria-label="Fig. 06, scrolls sideways on narrow screens">
                 <svg class="drawing" id="flowchart" viewBox="0 0 520 250" role="img" aria-label="Simulation loop: state, motor torque at current speed, drive force, slip check, acceleration, integrate over 10 milliseconds, repeat">
                   <defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--ink)"/></marker></defs>
                   <g font-size="11" fill="var(--ink)" text-anchor="middle">
@@ -167,7 +167,7 @@
                   <text x="16" y="232" font-size="10" fill="var(--muted)">Repeat until top of pipe or 3 min</text>
                 </svg>
               </div>
-              <figcaption><b>Fig. 05</b> One step of the Excel model, repeated every 10 ms.<span class="scroll-cue"> Scroll sideways to see the whole loop.</span></figcaption>
+              <figcaption><b>Fig. 06</b> One step of the Excel model, repeated every 10 ms.<span class="scroll-cue"> Scroll sideways to see the whole loop.</span></figcaption>
             </figure>
             <figure>
               <div class="plate">
@@ -202,7 +202,7 @@
                   </g>
                 </svg>
               </div>
-              <figcaption><b>Fig. 06</b> Cut in climb time for the chosen drivetrain, model vs real runs.</figcaption>
+              <figcaption><b>Fig. 07</b> Cut in climb time for the chosen drivetrain, model vs real runs.</figcaption>
             </figure>
           </div>
         </div>

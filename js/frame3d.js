@@ -37,6 +37,32 @@ var MOVES = [
   [/^BOLT_M2x14_MOTOR/, 20, -26, 0, 0.68]
 ];
 
+// V2 (models/frame-v2.glb, from tools/frame/): the same, for its part names
+// (tools/frame/v2-parts.json). The stack lifts out from under the battery deck, the video
+// transmitter and receiver drop out underneath, the action camera comes off the top first.
+var GROUPS_V2 = [["frame", /^FRAME/], ["motor", /^MOTOR/], ["prop", /^PROP/], ["battery", /^BATTERY/],
+  ["fc", /^FC/], ["esc", /^ESC/], ["grommet", /^GROMMET/], ["camera", /^CAMERA/], ["vtx", /^VTX/],
+  ["rx", /^RX/], ["action", /^ACTION_CAM/], ["mount", /^ACTION_MOUNT/]];
+var MOVES_V2 = [
+  [/^ACTION_CAM/, 0, 80, 0, 0],
+  [/^ACTION_MOUNT/, 0, 50, 0, 0.08],
+  [/^BATTERY/, 0, 42, 0, 0.14],
+  [/^FC/, 0, 26, 0, 0.24],
+  [/^GROMMET_UPPER/, 0, 16, 0, 0.3],
+  [/^ESC/, 0, 8, 0, 0.34],
+  [/^VTX/, 0, -26, -24, 0.38],
+  [/^RX/, 0, -22, 0, 0.42],
+  [/^CAMERA_BRACKET/, 0, 0, 18, 0.48],
+  [/^CAMERA/, 0, 0, 34, 0.44],
+  [/^PROP/, 20, 42, 0, 0.56],
+  [/^MOTOR/, 20, 20, 0, 0.62]
+];
+// Both versions; the figure's version buttons switch between them, and the hero is drawn from V2.
+var MODELS = {
+  v2: { url: "models/frame-v2.glb", groups: GROUPS_V2, moves: MOVES_V2 },
+  v1: { url: "models/frame.glb", groups: GROUPS, moves: MOVES }
+};
+
 // The camera in each view: turned from behind the drone (deg), and looking down (deg).
 var POSES = [{ yaw: 140, pitch: 24 }, { yaw: 122, pitch: 9 }, { yaw: 0, pitch: 86 }];
 // Scroll progress through the pinned figure (0 to 1) where each move between views starts
@@ -85,9 +111,10 @@ var INK_FRAG = [
   "  #include <colorspace_fragment>",
   "}"].join("\n");
 // shared with tools/hero/render.html, which draws the hero's frames offline in this style
-export { GROUPS, POSES, MOVES, FOV, G_VERT, G_FRAG, INK_VERT, INK_FRAG };
+export { MODELS, GROUPS, POSES, MOVES, FOV, G_VERT, G_FRAG, INK_VERT, INK_FRAG };
 
-var track, fig, view, note, buttons, cap, rows = {};
+var track, fig, view, note, buttons, verButtons, cap;
+var ver = null, built = {}, loading = {};
 var renderer, scene, camera, model, rt, inkMat, inkScene, inkCam, anim, raycaster = new THREE.Raycaster();
 var parts = [], groups = {}, poses = [], target = new THREE.Vector3(), drawCol = new THREE.Color();
 var svg, bal = {}, dims, tag, tagText;
@@ -104,8 +131,9 @@ var overPart = null, overRow = null, picked = null, focus = null;
 export function mount(el) {
   track = el; fig = track.querySelector(".f3"); view = fig.querySelector(".f3-view"); note = view.querySelector(".f3-load");
   buttons = Array.prototype.slice.call(fig.querySelectorAll(".f3-steps button"));
+  verButtons = Array.prototype.slice.call(fig.querySelectorAll(".f3-ver button"));
   cap = fig.querySelector(".f3-cap");
-  fig.querySelectorAll(".f3-parts tbody tr").forEach(function (r) { rows[r.dataset.part] = r; });
+  var first = fig.dataset.ver || "v2";
   rm = reducedMotion();
 
   renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -117,18 +145,56 @@ export function mount(el) {
   canvas.setAttribute("aria-label", "3D model of the drone from the Fusion assembly. The view buttons and the parts list work it from the keyboard.");
   view.insertBefore(canvas, note);
 
-  return new Promise(function (resolve, reject) {
-    new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load("models/frame.glb", function (gltf) {
-      try { build(gltf.scene); wire(canvas); resolve(); } catch (e) { reject(e); }
-    }, function (x) {
-      if (x.lengthComputable) note.textContent = "Loading model " + Math.round(100 * x.loaded / x.total) + "%";
-    }, reject);
+  return load(first).then(function (gltfScene) {
+    setup();
+    use(first, gltfScene);
+    wire(canvas);
   }).catch(function (e) { renderer.dispose(); canvas.remove(); throw e; });
 }
 
-// ---------- the model ----------
+function load(v) {
+  return loading[v] || (loading[v] = new Promise(function (resolve, reject) {
+    new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load(MODELS[v].url, function (gltf) { resolve(gltf.scene); }, function (x) {
+      if (x.lengthComputable) note.textContent = "Loading model " + Math.round(100 * x.loaded / x.total) + "%";
+    }, function (e) { delete loading[v]; reject(e); });
+  }));
+}
 
-function build(gltfScene) {
+// Shows version v: its model, parts list, captions and overlay. A version is built once, the
+// first time it is shown, and kept.
+function use(v, gltfScene) {
+  var prev = ver && built[ver].model;
+  if (!built[v]) built[v] = build(v, gltfScene);
+  var b = built[v];
+  if (prev) scene.remove(prev);
+  ver = v; model = b.model; parts = b.parts; groups = b.groups; poses = b.poses; dims = b.dims;
+  scene.add(model);
+  fig.querySelectorAll(".f3-parts").forEach(function (t) { t.hidden = t.dataset.ver !== v; });
+  buttons.forEach(function (btn) { btn.dataset.cap = btn.getAttribute("data-cap-" + v); });
+  verButtons.forEach(function (btn) { btn.setAttribute("aria-pressed", String(btn.dataset.ver === v)); });
+  fig.dataset.ver = v;
+  overPart = overRow = picked = focus = null;
+  if (svg) { svg.remove(); svg = null; bal = {}; }
+  makeOverlay();
+  step = -1;   // the caption follows on the next frame
+}
+
+// The version buttons: the other version loads the first time it is asked for.
+function switchTo(v) {
+  if (v === ver || !MODELS[v]) return;
+  verButtons.forEach(function (btn) { btn.setAttribute("aria-pressed", String(btn.dataset.ver === v)); });
+  if (built[v]) { use(v); wake(); return; }
+  view.classList.remove("ready");
+  note.textContent = "Loading model";
+  load(v).then(function (gltfScene) { use(v, gltfScene); precompile().then(wake, wake); }).catch(function (e) {
+    console.warn("Fig. 02: couldn't load " + MODELS[v].url, e);
+    verButtons.forEach(function (btn) { btn.setAttribute("aria-pressed", String(btn.dataset.ver === ver)); });
+    note.textContent = "Couldn't load that model";
+    view.classList.add("ready");
+  });
+}
+
+function setup() {
   scene = new THREE.Scene();
   var pmrem = new THREE.PMREMGenerator(renderer);
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
@@ -138,22 +204,37 @@ function build(gltfScene) {
   scene.add(key);
   camera = new THREE.PerspectiveCamera(FOV, 1, 0.01, 2);
 
-  // every part straight under one group, in metres with Y up, the frame's centre at the origin
-  model = new THREE.Group();
-  scene.add(model);
+  rt = new THREE.WebGLRenderTarget(1, 1, { samples: 4, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter, depthTexture: new THREE.DepthTexture(1, 1) });
+  inkMat = new THREE.ShaderMaterial({
+    vertexShader: INK_VERT, fragmentShader: INK_FRAG, transparent: true, depthTest: false, depthWrite: false,
+    uniforms: { tG: { value: rt.texture }, tD: { value: rt.depthTexture }, uPx: { value: new THREE.Vector2() }, uInk: { value: new THREE.Color() }, uN: { value: 0.1 }, uF: { value: 1 } }
+  });
+  var quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), inkMat);
+  quad.frustumCulled = false;
+  inkScene = new THREE.Scene();
+  inkScene.add(quad);
+  inkCam = new THREE.Camera();
+}
+
+// Version v's parts, each straight under one group, in metres with Y up, the frame's centre at
+// the origin; its parts list rows, the camera in each view, balloon anchors and dimensions.
+function build(v, gltfScene) {
+  var M = MODELS[v], b = { model: new THREE.Group(), parts: [], groups: {}, rows: {} };
+  fig.querySelectorAll('.f3-parts[data-ver="' + v + '"] tbody tr').forEach(function (r) { b.rows[r.dataset.part] = r; });
+  model = b.model; parts = b.parts; groups = b.groups;
   gltfScene.updateMatrixWorld(true);
   var meshes = [];
   gltfScene.traverse(function (o) { if (o.isMesh) meshes.push(o); });
   meshes.forEach(function (m) { model.attach(m); });
-  var c0 = centre(meshes.find(function (m) { return GROUPS[0][1].test(m.name); }));
+  var c0 = centre(meshes.find(function (m) { return M.groups[0][1].test(m.name); }));
   meshes.forEach(function (m) { m.position.sub(c0); });
   model.updateMatrixWorld(true);
 
-  GROUPS.forEach(function (g, i) { groups[g[0]] = { id: g[0], n: i + 1, parts: [], mix: 0, row: rows[g[0]] }; });
+  M.groups.forEach(function (g, i) { groups[g[0]] = { id: g[0], n: i + 1, parts: [], mix: 0, row: b.rows[g[0]] }; });
   meshes.forEach(function (mesh, i) {
-    var g = groups[GROUPS.find(function (x) { return x[1].test(mesh.name); })[0]];
+    var g = groups[M.groups.find(function (x) { return x[1].test(mesh.name); })[0]];
     var c = centre(mesh), off = new THREE.Vector3();
-    var mv = MOVES.find(function (x) { return x[0].test(mesh.name); });
+    var mv = M.moves.find(function (x) { return x[0].test(mesh.name); });
     if (mv) {
       var out = mv[5] === "side" ? new THREE.Vector3(Math.sign(c.x), 0, 0) : new THREE.Vector3(Math.sign(c.x), 0, Math.sign(c.z)).normalize();
       off.addScaledVector(out, mv[1] * MM);
@@ -177,20 +258,11 @@ function build(gltfScene) {
   var exploded = boxOf(parts);
   place(0, 0);
   var assembled = boxOf(parts), frameBox = boxOf(groups.frame.parts);
-  poses = [pose(POSES[0], assembled, 0.92), pose(POSES[1], exploded, 0.8), pose(POSES[2], frameBox, 1)];
+  b.poses = poses = [pose(POSES[0], assembled, 0.92), pose(POSES[1], exploded, 0.8), pose(POSES[2], frameBox, 1)];
   anchors();
   dimensions();
-
-  rt = new THREE.WebGLRenderTarget(1, 1, { samples: 4, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter, depthTexture: new THREE.DepthTexture(1, 1) });
-  inkMat = new THREE.ShaderMaterial({
-    vertexShader: INK_VERT, fragmentShader: INK_FRAG, transparent: true, depthTest: false, depthWrite: false,
-    uniforms: { tG: { value: rt.texture }, tD: { value: rt.depthTexture }, uPx: { value: new THREE.Vector2() }, uInk: { value: new THREE.Color() }, uN: { value: 0.1 }, uF: { value: 1 } }
-  });
-  var quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), inkMat);
-  quad.frustumCulled = false;
-  inkScene = new THREE.Scene();
-  inkScene.add(quad);
-  inkCam = new THREE.Camera();
+  b.dims = dims;
+  return b;
 }
 
 function centre(o) { return new THREE.Box3().setFromObject(o).getCenter(new THREE.Vector3()); }
@@ -468,7 +540,6 @@ function arrow(p, ux, uy) {
 // ---------- the page around it ----------
 
 function wire(canvas) {
-  makeOverlay();
   theme();
   anim = loop(view, frame);
   new ResizeObserver(resize).observe(view);
@@ -481,12 +552,14 @@ function wire(canvas) {
       if (track.classList.contains("pinned")) {
         var r = track.getBoundingClientRect(), span = r.height - fig.offsetHeight;
         window.scrollTo({ top: scrollY + r.top - stickyTop + STEP_AT[i] * span, behavior: "smooth" });
-      } else { uT = i; wake(); }
+      } else { uT = i; sync(); wake(); }   // the buttons and caption follow at once
     });
   });
 
-  Object.keys(rows).forEach(function (id) {
-    var row = rows[id], b = row.querySelector("button");
+  verButtons.forEach(function (b) { b.addEventListener("click", function () { lastInput = performance.now(); switchTo(b.dataset.ver); }); });
+
+  fig.querySelectorAll(".f3-parts tbody tr").forEach(function (row) {
+    var id = row.dataset.part, b = row.querySelector("button");
     row.addEventListener("pointerenter", function (ev) { if (ev.pointerType === "mouse") { overRow = id; wake(); } });
     row.addEventListener("pointerleave", function (ev) { if (ev.pointerType === "mouse") { overRow = null; wake(); } });
     b.addEventListener("focus", function () { overRow = id; wake(); });

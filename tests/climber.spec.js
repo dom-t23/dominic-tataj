@@ -1,4 +1,4 @@
-// E-02's climb, Fig. 04 (js/climber.js): the corrected Excel model and its stage.
+// E-02's climb, Fig. 05 (js/climber.js): the corrected Excel model and its stage.
 const { test, expect } = require("@playwright/test");
 const { phone, trackErrors } = require("./helpers");
 

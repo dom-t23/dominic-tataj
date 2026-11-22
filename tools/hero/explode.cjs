@@ -1,10 +1,10 @@
 // Renders tools/hero/explode.html in headless Chromium (software WebGL) and writes the hero's
 // frames to images/hero/x00.webp ... (WebP with alpha, encoded by Chromium; no Python needed).
-// Usage: [PREFIX=x] [GLOW=0] [INK=hex] [FILL=hex] [FRAME=hex] node tools/hero/explode.cjs [width] [height] [frames] [quality]
+// Usage: [OUT=folder] [PREFIX=x] [GLOW=0] [INK=hex] [FILL=hex] [FRAME=hex] node tools/hero/explode.cjs [width] [height] [frames] [quality]
 // (hex without #; serves the repo on port 8813)
 const { chromium } = require("playwright");
 const fs = require("fs"), http = require("http"), path = require("path");
-const ROOT = path.join(__dirname, "../.."), OUT = path.join(ROOT, "images/hero");
+const ROOT = path.join(__dirname, "../.."), OUT = process.env.OUT || path.join(ROOT, "images/hero");   // OUT: somewhere else, to look first
 const [W = 1280, H = 960, N = 36, QL = 0.8] = process.argv.slice(2).map(Number);
 const PREFIX = process.env.PREFIX || "x";   // x: the dark theme's frames, l: the light theme's
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".glb": "model/gltf-binary" };

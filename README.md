@@ -33,26 +33,28 @@ simulator's gates, marking what is Dom's and what can be pressed. It deliberatel
     view with its estimate-error trace and readout) and `replay.js` (the drone
     replay), which share the flight data loaded by `flights.js`; `pipeline.js` draws the
     strip under the replay (detect, measure, fuse, fly at the current frame)
-  - after the load event: `bench.js` (Fig. 01's chart), `climber.js` (Fig. 04, the pipe
-    climber on a corrected version of the team's Excel model), `scaling.js` (Fig. 07, with
+  - after the load event: `bench.js` (Fig. 01's chart), `climber.js` (Fig. 05, the pipe
+    climber on a corrected version of the team's Excel model), `scaling.js` (Fig. 08, with
     its points in `data/scaling.js`), `hello.js` (the console note), `cursor.js` (the crosshair cursor)
   - `rig-button.js`, which loads `hover-rig.js` (the hover test rig) and `quad.js` (its drone
     model and controller, no DOM) on first use
-  - `frame3d-boot.js`, which sets up Fig. 02 and loads `frame3d.js` (the drone in 3D) and
+  - `frame3d-boot.js`, which sets up Fig. 02 and loads `frame3d.js` (the drone in 3D, V2 first, V1 on its button) and
     three.js once the figure is near
 
   `motion.js` is the animation toolkit (one-shot reveals and on-screen-only loops) and
   `util.js` holds shared helpers. `vendor/three/` is three.js r170 and the four addons Fig. 02
   uses, unchanged; the import map in `index.html` points the addons' `"three"` at it.
-- `models/frame.glb` — the drone for Fig. 02: the Fusion assembly exported as OBJ, converted
+- `models/frame-v2.glb` — the V2 drone for Fig. 02 and the hero: the Fusion assembly exported as OBJ, its bodies
+  named by `tools/frame/v2-parts.json`, simplified to 0.25 mm and meshopt-compressed (29 parts, 220 KB)
+- `models/frame.glb` — the V1 drone for Fig. 02: the Fusion assembly exported as OBJ, converted
   to glTF (metres, Y up), simplified and meshopt-compressed (47 parts, 187 KB)
 - `models/pipe-climber.glb` — the pipe climber, from the team's Fusion STL (168 parts,
-  simplified within 1 mm, 575 KB). The page doesn't load it: Fig. 04 draws it in
+  simplified within 1 mm, 575 KB). The page doesn't load it: Fig. 05 draws it in
   isometric from `images/robot-iso-ink.png` and `-fill.png`, used as two CSS masks
 - `flights/` — recorded flights for the drone-racing replay: `index.js` lists them and holds
   the still shown before LOAD, and each flight's frames (0.5-1.6 MB) load only when it is picked
-- `images/` — project images; `images/hero/x00–x23.webp` are the hero's 24 frames (611 KB,
-  drawn from `models/frame.glb` by `node tools/hero/explode.cjs`); `images/photos/` holds the
+- `images/` — project images; `images/hero/x00–x23.webp` are the hero's 24 frames (563 KB,
+  drawn from `models/frame-v2.glb` by `node tools/hero/explode.cjs`); `images/photos/` holds the
   eight photographs (600 px tall, without metadata) and `images/photos/w/` their WebP sizes
   (`node tools/photos.cjs`, which also renders the PNG icons)
 - `og-image.png`, `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `site.webmanifest` —
@@ -88,7 +90,7 @@ Fig. 01's numbers come from that repo's committed results files:
 (`tools/split_flights.py` still splits a `flights.js` from `python -m vdr.demo`, without the
 pipeline fields.)
 
-Fig. 07's points come from the dataset in Dom's ENGF0003 coursework:
+Fig. 08's points come from the dataset in Dom's ENGF0003 coursework:
 
     python3 tools/scaling_data.py path/to/dataset2.csv          # writes js/data/scaling.js
 
@@ -100,11 +102,20 @@ second; this repo's Playwright for the third). Each reproduces the committed fil
     node tools/robot/web_glb.mjs robot-raw.glb models/pipe-climber.glb  # simplify, meshopt
     node tools/robot/iso.cjs                                            # writes images/robot-iso-*.png
 
-The hero's frames are drawn from `models/frame.glb` with Fig. 02's shaders and explode moves
+The hero's frames are drawn from `models/frame-v2.glb` with Fig. 02's shaders and explode moves
 (`js/frame3d.js`), in neutral ink with the frame redrawn in the accent; Chromium encodes the WebP, so no
 Python is needed. Arguments: width, height, frames, quality; colours as hex without `#`:
 
     GLOW=0 INK=A89F93 FILL=141311 FRAME=FF6A2B node tools/hero/explode.cjs 960 720 24 0.72             # dark: x*.webp
     PREFIX=l GLOW=0 INK=6E675C FILL=F4F1EA FRAME=C2410C node tools/hero/explode.cjs 960 720 24 0.72    # light: l*.webp
+
+`OUT=folder` writes the frames somewhere else first, to look at them before they replace the committed ones.
+
+The V2 drone's model comes from Fusion's OBJ export of the assembly in two steps (numpy for the
+first; the same @gltf-transform packages and meshoptimizer as the pipe climber for the second). A new
+export needs every `Body…` group named in `tools/frame/v2-parts.json`; the first step stops on any it can't name:
+
+    python3 tools/frame/obj_to_glb.py "Lowres frame 2.obj" frame-v2-raw.glb   # part names, metres, Y up
+    node tools/frame/web_glb.mjs frame-v2-raw.glb models/frame-v2.glb           # weld, simplify to 0.25 mm, meshopt
 
 Drone-racing source: https://github.com/dom-t23/vision-drone-racing

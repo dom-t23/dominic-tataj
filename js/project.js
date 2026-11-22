@@ -15,7 +15,7 @@ if ($("f3-track")) import("./frame3d-boot.js");                           // Fig
 // the rest after the load event, so it doesn't compete with the first paint
 addEventListener("load", function () {
   if ($("bench")) import("./bench.js");                                   // Fig. 01, E-04
-  if ($("climb-fig")) import("./climber.js");                             // Fig. 04, E-02
-  if ($("scaling-fig")) import("./scaling.js");                           // Fig. 07, E-01
+  if ($("climb-fig")) import("./climber.js");                             // Fig. 05, E-02
+  if ($("scaling-fig")) import("./scaling.js");                           // Fig. 08, E-01
   import("./cursor.js");
 });
