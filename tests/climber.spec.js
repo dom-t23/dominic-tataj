@@ -6,7 +6,7 @@ const toView = (page) => page.locator("#climb-fig").evaluate((e) => e.scrollInto
 const setSlider = (page, id, v) => page.locator(id).evaluate((e, v) => { e.value = v; e.dispatchEvent(new Event("input", { bubbles: true })); }, v);
 
 test("the model: the sheet's setup climbs in 58.5 s; the gear sweep, a slip and a stall", async ({ page }) => {
-  await page.goto("/", { waitUntil: "networkidle" });   // loads after the load event
+  await page.goto("/pipe-climber.html", { waitUntil: "networkidle" });   // loads after the load event
   const r = await page.evaluate(async () => {
     const { simulate } = await import("/js/climber.js");
     const s = (G, D, N) => { const o = simulate(G, D, N); return { result: o.result, t: +o.t.toFixed(1), x: +o.x.toFixed(2) }; };
@@ -20,7 +20,7 @@ test("the model: the sheet's setup climbs in 58.5 s; the gear sweep, a slip and 
 
 test("in view it climbs at ten times real time, then gives the verdict", async ({ page }) => {
   const errors = trackErrors(page);
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/pipe-climber.html", { waitUntil: "networkidle" });
   await expect(page.locator("#climb-fig")).toBeVisible();
   await toView(page);
   await expect(page.locator("#cl-result")).toHaveText("Climbing, at ten times real time");
@@ -32,7 +32,7 @@ test("in view it climbs at ten times real time, then gives the verdict", async (
 });
 
 test("a setup that slips is rejected, in the figure and on the flowchart", async ({ page }) => {
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/pipe-climber.html", { waitUntil: "networkidle" });
   await toView(page);
   await setSlider(page, "#cl-g", 300);
   await setSlider(page, "#cl-n", 5);
@@ -51,7 +51,7 @@ test("a setup that slips is rejected, in the figure and on the flowchart", async
 test.describe("reduced motion", () => {
   test.use({ contextOptions: { reducedMotion: "reduce" } });
   test("shows the end of the climb, no playback", async ({ page }) => {
-    await page.goto("/", { waitUntil: "networkidle" });
+    await page.goto("/pipe-climber.html", { waitUntil: "networkidle" });
     await toView(page);
     await expect(page.locator("#cl-x")).toHaveText("2.00 m");
     await page.click("#cl-run");
@@ -62,7 +62,7 @@ test.describe("reduced motion", () => {
 test.describe("phone", () => {
   test.use(phone);
   test("one column, nothing wider than the screen", async ({ page }) => {
-    await page.goto("/", { waitUntil: "networkidle" });
+    await page.goto("/pipe-climber.html", { waitUntil: "networkidle" });
     await toView(page);
     const w = await page.evaluate(() => [document.documentElement.scrollWidth, innerWidth, document.getElementById("climb-fig").getBoundingClientRect().right]);
     expect(w[0]).toBeLessThanOrEqual(w[1]);
@@ -73,9 +73,11 @@ test.describe("phone", () => {
 test("the robot's mask images wait until the figure is near (PERF-07)", async ({ page }) => {
   const masks = [];
   page.on("request", (r) => { if (/robot-iso-(ink|fill)\.png/.test(r.url())) masks.push(r.url()); });
+  // the homepage never loads them; on the project's page they load once the figure is near
   await page.goto("/", { waitUntil: "networkidle" });
-  await page.waitForTimeout(500);
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); await page.waitForTimeout(500);
   expect(masks).toEqual([]);
+  await page.goto("/pipe-climber.html", { waitUntil: "networkidle" });
   await page.locator("#climb-stage").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
   await expect.poll(() => masks.length).toBe(2);
 });

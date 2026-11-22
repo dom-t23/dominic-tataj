@@ -37,7 +37,7 @@ test.describe("without JS", () => {
   test.use({ javaScriptEnabled: false });
   test("everything a recruiter needs is there and visible", async ({ page }) => {
     await page.goto("/");
-    for (const sel of [".hero h1", ".avail", ".hero .actions", ".brief", "#cards", "#e-04 .summary", "#contact .email"]) await expect(page.locator(sel).first()).toBeVisible();
+    for (const sel of [".hero h1", ".avail", ".hero .actions", ".brief", "#cards", "#contact .email"]) await expect(page.locator(sel).first()).toBeVisible();
     expect(await page.locator("#hero-stage img").evaluate((i) => i.complete && i.naturalWidth)).toBe(960);
     expect(await page.locator(".proj").first().evaluate((e) => getComputedStyle(e).opacity)).toBe("1");
   });
@@ -49,15 +49,14 @@ test("the project index: problem, role, tools and outcome for each; each links i
   await expect(cards).toHaveCount(4);
   for (const c of await cards.all()) {
     await expect(c.locator(".proj-facts dt")).toHaveText(["Problem", "Role", "Tools", "Outcome"]);
-    const href = await c.locator("h3 a").getAttribute("href");
-    await expect(page.locator(href)).toHaveCount(1);
+    expect(await c.locator("h3 a").getAttribute("href")).toMatch(/^[a-z-]+\.html$/);
   }
   await expect(page.locator(".proj-facts dd b.num")).toHaveText(["99.8%", "98.6%", "38 g", "246 g", "P ∝ N0.55"]);
   await expect(page.locator('.proj a[href="https://github.com/dom-t23/vision-drone-racing"]')).toHaveCount(1);
 });
 
 test("the CV is one click away: nav, hero, contact and footer, all to the same file", async ({ page }) => {
-  for (const path of ["/", "/photography.html"]) {
+  for (const path of ["/", "/photography.html", "/drone-racing.html"]) {
     await page.goto(path);
     await expect(page.locator(".nav .nav-cv")).toBeVisible();
     const hrefs = await page.$$eval('a[href$=".pdf"]', (as) => [...new Set(as.map((a) => a.getAttribute("href")))]);
@@ -138,7 +137,7 @@ test.describe("phone", () => {
 });
 
 test("none of the common AI-default tells: no gradient text, glows, glass, pills or uppercase eyebrow labels", async ({ page }) => {
-  for (const path of ["/", "/photography.html", "/404.html"]) {
+  for (const path of ["/", "/photography.html", "/404.html", "/drone-racing.html", "/drone-frame.html", "/pipe-climber.html", "/ai-scaling.html"]) {
     await page.goto(path, { waitUntil: "networkidle" });
     const found = await page.evaluate(() => {
       const out = [];

@@ -8,14 +8,14 @@ async function seek(page, i) {
   await page.locator("#scrub").evaluate((s, i) => { s.value = String(i); s.dispatchEvent(new Event("input")); }, i);
 }
 async function loaded(page) {
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
   await page.click("#load"); await controlsReady(page);
   await page.click("#play");   // pause: frames are picked with the scrubber
 }
 
 test("before LOAD, the strip shows the poster's frame", async ({ page }) => {
   const errors = trackErrors(page);
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
   await page.locator(".player").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
   await page.waitForFunction(() => document.querySelector("#pv-map .rest").hidden);
   for (const k of ["detect", "measure", "fuse", "fly"]) {

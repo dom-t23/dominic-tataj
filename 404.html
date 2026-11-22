@@ -6,7 +6,7 @@
 <title>Page not found · Dominic Tataj</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#141311">
-<meta name="color-scheme" content="dark">
+<meta name="color-scheme" content="dark light">
 <!-- GitHub Pages serves this for any missing path, at any depth, so every link is absolute to the site -->
 <base href="/dominic-tataj/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -17,16 +17,27 @@
   document.documentElement.classList.add("js");
   try { if (localStorage.getItem("theme") === "light") { document.documentElement.setAttribute("data-theme", "light"); document.querySelector('meta[name="theme-color"]').content = "#F4F1EA"; } } catch (e) {}
 </script>
-<link rel="stylesheet" href="css/site.css?v=20261121x">
+<link rel="stylesheet" href="css/site.css?v=20261122p">
 </head>
 <body>
 <nav class="nav" aria-label="Main">
   <div class="wrap">
     <div class="brand"><a class="name" href="./">Dominic Tataj</a></div>
     <ul>
-      <li><a href="./#work">Work</a></li>
-      <li><a href="photography.html">Photos</a></li>
+      <li class="menu-li"><details class="menu" id="work-menu"><summary>Work</summary>
+        <div class="menu-panel">
+          <ol class="menu-list">
+            <li><a href="drone-racing.html"><span class="m-no">E-04</span><span class="m-t">Vision-based autonomous drone racing</span><span class="m-r">98.6% of gates by camera, with clutter</span></a></li>
+            <li><a href="drone-frame.html"><span class="m-no">E-03</span><span class="m-t">Generative FPV drone frame</span><span class="m-r">246 g drone; frame 36% lighter</span></a></li>
+            <li><a href="pipe-climber.html"><span class="m-no">E-02</span><span class="m-t">Pipe-climbing robot</span><span class="m-r">Climbed the 2 m pipe, IMechE challenge</span></a></li>
+            <li><a href="ai-scaling.html"><span class="m-no">E-01</span><span class="m-t">AI training-power scaling analysis</span><span class="m-r">P ∝ N<sup>0.55</sup> across 358 models</span></a></li>
+          </ol>
+          <a class="m-all" href="./#work">All projects, with the problem, role and outcome of each</a>
+        </div></details></li>
+      <li class="opt"><a href="./#about">About</a></li>
+      <li class="opt"><a href="photography.html">Photos</a></li>
       <li><a href="./#contact">Contact</a></li>
+      <li><button class="theme-btn" id="theme" type="button" aria-pressed="false" aria-label="Switch to light mode"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg><span class="tl">Light</span></button></li>
       <li><a class="nav-cv" href="Dominic-Tataj-CV.pdf" download>CV</a></li>
     </ul>
   </div>
@@ -39,5 +50,7 @@
     <a class="btn" href="./#work">See the projects</a>
   </div>
 </main>
+<script type="module" src="js/theme.js"></script>
+<script type="module" src="js/menu.js"></script>
 </body>
 </html>

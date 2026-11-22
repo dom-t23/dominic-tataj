@@ -11,12 +11,18 @@ simulator's gates, marking what is Dom's and what can be pressed. It deliberatel
 `tests/redesign.spec.js` fails if they creep back. Every value is a token at the top of `css/site.css`;
 `node tests/contrast.cjs` checks the text colours against WCAG AA on each surface.
 
-- `index.html` — the homepage: hero, project cards, the write-ups, About, Contact
+- `index.html` — the homepage: hero, the project index, About, Contact
+- `drone-racing.html`, `drone-frame.html`, `pipe-climber.html`, `ai-scaling.html` — a page per project (E-04 to E-01),
+  each with its own link preview in `og/` (`node tools/og/projects.cjs`, from the running figures). They were
+  split out of `index.html` by `tools/split_projects.py` (a one-off, kept as the record); edit them directly.
+  Old links to `#e-04` and the like redirect to the pages. Every page has the Work menu (`js/menu.js`).
 - `photography.html` — the photographs, full-bleed, with a lightbox (`js/lightbox.js`)
 - `404.html` — GitHub Pages serves it for any missing path (`<base>` keeps its links working)
 - `Dominic-Tataj-CV.pdf` — **not in the repo yet**: every CV link points at this path
-- `css/site.css` — all styles
-- `js/` — ES modules. `main.js` is the homepage's entry point and imports:
+- `css/site.css` — all styles, including a print stylesheet (the homepage prints as a summary)
+- `js/` — ES modules. `main.js` is the homepage's entry point (theme, menu, hero, contact); `project.js` is a
+  project page's, and loads each figure's module only where that figure is (`more.js` folds long sections on
+  phones). Between them they use:
   - `theme.js` (the light/dark toggle; the saved theme is applied by an inline script before first paint),
     `hero.js` (the hero's drone, which comes apart as the page scrolls: frames
     `images/hero/x00–x23`, and `l00–l23` in light mode, pinned on large screens, a still for reduced motion or Save-Data),

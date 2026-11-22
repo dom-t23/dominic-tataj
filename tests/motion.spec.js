@@ -9,10 +9,10 @@ const jump = (page, sel) => page.locator(sel).first().evaluate((e) => e.scrollIn
 test("first screen is never hidden; figures draw when reached; project metadata is there from the start", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
   expect(await page.evaluate(() => [...document.querySelectorAll(".hero *")].filter((e) => e.style.opacity === "0").length)).toBe(0);
-  expect(await prepared(page)).toBeGreaterThan(20);
-  await jump(page, "#e-03 > .sheet-meta");
-  await jump(page, "#e-03 .fig-stack");
-  await expect.poll(() => page.locator("#e-03 svg.drawing *[style]").count(), { timeout: 8000 }).toBe(0);
+  await page.goto("/pipe-climber.html", { waitUntil: "networkidle" });
+  expect(await prepared(page)).toBeGreaterThan(5);   // the drawings below the first screen, waiting to draw
+  await jump(page, "#e-02 .fig-stack");
+  await expect.poll(() => page.locator("#e-02 svg.drawing *[style]").count(), { timeout: 8000 }).toBe(0);
   expect(await page.locator("#e-02 > .sheet-meta > *").evaluateAll((ds) => ds.every((d) => getComputedStyle(d).opacity === "1"))).toBe(true);
 });
 
@@ -57,7 +57,7 @@ test.describe("reduced motion", () => {
 });
 
 test("printing shows everything", async ({ page }) => {
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/pipe-climber.html", { waitUntil: "networkidle" });
   await page.evaluate(() => window.dispatchEvent(new Event("beforeprint")));
   expect(await prepared(page)).toBe(0);
 });

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI training-power scaling analysis · Dominic Tataj</title>
+<meta name="description" content="Statistical analysis of AI training power against model size: a fitted scaling law, P ∝ N^0.55 (R² 0.44), and an order-of-magnitude estimate for GPT-5. MATLAB.">
+<link rel="canonical" href="https://dom-t23.github.io/dominic-tataj/ai-scaling.html">
+<meta name="theme-color" content="#141311">
+<meta name="color-scheme" content="dark light">
+<meta name="author" content="Dominic Tataj">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI training-power scaling analysis, by Dominic Tataj">
+<meta property="og:description" content="Statistical analysis of AI training power against model size: a fitted scaling law, P ∝ N^0.55 (R² 0.44), and an order-of-magnitude estimate for GPT-5. MATLAB.">
+<meta property="og:url" content="https://dom-t23.github.io/dominic-tataj/ai-scaling.html">
+<meta property="og:image" content="https://dom-t23.github.io/dominic-tataj/og/ai-scaling.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="E-01: AI training-power scaling analysis. P ∝ N^0.55 across 358 models.">
+<meta property="og:site_name" content="Dominic Tataj">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI training-power scaling analysis, by Dominic Tataj">
+<meta name="twitter:description" content="Statistical analysis of AI training power against model size: a fitted scaling law, P ∝ N^0.55 (R² 0.44), and an order-of-magnitude estimate for GPT-5. MATLAB.">
+<meta name="twitter:image" content="https://dom-t23.github.io/dominic-tataj/og/ai-scaling.png">
+<script>
+  // The "js" class lets scripted parts of the page take their place from the first frame; a saved
+  // light theme is applied here, before first paint, so the page never flashes dark first (js/theme.js).
+  document.documentElement.classList.add("js");
+  try { if (localStorage.getItem("theme") === "light") { document.documentElement.setAttribute("data-theme", "light"); document.querySelector('meta[name="theme-color"]').content = "#F4F1EA"; } } catch (e) {}
+</script>
+<link rel="stylesheet" href="css/site.css?v=20261122p">
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <div class="brand"><a class="name" href="./">Dominic Tataj</a></div>
+    <ul>
+      <li class="menu-li"><details class="menu" id="work-menu"><summary>Work</summary>
+        <div class="menu-panel">
+          <ol class="menu-list">
+            <li><a href="drone-racing.html"><span class="m-no">E-04</span><span class="m-t">Vision-based autonomous drone racing</span><span class="m-r">98.6% of gates by camera, with clutter</span></a></li>
+            <li><a href="drone-frame.html"><span class="m-no">E-03</span><span class="m-t">Generative FPV drone frame</span><span class="m-r">246 g drone; frame 36% lighter</span></a></li>
+            <li><a href="pipe-climber.html"><span class="m-no">E-02</span><span class="m-t">Pipe-climbing robot</span><span class="m-r">Climbed the 2 m pipe, IMechE challenge</span></a></li>
+            <li><a href="ai-scaling.html" aria-current="page"><span class="m-no">E-01</span><span class="m-t">AI training-power scaling analysis</span><span class="m-r">P ∝ N<sup>0.55</sup> across 358 models</span></a></li>
+          </ol>
+          <a class="m-all" href="./#work">All projects, with the problem, role and outcome of each</a>
+        </div></details></li>
+      <li class="opt"><a href="./#about">About</a></li>
+      <li class="opt"><a href="photography.html">Photos</a></li>
+      <li><a href="./#contact">Contact</a></li>
+      <li><button class="theme-btn" id="theme" type="button" aria-pressed="false" aria-label="Switch to light mode"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg><span class="tl">Light</span></button></li>
+      <li><a class="nav-cv" href="Dominic-Tataj-CV.pdf" download>CV</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top" class="project">
+  <div class="wrap">
+    <article class="sheet" id="e-01" aria-labelledby="e01-h">
+      <div class="sheet-meta">
+        <p class="pno">E-01</p>
+        <dl>
+          <div><dt>Role</dt><dd>Analysis and report</dd></div>
+          <div><dt>Tools</dt><dd>MATLAB</dd></div>
+          <div><dt>Date</dt><dd>Oct 2025</dd></div>
+          <div><dt>Status</dt><dd>Complete</dd></div>
+        </dl>
+      </div>
+      <div class="sheet-body">
+        <div class="sheet-title">
+          <h1 id="e01-h">How AI training power scales with model size</h1>
+          <p class="summary">Statistical analysis of AI training data, 358 models across nine domains in the coursework, used to fit a scaling law and estimate the training power of a frontier model.</p>
+        </div>
+
+        <div class="specs" role="group" aria-label="Key figures">
+          <div><span class="label">Models (coursework)</span><span class="n">358</span></div>
+          <div><span class="label">Fitted law</span><span class="n">P&nbsp;∝&nbsp;N<sup>0.55</sup></span></div>
+          <div><span class="label">Fit R²</span><span class="n">0.44</span></div>
+          <div><span class="label">GPT-5 estimate</span><span class="n">≈590<small>kW</small></span></div>
+        </div>
+
+        <div class="cols">
+          <div class="prose">
+            <p>The data was heavily right-skewed, so I log₁₀-transformed it to make the nine domains comparable, then fitted a power law of training power against parameter count; higher-order fits gave no meaningful improvement or overfitted. Parameter count explains a little under half the variation. I used the fit to estimate GPT-5's training power draw and wrote a report on the social, environmental and economic effects of rapid AI training. With R² this low, and GPT-5's parameter count not public, that estimate is an order of magnitude rather than a prediction.</p>
+          </div>
+          <div class="fig-stack">
+            <figure class="scaling-fig" id="scaling-fig" hidden>
+              <div class="plate">
+                <!-- js/scaling.js draws it from js/data/scaling.js once it is near -->
+                <div class="sc-axes" role="group" aria-label="Axes">
+                  <button type="button" data-log="0" aria-pressed="false">Linear</button><button type="button" data-log="1" aria-pressed="true">Log₁₀</button>
+                </div>
+                <svg class="scaling" id="scaling" role="img" aria-label="Training power draw against parameter count for 603 AI models: a power law, P proportional to N to the 0.55, with R squared 0.44"></svg>
+              </div>
+              <figcaption><b>Fig. 07</b> Training power draw against parameter count for the 603 models in the dataset (Epoch AI) that have both, refitted here. On log₁₀ axes the fit is P ∝ N<sup>0.55</sup>; orange is the GPT-5 estimate.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <p class="foot-line"><span>Dominic Tataj</span><span>MEng Mechanical Engineering, UCL</span><span>Updated November 2026</span></p>
+      <p class="links"><a href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a> <a href="Dominic-Tataj-CV.pdf" download>CV</a> <a href="photography.html">Photography</a> <a href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a> <a href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a></p>
+    </div>
+    <p class="colophon">Plain HTML, CSS and JavaScript, no framework; the source is on <a href="https://github.com/dom-t23/dominic-tataj" target="_blank" rel="noopener">GitHub ↗</a>. The figures run on each project's own data, and the drone at the top of the homepage is drawn from its CAD model. Set in Source Serif 4 and IBM Plex.</p>
+  </div>
+</footer>
+
+<script type="module" src="js/project.js"></script>
+</body>
+</html>

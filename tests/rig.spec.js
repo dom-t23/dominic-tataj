@@ -6,7 +6,7 @@ const state = (page) => page.locator("#rig").getAttribute("data-state");
 const sp = (page) => page.locator("#rig").getAttribute("data-sp");
 const readout = (page) => page.locator("#rig text.big");
 async function openRig(page) {
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
   await page.locator("#flight").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
   await page.click("#rig-open");
   await expect(page.locator("#rig-controls")).toBeVisible();
@@ -19,7 +19,7 @@ async function dronePoint(page) {
 }
 
 test("model: Routh limit, poles and a settled step response", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/drone-racing.html");
   const r = await page.evaluate(async () => {
     const Q = await import("/js/quad.js");
     const q = Q.landed(0), sp = { x: 0, z: 1.5 };

@@ -8,7 +8,7 @@ const toStrip = (page) => page.locator("#flight").evaluate((e) => e.scrollIntoVi
 
 test("flies the recorded course and settles on the flight's own numbers", async ({ page }) => {
   const errors = trackErrors(page);
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
   await toStrip(page);
   await expect(status(page)).toContainText("Flying, played at 3× speed", { timeout: 4000 });
   await expect(page.locator("#fv-g")).toHaveText(/^[1-8] of 8$/);
@@ -22,7 +22,7 @@ test("flies the recorded course and settles on the flight's own numbers", async 
 
 test("the whole course is there, faint, from the first frame (MOT-04)", async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 300 });   // the figure below the fold: not flying yet
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
   await page.waitForTimeout(1000);
   await expect(page.locator("#fv-t")).toHaveText("0.00 s");
   await expect(status(page)).toContainText("Ready");
@@ -30,7 +30,7 @@ test("the whole course is there, faint, from the first frame (MOT-04)", async ({
 });
 
 test("REPLAY flies it again", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/drone-racing.html");
   await toStrip(page);
   await expect(status(page)).toHaveText("Completed: 8 of 8 gates", { timeout: 8000 });
   await page.click("#fv-replay");
@@ -40,7 +40,7 @@ test("REPLAY flies it again", async ({ page }) => {
 test.describe("reduced motion", () => {
   test.use({ contextOptions: { reducedMotion: "reduce" } });
   test("shows the finished flight at once, still", async ({ page }) => {
-    await page.goto("/", { waitUntil: "networkidle" });
+    await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
     await expect(status(page)).toHaveText("Completed: 8 of 8 gates");
     const a = await page.locator("#fv polyline.truth").getAttribute("points");
     await page.waitForTimeout(600);
@@ -51,7 +51,7 @@ test.describe("reduced motion", () => {
 test.describe("phone", () => {
   test.use(phone);
   test("fits the width and flies", async ({ page }) => {
-    await page.goto("/", { waitUntil: "networkidle" });
+    await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
     await toStrip(page);
     await expect(status(page)).toHaveText("Completed: 8 of 8 gates", { timeout: 8000 });
@@ -60,7 +60,7 @@ test.describe("phone", () => {
 
 test("without flight data the strip stays empty and REPLAY hidden", async ({ page }) => {
   await page.route("**/flights/index.js", (r) => r.fulfill({ status: 500, body: "" }));
-  await page.goto("/");
+  await page.goto("/drone-racing.html");
   await page.waitForTimeout(500);
   await expect(page.locator("#fv-replay")).toBeHidden();
   await expect(page.locator("#fv svg *")).toHaveCount(0);

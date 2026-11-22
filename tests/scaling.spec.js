@@ -7,7 +7,7 @@ const toView = (page) => page.locator("#scaling-fig").evaluate((e) => e.scrollIn
 
 test("603 models; linear axes until in view, then log axes and the fit", async ({ page }) => {
   const errors = trackErrors(page);
-  await page.goto("/", { waitUntil: "networkidle" });   // loads after the load event
+  await page.goto("/ai-scaling.html", { waitUntil: "networkidle" });   // loads after the load event
   await expect(page.locator("#scaling circle.pt")).toHaveCount(603);
   await expect(title(page)).toHaveText("Linear axes");
   await expect(page.locator("#scaling text.fit-t").first()).toHaveText("P ∝ N⁰·⁵⁵ · R² 0.44");   // fitted in the page
@@ -23,7 +23,7 @@ test("603 models; linear axes until in view, then log axes and the fit", async (
 });
 
 test("pointing at a point names the model", async ({ page }) => {
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/ai-scaling.html", { waitUntil: "networkidle" });
   await toView(page);
   await expect(title(page)).toHaveText("Log₁₀ axes", { timeout: 5000 });
   await page.waitForTimeout(1800);   // the sweep settles
@@ -40,7 +40,7 @@ test("pointing at a point names the model", async ({ page }) => {
 test.describe("reduced motion", () => {
   test.use({ contextOptions: { reducedMotion: "reduce" } });
   test("log axes and the fit at once", async ({ page }) => {
-    await page.goto("/", { waitUntil: "networkidle" });
+    await page.goto("/ai-scaling.html", { waitUntil: "networkidle" });
     await expect(title(page)).toHaveText("Log₁₀ axes");
     await expect(page.locator("#scaling path.fit").first()).toHaveAttribute("stroke-dashoffset", "0");
   });
@@ -49,7 +49,7 @@ test.describe("reduced motion", () => {
 test.describe("phone", () => {
   test.use(phone);
   test("fits the width", async ({ page }) => {
-    await page.goto("/", { waitUntil: "networkidle" });
+    await page.goto("/ai-scaling.html", { waitUntil: "networkidle" });
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
     const b = await page.locator("#scaling").boundingBox();
     expect(b.width).toBeLessThanOrEqual(390);

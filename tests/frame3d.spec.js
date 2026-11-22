@@ -18,7 +18,7 @@ async function scrollTo(page, p) {
   }, p);
 }
 async function reach(page) {
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/drone-frame.html", { waitUntil: "networkidle" });
   await page.evaluate(() => window.scrollBy(0, 1));
   await scrollTo(page, 0);
   await expect(page.locator(".f3-view")).toHaveClass(/ready/, { timeout: 30000 });
@@ -44,7 +44,7 @@ async function ink(page) {
 test("three.js loads only once the visitor scrolls near; scrolling moves through the three views", async ({ page }) => {
   const errors = trackErrors(page), three = [];
   page.on("request", (r) => { if (/three\.module|frame\.glb/.test(r.url())) three.push(r.url()); });
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/drone-frame.html", { waitUntil: "networkidle" });
   expect(three).toEqual([]);
   await expect(page.locator("#f3-track")).toHaveClass(/is-3d/);
   await expect(page.locator(".f3-renders")).toBeHidden();
@@ -160,7 +160,7 @@ test.describe("phone", () => {
 
 test("without WebGL 2, the renders stay", async ({ page }) => {
   await page.addInitScript(() => { delete window.WebGL2RenderingContext; });
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/drone-frame.html", { waitUntil: "networkidle" });
   await expect(page.locator("#f3-track")).not.toHaveClass(/is-3d/);
   await expect(page.locator(".f3-renders img")).toHaveCount(2);
   await expect(page.locator(".f3-renders")).toBeVisible();
@@ -171,7 +171,7 @@ test("without WebGL 2, the renders stay", async ({ page }) => {
 test("if the model fails to load, the renders come back", async ({ page }) => {
   const errors = trackErrors(page);
   await page.route("**/frame.glb", (r) => r.abort());
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/drone-frame.html", { waitUntil: "networkidle" });
   await page.evaluate(() => window.scrollBy(0, 1));
   await scrollTo(page, 0);
   await expect(page.locator("#f3-track")).not.toHaveClass(/is-3d/, { timeout: 15000 });

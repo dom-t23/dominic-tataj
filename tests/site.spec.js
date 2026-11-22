@@ -10,22 +10,28 @@ test("renders in standards mode with no errors", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
-test("content: order, numbering, figures and links", async ({ page }) => {
+test("content: the index, the four project pages, figure numbering and links", async ({ page }) => {
   await page.goto("/");
-  const ids = (sel) => page.$$eval(sel, (es) => es.map((e) => e.id || e.getAttribute("href")));
-  expect(await ids(".index h3 a")).toEqual(["#e-04", "#e-03", "#e-02", "#e-01"]);
-  expect(await ids("article.sheet")).toEqual(["e-04", "e-03", "e-02", "e-01"]);
-  expect(await page.$$eval("figcaption b", (bs) => bs.map((b) => b.textContent)))
-    .toEqual(["Fig. 00", "Fig. 01", "Fig. 02", "Fig. 03", "Fig. 04", "Fig. 05", "Fig. 06", "Fig. 07"]);
-  expect(await page.$$eval(".nav ul a", (as) => as.map((a) => a.textContent))).toEqual(["Work", "About", "Photos", "Contact", "CV"]);
-  expect(await page.$$eval("tr.pooled > *", (tds) => tds.map((t) => t.textContent))).toEqual(["Pooled", "99.83%", "97.79%", "98.58%", "97.46%"]);
+  expect(await page.$$eval(".index h3 a", (as) => as.map((a) => a.getAttribute("href"))))
+    .toEqual(["drone-racing.html", "drone-frame.html", "pipe-climber.html", "ai-scaling.html"]);
+  await expect(page.locator("article.sheet")).toHaveCount(0);   // the write-ups have their own pages
   for (const href of ["https://unsplash.com/@dominic_t", "https://www.instagram.com/dt___xt/",
     "https://www.linkedin.com/in/dominic-tataj", "https://github.com/dom-t23"]) {
     expect(await page.locator(`a[href="${href}"]`).count()).toBeGreaterThan(0);
   }
-  const body = await page.textContent("body");
-  expect(body).not.toMatch(/(?<![\d.])(48|79)%|98\.0% gates|13 Oct|Photograph to add/);
   await expect(page.locator(".avail")).toContainText("27 June 2027");
+  const figs = [];
+  for (const [path, id] of [["/drone-racing.html", "e-04"], ["/drone-frame.html", "e-03"], ["/pipe-climber.html", "e-02"], ["/ai-scaling.html", "e-01"]]) {
+    await page.goto(path);
+    await expect(page.locator("article.sheet")).toHaveAttribute("id", id);
+    await expect(page.locator("h1")).toHaveCount(1);
+    figs.push(...await page.$$eval("figcaption b", (bs) => bs.map((b) => b.textContent)));
+    const body = await page.textContent("body");
+    expect(body).not.toMatch(/(?<![\d.])(48|79)%|98\.0% gates|13 Oct|Photograph to add/);
+  }
+  expect(figs).toEqual(["Fig. 00", "Fig. 01", "Fig. 02", "Fig. 03", "Fig. 04", "Fig. 05", "Fig. 06", "Fig. 07"]);
+  await page.goto("/drone-racing.html");
+  expect(await page.$$eval("tr.pooled > *", (tds) => tds.map((t) => t.textContent))).toEqual(["Pooled", "99.83%", "97.79%", "98.58%", "97.46%"]);
 });
 
 test("targeting: software, autonomy and systems first; the degree stays accurate", async ({ page }) => {
@@ -67,9 +73,12 @@ test.describe("phone", () => {
 test.describe("phone, figures", () => {
   test.use(phone);
   test("figure labels stay legible on a phone (R-20): at least 9 px, and no sideways page scroll", async ({ page }) => {
-    await page.goto("/", { waitUntil: "networkidle" });
-    const sizes = await page.$$eval("svg.drawing", (svgs) => svgs.filter((s) => s.getClientRects().length).flatMap((s) =>
-      Array.from(s.querySelectorAll("text")).map((t) => t.getBoundingClientRect().height)));
+    const sizes = [];
+    for (const path of ["/drone-frame.html", "/pipe-climber.html"]) {   // Fig. 03, 05 and 06
+      await page.goto(path, { waitUntil: "networkidle" });
+      sizes.push(...await page.$$eval("svg.drawing", (svgs) => svgs.filter((s) => s.getClientRects().length).flatMap((s) =>
+        Array.from(s.querySelectorAll("text")).map((t) => t.getBoundingClientRect().height))));
+    }
     expect(sizes.length).toBeGreaterThan(20);
     expect(Math.min(...sizes)).toBeGreaterThan(9);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
@@ -84,28 +93,30 @@ test("reflows at 320 px: nothing pushes the page sideways (verification round 1,
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
 });
 
-test.describe("phone, in-page links", () => {
+test.describe("phone, project links", () => {
   test.use(phone);
-  test("a project link on a fresh page lands on its project (P1-2)", async ({ page }) => {
+  test("a project in the index opens its page; an old link to a write-up still lands on it (P1-2)", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });
-    await page.tap('.proj h3 a[href="#e-01"]');
-    await expect.poll(() => page.evaluate(() => Math.round(document.getElementById("e-01").getBoundingClientRect().top)), { timeout: 4000 })
-      .toBeLessThan(150);
+    await page.tap('.proj h3 a[href="ai-scaling.html"]');
+    await expect(page).toHaveURL(/ai-scaling\.html$/);
+    await page.goto("/#e-01");
+    await expect(page).toHaveURL(/ai-scaling\.html$/);
   });
 });
 
-test("the nav is the name, four links and the CV: no sheet counter", async ({ page }) => {
+test("the nav is the name, the Work menu, three links and the CV: no sheet counter", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
   await expect(page.locator("#sheet-no, #progress, .tblock, #approve")).toHaveCount(0);
   await expect(page.locator(".nav .brand")).toHaveText("Dominic Tataj");
 });
 test("key figures show their real values from the first frame, with no count-up (R-10)", async ({ page }) => {
   await page.addInitScript(() => { delete window.WebGL2RenderingContext; });
-  await page.goto("/", { waitUntil: "networkidle" });
+  await page.goto("/drone-frame.html", { waitUntil: "networkidle" });
   const values = () => page.$$eval("#e-03 .specs .n", (ns) => ns.map((n) => n.textContent));
   expect(await values()).toEqual(["1.5", ">300Hz", "−36%", "38g"]);
   await page.locator("#e-03 .specs").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
   await page.waitForTimeout(300);
   expect(await values()).toEqual(["1.5", ">300Hz", "−36%", "38g"]);
+  await page.goto("/pipe-climber.html");
   await expect(page.locator("#e-02 .specs .n").nth(1)).toHaveText("400×300mm");
 });

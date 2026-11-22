@@ -7,7 +7,7 @@
 <meta name="description" content="Photographs by Dominic Tataj from Sicily and Malaysia. Architecture and landscape work, published on Unsplash.">
 <link rel="canonical" href="https://dom-t23.github.io/dominic-tataj/photography.html">
 <meta name="theme-color" content="#141311">
-<meta name="color-scheme" content="dark">
+<meta name="color-scheme" content="dark light">
 <meta name="author" content="Dominic Tataj">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
@@ -32,7 +32,7 @@
   document.documentElement.classList.add("js");
   try { if (localStorage.getItem("theme") === "light") { document.documentElement.setAttribute("data-theme", "light"); document.querySelector('meta[name="theme-color"]').content = "#F4F1EA"; } } catch (e) {}
 </script>
-<link rel="stylesheet" href="css/site.css?v=20261121x">
+<link rel="stylesheet" href="css/site.css?v=20261122p">
 </head>
 <body>
 <a class="skip" href="#top">Skip to content</a>
@@ -41,7 +41,16 @@
   <div class="wrap">
     <div class="brand"><a class="name" href="./">Dominic Tataj</a></div>
     <ul>
-      <li><a href="./#work">Work</a></li>
+      <li class="menu-li"><details class="menu" id="work-menu"><summary>Work</summary>
+        <div class="menu-panel">
+          <ol class="menu-list">
+            <li><a href="drone-racing.html"><span class="m-no">E-04</span><span class="m-t">Vision-based autonomous drone racing</span><span class="m-r">98.6% of gates by camera, with clutter</span></a></li>
+            <li><a href="drone-frame.html"><span class="m-no">E-03</span><span class="m-t">Generative FPV drone frame</span><span class="m-r">246 g drone; frame 36% lighter</span></a></li>
+            <li><a href="pipe-climber.html"><span class="m-no">E-02</span><span class="m-t">Pipe-climbing robot</span><span class="m-r">Climbed the 2 m pipe, IMechE challenge</span></a></li>
+            <li><a href="ai-scaling.html"><span class="m-no">E-01</span><span class="m-t">AI training-power scaling analysis</span><span class="m-r">P ∝ N<sup>0.55</sup> across 358 models</span></a></li>
+          </ol>
+          <a class="m-all" href="./#work">All projects, with the problem, role and outcome of each</a>
+        </div></details></li>
       <li class="opt"><a href="./#about">About</a></li>
       <li class="opt"><a href="photography.html" aria-current="page">Photos</a></li>
       <li><a href="./#contact">Contact</a></li>
@@ -82,11 +91,15 @@
 
 <footer class="foot">
   <div class="wrap">
-    <p class="foot-line"><span>Dominic Tataj</span><span>MEng Mechanical Engineering, UCL</span><span>Updated November 2026</span></p>
-    <p class="links"><a href="./">Engineering portfolio</a> <a href="Dominic-Tataj-CV.pdf" download>CV</a> <a href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a> <a href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a></p>
+    <div class="foot-top">
+      <p class="foot-line"><span>Dominic Tataj</span><span>MEng Mechanical Engineering, UCL</span><span>Updated November 2026</span></p>
+      <p class="links"><a href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a> <a href="Dominic-Tataj-CV.pdf" download>CV</a> <a href="photography.html">Photography</a> <a href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a> <a href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a></p>
+    </div>
+    <p class="colophon">Plain HTML, CSS and JavaScript, no framework; the source is on <a href="https://github.com/dom-t23/dominic-tataj" target="_blank" rel="noopener">GitHub ↗</a>. The figures run on each project's own data, and the drone at the top of the homepage is drawn from its CAD model. Set in Source Serif 4 and IBM Plex.</p>
   </div>
 </footer>
 <script type="module" src="js/theme.js"></script>
+<script type="module" src="js/menu.js"></script>
 <script type="module" src="js/lightbox.js"></script>
 </body>
 </html>
