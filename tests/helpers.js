@@ -23,4 +23,11 @@ function trackFlights(page) {
 const controlsReady = (page) =>
   page.waitForFunction(() => document.getElementById("controls").getAttribute("aria-disabled") === "false");
 
-module.exports = { phone, trackErrors, trackFlights, controlsReady };
+// Starts the replay: presses LOAD unless the replay has already pressed it itself (js/replay.js
+// loads on its own when half the player is in view on a fast connection). One step in the page,
+// so the two can't race.
+const startReplay = (page) => page.evaluate(() => {
+  const b = document.getElementById("load");
+  if (!b.disabled && !b.closest(".rest").hidden) b.click();
+});
+module.exports = { phone, trackErrors, trackFlights, controlsReady, startReplay };

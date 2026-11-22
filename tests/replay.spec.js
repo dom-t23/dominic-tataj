@@ -1,10 +1,12 @@
 // Drone replay: poster, lazy loading, switching, failures and reduced motion.
 const { test, expect } = require("@playwright/test");
-const { phone, trackErrors, trackFlights, controlsReady } = require("./helpers");
+const { phone, trackErrors, trackFlights, controlsReady, startReplay } = require("./helpers");
 
 const toPlayer = (page) => page.locator(".player").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
 
 test("poster reuses the index; LOAD fetches one flight; switching uses a cache", async ({ page }) => {
+  // a visitor with Save-Data on: the replay waits for LOAD, showing its poster
+  await page.addInitScript(() => Object.defineProperty(navigator, "connection", { value: { saveData: true, effectiveType: "4g" } }));
   const errors = trackErrors(page), reqs = trackFlights(page);
   await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
   expect(reqs).toEqual(["index.js"]);   // fetched at load for the hero's flight strip
@@ -19,7 +21,7 @@ test("poster reuses the index; LOAD fetches one flight; switching uses a cache",
   expect(lit).toBeGreaterThan(200);
   await expect(page.locator("#readout")).toBeHidden();   // no dashes before LOAD (R-05)
 
-  await page.click("#load");
+  await startReplay(page);
   await controlsReady(page);
   expect(reqs).toEqual(["index.js", "1017-default.js"]);
   await expect(page.locator("#r-out")).toContainText("Completed");
@@ -48,7 +50,7 @@ test("map and camera panels are the same height side by side", async ({ page }) 
 test("a flight that fails to load reverts the pick", async ({ page }) => {
   await page.route("**/flights/2034-default.js", (r) => r.fulfill({ status: 404, body: "" }));
   await page.goto("/drone-racing.html");
-  await page.click("#load"); await controlsReady(page);
+  await startReplay(page); await controlsReady(page);
   await page.click("#seeds button:nth-child(2)");
   await expect(page.locator("#r-out")).toHaveText("Could not load that flight");
   expect(await page.$$eval("#seeds button", (bs) => bs.map((b) => b.getAttribute("aria-pressed")))).toEqual(["true", "false", "false"]);
@@ -57,7 +59,7 @@ test("a flight that fails to load reverts the pick", async ({ page }) => {
 test("a missing index shows RETRY", async ({ page }) => {
   await page.route("**/flights/index.js", (r) => r.fulfill({ status: 500, body: "" }));
   await page.goto("/drone-racing.html");
-  await page.click("#load");
+  await startReplay(page);
   await expect(page.locator("#load")).toHaveText("Retry");
 });
 
@@ -65,7 +67,7 @@ test.describe("reduced motion", () => {
   test.use({ contextOptions: { reducedMotion: "reduce" } });
   test("no autoplay, but PLAY plays", async ({ page }) => {
     await page.goto("/drone-racing.html");
-    await page.click("#load"); await controlsReady(page);
+    await startReplay(page); await controlsReady(page);
     await expect(page.locator("#play")).toHaveText("Play");
     await page.click("#play");
     await expect(page.locator("#clock")).not.toHaveText("0.00 s");
@@ -76,7 +78,7 @@ test.describe("phone", () => {
   test.use(phone);
   test("replay fits and status colours pass contrast", async ({ page }) => {
     await page.goto("/drone-racing.html");
-    await page.click("#load"); await controlsReady(page);
+    await startReplay(page); await controlsReady(page);
     expect(await page.evaluate(() => getComputedStyle(document.querySelector(".pill")).color)).toBe("rgb(134, 201, 154)");
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
   });
@@ -90,7 +92,7 @@ test("playback holds while the player is off screen and resumes where it stopped
   });
   await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
   await toPlayer(page);
-  await page.click("#load");
+  await startReplay(page);
   await controlsReady(page);
   await expect(page.locator("#play")).toHaveText("Pause");
   await page.locator(".foot").evaluate((e) => e.scrollIntoView({ behavior: "instant" }));
@@ -101,4 +103,22 @@ test("playback holds while the player is off screen and resumes where it stopped
   expect(await page.inputValue("#scrub")).toBe(at);
   await toPlayer(page);
   await expect.poll(() => page.inputValue("#scrub")).not.toBe(at);
+});
+
+test("the replay loads and plays by itself once half of it is in view (a fast connection, no reduced motion)", async ({ page }) => {
+  await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
+  await page.locator(".player").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
+  await controlsReady(page);
+  await expect(page.locator("#play")).toHaveText("Pause");
+});
+
+test.describe("reduced motion, the replay", () => {
+  test.use({ contextOptions: { reducedMotion: "reduce" } });
+  test("waits for LOAD", async ({ page }) => {
+    await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
+    await page.locator(".player").evaluate((e) => e.scrollIntoView({ behavior: "instant", block: "center" }));
+    await page.waitForTimeout(1500);
+    await expect(page.locator("#load")).toHaveText("Load replay");
+    await expect(page.locator("#controls")).toHaveAttribute("aria-disabled", "true");
+  });
 });

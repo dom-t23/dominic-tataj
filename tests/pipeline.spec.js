@@ -1,6 +1,6 @@
 // Pipeline strip under the replay (js/pipeline.js) and the filter's ellipse on the top view.
 const { test, expect } = require("@playwright/test");
-const { phone, trackErrors, controlsReady } = require("./helpers");
+const { phone, trackErrors, controlsReady, startReplay } = require("./helpers");
 
 const panel = (page, k) => page.locator("#pp-" + k);
 const said = (page, k) => panel(page, k).locator(".pp-r").textContent();
@@ -9,7 +9,7 @@ async function seek(page, i) {
 }
 async function loaded(page) {
   await page.goto("/drone-racing.html", { waitUntil: "networkidle" });
-  await page.click("#load"); await controlsReady(page);
+  await startReplay(page); await controlsReady(page);
   await page.click("#play");   // pause: frames are picked with the scrubber
 }
 
