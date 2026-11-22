@@ -43,16 +43,16 @@ new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load("../../" + URL_, (gltf) 
     return { mesh, base: mesh.position.clone(), off, t: mv ? mv[4] : 0, frame: GROUPS[0][1].test(mesh.name),
       gmat: new THREE.ShaderMaterial({ vertexShader: G_VERT, fragmentShader: G_FRAG, uniforms: { uId: { value: (i + 1) / 255 }, uInk: { value: 1 } } }) };
   });
+  // where the camera starts (deg: turned from behind, looking down) and how far it turns; how
+  // tightly the parts fill the frame (1: their bounding sphere just touches its shorter side)
+  const YAW0 = +(Q.get("yaw") || 150), YAW1 = +(Q.get("turn") || 30), PITCH0 = +(Q.get("pitch") || 26), FILL_K = +(Q.get("fit") || 0.76);
   // a little further apart than Fig. 02 (K), so the parts read at hero size
   const K = 1.35;
   const place = (e) => parts.forEach((q) => q.mesh.position.copy(q.base).addScaledVector(q.off, ease((e - q.t * 0.6) / 0.4) * K));
-  place(1); model.updateMatrixWorld(true);
-  const bx = new THREE.Box3(); meshes.forEach((m) => bx.expandByObject(m));
-  const s0 = bx.getBoundingSphere(new THREE.Sphere());   // framed on the exploded drone, so nothing leaves the frame
   const cam = new THREE.PerspectiveCamera(FOV, W / H, 0.005, 3);
   const half = Math.min(FOV / 2 * DEG, Math.atan(Math.tan(FOV / 2 * DEG) * W / H));
-  const aim = (yaw, pitch, zoom, t) => {
-    const dist = s0.radius * zoom / Math.sin(half);
+  const aim = (yaw, pitch, r, t) => {
+    const dist = r / Math.sin(half);
     cam.position.set(Math.sin(yaw) * Math.cos(pitch), Math.sin(pitch), Math.cos(yaw) * Math.cos(pitch)).multiplyScalar(dist).add(t);
     cam.near = Math.max(0.005, dist - 0.4); cam.far = dist + 0.4; cam.lookAt(t); cam.updateProjectionMatrix();
   };
@@ -65,11 +65,13 @@ new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).load("../../" + URL_, (gltf) 
   const out2d = document.createElement("canvas"); out2d.width = W; out2d.height = H; const g = out2d.getContext("2d");
   const shot = (u) => {
     place(smooth(0.12, 0.92, u));
-    // starts close on the assembled drone, pulls back as it comes apart, always looking at the
-    // middle of the parts where they are now, so the drawing stays centred in the frame
+    // Framed on the parts where they are now, not on the fully exploded drone: it starts filling
+    // the frame, seen from in front and a little above, and as it comes apart the parts rise and
+    // the view pulls back, so the frame sinks towards the bottom while the rest opens out above it.
     model.updateMatrixWorld(true);
     const now = new THREE.Box3(); meshes.forEach((m) => now.expandByObject(m));
-    aim((POSES[0].yaw - 34 + 62 * ease(u)) * DEG, (POSES[0].pitch - 6 * u) * DEG, 0.6 + 0.3 * smooth(0.05, 0.7, u), now.getCenter(new THREE.Vector3()));
+    const sp = now.getBoundingSphere(new THREE.Sphere());
+    aim((YAW0 + YAW1 * ease(u)) * DEG, (PITCH0 - 6 * u) * DEG, sp.radius * FILL_K, sp.center);
     model.updateMatrixWorld(true);
     parts.forEach((q) => { q.mesh.material = q.gmat; });
     r.setRenderTarget(rt); r.render(scene, cam);

@@ -53,7 +53,7 @@ simulator's gates, marking what is Dom's and what can be pressed. It deliberatel
   isometric from `images/robot-iso-ink.png` and `-fill.png`, used as two CSS masks
 - `flights/` — recorded flights for the drone-racing replay: `index.js` lists them and holds
   the still shown before LOAD, and each flight's frames (0.5-1.6 MB) load only when it is picked
-- `images/` — project images; `images/hero/x00–x47.webp` are the hero's 48 frames (1.1 MB, loaded after the page,
+- `images/` — project images; `images/hero/x00–x47.webp` are the hero's 48 frames (1.3 MB, loaded after the page,
   drawn from `models/frame-v2.glb` by `node tools/hero/explode.cjs`); `images/photos/` holds the
   eight photographs (600 px tall, without metadata) and `images/photos/w/` their WebP sizes
   (`node tools/photos.cjs`, which also renders the PNG icons)
