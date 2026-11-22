@@ -25,7 +25,7 @@ simulator's gates, marking what is Dom's and what can be pressed. It deliberatel
   phones). Between them they use:
   - `theme.js` (the light/dark toggle; the saved theme is applied by an inline script before first paint),
     `hero.js` (the hero's drone, which comes apart as the page scrolls: frames
-    `images/hero/x00–x47`, and `l00–l47` in light mode, pinned on large screens, a still for reduced motion or Save-Data),
+    `images/hero/x00–x95`, and `l00–l95` in light mode, pinned on large screens, a still for reduced motion or Save-Data),
     `contact.js` (copy email and its burst),
     `sheets.js` (lays every project out once after load, so links down the page land) and
     `reveals.js` (what animates in on scroll; numbers don't count up)
@@ -53,7 +53,7 @@ simulator's gates, marking what is Dom's and what can be pressed. It deliberatel
   isometric from `images/robot-iso-ink.png` and `-fill.png`, used as two CSS masks
 - `flights/` — recorded flights for the drone-racing replay: `index.js` lists them and holds
   the still shown before LOAD, and each flight's frames (0.5-1.6 MB) load only when it is picked
-- `images/` — project images; `images/hero/x00–x47.webp` are the hero's 48 frames (1.3 MB, loaded after the page,
+- `images/` — project images; `images/hero/x00–x95.webp` are the hero's 96 frames (2.7 MB, loaded after the page, four at a time,
   drawn from `models/frame-v2.glb` by `node tools/hero/explode.cjs`); `images/photos/` holds the
   eight photographs (600 px tall, without metadata) and `images/photos/w/` their WebP sizes
   (`node tools/photos.cjs`, which also renders the PNG icons)
@@ -106,8 +106,8 @@ The hero's frames are drawn from `models/frame-v2.glb` with Fig. 02's shaders an
 (`js/frame3d.js`), in neutral ink with the frame redrawn in the accent; Chromium encodes the WebP, so no
 Python is needed. Arguments: width, height, frames, quality; colours as hex without `#`:
 
-    GLOW=0 INK=A89F93 FILL=141311 FRAME=FF6A2B node tools/hero/explode.cjs 960 720 48 0.72             # dark: x*.webp
-    PREFIX=l GLOW=0 INK=6E675C FILL=F4F1EA FRAME=C2410C node tools/hero/explode.cjs 960 720 48 0.72    # light: l*.webp
+    GLOW=0 INK=A89F93 FILL=141311 FRAME=FF6A2B node tools/hero/explode.cjs 960 720 96 0.72             # dark: x*.webp
+    PREFIX=l GLOW=0 INK=6E675C FILL=F4F1EA FRAME=C2410C node tools/hero/explode.cjs 960 720 96 0.72    # light: l*.webp
 
 `OUT=folder` writes the frames somewhere else first, to look at them before they replace the committed ones.
 

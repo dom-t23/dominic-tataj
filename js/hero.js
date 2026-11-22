@@ -1,6 +1,6 @@
 // The hero's drone (rendered by tools/hero/explode.cjs from the real assembly): scrolling takes it
-// apart, part by part, as Fig. 02 does in E-03. Two sets of frames: images/hero/x00..x47 for the
-// dark theme and l00..l47 for the light one (the parts are filled with the page colour).
+// apart, part by part, as Fig. 02 does in E-03. Two sets of frames: images/hero/x00..x95 for the
+// dark theme and l00..l95 for the light one (the parts are filled with the page colour).
 //
 // The first frame is an ordinary <img> in the page, so without JS it is a still drawing. With
 // reduced motion, or Save-Data, it is a still of the drone part-way apart and nothing else loads.
@@ -10,7 +10,7 @@
 import { $, root, reducedMotion } from "./util.js";
 import { loop } from "./motion.js";
 
-var N = 48, STILL = 30;
+var N = 96, STILL = 60, AT_ONCE = 4;   // frames, the still for reduced motion, frames loading at a time
 var hero = $("hero"), stage = $("hero-stage");
 var set = function () { return root.getAttribute("data-theme") === "light" ? "l" : "x"; };
 var src = function (i, s) { return "images/hero/" + (s || set()) + String(i).padStart(2, "0") + ".webp"; };
@@ -69,11 +69,12 @@ function scrub() {
     shown = i;
   }
 
-  // a set's frames load in order, so the start of the scroll is ready first
+  // a set's frames load in order, a few at a time, so the start of the scroll is ready first
+  // and the round trips overlap
   function load(s) {
     if (sets[s]) return;
     var frames = sets[s] = new Array(N), i = 0;
-    (function next() {
+    function next() {
       if (i >= N) return;
       var k = i++, im = new Image();
       im.decoding = "async"; im.src = src(k, s);
@@ -82,7 +83,8 @@ function scrub() {
         if (s === set()) { shown = -1; draw(); if (k === 0) stage.classList.add("live"); }
         next();
       }, next);
-    })();
+    }
+    for (var j = 0; j < AT_ONCE; j++) next();
   }
   function start() {
     started = true;
