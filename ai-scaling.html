@@ -126,6 +126,12 @@
                 </div>
                 <svg class="scaling" id="scaling" role="img" aria-label="Training power draw against parameter count for 603 AI models: a power law, P proportional to N to the 0.55, with R squared 0.44"></svg>
               </div>
+              <!-- Try the fit (js/scaling.js): pick a model size, read the fit's power draw and its scatter -->
+              <div class="sc-try" id="sc-try" hidden>
+                <label for="sc-n">Try the fit: model size</label>
+                <input type="range" id="sc-n" min="3" max="13" step="0.05" value="11.52">
+                <output id="sc-out" for="sc-n" aria-live="polite"></output>
+              </div>
               <figcaption><b>Fig. 08</b> Training power draw against parameter count for the 603 models in the dataset (Epoch AI) that have both, refitted here. On log₁₀ axes the fit is P ∝ N<sup>0.55</sup>; orange is the GPT-5 estimate.</figcaption>
             </figure>
           </div>

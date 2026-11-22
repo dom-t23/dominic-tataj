@@ -751,6 +751,14 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 .scaling .ring { fill: none; stroke: var(--signal); stroke-width: 1.5; }
 .scaling .tip rect { fill: var(--ink); }
 .scaling .tip text { fill: var(--paper); }
+/* Try the fit: a slider under the plot; on the plot, a line at the chosen size and a dot on the fit */
+.sc-try { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 6px var(--s-4); padding: 12px 14px 4px; }
+.sc-try label { font: 500 13.5px/1.3 var(--font-body); color: var(--ink); }
+.sc-try input[type=range] { width: 100%; accent-color: var(--signal); }
+.sc-try output { grid-column: 1 / -1; min-height: 3em; font: 400 14px/1.5 var(--font-body); color: var(--ink-2); }
+.scaling .probe-l { stroke: var(--signal); stroke-width: 1; stroke-dasharray: 3 3; }
+.scaling .probe-d { fill: var(--paper); stroke: var(--signal); stroke-width: 2; }
+@media (max-width: 520px) { .sc-try { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- About ---------- */
 .about-lede { font: 400 17.5px/1.5 var(--font-body); color: var(--ink); max-width: 36em; letter-spacing: -0.005em; }

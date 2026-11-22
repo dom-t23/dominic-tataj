@@ -56,3 +56,15 @@ test.describe("phone", () => {
     expect(b.height).toBeGreaterThan(250);
   });
 });
+
+test("Try the fit: opens on the coursework's GPT-5 size at the page's 590 kW, gives the scatter, and follows the keyboard", async ({ page }) => {
+  await page.goto("/ai-scaling.html", { waitUntil: "networkidle" });
+  await page.locator("#sc-try").scrollIntoViewIfNeeded();
+  await expect(page.locator("#sc-try")).toBeVisible();
+  await expect(page.locator("#sc-out")).toHaveText("330 billion parameters (the size the coursework assumed for GPT-5): about 590 kW. About two-thirds of models this size sit between 86 kW and 4 MW.");
+  await page.locator("#sc-n").focus();
+  for (let i = 0; i < 40; i++) await page.keyboard.press("ArrowLeft");
+  await expect(page.locator("#sc-out")).toHaveText(/^3\.3 billion parameters: about 46 kW\./);
+  await expect(page.locator("#sc-n")).toHaveAttribute("aria-valuetext", "3.3 billion parameters");
+  await expect(page.locator(".scaling .probe")).toHaveAttribute("opacity", "1");
+});
