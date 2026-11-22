@@ -913,6 +913,22 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 /* ---------- a project's own page ---------- */
 .project .sheet { border-top: 0; padding-top: var(--s-8); padding-bottom: var(--s-9); content-visibility: visible; }
 .project .sheet-title h1 { font: 600 clamp(34px, 4.6vw, 60px)/1.04 var(--font-display); letter-spacing: -0.02em; }
+/* section links (js/anchors.js): a "#" after the heading, shown on hover and focus, always on touch screens */
+.sheet h2 .anchor { margin-left: 0.4em; font: 500 0.85em/1 var(--font-data); color: var(--muted); text-decoration: none; opacity: 0; transition: opacity var(--dur-quick) ease; }
+.sheet h2:hover .anchor, .sheet h2 .anchor:focus-visible, .sheet h2 .anchor.done { opacity: 1; }
+.sheet h2 .anchor:hover, .sheet h2 .anchor.done { color: var(--signal-strong); }
+@media (hover: none) { .sheet h2 .anchor { opacity: 0.6; } }
+/* On this page (drone racing): under the project's details in the margin; a run of links on phones */
+.toc { margin-top: var(--s-6); padding-top: var(--s-3); border-top: 1px solid var(--rule); }
+.toc p { font: 500 12.5px/1.4 var(--font-body); color: var(--muted); }
+.toc ol { list-style: none; margin: var(--s-2) 0 0; padding: 0; display: grid; gap: 2px; }
+.toc a { display: inline-block; padding: 3px 0; font: 500 14px/1.4 var(--font-body); color: var(--ink-2); text-decoration: none; }
+.toc a:hover { color: var(--ink); text-decoration: underline; text-decoration-color: var(--signal); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+@media (max-width: 999px) {
+  .toc { margin-top: var(--s-3); padding-top: var(--s-2); }
+  .toc ol { display: flex; flex-wrap: wrap; gap: 0 var(--s-4); }
+  .toc a { padding: 6px 0; font-size: 14px; }
+}
 /* the longer sections fold (js/more.js folds them on phones); the summary is the section's heading */
 details.more > summary { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s-4); cursor: pointer; list-style: none; border-top: 1px solid var(--rule); padding-top: var(--s-3); margin-bottom: var(--s-2); }
 details.more > summary::-webkit-details-marker { display: none; }
@@ -953,6 +969,7 @@ details.more > summary:hover::after { color: var(--ink); text-decoration-color: 
   .btn, .btn.primary { background: none; border: 1px solid #000000; color: #000000; min-height: 0; padding: 3pt 8pt; }
   .btn small { opacity: 1; }
   details.more > summary::after { display: none; }
+  .anchor, .toc { display: none !important; }
   .raised, .flight, .player { box-shadow: none; }
   /* the homepage on paper: a two-page summary */
   @page { margin: 12mm 13mm 13mm; }
