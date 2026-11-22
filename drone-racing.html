@@ -33,6 +33,37 @@
   document.documentElement.classList.add("js");
   try { if (localStorage.getItem("theme") === "light") { document.documentElement.setAttribute("data-theme", "light"); document.querySelector('meta[name="theme-color"]').content = "#F4F1EA"; } } catch (e) {}
 </script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "CreativeWork",
+ "name": "Vision-based autonomous drone racing",
+ "headline": "Vision-based autonomous drone racing",
+ "description": "A simulated racing drone that flies through gates by camera, with no GPS or map: 99.8% of gates in a clean world and 98.6% with clutter, over 300 seeded courses. Python, OpenCV, an error-state Kalman filter.",
+ "url": "https://dom-t23.github.io/dominic-tataj/drone-racing.html",
+ "image": "https://dom-t23.github.io/dominic-tataj/og/drone-racing.png",
+ "inLanguage": "en-GB",
+ "temporalCoverage": "2026-08/2026-10",
+ "keywords": [
+  "Python",
+  "OpenCV",
+  "NumPy",
+  "Computer vision",
+  "State estimation",
+  "Kalman filter"
+ ],
+ "author": {
+  "@type": "Person",
+  "name": "Dominic Tataj",
+  "url": "https://dom-t23.github.io/dominic-tataj/"
+ },
+ "isPartOf": {
+  "@type": "ProfilePage",
+  "url": "https://dom-t23.github.io/dominic-tataj/"
+ },
+ "sameAs": "https://github.com/dom-t23/vision-drone-racing"
+}
+</script>
 <link rel="stylesheet" href="css/site.css?v=20261122q">
 </head>
 <body>
