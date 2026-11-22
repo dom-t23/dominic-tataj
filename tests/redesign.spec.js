@@ -9,7 +9,7 @@ test("the hero's drone comes apart as the page scrolls; the first screen holds o
   await page.goto("/", { waitUntil: "networkidle" });
   await expect(page.locator(".hero")).toHaveClass(/\bscrub\b/);
   await expect(page.locator("#hero-stage")).toHaveClass(/\blive\b/);
-  await expect.poll(() => frames.size, { timeout: 15000 }).toBe(24);
+  await expect.poll(() => frames.size, { timeout: 15000 }).toBe(48);
   const copyTop = await page.locator(".hero h1").evaluate((e) => e.getBoundingClientRect().top);
   // to the end of the pinned range: the drawing eases after the scroll, then the specs are at full strength
   const span = await page.evaluate(() => document.getElementById("hero").offsetHeight - document.querySelector(".hero-pin").offsetHeight);
@@ -28,7 +28,7 @@ test.describe("reduced motion", () => {
     page.on("request", (r) => { if (/images\/hero\/x\d\d\.webp/.test(r.url())) frames.push(r.url()); });
     await page.goto("/", { waitUntil: "networkidle" });
     await expect(page.locator(".hero")).not.toHaveClass(/\bscrub\b/);
-    await expect(page.locator("#hero-stage img")).toHaveAttribute("src", "images/hero/x15.webp");
+    await expect(page.locator("#hero-stage img")).toHaveAttribute("src", "images/hero/x30.webp");
     expect(frames.length).toBeLessThanOrEqual(2);   // the preloaded first frame and the still
   });
 });
