@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- A project page's link preview (og/<slug>.png, 1200 × 630), filled in by tools/og/projects.cjs -->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Source Serif Display"; src: url(../../fonts/source-serif-display.woff2) format("woff2"); font-weight: 500 700; font-display: block; }
+  @font-face { font-family: "IBM Plex Sans"; src: url(../../fonts/plex-sans.woff2) format("woff2"); font-weight: 100 700; font-display: block; }
+  @font-face { font-family: "IBM Plex Mono"; src: url(../../fonts/plex-mono-500.woff2) format("woff2"); font-weight: 500; font-display: block; }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body { display: grid; grid-template-columns: 500px 1fr; gap: 44px; background: #141311; color: #EDE8E0; font: 400 22px/1.4 "IBM Plex Sans", sans-serif; padding: 60px 56px 52px 64px; }
+  .text { display: flex; flex-direction: column; }
+  .no { font: 500 18px/1 "IBM Plex Mono", monospace; color: #FF7F47; }
+  h1 { margin-top: 18px; font: 600 54px/1.04 "Source Serif Display", serif; letter-spacing: -0.02em; }
+  .res { margin-top: 26px; padding-top: 16px; border-top: 1px solid rgba(237,232,224,.32); font: 500 25px/1.35 "IBM Plex Sans", sans-serif; color: #C9C2B6; }
+  .res b { color: #EDE8E0; font-weight: 600; }
+  .by { margin-top: auto; font: 500 17px/1.4 "IBM Plex Sans", sans-serif; color: #A39C90; }
+  .by span { color: #EDE8E0; }
+  .fig { display: grid; place-items: center; min-width: 0; }
+  .fig img { max-width: 100%; max-height: 518px; object-fit: contain; }
+  .fig.framed img { border: 1px solid rgba(237,232,224,.13); }
+</style>
+</head>
+<body>
+  <div class="text">
+    <p class="no" id="no"></p>
+    <h1 id="title"></h1>
+    <p class="res" id="res"></p>
+    <p class="by"><span>Dominic Tataj</span> · Software, autonomy and systems · MEng, UCL<br>dom-t23.github.io/dominic-tataj</p>
+  </div>
+  <div class="fig" id="fig"><img id="img" alt=""></div>
+  <script>
+    const q = new URLSearchParams(location.search);
+    document.getElementById("no").textContent = q.get("no");
+    document.getElementById("title").textContent = q.get("title");
+    document.getElementById("res").innerHTML = q.get("res");
+    document.getElementById("img").src = q.get("img");
+    if (q.get("framed")) document.getElementById("fig").classList.add("framed");
+  </script>
+</body>
+</html>
