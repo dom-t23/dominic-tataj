@@ -7,7 +7,7 @@
 <meta name="description" content="Dominic Tataj, MEng Mechanical Engineering student at UCL, looking for software, autonomy and systems roles: a summer 2027 internship or 2027–28 placement.">
 <link rel="canonical" href="https://dom-t23.github.io/dominic-tataj/">
 <meta name="theme-color" content="#141311">
-<meta name="color-scheme" content="dark">
+<meta name="color-scheme" content="dark light">
 <meta name="author" content="Dominic Tataj">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
@@ -28,6 +28,11 @@
 <meta name="twitter:description" content="MEng Mechanical Engineering at UCL, looking for software, autonomy and systems roles: a summer 2027 internship or 2027–28 placement year in the UK.">
 <meta name="twitter:image" content="https://dom-t23.github.io/dominic-tataj/og-image.png">
 <meta name="twitter:image:alt" content="Dominic Tataj: software, autonomy and systems, MEng Mechanical Engineering, UCL.">
+<script>
+  // Links from before the projects had pages (#e-04 and the like) go to the project's page.
+  (function () { var p = { "#e-04": "drone-racing.html", "#e-03": "drone-frame.html", "#e-02": "pipe-climber.html", "#e-01": "ai-scaling.html", "#writeups": "#work" }[location.hash];
+    if (p) { if (p.charAt(0) === "#") location.hash = p; else location.replace(p); } })();
+</script>
 <script>
   // The "js" class lets scripted parts of the page take their place from the first frame; a saved
   // light theme is applied here, before first paint, so the page never flashes dark first (js/theme.js).
@@ -74,7 +79,7 @@
  }
 }
 </script>
-<link rel="stylesheet" href="css/site.css?v=20261121x">
+<link rel="stylesheet" href="css/site.css?v=20261122p">
 </head>
 <body>
 <a class="skip" href="#top">Skip to content</a>
@@ -85,7 +90,16 @@
   <div class="wrap">
     <div class="brand"><a class="name" href="./">Dominic Tataj</a></div>
     <ul>
-      <li><a href="#work">Work</a></li>
+      <li class="menu-li"><details class="menu" id="work-menu"><summary>Work</summary>
+        <div class="menu-panel">
+          <ol class="menu-list">
+            <li><a href="drone-racing.html"><span class="m-no">E-04</span><span class="m-t">Vision-based autonomous drone racing</span><span class="m-r">98.6% of gates by camera, with clutter</span></a></li>
+            <li><a href="drone-frame.html"><span class="m-no">E-03</span><span class="m-t">Generative FPV drone frame</span><span class="m-r">246 g drone; frame 36% lighter</span></a></li>
+            <li><a href="pipe-climber.html"><span class="m-no">E-02</span><span class="m-t">Pipe-climbing robot</span><span class="m-r">Climbed the 2 m pipe, IMechE challenge</span></a></li>
+            <li><a href="ai-scaling.html"><span class="m-no">E-01</span><span class="m-t">AI training-power scaling analysis</span><span class="m-r">P ∝ N<sup>0.55</sup> across 358 models</span></a></li>
+          </ol>
+          <a class="m-all" href="#work">All projects, with the problem, role and outcome of each</a>
+        </div></details></li>
       <li class="opt"><a href="#about">About</a></li>
       <li class="opt"><a href="photography.html">Photos</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -104,7 +118,7 @@
       <div class="hs">
         <img src="images/hero/x00.webp" width="960" height="720" decoding="async" alt="Line drawing of my 3-inch FPV drone from its CAD model, the frame I designed picked out in orange">
       </div>
-      <figcaption class="hero-cap">My 3-inch FPV drone (<a href="#e-03">E-03</a>), drawn from its CAD model. <span class="key">The frame I designed is in orange.</span></figcaption>
+      <figcaption class="hero-cap">My 3-inch FPV drone (<a href="drone-frame.html">E-03</a>), drawn from its CAD model. <span class="key">The frame I designed is in orange.</span></figcaption>
     </figure>
 
     <div class="wrap hero-copy">
@@ -124,9 +138,9 @@
         <a class="tlink" href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
       <ol class="brief" aria-label="Three results">
-        <li><a href="#e-04"><span class="b-no">E-04</span>A simulated racing drone that finds gates by camera, with no GPS or map, passes <b>98.6%</b> of them with clutter, over 300 courses.</a></li>
-        <li><a href="#e-03"><span class="b-no">E-03</span>A generatively designed frame keeps the whole drone at <b>246&nbsp;g</b>, under the CAA's 250&nbsp;g, and is 36% lighter.</a></li>
-        <li><a href="#e-02"><span class="b-no">E-02</span>A pipe-climbing robot, its drivetrain picked by my model, <b>climbed</b> the 2&nbsp;m pipe at the IMechE Design Challenge.</a></li>
+        <li><a href="drone-racing.html"><span class="b-no">E-04</span>A simulated racing drone that finds gates by camera, with no GPS or map, passes <b>98.6%</b> of them with clutter, over 300 courses.</a></li>
+        <li><a href="drone-frame.html"><span class="b-no">E-03</span>A generatively designed frame keeps the whole drone at <b>246&nbsp;g</b>, under the CAA's 250&nbsp;g, and is 36% lighter.</a></li>
+        <li><a href="pipe-climber.html"><span class="b-no">E-02</span>A pipe-climbing robot, its drivetrain picked by my model, <b>climbed</b> the 2&nbsp;m pipe at the IMechE Design Challenge.</a></li>
       </ol>
     </div>
   </div>
@@ -139,13 +153,13 @@
   <div class="wrap">
     <header class="section-head">
       <h2 id="work-h">Projects</h2>
-      <p class="section-note">Newest first. Each one opens its full write-up below, with figures that run on the project's own data.</p>
+      <p class="section-note">Newest first. Each has its own page with the full write-up and figures that run on the project's own data.</p>
     </header>
     <ol class="index" id="cards">
       <li class="proj">
         <header class="proj-head">
           <p class="proj-no">E-04</p>
-          <h3><a href="#e-04">Vision-based autonomous drone racing</a></h3>
+          <h3><a href="drone-racing.html">Vision-based autonomous drone racing</a></h3>
           <p class="proj-when">Aug–Oct 2026 · In development</p>
         </header>
         <dl class="proj-facts">
@@ -154,12 +168,12 @@
           <div><dt>Tools</dt><dd>Python · OpenCV · NumPy</dd></div>
           <div><dt>Outcome</dt><dd>Detection, pose, filtering and guidance as separate stages. <b class="num">99.8%</b> of gates in a clean world and <b class="num">98.6%</b> with clutter, on seeded regression benchmarks.</dd></div>
         </dl>
-        <p class="proj-links"><a href="#e-04">Write-up ↓</a><a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">Code on GitHub ↗</a></p>
+        <p class="proj-links"><a href="drone-racing.html">Read the write-up →</a><a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">Code on GitHub ↗</a></p>
       </li>
       <li class="proj">
         <header class="proj-head">
           <p class="proj-no">E-03</p>
-          <h3><a href="#e-03">Generative FPV drone frame</a></h3>
+          <h3><a href="drone-frame.html">Generative FPV drone frame</a></h3>
           <p class="proj-when">Jul–Sep 2026 · Built and tested</p>
         </header>
         <dl class="proj-facts">
@@ -168,12 +182,12 @@
           <div><dt>Tools</dt><dd>Fusion generative · Ansys Mechanical</dd></div>
           <div><dt>Outcome</dt><dd>A <b class="num">38&nbsp;g</b> printed frame, 36% lighter than a comparable plate frame; <b class="num">246&nbsp;g</b> all-up; measured arm deflection within 18% of Ansys.</dd></div>
         </dl>
-        <p class="proj-links"><a href="#e-03">Write-up ↓</a></p>
+        <p class="proj-links"><a href="drone-frame.html">Read the write-up →</a></p>
       </li>
       <li class="proj">
         <header class="proj-head">
           <p class="proj-no">E-02</p>
-          <h3><a href="#e-02">Pipe-climbing robot</a></h3>
+          <h3><a href="pipe-climber.html">Pipe-climbing robot</a></h3>
           <p class="proj-when">Feb–Apr 2026 · IMechE Design Challenge</p>
         </header>
         <dl class="proj-facts">
@@ -182,12 +196,12 @@
           <div><dt>Tools</dt><dd>Excel · Fusion CAD</dd></div>
           <div><dt>Outcome</dt><dd>The model picked the setup from more than 20 simulated: predicted climb time cut by 22%, real runs measured 16%. <b>The robot completed the climb.</b></dd></div>
         </dl>
-        <p class="proj-links"><a href="#e-02">Write-up ↓</a></p>
+        <p class="proj-links"><a href="pipe-climber.html">Read the write-up →</a></p>
       </li>
       <li class="proj">
         <header class="proj-head">
           <p class="proj-no">E-01</p>
-          <h3><a href="#e-01">AI training-power scaling analysis</a></h3>
+          <h3><a href="ai-scaling.html">AI training-power scaling analysis</a></h3>
           <p class="proj-when">Oct 2025 · Complete</p>
         </header>
         <dl class="proj-facts">
@@ -196,494 +210,9 @@
           <div><dt>Tools</dt><dd>MATLAB</dd></div>
           <div><dt>Outcome</dt><dd>A power law fitted to 358 models across nine domains, <b class="num">P&nbsp;∝&nbsp;N<sup>0.55</sup></b> (R² 0.44), and an order-of-magnitude estimate for GPT-5 of about 590&nbsp;kW.</dd></div>
         </dl>
-        <p class="proj-links"><a href="#e-01">Write-up ↓</a></p>
+        <p class="proj-links"><a href="ai-scaling.html">Read the write-up →</a></p>
       </li>
     </ol>
-  </div>
-</section>
-
-<!-- ============ WRITE-UPS: each project in full, with its interactive figures ============ -->
-<section class="section" id="writeups" aria-labelledby="writeups-h">
-  <div class="wrap">
-    <header class="section-head">
-      <h2 id="writeups-h">How each one was built</h2>
-    </header>
-
-    <!-- E-04 DRONE: the lead project -->
-    <article class="sheet lead" id="e-04" aria-labelledby="e04-h">
-      <div class="sheet-meta">
-        <p class="pno">E-04</p>
-        <dl>
-          <div><dt>Role</dt><dd>Solo; set the design and test rules, directed an AI coding agent</dd></div>
-          <div><dt>Tools</dt><dd>Python · OpenCV · NumPy</dd></div>
-          <div><dt>Date</dt><dd>Aug–Oct 2026</dd></div>
-          <div><dt>Status</dt><dd>In development</dd></div>
-          <div><dt>Code</dt><dd><a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">vision-drone-racing ↗</a></dd></div>
-        </dl>
-      </div>
-      <div class="sheet-body">
-        <div class="sheet-title">
-          <h3 id="e04-h">A simulated racing drone that flies through gates by camera, with no GPS or map</h3>
-          <p class="summary">Pooled over 300 seeded courses, it passes 99.8% of gates in a clean world and 98.6% with gate-coloured clutter beside the course. There is no GPS, depth sensor or map of the gate positions: it finds each gate in its camera image, estimates its own position relative to the gate and flies through.</p>
-        </div>
-
-        <div class="keyfig">
-          <div class="specs" role="group" aria-label="Key figures">
-            <div><span class="n">99.8<small>%</small></span><span class="label">of gates passed in a clean world, camera + IMU</span></div>
-            <div><span class="n">98.6<small>%</small></span><span class="label">with gate-coloured clutter beside the course, camera + IMU</span></div>
-            <div><span class="n">97.5<small>%</small></span><span class="label">with clutter, camera only</span></div>
-            <div><span class="n">None</span><span class="label">GPS, depth sensor or map of the gates</span></div>
-          </div>
-          <p class="note">Pass rates pooled over 300 seeded courses of 8 gates; a run ends at the first crash or missed gate. Full table in Fig. 01.</p>
-        </div>
-
-        <figure class="flight" id="flight">
-          <div class="fv" id="fv">
-            <svg class="flight-svg" aria-hidden="true"></svg>
-            <svg class="rig-svg" id="rig" tabindex="-1" role="group" aria-label="Hover test rig. Drag the drone, or click to move its setpoint. Arrow keys move the setpoint, G sends a gust, R resets."></svg>
-          </div>
-          <dl class="fv-read" aria-hidden="true">
-            <div><dt id="fv-t-l">Time</dt><dd id="fv-t">–</dd></div>
-            <div><dt>Gate</dt><dd id="fv-g">–</dd></div>
-            <div><dt id="fv-v-l">Speed</dt><dd id="fv-v">–</dd></div>
-            <div><dt id="fv-e-l">Estimate error</dt><dd id="fv-e">–</dd></div>
-          </dl>
-          <div class="rig-controls" id="rig-controls" hidden>
-            <label class="gain">K<sub>p</sub><input type="range" id="kp" min="0" max="1000" step="1" aria-label="Position gain Kp"><output id="kp-out" for="kp"></output></label>
-            <label class="gain">K<sub>d</sub><input type="range" id="kd" min="0" max="1000" step="1" aria-label="Damping gain Kd"><output id="kd-out" for="kd"></output></label>
-            <span class="stab" id="stab"></span>
-            <span class="rig-buttons"><button class="btn" id="gust" type="button">Gust →</button><button class="btn" id="rig-reset" type="button">Reset</button><button class="btn" id="rig-close" type="button">Back to the flight</button></span>
-          </div>
-          <figcaption><span><b>Fig. 00</b> <span id="cap-flight">A simulated flight of my vision-based racing drone (<a href="#e-04">E-04</a>), camera + IMU, played at 3× speed: <span class="key truth">true path in blue</span>, <span class="key est">the drone's own estimate dashed orange</span>. Under it, the estimate's error over the flight.</span><span id="cap-rig" hidden>Hover test: a planar model of my 246 g drone (<a href="#e-03">E-03</a>), held by a cascaded PD controller (a position loop feeding an attitude loop). Drag it, click to move the setpoint or send a gust, and push the gains past the Routh–Hurwitz limit to watch it go unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>Replay ↺</button><button class="link-btn" id="rig-open" type="button" hidden>Try the hover controller →</button></span></figcaption>
-        </figure>
-
-        <div class="player" role="group" aria-label="Simulated flight replay">
-          <div class="player-stage">
-            <div class="pv" id="pv-fpv">
-              <span class="tag">Onboard camera · detector output</span>
-              <canvas id="fpv" width="640" height="480" role="img" aria-label="Onboard camera view"></canvas>
-              <div class="rest" id="rest">
-                <span>Six simulated flights · 8 gates · about 6 m/s</span>
-                <button class="btn" id="load" type="button">Load replay</button>
-                <span id="load-note"></span>
-              </div>
-            </div>
-            <div class="pv map" id="pv-map">
-              <span class="tag">Top view</span>
-              <canvas id="map" width="640" height="480" role="img" aria-label="Top-down course view"></canvas>
-              <div class="rest"><span>Course plot appears with the replay</span></div>
-              <div class="legend"><span><i style="background:var(--truth)"></i>true path</span><span><i style="background:var(--signal)"></i>drone's estimate, 95% ellipse</span><span><i style="background:var(--muted)"></i>gates</span></div>
-            </div>
-          </div>
-          <div class="controls" id="controls" aria-disabled="true">
-            <div class="seg" id="seeds" role="group" aria-label="Course" hidden></div>
-            <div class="seg" id="methods" role="group" aria-label="Sensing" hidden></div>
-            <button class="ctl" id="play" type="button">Play</button>
-            <input id="scrub" type="range" min="0" max="0" value="0" step="1" aria-label="Flight time">
-            <span class="clock" id="clock">0.00 s</span>
-          </div>
-          <div class="readout">
-            <div><span class="label">Result</span><b id="r-out">Course 1 · camera + IMU</b></div>
-            <div><span class="label">Gates passed</span><b id="r-gates">– / 8</b></div>
-            <div><span class="label">Speed</span><b id="r-speed">–</b></div>
-            <div><span class="label">Estimate error</span><b id="r-err">–</b></div>
-          </div>
-          <!-- the flight stack's four stages at the replay's current frame (js/pipeline.js) -->
-          <div class="pipe" id="pipe" role="group" aria-label="What each stage of the flight stack did in this frame">
-            <div class="pp" id="pp-detect">
-              <div class="pp-h"><b><span>01</span> Detect</b><small>colour mask · squares</small></div>
-              <canvas width="320" height="240" aria-hidden="true"></canvas>
-              <p class="pp-r">–</p>
-            </div>
-            <div class="pp" id="pp-measure">
-              <div class="pp-h"><b><span>02</span> Measure</b><small>PnP · gate poses, plan</small></div>
-              <svg viewBox="0 0 200 150" aria-hidden="true"></svg>
-              <p class="pp-r">–</p>
-            </div>
-            <div class="pp" id="pp-fuse">
-              <div class="pp-h"><b><span>03</span> Fuse</b><small>filter · 95% ellipse</small></div>
-              <svg viewBox="0 0 200 150" aria-hidden="true"></svg>
-              <p class="pp-r">–</p>
-            </div>
-            <div class="pp" id="pp-fly">
-              <div class="pp-h"><b><span>04</span> Fly</b><small>commands · as sticks</small></div>
-              <svg viewBox="0 0 200 150" aria-hidden="true"></svg>
-              <p class="pp-r">–</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="cols">
-          <div class="prose">
-            <div>
-              <h4>Approach</h4>
-              <ol class="steps">
-                <li><span><strong>Detect.</strong> Threshold the gate colour and fit a four-cornered outline to each gate and to its opening.</span></li>
-                <li><span><strong>Measure.</strong> The gate's known size and its four image corners give its pose relative to the camera, using OpenCV solvePnP with IPPE_SQUARE. Gates stand upright, so the pose is then refined for position and yaw only, with the up direction taken from gravity.</span></li>
-                <li><span><strong>Fuse.</strong> An error-state Kalman filter tracks position, velocity and attitude in the frame of the next gate, so no map is needed. A chi-squared test rejects outlier detections.</span></li>
-                <li><span><strong>Fly.</strong> Guidance aims through the gate centre and is converted into thrust and body-rate commands, the way an FPV pilot flies in acro mode.</span></li>
-              </ol>
-            </div>
-            <div>
-              <h4>How it was built</h4>
-              <p>I set the problem and the design decisions that stay fixed: acro thrust and body-rate commands, identical gates with no IDs, a strict wall between the simulator and the flight stack, and the benchmark rules. Most of the code was written by an AI coding agent (Claude) in scheduled overnight runs. Each night it tried one change behind a flag, flew the same seeded courses with it on and off, and kept it only if it clearly helped. I reviewed the results and worked through some changes with it directly.</p>
-            </div>
-            <div>
-              <h4>Testing</h4>
-              <p>A deterministic regression harness flies every change on the same seeded courses in lockstep (also over UDP, with identical results) and reports the gate pass rate. On the first set of 50 courses the pass rate rose from 89.2% at the first committed baseline to 100%. Because one set moves by a few points from noise alone, a change is kept only if it helps pooled over 300 courses, where the pass rate reached 99.8%.</p>
-              <p>With that benchmark saturated, the world was made harder: orange panels and cones beside the course, in the gate's own colour. Pooled over the same 300 courses the pass rate is now 98.6% with the IMU and 97.5% camera only. Course 3 in the replay is one of the failures: with the IMU, the drone twice takes a distractor for the gate, and the pipeline strip shows its filter rejecting measurements and re-initialising before it misses gate 2.</p>
-              <p>One bug came from the simulator itself: its sign convention was the reverse of what its documentation said. I found it by comparing commanded inputs against logged attitude, confirmed it with single-axis tests, and corrected the controller.</p>
-            </div>
-          </div>
-          <div class="fig-stack">
-            <figure class="bench-fig">
-              <div class="plate">
-                <div class="tablebox">
-                  <!-- js/bench.js: the column headers chart and sort their column -->
-                  <table class="bench" id="bench">
-                    <caption class="sr-only">Gate pass rate by course set, in a clean world and with orange clutter, with and without the IMU. Column headers sort the table and chart the column.</caption>
-                    <colgroup><col><col span="2"><col span="2"></colgroup>
-                    <thead>
-                      <tr class="world"><td></td><th colspan="2" scope="colgroup">Clean world</th><th colspan="2" scope="colgroup">With orange clutter</th></tr>
-                      <tr><th scope="col">Course set</th><th scope="col">Camera + IMU</th><th scope="col">Camera only</th><th scope="col">Camera + IMU</th><th scope="col">Camera only</th></tr>
-                    </thead>
-                    <tbody>
-                      <tr><th scope="row">0–49</th><td>100.00%</td><td>96.25%</td><td>95.75%</td><td>96.75%</td></tr>
-                      <tr><th scope="row">1000–1049</th><td>100.00%</td><td>98.50%</td><td>100.00%</td><td>100.00%</td></tr>
-                      <tr><th scope="row">2000–2049</th><td>99.00%</td><td>98.00%</td><td>100.00%</td><td>98.50%</td></tr>
-                      <tr><th scope="row">3000–3049</th><td>100.00%</td><td>96.50%</td><td>100.00%</td><td>93.75%</td></tr>
-                      <tr><th scope="row">4000–4049</th><td>100.00%</td><td>98.75%</td><td>97.75%</td><td>97.75%</td></tr>
-                      <tr><th scope="row">5000–5049</th><td>100.00%</td><td>98.75%</td><td>98.00%</td><td>98.00%</td></tr>
-                    </tbody>
-                    <tfoot>
-                      <tr class="pooled"><th scope="row">Pooled</th><td>99.83%</td><td>97.79%</td><td>98.58%</td><td>97.46%</td></tr>
-                    </tfoot>
-                  </table>
-                </div>
-                <svg class="bench-chart" id="bench-chart" viewBox="0 0 520 168" role="img" aria-label="Gates missed per set of 400, for the chosen column" hidden></svg>
-              </div>
-              <figcaption><b>Fig. 01</b> Gate pass rate on six sets of 50 random 8-gate courses, in a clean world and with orange clutter beside the course. A run ends at the first crash or missed gate. Select a column header to chart it.</figcaption>
-            </figure>
-            <p class="note">Single sets of 50 courses move by a few points from noise alone, so the pooled row is the one to compare. "Camera only" drops the IMU and predicts motion between frames from the drone's own commands. The clutter is up to 20 flat panels and cones beside the course, painted within the gate's colour range. That world is harder by design, so its numbers start a new baseline rather than continuing the clean one. Clean: runs 20 and 23 (camera only); clutter: run 26.</p>
-            <p class="note">Source code: <a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">github.com/dom-t23/vision-drone-racing ↗</a></p>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- E-03 FRAME -->
-    <article class="sheet" id="e-03" aria-labelledby="e03-h">
-      <div class="sheet-meta">
-        <p class="pno">E-03</p>
-        <dl>
-          <div><dt>Role</dt><dd>Design, analysis and build</dd></div>
-          <div><dt>Tools</dt><dd>Fusion generative · Ansys Mechanical</dd></div>
-          <div><dt>Date</dt><dd>Jul–Sep 2026</dd></div>
-          <div><dt>Status</dt><dd>Built and tested</dd></div>
-        </dl>
-      </div>
-      <div class="sheet-body">
-        <div class="sheet-title">
-          <h3 id="e03-h">A generatively designed 3-inch FPV drone frame</h3>
-          <p class="summary">A 38 g printed frame, 36% lighter than a comparable plate frame, that keeps the complete drone at 246 g, under the UK CAA's 250 g threshold. Arm deflection measured at maximum thrust agreed with Ansys to within 18%.</p>
-        </div>
-
-        <div class="specs" role="group" aria-label="Key figures">
-          <div><span class="label">Safety factor</span><span class="n">1.5</span></div>
-          <div><span class="label">First mode, required</span><span class="n">&gt;300<small>Hz</small></span></div>
-          <div><span class="label">Mass vs plate frame</span><span class="n">−36%</span></div>
-          <div><span class="label">Printed frame</span><span class="n">38<small>g</small></span></div>
-        </div>
-
-        <!-- Fig. 01: with WebGL, js/frame3d-boot.js swaps the renders for the real model in
-             three scroll-driven views (js/frame3d.js); without it, the renders stay. -->
-        <div class="f3-track" id="f3-track">
-          <figure class="f3" id="frame3d">
-            <div class="f3-renders">
-              <img class="render" src="images/frame-render-three-quarter.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone on cracked ground, three-quarter view, showing the white generatively designed frame with four motors and the battery mounted on top">
-              <img class="render" src="images/frame-render-top.jpg" width="1600" height="1200" loading="lazy" alt="Render of the drone from above, showing the organic X-shaped frame arms and the battery on the centre line">
-            </div>
-            <div class="f3-stage" hidden>
-              <div class="f3-steps" role="group" aria-label="Views of the model">
-                <button type="button" data-cap="As modelled in Fusion: 47 parts, 246 g all-up. Drag to turn it; point at a part to name it."><span>01</span> Assembly</button>
-                <button type="button" data-cap="Exploded. Point at a part, or a row of the parts list, to pick it out."><span>02</span> Exploded</button>
-                <button type="button" data-cap="The generated frame alone: 38 g of PC/ABS, motors 96 mm apart, 136 mm across the diagonal."><span>03</span> Frame only</button>
-              </div>
-              <div class="f3-view"><p class="f3-load" aria-live="polite">Loading model</p></div>
-              <table class="f3-parts">
-                <caption>Parts list</caption>
-                <thead><tr><th scope="col">Item</th><th scope="col">Part</th><th scope="col">Qty</th><th scope="col">Mass</th></tr></thead>
-                <tbody>
-                  <tr data-part="frame"><td>1</td><td><button type="button">Frame, PC/ABS</button></td><td>1</td><td>38 g</td></tr>
-                  <tr data-part="motor"><td>2</td><td><button type="button">Motor 1404</button></td><td>4</td><td></td></tr>
-                  <tr data-part="prop"><td>3</td><td><button type="button">Propeller 3016</button></td><td>4</td><td></td></tr>
-                  <tr data-part="battery"><td>4</td><td><button type="button">Battery 4S 650</button></td><td>1</td><td></td></tr>
-                  <tr data-part="fc"><td>5</td><td><button type="button">Flight controller</button></td><td>1</td><td></td></tr>
-                  <tr data-part="vtx"><td>6</td><td><button type="button">Video transmitter</button></td><td>1</td><td></td></tr>
-                  <tr data-part="camera"><td>7</td><td><button type="button">Camera</button></td><td>1</td><td></td></tr>
-                  <tr data-part="standoff"><td>8</td><td><button type="button">Standoff</button></td><td>8</td><td></td></tr>
-                  <tr data-part="bolt"><td>9</td><td><button type="button">Bolt M2</button></td><td>26</td><td></td></tr>
-                </tbody>
-                <tfoot><tr><td></td><td>All-up</td><td>47</td><td>246 g</td></tr></tfoot>
-              </table>
-            </div>
-            <figcaption><b>Fig. 02</b> <span class="f3-cap">Fusion renders of the assembled drone, three-quarter and top views, showing the generated arm geometry.</span></figcaption>
-          </figure>
-        </div>
-
-
-        <div class="cols">
-          <div class="prose">
-            <div>
-              <h4>Approach</h4>
-              <p>I derived eight operational load cases, including maximum thrust, arm collision and battery impact, to define the design envelope and starting geometry.</p>
-              <p>I then ran Fusion's generative optimisation under those loads with buckling, modal frequency (above 300 Hz) and 1.5 safety-factor constraints. The selected topology is 36% lighter than a comparable plate-based frame.</p>
-            </div>
-            <div>
-              <h4>Build and testing</h4>
-              <p>I printed the frame in PC/ABS for impact toughness. It weighs 38 g, and the fully assembled drone comes to 246 g, under the 250 g threshold.</p>
-              <p>I measured arm deflection at maximum thrust and compared it with Ansys Mechanical; the two agreed to within 18%.</p>
-            </div>
-          </div>
-          <div class="fig-stack">
-            <figure>
-              <div class="plate">
-                <svg class="drawing wide" viewBox="0 0 520 170" role="img" aria-label="Mass budget: 246 grams all-up against a 250 gram limit, of which the frame is 38 grams">
-                  <!-- scale: 0 g at x=20, 260 g at x=500 → 1.846 px/g -->
-                  <line x1="20" y1="96" x2="500" y2="96" stroke="var(--rule)" stroke-width="1"/>
-                  <rect x="20" y="62" width="70.2" height="28" fill="var(--signal)"/>
-                  <rect x="90.2" y="62" width="384" height="28" fill="var(--ink)" opacity="0.82"/>
-                  <line x1="481.5" y1="40" x2="481.5" y2="104" stroke="var(--link)" stroke-width="2" stroke-dasharray="4 3"/>
-                  <text x="512" y="32" text-anchor="end" font-size="11" fill="var(--link)">CAA limit 250 g</text>
-                  <text x="20" y="52" font-size="11" fill="var(--ink)">Frame 38 g</text>
-                  <text x="470" y="56" text-anchor="end" font-size="11" fill="var(--ink)">All-up 246 g</text>
-                  <g font-size="10" fill="var(--muted)">
-                    <line x1="20" y1="96" x2="20" y2="102" stroke="var(--muted)"/><text x="20" y="118" text-anchor="middle">0</text>
-                    <line x1="112.3" y1="96" x2="112.3" y2="102" stroke="var(--muted)"/><text x="112.3" y="118" text-anchor="middle">50</text>
-                    <line x1="204.6" y1="96" x2="204.6" y2="102" stroke="var(--muted)"/><text x="204.6" y="118" text-anchor="middle">100</text>
-                    <line x1="296.9" y1="96" x2="296.9" y2="102" stroke="var(--muted)"/><text x="296.9" y="118" text-anchor="middle">150</text>
-                    <line x1="389.2" y1="96" x2="389.2" y2="102" stroke="var(--muted)"/><text x="389.2" y="118" text-anchor="middle">200</text>
-                    <text x="500" y="118" text-anchor="end">g</text>
-                  </g>
-                  <text x="20" y="150" font-size="11" fill="var(--muted)">Margin to limit: 4 g</text>
-                </svg>
-                <svg class="drawing narrow" viewBox="0 0 320 140" role="img" aria-label="Mass budget: 246 grams all-up against a 250 gram limit, of which the frame is 38 grams">
-                  <!-- scale: 0 g at x=12, 260 g at x=308 → 1.1385 px/g -->
-                  <line x1="12" y1="82" x2="308" y2="82" stroke="var(--rule)" stroke-width="1"/>
-                  <rect x="12" y="52" width="43.3" height="24" fill="var(--signal)"/>
-                  <rect x="55.3" y="52" width="236.8" height="24" fill="var(--ink)" opacity="0.82"/>
-                  <line x1="296.6" y1="30" x2="296.6" y2="88" stroke="var(--link)" stroke-width="2" stroke-dasharray="4 3"/>
-                  <text x="310" y="22" text-anchor="end" font-size="11" fill="var(--link)">CAA limit 250 g</text>
-                  <text x="12" y="44" font-size="11" fill="var(--ink)">Frame 38 g</text>
-                  <text x="288" y="44" text-anchor="end" font-size="11" fill="var(--ink)">All-up 246 g</text>
-                  <g font-size="10" fill="var(--muted)" text-anchor="middle">
-                    <line x1="12" y1="82" x2="12" y2="88" stroke="var(--muted)"/><text x="12" y="102">0</text>
-                    <line x1="68.9" y1="82" x2="68.9" y2="88" stroke="var(--muted)"/><text x="68.9" y="102">50</text>
-                    <line x1="125.9" y1="82" x2="125.9" y2="88" stroke="var(--muted)"/><text x="125.9" y="102">100</text>
-                    <line x1="182.8" y1="82" x2="182.8" y2="88" stroke="var(--muted)"/><text x="182.8" y="102">150</text>
-                    <line x1="239.7" y1="82" x2="239.7" y2="88" stroke="var(--muted)"/><text x="239.7" y="102">200</text>
-                    <text x="308" y="102" text-anchor="end">g</text>
-                  </g>
-                  <text x="12" y="128" font-size="11" fill="var(--muted)">Margin to limit: 4 g</text>
-                </svg>
-              </div>
-              <figcaption><b>Fig. 03</b> Mass budget. Frame vs complete drone, against the CAA 250 g threshold.</figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- E-02 ROBOT -->
-    <article class="sheet" id="e-02" aria-labelledby="e02-h">
-      <div class="sheet-meta">
-        <p class="pno">E-02</p>
-        <dl>
-          <div><dt>Role</dt><dd>Team of 6 · model and CAD</dd></div>
-          <div><dt>Tools</dt><dd>Excel · Fusion CAD</dd></div>
-          <div><dt>Date</dt><dd>Feb–Apr 2026</dd></div>
-          <div><dt>Context</dt><dd>IMechE Design Challenge</dd></div>
-          <div><dt>Result</dt><dd>Completed the climb</dd></div>
-        </dl>
-      </div>
-      <div class="sheet-body">
-        <div class="sheet-title">
-          <h3 id="e02-h">A pipe-climbing robot with its drivetrain chosen by simulation</h3>
-          <p class="summary">The robot completed the climb at the IMechE Design Challenge. I built the team's Excel model of the drivetrain and used it to pick the setup from more than 20 simulated: it cut predicted climb time by 22%, and real runs measured 16%. The brief: a 2 m pipe, dragging a chain, inside 400 × 300 mm, on £50, within 3 minutes.</p>
-        </div>
-
-        <div class="specs" role="group" aria-label="Constraints and results">
-          <div><span class="label">Pipe height</span><span class="n">2<small>m</small></span></div>
-          <div><span class="label">Envelope</span><span class="n">400×300<small>mm</small></span></div>
-          <div><span class="label">Setups simulated</span><span class="n">20+</span></div>
-          <div><span class="label">Measured climb time</span><span class="n">−16%</span></div>
-        </div>
-
-        <!-- Fig. 04: the climb, on a corrected version of the Excel model (js/climber.js) -->
-        <figure class="climb-fig" id="climb-fig" hidden>
-          <div class="plate climb">
-            <div class="climb-stage" id="climb-stage" aria-hidden="true">
-              <svg class="climb-world"></svg>
-              <div class="climb-robot"><div class="rb-fill"></div><div class="rb-ink"></div></div>
-              <span class="climb-tag">×10</span>
-            </div>
-            <div class="climb-side">
-              <div class="climb-ctl">
-                <label><span>Gear ratio</span><input type="range" id="cl-g" min="50" max="300" step="5" value="150"><output id="cl-g-o">150</output></label>
-                <label><span>Wheel diameter</span><input type="range" id="cl-d" min="10" max="40" step="1" value="20"><output id="cl-d-o">20 mm</output></label>
-                <label><span>Normal force</span><input type="range" id="cl-n" min="5" max="50" step="1" value="30"><output id="cl-n-o">30 N</output></label>
-                <div class="climb-btns"><button class="btn primary" type="button" id="cl-run">Climb</button><button class="btn" type="button" id="cl-reset">Reset to team's setup</button></div>
-              </div>
-              <p class="climb-result" id="cl-result" aria-live="polite"></p>
-              <div class="climb-read">
-                <div><span class="label">Time</span><b id="cl-t">0.0 s</b></div>
-                <div><span class="label">Height</span><b id="cl-x">0.00 m</b></div>
-                <div><span class="label">Speed</span><b id="cl-v">0 mm/s</b></div>
-                <div><span class="label">Drive / grip</span><b id="cl-f">–</b></div>
-              </div>
-              <svg class="climb-plot" id="cl-plot" role="img" aria-label="Height against time for this setup, against the sheet's setup and the 3 minute limit"></svg>
-            </div>
-          </div>
-          <figcaption><b>Fig. 04</b> The climb, on a corrected version of the Excel model: a demonstration, not the coursework's numbers. Robot from the team's Fusion model.</figcaption>
-        </figure>
-
-        <div class="cols">
-          <div class="prose">
-            <div>
-              <h4>Approach</h4>
-              <p>I built the team's dynamic performance model in Excel. It combines the motor and vehicle equations of motion and integrates them with explicit Euler at a 10 ms time step. Each step checks for slip, so the model only accepts a setup if the wheels have enough friction to carry the drive force.</p>
-              <p>I used it to simulate more than 20 combinations of gear ratio, motor torque, wheel radius and normal force, and picked the drivetrain with the fastest predicted climb.</p>
-            </div>
-            <div>
-              <h4>Result</h4>
-              <p>At the IMechE Design Challenge the robot completed the climb.</p>
-              <p>The chosen setup cut predicted climb time by 22%. In real runs it cut climb time by 16%.</p>
-              <p>I also produced the full Fusion CAD assembly across two design iterations, including a working geartrain.</p>
-            </div>
-            <div>
-              <h4>Limitations</h4>
-              <p>Looking back, the sheet's 10 ms step was too coarse for the drive's time constant of about 3 ms, and its speed and torque columns used different gear ratios (100 and 150). Fig. 04 corrects both, with a 1 ms step and one ratio, so it is a demonstration rather than the coursework's numbers.</p>
-            </div>
-          </div>
-          <div class="fig-stack">
-            <figure>
-              <div class="plate scroll-x" tabindex="0" role="region" aria-label="Fig. 05, scrolls sideways on narrow screens">
-                <svg class="drawing" id="flowchart" viewBox="0 0 520 250" role="img" aria-label="Simulation loop: state, motor torque at current speed, drive force, slip check, acceleration, integrate over 10 milliseconds, repeat">
-                  <defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--ink)"/></marker></defs>
-                  <g font-size="11" fill="var(--ink)" text-anchor="middle">
-                    <rect x="16" y="24" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
-                    <text x="86" y="44">State</text><text x="86" y="58" fill="var(--muted)" font-size="10">x, v at step n</text>
-                    <rect x="190" y="24" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
-                    <text x="260" y="44">Motor torque</text><text x="260" y="58" fill="var(--muted)" font-size="10">at current speed</text>
-                    <rect x="364" y="24" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
-                    <text x="434" y="44">Drive force</text><text x="434" y="58" fill="var(--muted)" font-size="10">via gears and wheel</text>
-                    <rect x="364" y="120" width="140" height="44" fill="var(--paper)" stroke="var(--signal)" stroke-width="1.5"/>
-                    <text x="434" y="140">Slip check</text><text x="434" y="154" fill="var(--muted)" font-size="10">μN ≥ drive force?</text>
-                    <rect x="190" y="120" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
-                    <text x="260" y="140">Net acceleration</text><text x="260" y="154" fill="var(--muted)" font-size="10">minus weight &amp; chain</text>
-                    <rect x="16" y="120" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
-                    <text x="86" y="140">Explicit Euler</text><text x="86" y="154" fill="var(--muted)" font-size="10">Δt = 10 ms</text>
-                  </g>
-                  <g stroke="var(--ink)" stroke-width="1.2" fill="none" marker-end="url(#ah)">
-                    <line x1="156" y1="46" x2="186" y2="46"/>
-                    <line x1="330" y1="46" x2="360" y2="46"/>
-                    <line x1="434" y1="68" x2="434" y2="116"/>
-                    <line x1="364" y1="142" x2="334" y2="142"/>
-                    <line x1="190" y1="142" x2="160" y2="142"/>
-                    <path d="M86 120 L86 72"/>
-                  </g>
-                  <g stroke="var(--link)" stroke-width="1.2" fill="none" marker-end="url(#ah)">
-                    <path class="fc-reject" d="M434 164 L434 196 L300 196"/>
-                  </g>
-                  <text x="292" y="200" font-size="10" fill="var(--link)" text-anchor="end">Slips → setup rejected</text>
-                  <text x="16" y="232" font-size="10" fill="var(--muted)">Repeat until top of pipe or 3 min</text>
-                </svg>
-              </div>
-              <figcaption><b>Fig. 05</b> One step of the Excel model, repeated every 10 ms.<span class="scroll-cue"> Scroll sideways to see the whole loop.</span></figcaption>
-            </figure>
-            <figure>
-              <div class="plate">
-                <svg class="drawing wide" viewBox="0 0 520 132" role="img" aria-label="Climb time reduction: 22 percent predicted, 16 percent measured">
-                  <!-- scale: 0% at x=118, 25% at x=498 → 15.2 px per % -->
-                  <g font-size="11">
-                    <text x="16" y="38" fill="var(--ink)">Predicted</text>
-                    <rect x="118" y="24" width="334.4" height="22" fill="var(--ink)" opacity="0.82"/>
-                    <text x="460" y="40" fill="var(--ink)">22%</text>
-                    <text x="16" y="78" fill="var(--ink)">Measured</text>
-                    <rect x="118" y="64" width="243.2" height="22" fill="var(--signal)"/>
-                    <text x="369" y="80" fill="var(--ink)">16%</text>
-                  </g>
-                  <line x1="118" y1="98" x2="498" y2="98" stroke="var(--rule)"/>
-                  <g font-size="10" fill="var(--muted)" text-anchor="middle">
-                    <text x="118" y="116">0</text><text x="194" y="116">5</text><text x="270" y="116">10</text><text x="346" y="116">15</text><text x="422" y="116">20</text><text x="498" y="116">25%</text>
-                  </g>
-                </svg>
-                <svg class="drawing narrow" viewBox="0 0 320 112" role="img" aria-label="Climb time reduction: 22 percent predicted, 16 percent measured">
-                  <!-- scale: 0% at x=88, 25% at x=300 → 8.48 px per % -->
-                  <g font-size="11">
-                    <text x="8" y="31" fill="var(--ink)">Predicted</text>
-                    <rect x="88" y="16" width="186.6" height="20" fill="var(--ink)" opacity="0.82"/>
-                    <text x="280.6" y="31" fill="var(--ink)">22%</text>
-                    <text x="8" y="67" fill="var(--ink)">Measured</text>
-                    <rect x="88" y="52" width="135.7" height="20" fill="var(--signal)"/>
-                    <text x="229.7" y="67" fill="var(--ink)">16%</text>
-                  </g>
-                  <line x1="88" y1="84" x2="300" y2="84" stroke="var(--rule)"/>
-                  <g font-size="10" fill="var(--muted)" text-anchor="middle">
-                    <text x="88" y="100">0</text><text x="130.4" y="100">5</text><text x="172.8" y="100">10</text><text x="215.2" y="100">15</text><text x="257.6" y="100">20</text><text x="300" y="100" text-anchor="end">25%</text>
-                  </g>
-                </svg>
-              </div>
-              <figcaption><b>Fig. 06</b> Cut in climb time for the chosen drivetrain, model vs real runs.</figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- E-01 AI COST -->
-    <article class="sheet" id="e-01" aria-labelledby="e01-h">
-      <div class="sheet-meta">
-        <p class="pno">E-01</p>
-        <dl>
-          <div><dt>Role</dt><dd>Analysis and report</dd></div>
-          <div><dt>Tools</dt><dd>MATLAB</dd></div>
-          <div><dt>Date</dt><dd>Oct 2025</dd></div>
-          <div><dt>Status</dt><dd>Complete</dd></div>
-        </dl>
-      </div>
-      <div class="sheet-body">
-        <div class="sheet-title">
-          <h3 id="e01-h">How AI training power scales with model size</h3>
-          <p class="summary">Statistical analysis of AI training data, 358 models across nine domains in the coursework, used to fit a scaling law and estimate the training power of a frontier model.</p>
-        </div>
-
-        <div class="specs" role="group" aria-label="Key figures">
-          <div><span class="label">Models (coursework)</span><span class="n">358</span></div>
-          <div><span class="label">Fitted law</span><span class="n">P&nbsp;∝&nbsp;N<sup>0.55</sup></span></div>
-          <div><span class="label">Fit R²</span><span class="n">0.44</span></div>
-          <div><span class="label">GPT-5 estimate</span><span class="n">≈590<small>kW</small></span></div>
-        </div>
-
-        <div class="cols">
-          <div class="prose">
-            <p>The data was heavily right-skewed, so I log₁₀-transformed it to make the nine domains comparable, then fitted a power law of training power against parameter count; higher-order fits gave no meaningful improvement or overfitted. Parameter count explains a little under half the variation. I used the fit to estimate GPT-5's training power draw and wrote a report on the social, environmental and economic effects of rapid AI training. With R² this low, and GPT-5's parameter count not public, that estimate is an order of magnitude rather than a prediction.</p>
-          </div>
-          <div class="fig-stack">
-            <figure class="scaling-fig" id="scaling-fig" hidden>
-              <div class="plate">
-                <!-- js/scaling.js draws it from js/data/scaling.js once it is near -->
-                <div class="sc-axes" role="group" aria-label="Axes">
-                  <button type="button" data-log="0" aria-pressed="false">Linear</button><button type="button" data-log="1" aria-pressed="true">Log₁₀</button>
-                </div>
-                <svg class="scaling" id="scaling" role="img" aria-label="Training power draw against parameter count for 603 AI models: a power law, P proportional to N to the 0.55, with R squared 0.44"></svg>
-              </div>
-              <figcaption><b>Fig. 07</b> Training power draw against parameter count for the 603 models in the dataset (Epoch AI) that have both, refitted here. On log₁₀ axes the fit is P ∝ N<sup>0.55</sup>; orange is the GPT-5 estimate.</figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </article>
   </div>
 </section>
 
@@ -703,16 +232,16 @@
           <thead><tr><th scope="col">Skill or role</th><th scope="col">Projects</th></tr></thead>
           <tbody>
             <tr class="grp"><th scope="rowgroup" colspan="2">Software and autonomy</th></tr>
-            <tr class="skill"><td>Python: NumPy, pandas, OpenCV, Matplotlib</td><td><a href="#e-04" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
-            <tr class="skill"><td>Autonomy architecture: detection, pose, filtering and guidance as separate stages<span>set the design rules and the simulator/flight-stack wall; code written with an AI agent</span></td><td><a href="#e-04" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
-            <tr class="skill"><td>Test design: seeded regression benchmarks, flagged A/B changes, pooled acceptance</td><td><a href="#e-04" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
-            <tr class="skill"><td>MATLAB: statistics and curve fitting</td><td><a href="#e-01" data-title="AI training-power scaling analysis">E-01</a></td></tr>
+            <tr class="skill"><td>Python: NumPy, pandas, OpenCV, Matplotlib</td><td><a href="drone-racing.html" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
+            <tr class="skill"><td>Autonomy architecture: detection, pose, filtering and guidance as separate stages<span>set the design rules and the simulator/flight-stack wall; code written with an AI agent</span></td><td><a href="drone-racing.html" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
+            <tr class="skill"><td>Test design: seeded regression benchmarks, flagged A/B changes, pooled acceptance</td><td><a href="drone-racing.html" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
+            <tr class="skill"><td>MATLAB: statistics and curve fitting</td><td><a href="ai-scaling.html" data-title="AI training-power scaling analysis">E-01</a></td></tr>
           </tbody>
           <tbody>
             <tr class="grp"><th scope="rowgroup" colspan="2">Mechanical design</th></tr>
-            <tr class="skill"><td>Fusion: generative design, CAD</td><td><a href="#e-03" data-title="Generative FPV drone frame">E-03</a> <a href="#e-02" data-title="Pipe-climbing robot">E-02</a></td></tr>
-            <tr class="skill"><td>Ansys Mechanical FEA</td><td><a href="#e-03" data-title="Generative FPV drone frame">E-03</a></td></tr>
-            <tr class="skill"><td>Dynamic modelling in Excel</td><td><a href="#e-02" data-title="Pipe-climbing robot">E-02</a></td></tr>
+            <tr class="skill"><td>Fusion: generative design, CAD</td><td><a href="drone-frame.html" data-title="Generative FPV drone frame">E-03</a> <a href="pipe-climber.html" data-title="Pipe-climbing robot">E-02</a></td></tr>
+            <tr class="skill"><td>Ansys Mechanical FEA</td><td><a href="drone-frame.html" data-title="Generative FPV drone frame">E-03</a></td></tr>
+            <tr class="skill"><td>Dynamic modelling in Excel</td><td><a href="pipe-climber.html" data-title="Pipe-climbing robot">E-02</a></td></tr>
           </tbody>
           <tbody>
             <tr class="grp"><th scope="rowgroup" colspan="2">Education</th></tr>
@@ -786,21 +315,17 @@
   <div class="wrap">
     <div class="foot-top">
       <p class="foot-line"><span>Dominic Tataj</span><span>MEng Mechanical Engineering, UCL</span><span>Updated November 2026</span></p>
-      <p class="links"><a href="Dominic-Tataj-CV.pdf" download>CV</a> <a href="photography.html">Photography</a> <a href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a> <a href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a></p>
+      <p class="links"><a href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a> <a href="Dominic-Tataj-CV.pdf" download>CV</a> <a href="photography.html">Photography</a> <a href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a> <a href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a></p>
     </div>
     <p class="colophon">Plain HTML, CSS and JavaScript, no framework; the source is on <a href="https://github.com/dom-t23/dominic-tataj" target="_blank" rel="noopener">GitHub ↗</a>. The figures run on each project's own data, and the drone at the top is drawn from its CAD model. Set in Source Serif 4 and IBM Plex.</p>
   </div>
 </footer>
 
-<!-- three.js (r170, js/vendor/three) is loaded only when Fig. 02 is close; its addons import "three" by name -->
-<script type="importmap">{ "imports": { "three": "./js/vendor/three/three.module.min.js", "three/addons/": "./js/vendor/three/addons/" } }</script>
 <link rel="modulepreload" href="js/util.js">
 <link rel="modulepreload" href="js/theme.js">
 <link rel="modulepreload" href="js/hero.js">
 <link rel="modulepreload" href="js/motion.js">
-<link rel="modulepreload" href="js/reveals.js">
 <link rel="modulepreload" href="js/contact.js">
-<link rel="modulepreload" href="js/sheets.js">
 <script type="module" src="js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pipe-climbing robot, IMechE Design Challenge · Dominic Tataj</title>
+<meta name="description" content="A pipe-climbing robot whose drivetrain was chosen by simulation from more than 20 setups; it completed the climb at the IMechE Design Challenge. Excel dynamic model and Fusion CAD.">
+<link rel="canonical" href="https://dom-t23.github.io/dominic-tataj/pipe-climber.html">
+<meta name="theme-color" content="#141311">
+<meta name="color-scheme" content="dark light">
+<meta name="author" content="Dominic Tataj">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pipe-climbing robot, IMechE Design Challenge, by Dominic Tataj">
+<meta property="og:description" content="A pipe-climbing robot whose drivetrain was chosen by simulation from more than 20 setups; it completed the climb at the IMechE Design Challenge. Excel dynamic model and Fusion CAD.">
+<meta property="og:url" content="https://dom-t23.github.io/dominic-tataj/pipe-climber.html">
+<meta property="og:image" content="https://dom-t23.github.io/dominic-tataj/og/pipe-climber.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="E-02: Pipe-climbing robot, IMechE Design Challenge. Climbed the 2 m pipe, IMechE challenge.">
+<meta property="og:site_name" content="Dominic Tataj">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pipe-climbing robot, IMechE Design Challenge, by Dominic Tataj">
+<meta name="twitter:description" content="A pipe-climbing robot whose drivetrain was chosen by simulation from more than 20 setups; it completed the climb at the IMechE Design Challenge. Excel dynamic model and Fusion CAD.">
+<meta name="twitter:image" content="https://dom-t23.github.io/dominic-tataj/og/pipe-climber.png">
+<script>
+  // The "js" class lets scripted parts of the page take their place from the first frame; a saved
+  // light theme is applied here, before first paint, so the page never flashes dark first (js/theme.js).
+  document.documentElement.classList.add("js");
+  try { if (localStorage.getItem("theme") === "light") { document.documentElement.setAttribute("data-theme", "light"); document.querySelector('meta[name="theme-color"]').content = "#F4F1EA"; } } catch (e) {}
+</script>
+<link rel="stylesheet" href="css/site.css?v=20261122p">
+</head>
+<body>
+<a class="skip" href="#top">Skip to content</a>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap">
+    <div class="brand"><a class="name" href="./">Dominic Tataj</a></div>
+    <ul>
+      <li class="menu-li"><details class="menu" id="work-menu"><summary>Work</summary>
+        <div class="menu-panel">
+          <ol class="menu-list">
+            <li><a href="drone-racing.html"><span class="m-no">E-04</span><span class="m-t">Vision-based autonomous drone racing</span><span class="m-r">98.6% of gates by camera, with clutter</span></a></li>
+            <li><a href="drone-frame.html"><span class="m-no">E-03</span><span class="m-t">Generative FPV drone frame</span><span class="m-r">246 g drone; frame 36% lighter</span></a></li>
+            <li><a href="pipe-climber.html" aria-current="page"><span class="m-no">E-02</span><span class="m-t">Pipe-climbing robot</span><span class="m-r">Climbed the 2 m pipe, IMechE challenge</span></a></li>
+            <li><a href="ai-scaling.html"><span class="m-no">E-01</span><span class="m-t">AI training-power scaling analysis</span><span class="m-r">P ∝ N<sup>0.55</sup> across 358 models</span></a></li>
+          </ol>
+          <a class="m-all" href="./#work">All projects, with the problem, role and outcome of each</a>
+        </div></details></li>
+      <li class="opt"><a href="./#about">About</a></li>
+      <li class="opt"><a href="photography.html">Photos</a></li>
+      <li><a href="./#contact">Contact</a></li>
+      <li><button class="theme-btn" id="theme" type="button" aria-pressed="false" aria-label="Switch to light mode"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.8a6.2 6.2 0 0 1 0 12.4z" fill="currentColor"/></svg><span class="tl">Light</span></button></li>
+      <li><a class="nav-cv" href="Dominic-Tataj-CV.pdf" download>CV</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="top" class="project">
+  <div class="wrap">
+    <article class="sheet" id="e-02" aria-labelledby="e02-h">
+      <div class="sheet-meta">
+        <p class="pno">E-02</p>
+        <dl>
+          <div><dt>Role</dt><dd>Team of 6 · model and CAD</dd></div>
+          <div><dt>Tools</dt><dd>Excel · Fusion CAD</dd></div>
+          <div><dt>Date</dt><dd>Feb–Apr 2026</dd></div>
+          <div><dt>Context</dt><dd>IMechE Design Challenge</dd></div>
+          <div><dt>Result</dt><dd>Completed the climb</dd></div>
+        </dl>
+      </div>
+      <div class="sheet-body">
+        <div class="sheet-title">
+          <h1 id="e02-h">A pipe-climbing robot with its drivetrain chosen by simulation</h1>
+          <p class="summary">The robot completed the climb at the IMechE Design Challenge. I built the team's Excel model of the drivetrain and used it to pick the setup from more than 20 simulated: it cut predicted climb time by 22%, and real runs measured 16%. The brief: a 2 m pipe, dragging a chain, inside 400 × 300 mm, on £50, within 3 minutes.</p>
+        </div>
+
+        <div class="specs" role="group" aria-label="Constraints and results">
+          <div><span class="label">Pipe height</span><span class="n">2<small>m</small></span></div>
+          <div><span class="label">Envelope</span><span class="n">400×300<small>mm</small></span></div>
+          <div><span class="label">Setups simulated</span><span class="n">20+</span></div>
+          <div><span class="label">Measured climb time</span><span class="n">−16%</span></div>
+        </div>
+
+        <!-- Fig. 04: the climb, on a corrected version of the Excel model (js/climber.js) -->
+        <figure class="climb-fig" id="climb-fig" hidden>
+          <div class="plate climb">
+            <div class="climb-stage" id="climb-stage" aria-hidden="true">
+              <svg class="climb-world"></svg>
+              <div class="climb-robot"><div class="rb-fill"></div><div class="rb-ink"></div></div>
+              <span class="climb-tag">×10</span>
+            </div>
+            <div class="climb-side">
+              <div class="climb-ctl">
+                <label><span>Gear ratio</span><input type="range" id="cl-g" min="50" max="300" step="5" value="150"><output id="cl-g-o">150</output></label>
+                <label><span>Wheel diameter</span><input type="range" id="cl-d" min="10" max="40" step="1" value="20"><output id="cl-d-o">20 mm</output></label>
+                <label><span>Normal force</span><input type="range" id="cl-n" min="5" max="50" step="1" value="30"><output id="cl-n-o">30 N</output></label>
+                <div class="climb-btns"><button class="btn primary" type="button" id="cl-run">Climb</button><button class="btn" type="button" id="cl-reset">Reset to team's setup</button></div>
+              </div>
+              <p class="climb-result" id="cl-result" aria-live="polite"></p>
+              <div class="climb-read">
+                <div><span class="label">Time</span><b id="cl-t">0.0 s</b></div>
+                <div><span class="label">Height</span><b id="cl-x">0.00 m</b></div>
+                <div><span class="label">Speed</span><b id="cl-v">0 mm/s</b></div>
+                <div><span class="label">Drive / grip</span><b id="cl-f">–</b></div>
+              </div>
+              <svg class="climb-plot" id="cl-plot" role="img" aria-label="Height against time for this setup, against the sheet's setup and the 3 minute limit"></svg>
+            </div>
+          </div>
+          <figcaption><b>Fig. 04</b> The climb, on a corrected version of the Excel model: a demonstration, not the coursework's numbers. Robot from the team's Fusion model.</figcaption>
+        </figure>
+
+        <div class="cols">
+          <div class="prose">
+            <div>
+              <h2>Approach</h2>
+              <p>I built the team's dynamic performance model in Excel. It combines the motor and vehicle equations of motion and integrates them with explicit Euler at a 10 ms time step. Each step checks for slip, so the model only accepts a setup if the wheels have enough friction to carry the drive force.</p>
+              <p>I used it to simulate more than 20 combinations of gear ratio, motor torque, wheel radius and normal force, and picked the drivetrain with the fastest predicted climb.</p>
+            </div>
+            <details class="more" open>
+              <summary><h2>Result</h2></summary>
+              <p>At the IMechE Design Challenge the robot completed the climb.</p>
+              <p>The chosen setup cut predicted climb time by 22%. In real runs it cut climb time by 16%.</p>
+              <p>I also produced the full Fusion CAD assembly across two design iterations, including a working geartrain.</p>
+            </details>
+            <details class="more" open>
+              <summary><h2>Limitations</h2></summary>
+              <p>Looking back, the sheet's 10 ms step was too coarse for the drive's time constant of about 3 ms, and its speed and torque columns used different gear ratios (100 and 150). Fig. 04 corrects both, with a 1 ms step and one ratio, so it is a demonstration rather than the coursework's numbers.</p>
+            </details>
+          </div>
+          <div class="fig-stack">
+            <figure>
+              <div class="plate scroll-x" tabindex="0" role="region" aria-label="Fig. 05, scrolls sideways on narrow screens">
+                <svg class="drawing" id="flowchart" viewBox="0 0 520 250" role="img" aria-label="Simulation loop: state, motor torque at current speed, drive force, slip check, acceleration, integrate over 10 milliseconds, repeat">
+                  <defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--ink)"/></marker></defs>
+                  <g font-size="11" fill="var(--ink)" text-anchor="middle">
+                    <rect x="16" y="24" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
+                    <text x="86" y="44">State</text><text x="86" y="58" fill="var(--muted)" font-size="10">x, v at step n</text>
+                    <rect x="190" y="24" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
+                    <text x="260" y="44">Motor torque</text><text x="260" y="58" fill="var(--muted)" font-size="10">at current speed</text>
+                    <rect x="364" y="24" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
+                    <text x="434" y="44">Drive force</text><text x="434" y="58" fill="var(--muted)" font-size="10">via gears and wheel</text>
+                    <rect x="364" y="120" width="140" height="44" fill="var(--paper)" stroke="var(--signal)" stroke-width="1.5"/>
+                    <text x="434" y="140">Slip check</text><text x="434" y="154" fill="var(--muted)" font-size="10">μN ≥ drive force?</text>
+                    <rect x="190" y="120" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
+                    <text x="260" y="140">Net acceleration</text><text x="260" y="154" fill="var(--muted)" font-size="10">minus weight &amp; chain</text>
+                    <rect x="16" y="120" width="140" height="44" fill="var(--panel)" stroke="var(--rule)"/>
+                    <text x="86" y="140">Explicit Euler</text><text x="86" y="154" fill="var(--muted)" font-size="10">Δt = 10 ms</text>
+                  </g>
+                  <g stroke="var(--ink)" stroke-width="1.2" fill="none" marker-end="url(#ah)">
+                    <line x1="156" y1="46" x2="186" y2="46"/>
+                    <line x1="330" y1="46" x2="360" y2="46"/>
+                    <line x1="434" y1="68" x2="434" y2="116"/>
+                    <line x1="364" y1="142" x2="334" y2="142"/>
+                    <line x1="190" y1="142" x2="160" y2="142"/>
+                    <path d="M86 120 L86 72"/>
+                  </g>
+                  <g stroke="var(--link)" stroke-width="1.2" fill="none" marker-end="url(#ah)">
+                    <path class="fc-reject" d="M434 164 L434 196 L300 196"/>
+                  </g>
+                  <text x="292" y="200" font-size="10" fill="var(--link)" text-anchor="end">Slips → setup rejected</text>
+                  <text x="16" y="232" font-size="10" fill="var(--muted)">Repeat until top of pipe or 3 min</text>
+                </svg>
+              </div>
+              <figcaption><b>Fig. 05</b> One step of the Excel model, repeated every 10 ms.<span class="scroll-cue"> Scroll sideways to see the whole loop.</span></figcaption>
+            </figure>
+            <figure>
+              <div class="plate">
+                <svg class="drawing wide" viewBox="0 0 520 132" role="img" aria-label="Climb time reduction: 22 percent predicted, 16 percent measured">
+                  <!-- scale: 0% at x=118, 25% at x=498 → 15.2 px per % -->
+                  <g font-size="11">
+                    <text x="16" y="38" fill="var(--ink)">Predicted</text>
+                    <rect x="118" y="24" width="334.4" height="22" fill="var(--ink)" opacity="0.82"/>
+                    <text x="460" y="40" fill="var(--ink)">22%</text>
+                    <text x="16" y="78" fill="var(--ink)">Measured</text>
+                    <rect x="118" y="64" width="243.2" height="22" fill="var(--signal)"/>
+                    <text x="369" y="80" fill="var(--ink)">16%</text>
+                  </g>
+                  <line x1="118" y1="98" x2="498" y2="98" stroke="var(--rule)"/>
+                  <g font-size="10" fill="var(--muted)" text-anchor="middle">
+                    <text x="118" y="116">0</text><text x="194" y="116">5</text><text x="270" y="116">10</text><text x="346" y="116">15</text><text x="422" y="116">20</text><text x="498" y="116">25%</text>
+                  </g>
+                </svg>
+                <svg class="drawing narrow" viewBox="0 0 320 112" role="img" aria-label="Climb time reduction: 22 percent predicted, 16 percent measured">
+                  <!-- scale: 0% at x=88, 25% at x=300 → 8.48 px per % -->
+                  <g font-size="11">
+                    <text x="8" y="31" fill="var(--ink)">Predicted</text>
+                    <rect x="88" y="16" width="186.6" height="20" fill="var(--ink)" opacity="0.82"/>
+                    <text x="280.6" y="31" fill="var(--ink)">22%</text>
+                    <text x="8" y="67" fill="var(--ink)">Measured</text>
+                    <rect x="88" y="52" width="135.7" height="20" fill="var(--signal)"/>
+                    <text x="229.7" y="67" fill="var(--ink)">16%</text>
+                  </g>
+                  <line x1="88" y1="84" x2="300" y2="84" stroke="var(--rule)"/>
+                  <g font-size="10" fill="var(--muted)" text-anchor="middle">
+                    <text x="88" y="100">0</text><text x="130.4" y="100">5</text><text x="172.8" y="100">10</text><text x="215.2" y="100">15</text><text x="257.6" y="100">20</text><text x="300" y="100" text-anchor="end">25%</text>
+                  </g>
+                </svg>
+              </div>
+              <figcaption><b>Fig. 06</b> Cut in climb time for the chosen drivetrain, model vs real runs.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-top">
+      <p class="foot-line"><span>Dominic Tataj</span><span>MEng Mechanical Engineering, UCL</span><span>Updated November 2026</span></p>
+      <p class="links"><a href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a> <a href="Dominic-Tataj-CV.pdf" download>CV</a> <a href="photography.html">Photography</a> <a href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a> <a href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a></p>
+    </div>
+    <p class="colophon">Plain HTML, CSS and JavaScript, no framework; the source is on <a href="https://github.com/dom-t23/dominic-tataj" target="_blank" rel="noopener">GitHub ↗</a>. The figures run on each project's own data, and the drone at the top of the homepage is drawn from its CAD model. Set in Source Serif 4 and IBM Plex.</p>
+  </div>
+</footer>
+
+<script type="module" src="js/project.js"></script>
+</body>
+</html>
