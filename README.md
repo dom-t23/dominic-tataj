@@ -48,9 +48,9 @@ simulator's gates, marking what is Dom's and what can be pressed. It deliberatel
   named by `tools/frame/v2-parts.json`, simplified to 0.25 mm and meshopt-compressed (29 parts, 220 KB)
 - `models/frame.glb` — the V1 drone for Fig. 02: the Fusion assembly exported as OBJ, converted
   to glTF (metres, Y up), simplified and meshopt-compressed (47 parts, 187 KB)
-- `models/pipe-climber.glb` — the pipe climber, from the team's Fusion STL (168 parts,
-  simplified within 1 mm, 575 KB). The page doesn't load it: Fig. 05 draws it in
-  isometric from `images/robot-iso-ink.png` and `-fill.png`, used as two CSS masks
+- `models/pipe-climber.glb` — kept locally, not in the repo (git ignores it): the pipe climber from the team's
+  Fusion STL (168 parts, 575 KB), which `tools/robot/` turns into `images/robot-iso-ink.png` and `-fill.png`,
+  the two CSS masks Fig. 05 draws it with
 - `flights/` — recorded flights for the drone-racing replay: `index.js` lists them and holds
   the still shown before LOAD, and each flight's frames (0.5-1.6 MB) load only when it is picked
 - `images/` — project images; `images/hero/x00–x95.webp` are the hero's 96 frames (2.7 MB, loaded after the page, four at a time,
@@ -59,7 +59,8 @@ simulator's gates, marking what is Dom's and what can be pressed. It deliberatel
   (`node tools/photos.cjs`, which also renders the PNG icons)
 - `og-image.png`, `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`, `site.webmanifest` —
   link preview and icons; the preview is rendered from `tools/og/og.html` by `node tools/og/render.cjs`
-- `DESIGN_PLAN.md`, `IMPROVEMENTS.md` — work plans
+- Planning notes (`DESIGN_PLAN.md`, `IMPROVEMENTS.md`, `TODO.md`, `REVIEW.md`) are kept locally and ignored by git,
+  so they aren't published with the site
 - `tests/`, `playwright.config.js`, `package.json` — browser tests (not part of the site); `tests/serve.cjs` is the
   tests' static server (gzip, no dependencies), and `tests/review-*.spec.js` capture the design
   review's screenshots and metrics into `review/` (kept out of the repo)
