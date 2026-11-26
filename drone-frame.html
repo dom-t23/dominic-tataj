@@ -105,7 +105,7 @@
       <div class="sheet-body">
         <div class="sheet-title">
           <h1 id="e03-h">A generatively designed 3-inch FPV drone frame</h1>
-          <p class="summary">Two printed frames that keep the complete drone under the UK CAA's 250 g threshold. V1 is a 38 g generated frame, 36% lighter than a comparable plate frame; its arm deflection at maximum thrust agreed with Ansys to within 18%. V2 redesigns it to print and assemble easily: one 52 g part with the camera cage and battery deck built in, a safety factor of 5 and a first mode at 200 Hz, flying at about 240 g with an action camera on top.</p>
+          <p class="summary">Two printed frames that keep the whole drone under the CAA's 250 g limit. V1 is a 38 g generated frame, 36% lighter than a plate frame; V2 is one 52 g part, redesigned to print and build easily.</p>
         </div>
 
         <div class="specs" role="group" aria-label="Key figures">
@@ -132,15 +132,15 @@
                 </div>
                 <div class="f3-steps" role="group" aria-label="Views of the model">
                   <button type="button"
-                    data-cap="V2 as modelled in Fusion: 25 parts, about 240 g all-up with the action camera. Drag to turn it; point at a part to name it."
-                    data-cap-v2="V2 as modelled in Fusion: 25 parts, about 240 g all-up with the action camera. Drag to turn it; point at a part to name it."
-                    data-cap-v1="V1 as modelled in Fusion: 47 parts, 246 g all-up. Drag to turn it; point at a part to name it."><span>01</span> Assembly</button>
+                    data-cap="V2 as modelled in Fusion: 25 parts, about 240 g all-up. Drag to turn it."
+                    data-cap-v2="V2 as modelled in Fusion: 25 parts, about 240 g all-up. Drag to turn it."
+                    data-cap-v1="V1 as modelled in Fusion: 47 parts, 246 g all-up. Drag to turn it."><span>01</span> Assembly</button>
                   <button type="button"
-                    data-cap-v2="V2, exploded. Point at a part, or a row of the parts list, to pick it out."
-                    data-cap-v1="V1, exploded. Point at a part, or a row of the parts list, to pick it out."><span>02</span> Exploded</button>
+                    data-cap-v2="V2, exploded."
+                    data-cap-v1="V1, exploded."><span>02</span> Exploded</button>
                   <button type="button"
-                    data-cap-v2="The V2 frame alone: 52 g, one printed part with the camera cage and battery deck built in. Motors 125 × 98 mm apart, 159 mm across the diagonal."
-                    data-cap-v1="The generated V1 frame alone: 38 g of PC/ABS, motors 96 mm apart, 136 mm across the diagonal."><span>03</span> Frame only</button>
+                    data-cap-v2="The V2 frame alone: 52 g. Motors 125 × 98 mm apart, 159 mm across the diagonal."
+                    data-cap-v1="The V1 frame alone: 38 g. Motors 96 mm apart, 136 mm across the diagonal."><span>03</span> Frame only</button>
                 </div>
               </div>
               <div class="f3-view"><p class="f3-load" aria-live="polite">Loading model</p></div>
@@ -180,7 +180,7 @@
                 <tfoot><tr><td></td><td>All-up</td><td>47</td><td>246 g</td></tr></tfoot>
               </table>
             </div>
-            <figcaption><b>Fig. 02</b> <span class="f3-cap">Fusion renders of the assembled V1 drone, three-quarter and top views, showing the generated arm geometry.</span></figcaption>
+            <figcaption><b>Fig. 02</b> <span class="f3-cap">Fusion renders of the V1 drone.</span></figcaption>
           </figure>
         </div>
 
@@ -189,13 +189,11 @@
           <div class="prose">
             <div>
               <h2 id="e03-v1-approach">V1: approach</h2>
-              <p>I derived eight operational load cases, including maximum thrust, arm collision and battery impact, to define the design envelope and starting geometry.</p>
-              <p>I then ran Fusion's generative optimisation under those loads with buckling and 1.5 safety-factor constraints. The selected topology is 36% lighter than a comparable plate-based frame.</p>
+              <p>Eight load cases, from maximum thrust to arm collision, drove Fusion's generative optimisation with a 1.5 safety factor. The result is 36% lighter than a plate frame.</p>
             </div>
             <details class="more" open>
               <summary><h2 id="e03-v1-build-and-testing">V1: build and testing</h2></summary>
-              <p>I printed the frame in PC/ABS for impact toughness. It weighs 38 g, and the fully assembled drone comes to 246 g, under the 250 g threshold.</p>
-              <p>I measured arm deflection at maximum thrust and compared it with Ansys Mechanical; the two agreed to within 18%.</p>
+              <p>Printed in PC/ABS, the frame weighs 38 g and the drone 246 g. Measured arm deflection agreed with Ansys to within 18%.</p>
             </details>
           </div>
           <div class="fig-stack">
@@ -246,7 +244,7 @@
                   <text x="12" y="180" font-size="11" fill="var(--muted)">Margin to limit: V1 4 g, V2 about 10 g</text>
                 </svg>
               </div>
-              <figcaption><b>Fig. 03</b> Mass budget, V1 and V2. Frame vs complete drone, against the CAA 250 g threshold.</figcaption>
+              <figcaption><b>Fig. 03</b> Mass budget against the 250 g limit.</figcaption>
             </figure>
           </div>
         </div>
@@ -255,27 +253,14 @@
           <div class="prose">
             <div>
               <h2 id="v2-h">V2: redesigned to be made</h2>
-              <p>V1 met its targets, but the generated arms were thin, branching struts that were hard to print well, and the electronics hung off the frame on stacked standoffs. For V2 I kept the 3-inch layout and the 250 g limit and redesigned the frame around how it is printed and put together.</p>
-              <p>The frame is one printed part again, now with thicker members and the camera cage, battery deck and stack mounts built into it. The flight controller and ESC sit on eight soft-mount grommets. It weighs 52 g, 14 g more than V1, yet the drone flies at about 240 g with an action camera on top, 6 g lighter than V1.</p>
+              <p>V1's thin generated struts were hard to print, and its electronics hung off stacked standoffs. V2 is one part with thicker members and the camera cage, battery deck and mounts built in. It weighs 14 g more, yet the drone is 6 g lighter, even with an action camera on top.</p>
             </div>
             <div>
               <h2 id="e03-v2-analysis">V2: analysis</h2>
-              <p>I loaded each motor mount with 40 N, applied before any safety factor, and checked the frame for strength, buckling and resonance.</p>
+              <p>Each motor mount loaded with 40 N:</p>
               <ul class="gains">
-                <li><b>Static strength.</b> Safety factor 5 on that load. V1 was designed to 1.5 at maximum thrust, a much lighter load, so V2's margin is far larger even though the two numbers aren't directly comparable.</li>
-                <li><b>Buckling.</b> Safety factor 5 on the same load, the same margin as in strength.</li>
-                <li><b>Resonance.</b> A modal analysis puts the first natural frequency at 200 Hz. That is the figure to keep apart from the motors' and propellers' running frequencies, so the frame doesn't amplify their vibration into the flight controller's gyro.</li>
-              </ul>
-            </div>
-            <div>
-              <h2 id="e03-what-v2-improves">What V2 improves</h2>
-              <ul class="gains">
-                <li><b>Printable.</b> Thicker members in place of the thin generated struts that were hard to print.</li>
-                <li><b>Fewer parts.</b> Camera cage, battery deck and stack mounts printed in one with the frame, so there are fewer separate parts and fasteners to make and assemble.</li>
-                <li><b>Stronger.</b> Safety factor 5 in strength and in buckling under 40 N on each motor mount.</li>
-                <li><b>Resonance checked.</b> First mode at 200 Hz, from a modal analysis of the frame.</li>
-                <li><b>Carries more, weighs less.</b> An action camera on a mount, and the drone still 6 g lighter than V1, about 10 g under the 250 g limit.</li>
-                <li><b>Softer electronics mounting.</b> The flight controller and ESC sit on soft-mount grommets.</li>
+                <li><b>Strength and buckling.</b> Safety factor 5.</li>
+                <li><b>Resonance.</b> First mode at 200 Hz, clear of the motors' running frequencies.</li>
               </ul>
             </div>
           </div>
@@ -302,7 +287,7 @@
                   </table>
                 </div>
               </div>
-              <figcaption><b>Fig. 04</b> V1 against V2. Sizes measured off the two Fusion models; frame size is the frame's outline in plan.</figcaption>
+              <figcaption><b>Fig. 04</b> V1 against V2.</figcaption>
             </figure>
           </div>
         </section>
