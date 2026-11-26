@@ -11,11 +11,13 @@ test("the hero's drone comes apart as the page scrolls; the first screen holds o
   await expect(page.locator("#hero-stage")).toHaveClass(/\blive\b/);
   await expect.poll(() => frames.size, { timeout: 15000 }).toBe(96);
   const copyTop = await page.locator(".hero h1").evaluate((e) => e.getBoundingClientRect().top);
-  // to the end of the pinned range: the drawing eases after the scroll, then the specs are at full strength
   const span = await page.evaluate(() => document.getElementById("hero").offsetHeight - document.querySelector(".hero-pin").offsetHeight);
-  await page.evaluate((y) => window.scrollTo({ top: y, behavior: "instant" }), span);
-  // the drawing has moved on to the last frame (scaled up a little as it opens out)
+  // 70% of the way through the pinned range the drone is fully apart (the drawing eases after the scroll)
+  await page.evaluate((y) => window.scrollTo({ top: y, behavior: "instant" }), Math.ceil(span * 0.7));
   await expect.poll(() => page.locator("#hero-stage .hs").evaluate((e) => e.style.transform)).toMatch(/scale\(1\.0[45]/);
+  // the rest of the range holds it there: at the end it's unchanged and still pinned
+  await page.evaluate((y) => window.scrollTo({ top: y, behavior: "instant" }), span);
+  await expect.poll(() => page.locator("#hero-stage .hs").evaluate((e) => e.style.transform)).toMatch(/scale\(1\.05/);
   // pinned: the name hasn't moved
   expect(Math.abs(await page.locator(".hero h1").evaluate((e) => e.getBoundingClientRect().top) - copyTop)).toBeLessThan(2);
   expect(errors).toEqual([]);

@@ -11,6 +11,7 @@ import { $, root, reducedMotion } from "./util.js";
 import { loop } from "./motion.js";
 
 var N = 96, STILL = 60, AT_ONCE = 4;   // frames, the still for reduced motion, frames loading at a time
+var DRAW = 0.7;   // the share of the pinned scroll the drone takes to come apart; the rest holds it open (css/site.css)
 var hero = $("hero"), stage = $("hero-stage");
 var set = function () { return root.getAttribute("data-theme") === "light" ? "l" : "x"; };
 var src = function (i, s) { return "images/hero/" + (s || set()) + String(i).padStart(2, "0") + ".webp"; };
@@ -40,7 +41,7 @@ function scrub() {
   function measure() {
     var r = hero.getBoundingClientRect();
     p = hero.classList.contains("scrub")
-      ? clamp(-r.top / Math.max(1, hero.offsetHeight - pin.offsetHeight))
+      ? clamp(-r.top / Math.max(1, (hero.offsetHeight - pin.offsetHeight) * DRAW))
       : clamp(-r.top / Math.max(1, r.height * 0.8));
   }
 

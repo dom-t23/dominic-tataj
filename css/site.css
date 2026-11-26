@@ -223,10 +223,11 @@ html:not(.js) .theme-btn { display: none; }   /* it needs JS; with JS it is ther
   .avail > div:not(:last-child) dd::after { content: " · "; color: var(--muted); }
   .hero .actions { gap: var(--s-2) var(--s-4); }
 }
-/* scrubbed (js/hero.js, large screens with motion): the first screen holds while the drone comes apart */
-.hero.scrub { height: calc(100vh - 60px + 70vh); }
+/* scrubbed (js/hero.js, large screens with motion): the first screen holds while the drone comes apart
+   (the first 70vh of scroll) and a little after it has (the last 30vh), before the page moves on */
+.hero.scrub { height: calc(100vh - 60px + 100vh); }
 .hero.scrub .hero-pin { position: sticky; top: 60px; height: calc(100vh - 60px); min-height: 0; }
-@supports (height: 100svh) { .hero.scrub { height: calc(100svh - 60px + 70svh); } .hero.scrub .hero-pin { height: calc(100svh - 60px); } }
+@supports (height: 100svh) { .hero.scrub { height: calc(100svh - 60px + 100svh); } .hero.scrub .hero-pin { height: calc(100svh - 60px); } }
 
 /* ---------- section heads ---------- */
 .section-head { display: grid; gap: var(--s-3); margin-bottom: var(--s-6); }
