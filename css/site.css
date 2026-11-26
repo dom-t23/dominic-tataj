@@ -180,7 +180,7 @@ html:not(.js) .theme-btn { display: none; }   /* it needs JS; with JS it is ther
 .hero-copy > * { max-width: 37rem; }
 .hero-copy > h1 { max-width: none; }
 .hero h1 { display: grid; gap: var(--s-3); }
-.h1-name { display: block; font: 600 var(--fs-hero)/0.92 var(--font-display); letter-spacing: -0.025em; color: var(--ink); margin-left: -0.04em; }
+.h1-name { display: block; font: 600 clamp(39px, 6.2vw, 92px)/0.92 var(--font-display); letter-spacing: -0.025em; color: var(--ink); margin-left: -0.04em; }
 .h1-name > span { display: block; }
 /* the name fades up on arrival, a line at a time, then the role; nothing moves for reduced motion */
 @keyframes name-in { from { opacity: 0; transform: translateY(0.08em); } }
@@ -212,7 +212,7 @@ html:not(.js) .theme-btn { display: none; }   /* it needs JS; with JS it is ther
 }
 @media (max-width: 520px) {
   .hero-copy { padding-top: var(--s-7); gap: var(--s-3); }
-  .h1-name { font-size: clamp(52px, 16vw, 72px); }
+  .h1-name { font-size: clamp(36px, 11.2vw, 50px); }
   .h1-role { font-size: 18px; }
   /* the facts as one run of text, the labels for screen readers */
   .avail { display: block; border: 0; font: 500 14px/1.55 var(--font-body); }

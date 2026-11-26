@@ -18,7 +18,8 @@ simulator's gates, marking what is Dom's and what can be pressed. It deliberatel
   Old links to `#e-04` and the like redirect to the pages. Every page has the Work menu (`js/menu.js`).
 - `photography.html` — the photographs, full-bleed, with a lightbox (`js/lightbox.js`)
 - `404.html` — GitHub Pages serves it for any missing path (`<base>` keeps its links working)
-- `Dominic-Tataj-CV.pdf` — **not in the repo yet**: every CV link points at this path
+- `Dominic-Tataj-CV.pdf` — the CV every CV link points at, with the phone number taken out of the text itself
+  (not covered over). To update it, export the new CV from Word without the number and replace this file
 - `css/site.css` — all styles, including a print stylesheet (the homepage prints as a summary)
 - `js/` — ES modules. `main.js` is the homepage's entry point (theme, menu, hero, contact); `project.js` is a
   project page's, and loads each figure's module only where that figure is (`more.js` folds long sections on
