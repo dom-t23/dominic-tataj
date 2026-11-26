@@ -32,7 +32,7 @@ test.describe("phone", () => {
 
 test("About lists skills and experience, software first; each skill links the projects that used it", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
-  await expect(page.locator(".bom tbody tr:not(.grp)")).toHaveCount(13);
+  await expect(page.locator(".bom tbody tr:not(.grp)")).toHaveCount(14);
   await expect(page.locator(".bom .grp th")).toHaveText(["Software and autonomy", "Mechanical design", "Education", "Leadership", "Experience", "Languages"]);
   const fusion = page.locator(".bom tr.skill").filter({ hasText: "Fusion" });
   expect(await fusion.locator("a").evaluateAll((as) => as.map((a) => a.getAttribute("href")))).toEqual(["drone-frame.html", "pipe-climber.html"]);
