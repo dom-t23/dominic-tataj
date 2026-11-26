@@ -124,12 +124,12 @@
       <li class="menu-li"><details class="menu" id="work-menu"><summary>Work</summary>
         <div class="menu-panel">
           <ol class="menu-list">
-            <li><a href="drone-racing.html"><span class="m-no">E-04</span><span class="m-t">Vision-based autonomous drone racing</span><span class="m-r">98.6% of gates by camera, with clutter</span></a></li>
-            <li><a href="drone-frame.html"><span class="m-no">E-03</span><span class="m-t">Generative FPV drone frame</span><span class="m-r">246 g drone; frame 36% lighter</span></a></li>
-            <li><a href="pipe-climber.html"><span class="m-no">E-02</span><span class="m-t">Pipe-climbing robot</span><span class="m-r">Climbed the 2 m pipe, IMechE challenge</span></a></li>
-            <li><a href="ai-scaling.html"><span class="m-no">E-01</span><span class="m-t">AI training-power scaling analysis</span><span class="m-r">P ∝ N<sup>0.55</sup> across 358 models</span></a></li>
+            <li><a href="drone-racing.html"><span class="m-no">E-04</span><span class="m-t">Vision-based autonomous drone racing</span></a></li>
+            <li><a href="drone-frame.html"><span class="m-no">E-03</span><span class="m-t">Generative FPV drone frame</span></a></li>
+            <li><a href="pipe-climber.html"><span class="m-no">E-02</span><span class="m-t">Pipe-climbing robot</span></a></li>
+            <li><a href="ai-scaling.html"><span class="m-no">E-01</span><span class="m-t">AI training-power scaling analysis</span></a></li>
           </ol>
-          <a class="m-all" href="#work">All projects, with the problem, role and outcome of each</a>
+          <a class="m-all" href="#work">All projects</a>
         </div></details></li>
       <li class="opt"><a href="#about">About</a></li>
       <li class="opt"><a href="photography.html">Photos</a></li>
@@ -149,7 +149,7 @@
       <div class="hs">
         <img src="images/hero/x00.webp" width="960" height="720" decoding="async" alt="Line drawing of my 3-inch FPV drone from its CAD model, the frame I designed picked out in orange">
       </div>
-      <figcaption class="hero-cap">My 3-inch FPV drone (<a href="drone-frame.html">E-03</a>), drawn from its CAD model. <span class="key">The frame I designed is in orange.</span></figcaption>
+      <figcaption class="hero-cap">My 3-inch FPV drone (<a href="drone-frame.html">E-03</a>). <span class="key">My frame in orange.</span></figcaption>
     </figure>
 
     <div class="wrap hero-copy">
@@ -158,21 +158,14 @@
         <div><dt>Looking for</dt><dd>Summer 2027 internship or 2027–28 placement year</dd></div>
         <div><dt>Available</dt><dd>From 27 June 2027</dd></div>
         <div><dt>Right to work</dt><dd>Full right to work in the UK</dd></div>
-        <div><dt>Based</dt><dd>London</dd></div>
-        <div><dt>Degree</dt><dd>Graduating 2029, predicted 2:1</dd></div>
       </dl>
-      <p class="lede">Second-year MEng Mechanical Engineering student at UCL. I'm looking for software, autonomy and systems roles, particularly in UK defence, with mechanical design (CAD, generative design and FEA) as a supporting strength.</p>
+      <p class="lede">Second-year MEng Mechanical Engineering student at UCL, looking for software, autonomy and systems roles, particularly in UK defence.</p>
       <div class="actions">
         <a class="btn primary" href="Dominic-Tataj-CV.pdf" download>Download CV <small>PDF</small></a>
         <a class="tlink" href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a>
         <a class="tlink" href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a class="tlink" href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a>
       </div>
-      <ol class="brief" aria-label="Three results">
-        <li><a href="drone-racing.html"><span class="b-no">E-04</span>A simulated racing drone that finds gates by camera, with no GPS or map, passes <b>98.6%</b> of them with clutter, over 300 courses.</a></li>
-        <li><a href="drone-frame.html"><span class="b-no">E-03</span>A generatively designed frame keeps the whole drone at <b>246&nbsp;g</b>, under the CAA's 250&nbsp;g, and is 36% lighter.</a></li>
-        <li><a href="pipe-climber.html"><span class="b-no">E-02</span>A pipe-climbing robot, its drivetrain picked by my model, <b>climbed</b> the 2&nbsp;m pipe at the IMechE Design Challenge.</a></li>
-      </ol>
     </div>
   </div>
 </header>
@@ -184,7 +177,6 @@
   <div class="wrap">
     <header class="section-head">
       <h2 id="work-h">Projects</h2>
-      <p class="section-note">Newest first. Each has its own page with the full write-up and figures that run on the project's own data.</p>
     </header>
     <ol class="index" id="cards">
       <li class="proj">
@@ -197,7 +189,7 @@
           <div><dt>Problem</dt><dd>Fly a simulated racing drone through gates by camera, with no GPS, depth sensor or map of the gate positions.</dd></div>
           <div><dt>Role</dt><dd>Solo; set the design and test rules, directed an AI coding agent.</dd></div>
           <div><dt>Tools</dt><dd>Python · OpenCV · NumPy</dd></div>
-          <div><dt>Outcome</dt><dd>Detection, pose, filtering and guidance as separate stages. <b class="num">99.8%</b> of gates in a clean world and <b class="num">98.6%</b> with clutter, on seeded regression benchmarks.</dd></div>
+          <div><dt>Outcome</dt><dd><b class="num">99.8%</b> of gates in a clean world, <b class="num">98.6%</b> with clutter.</dd></div>
         </dl>
         <p class="proj-links"><a href="drone-racing.html">Read the write-up →</a><a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">Code on GitHub ↗</a></p>
       </li>
@@ -211,7 +203,7 @@
           <div><dt>Problem</dt><dd>A 3-inch FPV frame light enough to keep the complete drone under 250&nbsp;g.</dd></div>
           <div><dt>Role</dt><dd>Design, analysis and build.</dd></div>
           <div><dt>Tools</dt><dd>Fusion generative · Ansys Mechanical</dd></div>
-          <div><dt>Outcome</dt><dd>A <b class="num">38&nbsp;g</b> printed frame, 36% lighter than a comparable plate frame; <b class="num">246&nbsp;g</b> all-up; measured arm deflection within 18% of Ansys.</dd></div>
+          <div><dt>Outcome</dt><dd>A <b class="num">38&nbsp;g</b> frame, 36% lighter than a plate frame; <b class="num">246&nbsp;g</b> all-up.</dd></div>
         </dl>
         <p class="proj-links"><a href="drone-frame.html">Read the write-up →</a></p>
       </li>
@@ -225,7 +217,7 @@
           <div><dt>Problem</dt><dd>Climb a 2&nbsp;m pipe dragging a chain, inside 400&nbsp;×&nbsp;300&nbsp;mm, on £50, within 3 minutes.</dd></div>
           <div><dt>Role</dt><dd>Team of 6; I built the team's Excel model of the drivetrain and worked on the CAD.</dd></div>
           <div><dt>Tools</dt><dd>Excel · Fusion CAD</dd></div>
-          <div><dt>Outcome</dt><dd>The model picked the setup from more than 20 simulated: predicted climb time cut by 22%, real runs measured 16%. <b>The robot completed the climb.</b></dd></div>
+          <div><dt>Outcome</dt><dd>The model picked the setup from 20+ simulated, cutting real climb time by 16%. <b>The robot completed the climb.</b></dd></div>
         </dl>
         <p class="proj-links"><a href="pipe-climber.html">Read the write-up →</a></p>
       </li>
@@ -239,7 +231,7 @@
           <div><dt>Problem</dt><dd>How AI training power scales with model size, and what a frontier model draws.</dd></div>
           <div><dt>Role</dt><dd>Analysis and report.</dd></div>
           <div><dt>Tools</dt><dd>MATLAB</dd></div>
-          <div><dt>Outcome</dt><dd>A power law fitted to 358 models across nine domains, <b class="num">P&nbsp;∝&nbsp;N<sup>0.55</sup></b> (R² 0.44), and an order-of-magnitude estimate for GPT-5 of about 590&nbsp;kW.</dd></div>
+          <div><dt>Outcome</dt><dd><b class="num">P&nbsp;∝&nbsp;N<sup>0.55</sup></b> across 358 models; GPT-5 estimated at about 590&nbsp;kW.</dd></div>
         </dl>
         <p class="proj-links"><a href="ai-scaling.html">Read the write-up →</a></p>
       </li>
@@ -254,7 +246,7 @@
       <h2 id="about-h">About</h2>
     </div>
     <div class="main">
-      <p class="about-lede">I'm a second-year MEng Mechanical Engineering student at UCL, graduating in 2029. I'm heading towards software, autonomy and systems: my most recent project is a racing drone's flight stack in simulation, from gate detection to an error-state Kalman filter and guidance, and I've just joined UCL Racing's unmanned aircraft team as an avionics and propulsion engineer. Mechanical design is my other strength: CAD, generative design and FEA on a drone frame I printed and tested.</p>
+      <p class="about-lede">I'm heading towards software, autonomy and systems; my latest project is a racing drone's flight stack, from gate detection to a Kalman filter, and I've just joined UCL Racing's unmanned aircraft team. Mechanical design is my other strength.</p>
 
       <div class="about-grid">
         <!-- skills and experience; each skill links the projects that used it -->
@@ -264,7 +256,7 @@
           <tbody>
             <tr class="grp"><th scope="rowgroup" colspan="2">Software and autonomy</th></tr>
             <tr class="skill"><td>Python: NumPy, pandas, OpenCV, Matplotlib</td><td><a href="drone-racing.html" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
-            <tr class="skill"><td>Autonomy architecture: detection, pose, filtering and guidance as separate stages<span>set the design rules and the simulator/flight-stack wall; code written with an AI agent</span></td><td><a href="drone-racing.html" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
+            <tr class="skill"><td>Autonomy architecture: detection, pose, filtering and guidance as separate stages<span>code written with an AI agent</span></td><td><a href="drone-racing.html" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
             <tr class="skill"><td>Test design: seeded regression benchmarks, flagged A/B changes, pooled acceptance</td><td><a href="drone-racing.html" data-title="Vision-based autonomous drone racing">E-04</a></td></tr>
             <tr class="skill"><td>MATLAB: statistics and curve fitting</td><td><a href="ai-scaling.html" data-title="AI training-power scaling analysis">E-01</a></td></tr>
           </tbody>
@@ -276,18 +268,18 @@
           </tbody>
           <tbody>
             <tr class="grp"><th scope="rowgroup" colspan="2">Education</th></tr>
-            <tr><td>MEng Mechanical Engineering, UCL<span>2025–2029 · second-year, predicted 2:1</span></td><td></td></tr>
+            <tr><td>MEng Mechanical Engineering, UCL<span>2025–2029 · predicted 2:1</span></td><td></td></tr>
             <tr><td>IB Diploma, 42/45<span>HL Mathematics, Physics, Economics</span></td><td></td></tr>
           </tbody>
           <tbody>
             <tr class="grp"><th scope="rowgroup" colspan="2">Leadership</th></tr>
-            <tr><td>NASA Space Center University, Houston, 2024<span>Led a 4-person team designing a Mars habitat, 3rd of 20 teams; built a composite heat shield from recycled material</span></td><td></td></tr>
+            <tr><td>NASA Space Center University, Houston, 2024<span>Led a 4-person Mars habitat team, 3rd of 20; built a composite heat shield</span></td><td></td></tr>
           </tbody>
           <tbody>
             <tr class="grp"><th scope="rowgroup" colspan="2">Experience</th></tr>
             <tr><td>Avionics and propulsion engineer, UCL Racing<span>Nov 2026–present · Unmanned Aircraft Systems team</span></td><td></td></tr>
-            <tr><td>Lifeguard, Virgin Active<span>2025–present · National Pool Lifeguard Qualification; first aid, CPR and AED; supervising a pool serving 300+ members</span></td><td></td></tr>
-            <tr><td>Stock photo contributor, Unsplash<span>2024–present · architecture and landscape portfolio</span></td><td></td></tr>
+            <tr><td>Lifeguard, Virgin Active<span>2025–present · National Pool Lifeguard Qualification</span></td><td></td></tr>
+            <tr><td>Stock photo contributor, Unsplash<span>2024–present</span></td><td></td></tr>
           </tbody>
           <tbody>
             <tr class="grp"><th scope="rowgroup" colspan="2">Languages</th></tr>
@@ -297,7 +289,7 @@
 
         <div class="outside">
           <h3>Outside engineering</h3>
-          <p>I row with UCL Boat Club's novice men's squad, fly FPV drones, boulder, and photograph landscapes and cities. I publish on Unsplash, where my architecture and landscape work is free to use.</p>
+          <p>I row with UCL Boat Club, fly FPV drones, boulder and photograph landscapes and cities.</p>
           <dl class="photo-stats">
             <div><dt>Views</dt><dd>390,000+</dd></div>
             <div><dt>Downloads</dt><dd>5,000+</dd></div>
@@ -310,7 +302,6 @@
       <a class="photo-link" href="photography.html">
         <span>
           <h3>Photography</h3>
-          <p>Eight photographs from Sicily and Malaysia.</p>
           <span class="go">See the photographs →</span>
         </span>
         <span class="pl-row" aria-hidden="true">
@@ -327,7 +318,7 @@
 <section class="section contact-band" id="contact" aria-labelledby="contact-h">
   <div class="wrap">
     <h2 id="contact-h">Contact</h2>
-    <p class="about-lede">Looking for a summer 2027 internship or a 2027–28 placement year in software, autonomy or systems, from 27 June 2027. Full right to work in the UK; based in London.</p>
+    <p class="about-lede">Open to a summer 2027 internship or 2027–28 placement.</p>
     <div class="contact">
       <a class="email" id="email" href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a>
       <div class="contact-row">
@@ -349,7 +340,7 @@
       <p class="foot-line"><span>Dominic Tataj</span><span>MEng Mechanical Engineering, UCL</span><span>Updated November 2026</span></p>
       <p class="links"><a href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a> <a href="Dominic-Tataj-CV.pdf" download>CV</a> <a href="photography.html">Photography</a> <a href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a> <a href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a></p>
     </div>
-    <p class="colophon">Plain HTML, CSS and JavaScript, no framework; the source is on <a href="https://github.com/dom-t23/dominic-tataj" target="_blank" rel="noopener">GitHub ↗</a>. The figures run on each project's own data, and the drone at the top is drawn from its CAD model. Set in Source Serif 4 and IBM Plex.</p>
+    <p class="colophon">Plain HTML, CSS and JavaScript. <a href="https://github.com/dom-t23/dominic-tataj" target="_blank" rel="noopener">Source ↗</a></p>
   </div>
 </footer>
 

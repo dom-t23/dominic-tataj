@@ -16,7 +16,7 @@ body { font-size: 10.5pt; line-height: 1.45; }
 .section, .contact-band { padding-block: 10pt; }
 .section-head { margin-bottom: 8pt; }
 .section-head h2, .contact-band h2, .margin h2 { font-size: 20pt; }
-.proj, .avail, .brief li, figure, .specs, .bom tr { break-inside: avoid; }
+.proj, .avail, figure, .specs, .bom tr { break-inside: avoid; }
 h1, h2, h3 { break-after: avoid; }
 .proj { padding: 8pt 0; }
 .email { font-size: 16pt; text-decoration: none; }
@@ -39,7 +39,7 @@ body { font-size: 9.5pt; line-height: 1.4; }
 .h1-name > span { display: inline; }
 .h1-role { font-size: 12pt; }
 .hero .lede { font-size: 9.5pt; }
-.brief, .section-note, .colophon, .outside .links, .contact-row .btn, .hero .actions .btn { display: none !important; }
+.section-note, .colophon, .outside .links, .contact-row .btn, .hero .actions .btn { display: none !important; }
 .avail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .avail > div { padding: 2pt 0; grid-template-columns: 6.5em minmax(0, 1fr); }
 .avail dt, .avail dd { font-size: 9pt; }

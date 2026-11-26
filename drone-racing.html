@@ -77,12 +77,12 @@
       <li class="menu-li"><details class="menu" id="work-menu"><summary>Work</summary>
         <div class="menu-panel">
           <ol class="menu-list">
-            <li><a href="drone-racing.html" aria-current="page"><span class="m-no">E-04</span><span class="m-t">Vision-based autonomous drone racing</span><span class="m-r">98.6% of gates by camera, with clutter</span></a></li>
-            <li><a href="drone-frame.html"><span class="m-no">E-03</span><span class="m-t">Generative FPV drone frame</span><span class="m-r">246 g drone; frame 36% lighter</span></a></li>
-            <li><a href="pipe-climber.html"><span class="m-no">E-02</span><span class="m-t">Pipe-climbing robot</span><span class="m-r">Climbed the 2 m pipe, IMechE challenge</span></a></li>
-            <li><a href="ai-scaling.html"><span class="m-no">E-01</span><span class="m-t">AI training-power scaling analysis</span><span class="m-r">P ∝ N<sup>0.55</sup> across 358 models</span></a></li>
+            <li><a href="drone-racing.html" aria-current="page"><span class="m-no">E-04</span><span class="m-t">Vision-based autonomous drone racing</span></a></li>
+            <li><a href="drone-frame.html"><span class="m-no">E-03</span><span class="m-t">Generative FPV drone frame</span></a></li>
+            <li><a href="pipe-climber.html"><span class="m-no">E-02</span><span class="m-t">Pipe-climbing robot</span></a></li>
+            <li><a href="ai-scaling.html"><span class="m-no">E-01</span><span class="m-t">AI training-power scaling analysis</span></a></li>
           </ol>
-          <a class="m-all" href="./#work">All projects, with the problem, role and outcome of each</a>
+          <a class="m-all" href="./#work">All projects</a>
         </div></details></li>
       <li class="opt"><a href="./#about">About</a></li>
       <li class="opt"><a href="photography.html">Photos</a></li>
@@ -120,17 +120,16 @@
       <div class="sheet-body">
         <div class="sheet-title">
           <h1 id="e04-h">A simulated racing drone that flies through gates by camera, with no GPS or map</h1>
-          <p class="summary">Pooled over 300 seeded courses, it passes 99.8% of gates in a clean world and 98.6% with gate-coloured clutter beside the course. There is no GPS, depth sensor or map of the gate positions: it finds each gate in its camera image, estimates its own position relative to the gate and flies through.</p>
+          <p class="summary">It finds each gate in its camera image, works out where it is relative to the gate, and flies through.</p>
         </div>
 
         <div class="keyfig">
           <div class="specs" role="group" aria-label="Key figures">
-            <div><span class="n">99.8<small>%</small></span><span class="label">of gates passed in a clean world, camera + IMU</span></div>
-            <div><span class="n">98.6<small>%</small></span><span class="label">with gate-coloured clutter beside the course, camera + IMU</span></div>
+            <div><span class="n">99.8<small>%</small></span><span class="label">of gates, clean world</span></div>
+            <div><span class="n">98.6<small>%</small></span><span class="label">with clutter</span></div>
             <div><span class="n">97.5<small>%</small></span><span class="label">with clutter, camera only</span></div>
-            <div><span class="n">None</span><span class="label">GPS, depth sensor or map of the gates</span></div>
+            <div><span class="n">None</span><span class="label">GPS, depth sensor or map</span></div>
           </div>
-          <p class="note">Pass rates pooled over 300 seeded courses of 8 gates; a run ends at the first crash or missed gate. Full table in Fig. 01.</p>
         </div>
 
         <figure class="flight" id="flight">
@@ -150,7 +149,7 @@
             <span class="stab" id="stab"></span>
             <span class="rig-buttons"><button class="btn" id="gust" type="button">Gust →</button><button class="btn" id="rig-reset" type="button">Reset</button><button class="btn" id="rig-close" type="button">Back to the flight</button></span>
           </div>
-          <figcaption><span><b>Fig. 00</b> <span id="cap-flight">A simulated flight of my vision-based racing drone (<a href="#e-04">E-04</a>), camera + IMU, played at 3× speed: <span class="key truth">true path in blue</span>, <span class="key est">the drone's own estimate dashed orange</span>. Under it, the estimate's error over the flight.</span><span id="cap-rig" hidden>Hover test: a planar model of my 246 g drone (<a href="drone-frame.html">E-03</a>), held by a cascaded PD controller (a position loop feeding an attitude loop). Drag it, click to move the setpoint or send a gust, and push the gains past the Routh–Hurwitz limit to watch it go unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>Replay ↺</button><button class="link-btn" id="rig-open" type="button" hidden>Try the hover controller →</button></span></figcaption>
+          <figcaption><span><b>Fig. 00</b> <span id="cap-flight">A simulated flight at 3× speed: <span class="key truth">true path in blue</span>, <span class="key est">estimate dashed orange</span>.</span><span id="cap-rig" hidden>Hover test of my drone (<a href="drone-frame.html">E-03</a>) under a cascaded PD controller. Drag it, send a gust, or push the gains until it goes unstable.</span></span><span class="cap-actions"><button class="link-btn" id="fv-replay" type="button" hidden>Replay ↺</button><button class="link-btn" id="rig-open" type="button" hidden>Try the hover controller →</button></span></figcaption>
         </figure>
 
         <div class="player" id="replay" role="group" aria-label="Simulated flight replay">
@@ -159,7 +158,7 @@
               <span class="tag">Onboard camera · detector output</span>
               <canvas id="fpv" width="640" height="480" role="img" aria-label="Onboard camera view"></canvas>
               <div class="rest" id="rest">
-                <span>Six simulated flights · 8 gates · about 6 m/s</span>
+                <span>Six simulated flights</span>
                 <button class="btn" id="load" type="button">Load replay</button>
                 <span id="load-note"></span>
               </div>
@@ -214,21 +213,20 @@
             <div>
               <h2 id="e04-approach">Approach</h2>
               <ol class="steps">
-                <li><span><strong>Detect.</strong> Threshold the gate colour and fit a four-cornered outline to each gate and to its opening.</span></li>
-                <li><span><strong>Measure.</strong> The gate's known size and its four image corners give its pose relative to the camera, using OpenCV solvePnP with IPPE_SQUARE. Gates stand upright, so the pose is then refined for position and yaw only, with the up direction taken from gravity.</span></li>
-                <li><span><strong>Fuse.</strong> An error-state Kalman filter tracks position, velocity and attitude in the frame of the next gate, so no map is needed. A chi-squared test rejects outlier detections.</span></li>
-                <li><span><strong>Fly.</strong> Guidance aims through the gate centre and is converted into thrust and body-rate commands, the way an FPV pilot flies in acro mode.</span></li>
+                <li><span><strong>Detect.</strong> Threshold the gate colour and fit an outline to each gate.</span></li>
+                <li><span><strong>Measure.</strong> The gate's known size and four corners give its pose (OpenCV solvePnP).</span></li>
+                <li><span><strong>Fuse.</strong> An error-state Kalman filter tracks the drone relative to the next gate, so no map is needed.</span></li>
+                <li><span><strong>Fly.</strong> Guidance aims through the gate centre as thrust and body-rate commands.</span></li>
               </ol>
             </div>
             <details class="more" open>
               <summary><h2 id="e04-how-it-was-built">How it was built</h2></summary>
-              <p>I set the problem and the design decisions that stay fixed: acro thrust and body-rate commands, identical gates with no IDs, a strict wall between the simulator and the flight stack, and the benchmark rules. Most of the code was written by an AI coding agent (Claude) in scheduled overnight runs. Each night it tried one change behind a flag, flew the same seeded courses with it on and off, and kept it only if it clearly helped. I reviewed the results and worked through some changes with it directly.</p>
+              <p>I set the problem, the fixed design decisions and the benchmark rules. Most of the code was written by an AI coding agent (Claude) in overnight runs: each night it tried one change, flew the same courses with it on and off, and kept it only if it clearly helped. I reviewed the results.</p>
             </details>
             <details class="more" open>
               <summary><h2 id="e04-testing">Testing</h2></summary>
-              <p>A deterministic regression harness flies every change on the same seeded courses in lockstep (also over UDP, with identical results) and reports the gate pass rate. On the first set of 50 courses the pass rate rose from 89.2% at the first committed baseline to 100%. Because one set moves by a few points from noise alone, a change is kept only if it helps pooled over 300 courses, where the pass rate reached 99.8%.</p>
-              <p>With that benchmark saturated, the world was made harder: orange panels and cones beside the course, in the gate's own colour. Pooled over the same 300 courses the pass rate is now 98.6% with the IMU and 97.5% camera only. Course 3 in the replay is one of the failures: with the IMU, the drone twice takes a distractor for the gate, and the pipeline strip shows its filter rejecting measurements and re-initialising before it misses gate 2.</p>
-              <p>One bug came from the simulator itself: its sign convention was the reverse of what its documentation said. I found it by comparing commanded inputs against logged attitude, confirmed it with single-axis tests, and corrected the controller.</p>
+              <p>A deterministic harness flies every change on the same seeded courses. The pass rate rose from 89.2% to 99.8% over 300 courses; then the world was made harder with gate-coloured clutter, where it is 98.6%. Course 3 in the replay is one of the failures.</p>
+              <p>One bug was the simulator's: its sign convention was the reverse of its documentation. I found it by comparing commands against logged attitude.</p>
             </details>
           </div>
           <div class="fig-stack">
@@ -258,10 +256,9 @@
                 </div>
                 <svg class="bench-chart" id="bench-chart" viewBox="0 0 520 168" role="img" aria-label="Gates missed per set of 400, for the chosen column" hidden></svg>
               </div>
-              <figcaption><b>Fig. 01</b> Gate pass rate on six sets of 50 random 8-gate courses, in a clean world and with orange clutter beside the course. A run ends at the first crash or missed gate. Select a column header to chart it.</figcaption>
+              <figcaption><b>Fig. 01</b> Gate pass rate on six sets of 50 random courses. Select a column to chart it.</figcaption>
             </figure>
-            <p class="note">Single sets of 50 courses move by a few points from noise alone, so the pooled row is the one to compare. "Camera only" drops the IMU and predicts motion between frames from the drone's own commands. The clutter is up to 20 flat panels and cones beside the course, painted within the gate's colour range. That world is harder by design, so its numbers start a new baseline rather than continuing the clean one. Clean: runs 20 and 23 (camera only); clutter: run 26.</p>
-            <p class="note">Source code: <a href="https://github.com/dom-t23/vision-drone-racing" target="_blank" rel="noopener">github.com/dom-t23/vision-drone-racing ↗</a></p>
+            <p class="note">Single sets are noisy; compare the pooled row.</p>
           </div>
         </div>
       </div>
@@ -275,7 +272,7 @@
       <p class="foot-line"><span>Dominic Tataj</span><span>MEng Mechanical Engineering, UCL</span><span>Updated November 2026</span></p>
       <p class="links"><a href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a> <a href="Dominic-Tataj-CV.pdf" download>CV</a> <a href="photography.html">Photography</a> <a href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a> <a href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a></p>
     </div>
-    <p class="colophon">Plain HTML, CSS and JavaScript, no framework; the source is on <a href="https://github.com/dom-t23/dominic-tataj" target="_blank" rel="noopener">GitHub ↗</a>. The figures run on each project's own data, and the drone at the top of the homepage is drawn from its CAD model. Set in Source Serif 4 and IBM Plex.</p>
+    <p class="colophon">Plain HTML, CSS and JavaScript. <a href="https://github.com/dom-t23/dominic-tataj" target="_blank" rel="noopener">Source ↗</a></p>
   </div>
 </footer>
 

@@ -178,7 +178,7 @@ html:not(.js) .theme-btn { display: none; }   /* it needs JS; with JS it is ther
 .hero-pin > .wrap { width: 100%; }
 .hero-copy { position: relative; align-self: end; display: grid; gap: var(--s-5); padding-block: var(--s-8) var(--s-6); }
 .hero-copy > * { max-width: 37rem; }
-.hero-copy > h1, .hero-copy > .brief { max-width: none; }
+.hero-copy > h1 { max-width: none; }
 .hero h1 { display: grid; gap: var(--s-3); }
 .h1-name { display: block; font: 600 var(--fs-hero)/0.92 var(--font-display); letter-spacing: -0.025em; color: var(--ink); margin-left: -0.04em; }
 .h1-name > span { display: block; }
@@ -200,14 +200,6 @@ html:not(.js) .theme-btn { display: none; }   /* it needs JS; with JS it is ther
 .avail dt { font: 400 13.5px/1.5 var(--font-body); color: var(--muted); }
 .avail dd { margin: 0; font: 500 15px/1.5 var(--font-body); color: var(--ink); }
 
-/* three results in a sentence each, each a link to its project */
-.brief { list-style: none; margin: var(--s-2) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 var(--s-6); }
-.brief li { border-top: 1px solid var(--rule-strong); }
-.brief a { display: block; padding: 12px 0 4px; color: var(--ink-2); text-decoration: none; font: 400 14.5px/1.5 var(--font-body); }
-.brief .b-no { display: block; margin-bottom: 2px; font: 500 12.5px/1.4 var(--font-data); color: var(--muted); }
-.brief b { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
-.brief a:hover { color: var(--ink); }
-.brief a:hover .b-no { color: var(--signal-strong); }
 
 /* phones and tablets: the drawing sits behind and above the copy, dimmed, so the words come first */
 @media (max-width: 899px) {
@@ -217,9 +209,6 @@ html:not(.js) .theme-btn { display: none; }   /* it needs JS; with JS it is ther
   /* anchored to the top: the lede comes last here, and a late reflow in it must not move what is above it */
   .hero-copy { align-self: start; padding-block: var(--s-9) var(--s-5); gap: var(--s-4); }
   .hero .lede { order: 5; }
-  .brief { grid-template-columns: minmax(0, 1fr); }
-  .brief a { padding: 8px 0; }
-  .brief .b-no { display: inline; margin: 0 8px 0 0; }
 }
 @media (max-width: 520px) {
   .hero-copy { padding-top: var(--s-7); gap: var(--s-3); }
@@ -233,7 +222,6 @@ html:not(.js) .theme-btn { display: none; }   /* it needs JS; with JS it is ther
   .avail > div:first-child dd { color: var(--ink); }
   .avail > div:not(:last-child) dd::after { content: " · "; color: var(--muted); }
   .hero .actions { gap: var(--s-2) var(--s-4); }
-  .brief a { font-size: 14px; padding: 6px 0; }
 }
 /* scrubbed (js/hero.js, large screens with motion): the first screen holds while the drone comes apart */
 .hero.scrub { height: calc(100vh - 60px + 70vh); }
@@ -900,7 +888,6 @@ figcaption b { color: var(--ink); font-weight: 600; margin-right: 0.35em; }
 .nav .menu-list a { display: grid; gap: 4px; min-height: 0; padding: 14px 0 12px; border-top: 1px solid var(--rule-strong); text-decoration: none; color: var(--ink); }
 .nav .menu-list .m-no { font: 500 12.5px/1.3 var(--font-data); color: var(--muted); }
 .nav .menu-list .m-t { font: 600 21px/1.2 var(--font-display); letter-spacing: -0.01em; color: var(--ink); }
-.nav .menu-list .m-r { font: 400 14px/1.45 var(--font-body); color: var(--ink-2); }
 .nav .menu-list a:hover .m-t { text-decoration: underline; text-decoration-color: var(--signal); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .nav .menu-list a[aria-current="page"] { border-top-color: var(--signal); border-top-width: 2px; padding-top: 13px; }
 .nav .menu-list a[aria-current="page"] .m-no::after { content: " · this page"; color: var(--signal-strong); }

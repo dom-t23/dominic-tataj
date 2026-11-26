@@ -73,12 +73,12 @@
       <li class="menu-li"><details class="menu" id="work-menu"><summary>Work</summary>
         <div class="menu-panel">
           <ol class="menu-list">
-            <li><a href="drone-racing.html"><span class="m-no">E-04</span><span class="m-t">Vision-based autonomous drone racing</span><span class="m-r">98.6% of gates by camera, with clutter</span></a></li>
-            <li><a href="drone-frame.html"><span class="m-no">E-03</span><span class="m-t">Generative FPV drone frame</span><span class="m-r">246 g drone; frame 36% lighter</span></a></li>
-            <li><a href="pipe-climber.html" aria-current="page"><span class="m-no">E-02</span><span class="m-t">Pipe-climbing robot</span><span class="m-r">Climbed the 2 m pipe, IMechE challenge</span></a></li>
-            <li><a href="ai-scaling.html"><span class="m-no">E-01</span><span class="m-t">AI training-power scaling analysis</span><span class="m-r">P ∝ N<sup>0.55</sup> across 358 models</span></a></li>
+            <li><a href="drone-racing.html"><span class="m-no">E-04</span><span class="m-t">Vision-based autonomous drone racing</span></a></li>
+            <li><a href="drone-frame.html"><span class="m-no">E-03</span><span class="m-t">Generative FPV drone frame</span></a></li>
+            <li><a href="pipe-climber.html" aria-current="page"><span class="m-no">E-02</span><span class="m-t">Pipe-climbing robot</span></a></li>
+            <li><a href="ai-scaling.html"><span class="m-no">E-01</span><span class="m-t">AI training-power scaling analysis</span></a></li>
           </ol>
-          <a class="m-all" href="./#work">All projects, with the problem, role and outcome of each</a>
+          <a class="m-all" href="./#work">All projects</a>
         </div></details></li>
       <li class="opt"><a href="./#about">About</a></li>
       <li class="opt"><a href="photography.html">Photos</a></li>
@@ -105,7 +105,7 @@
       <div class="sheet-body">
         <div class="sheet-title">
           <h1 id="e02-h">A pipe-climbing robot with its drivetrain chosen by simulation</h1>
-          <p class="summary">The robot completed the climb at the IMechE Design Challenge. I built the team's Excel model of the drivetrain and used it to pick the setup from more than 20 simulated: it cut predicted climb time by 22%, and real runs measured 16%. The brief: a 2 m pipe, dragging a chain, inside 400 × 300 mm, on £50, within 3 minutes.</p>
+          <p class="summary">I built the team's Excel model of the drivetrain and used it to pick the setup. The robot completed the climb at the IMechE Design Challenge.</p>
         </div>
 
         <div class="specs" role="group" aria-label="Constraints and results">
@@ -140,25 +140,22 @@
               <svg class="climb-plot" id="cl-plot" role="img" aria-label="Height against time for this setup, against the sheet's setup and the 3 minute limit"></svg>
             </div>
           </div>
-          <figcaption><b>Fig. 05</b> The climb, on a corrected version of the Excel model: a demonstration, not the coursework's numbers. Robot from the team's Fusion model.</figcaption>
+          <figcaption><b>Fig. 05</b> The climb on a corrected model: a demonstration, not the coursework's numbers.</figcaption>
         </figure>
 
         <div class="cols">
           <div class="prose">
             <div>
               <h2 id="e02-approach">Approach</h2>
-              <p>I built the team's dynamic performance model in Excel. It combines the motor and vehicle equations of motion and integrates them with explicit Euler at a 10 ms time step. Each step checks for slip, so the model only accepts a setup if the wheels have enough friction to carry the drive force.</p>
-              <p>I used it to simulate more than 20 combinations of gear ratio, motor torque, wheel radius and normal force, and picked the drivetrain with the fastest predicted climb.</p>
+              <p>The model integrates the motor and vehicle equations of motion step by step, rejecting any setup whose wheels slip. I ran more than 20 combinations of gear ratio, torque, wheel size and normal force and picked the fastest.</p>
             </div>
             <details class="more" open>
               <summary><h2 id="e02-result">Result</h2></summary>
-              <p>At the IMechE Design Challenge the robot completed the climb.</p>
-              <p>The chosen setup cut predicted climb time by 22%. In real runs it cut climb time by 16%.</p>
-              <p>I also produced the full Fusion CAD assembly across two design iterations, including a working geartrain.</p>
+              <p>The robot completed the climb. The chosen setup cut predicted climb time by 22%, and real runs by 16%. I also produced the Fusion CAD assembly, including a working geartrain.</p>
             </details>
             <details class="more" open>
               <summary><h2 id="e02-limitations">Limitations</h2></summary>
-              <p>Looking back, the sheet's 10 ms step was too coarse for the drive's time constant of about 3 ms, and its speed and torque columns used different gear ratios (100 and 150). Fig. 05 corrects both, with a 1 ms step and one ratio, so it is a demonstration rather than the coursework's numbers.</p>
+              <p>The sheet's 10 ms step was too coarse for the drive's ~3 ms time constant, and two columns used different gear ratios. Fig. 05 corrects both.</p>
             </details>
           </div>
           <div class="fig-stack">
@@ -195,7 +192,7 @@
                   <text x="16" y="232" font-size="10" fill="var(--muted)">Repeat until top of pipe or 3 min</text>
                 </svg>
               </div>
-              <figcaption><b>Fig. 06</b> One step of the Excel model, repeated every 10 ms.<span class="scroll-cue"> Scroll sideways to see the whole loop.</span></figcaption>
+              <figcaption><b>Fig. 06</b> One step of the Excel model.<span class="scroll-cue"> Scroll sideways to see the whole loop.</span></figcaption>
             </figure>
             <figure>
               <div class="plate">
@@ -230,7 +227,7 @@
                   </g>
                 </svg>
               </div>
-              <figcaption><b>Fig. 07</b> Cut in climb time for the chosen drivetrain, model vs real runs.</figcaption>
+              <figcaption><b>Fig. 07</b> Cut in climb time, model vs real runs.</figcaption>
             </figure>
           </div>
         </div>
@@ -245,7 +242,7 @@
       <p class="foot-line"><span>Dominic Tataj</span><span>MEng Mechanical Engineering, UCL</span><span>Updated November 2026</span></p>
       <p class="links"><a href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a> <a href="Dominic-Tataj-CV.pdf" download>CV</a> <a href="photography.html">Photography</a> <a href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a> <a href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a></p>
     </div>
-    <p class="colophon">Plain HTML, CSS and JavaScript, no framework; the source is on <a href="https://github.com/dom-t23/dominic-tataj" target="_blank" rel="noopener">GitHub ↗</a>. The figures run on each project's own data, and the drone at the top of the homepage is drawn from its CAD model. Set in Source Serif 4 and IBM Plex.</p>
+    <p class="colophon">Plain HTML, CSS and JavaScript. <a href="https://github.com/dom-t23/dominic-tataj" target="_blank" rel="noopener">Source ↗</a></p>
   </div>
 </footer>
 

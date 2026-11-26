@@ -73,12 +73,12 @@
       <li class="menu-li"><details class="menu" id="work-menu"><summary>Work</summary>
         <div class="menu-panel">
           <ol class="menu-list">
-            <li><a href="drone-racing.html"><span class="m-no">E-04</span><span class="m-t">Vision-based autonomous drone racing</span><span class="m-r">98.6% of gates by camera, with clutter</span></a></li>
-            <li><a href="drone-frame.html"><span class="m-no">E-03</span><span class="m-t">Generative FPV drone frame</span><span class="m-r">246 g drone; frame 36% lighter</span></a></li>
-            <li><a href="pipe-climber.html"><span class="m-no">E-02</span><span class="m-t">Pipe-climbing robot</span><span class="m-r">Climbed the 2 m pipe, IMechE challenge</span></a></li>
-            <li><a href="ai-scaling.html" aria-current="page"><span class="m-no">E-01</span><span class="m-t">AI training-power scaling analysis</span><span class="m-r">P ∝ N<sup>0.55</sup> across 358 models</span></a></li>
+            <li><a href="drone-racing.html"><span class="m-no">E-04</span><span class="m-t">Vision-based autonomous drone racing</span></a></li>
+            <li><a href="drone-frame.html"><span class="m-no">E-03</span><span class="m-t">Generative FPV drone frame</span></a></li>
+            <li><a href="pipe-climber.html"><span class="m-no">E-02</span><span class="m-t">Pipe-climbing robot</span></a></li>
+            <li><a href="ai-scaling.html" aria-current="page"><span class="m-no">E-01</span><span class="m-t">AI training-power scaling analysis</span></a></li>
           </ol>
-          <a class="m-all" href="./#work">All projects, with the problem, role and outcome of each</a>
+          <a class="m-all" href="./#work">All projects</a>
         </div></details></li>
       <li class="opt"><a href="./#about">About</a></li>
       <li class="opt"><a href="photography.html">Photos</a></li>
@@ -104,7 +104,7 @@
       <div class="sheet-body">
         <div class="sheet-title">
           <h1 id="e01-h">How AI training power scales with model size</h1>
-          <p class="summary">Statistical analysis of AI training data, 358 models across nine domains in the coursework, used to fit a scaling law and estimate the training power of a frontier model.</p>
+          <p class="summary">A scaling law fitted to 358 AI models, used to estimate a frontier model's training power.</p>
         </div>
 
         <div class="specs" role="group" aria-label="Key figures">
@@ -116,7 +116,7 @@
 
         <div class="cols">
           <div class="prose">
-            <p>The data was heavily right-skewed, so I log₁₀-transformed it to make the nine domains comparable, then fitted a power law of training power against parameter count; higher-order fits gave no meaningful improvement or overfitted. Parameter count explains a little under half the variation. I used the fit to estimate GPT-5's training power draw and wrote a report on the social, environmental and economic effects of rapid AI training. With R² this low, and GPT-5's parameter count not public, that estimate is an order of magnitude rather than a prediction.</p>
+            <p>The data was heavily skewed, so I log-transformed it and fitted a power law; higher-order fits overfitted. Parameter count explains under half the variation, and GPT-5's isn't public, so the estimate is an order of magnitude, not a prediction. I also wrote a report on the effects of rapid AI training.</p>
           </div>
           <div class="fig-stack">
             <figure class="scaling-fig" id="scaling-fig" hidden>
@@ -133,7 +133,7 @@
                 <input type="range" id="sc-n" min="3" max="13" step="0.05" value="11.52">
                 <output id="sc-out" for="sc-n" aria-live="polite"></output>
               </div>
-              <figcaption><b>Fig. 08</b> Training power draw against parameter count for the 603 models in the dataset (Epoch AI) that have both, refitted here. On log₁₀ axes the fit is P ∝ N<sup>0.55</sup>; orange is the GPT-5 estimate.</figcaption>
+              <figcaption><b>Fig. 08</b> Training power against parameter count, refitted on all 603 models in Epoch AI's data. Orange is the GPT-5 estimate.</figcaption>
             </figure>
           </div>
         </div>
@@ -148,7 +148,7 @@
       <p class="foot-line"><span>Dominic Tataj</span><span>MEng Mechanical Engineering, UCL</span><span>Updated November 2026</span></p>
       <p class="links"><a href="mailto:dominic_tataj@icloud.com">dominic_tataj@icloud.com</a> <a href="Dominic-Tataj-CV.pdf" download>CV</a> <a href="photography.html">Photography</a> <a href="https://www.linkedin.com/in/dominic-tataj" target="_blank" rel="noopener">LinkedIn ↗</a> <a href="https://github.com/dom-t23" target="_blank" rel="noopener">GitHub ↗</a></p>
     </div>
-    <p class="colophon">Plain HTML, CSS and JavaScript, no framework; the source is on <a href="https://github.com/dom-t23/dominic-tataj" target="_blank" rel="noopener">GitHub ↗</a>. The figures run on each project's own data, and the drone at the top of the homepage is drawn from its CAD model. Set in Source Serif 4 and IBM Plex.</p>
+    <p class="colophon">Plain HTML, CSS and JavaScript. <a href="https://github.com/dom-t23/dominic-tataj" target="_blank" rel="noopener">Source ↗</a></p>
   </div>
 </footer>
 

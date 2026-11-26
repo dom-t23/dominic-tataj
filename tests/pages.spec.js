@@ -27,14 +27,13 @@ test("the homepage loads none of the projects' figures", async ({ page }) => {
   for (const m of ["replay.js", "frame3d-boot.js", "three.module.min.js", "climber.js", "scaling.js", "bench.js", "hero-flight.js"]) expect(js).not.toContain(m);
 });
 
-test("the Work menu: opens, lists every project with a result, closes on Escape and outside, works without the mouse", async ({ page }) => {
+test("the Work menu: opens, lists every project, closes on Escape and outside, works without the mouse", async ({ page }) => {
   await page.goto("/");
   const menu = page.locator("#work-menu");
   await page.locator("#work-menu summary").focus();
   await page.keyboard.press("Enter");
   await expect(menu).toHaveAttribute("open", "");
   await expect(menu.locator(".m-t")).toHaveText(["Vision-based autonomous drone racing", "Generative FPV drone frame", "Pipe-climbing robot", "AI training-power scaling analysis"]);
-  await expect(menu.locator(".m-r").first()).toHaveText("98.6% of gates by camera, with clutter");
   await page.keyboard.press("Escape");
   await expect(menu).not.toHaveAttribute("open", "");
   expect(await page.evaluate(() => document.activeElement.tagName)).toBe("SUMMARY");

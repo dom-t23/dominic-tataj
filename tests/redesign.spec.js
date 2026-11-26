@@ -37,7 +37,7 @@ test.describe("without JS", () => {
   test.use({ javaScriptEnabled: false });
   test("everything a recruiter needs is there and visible", async ({ page }) => {
     await page.goto("/");
-    for (const sel of [".hero h1", ".avail", ".hero .actions", ".brief", "#cards", "#contact .email"]) await expect(page.locator(sel).first()).toBeVisible();
+    for (const sel of [".hero h1", ".avail", ".hero .actions", "#cards", "#contact .email"]) await expect(page.locator(sel).first()).toBeVisible();
     expect(await page.locator("#hero-stage img").evaluate((i) => i.complete && i.naturalWidth)).toBe(960);
     expect(await page.locator(".proj").first().evaluate((e) => getComputedStyle(e).opacity)).toBe("1");
   });
@@ -125,10 +125,10 @@ test("the 404 page links home and to the work", async ({ page }) => {
 
 test.describe("phone", () => {
   test.use(phone);
-  test("the first screen has the name, the CV, the availability and three results", async ({ page }) => {
+  test("the first screen has the name, the CV, and the availability", async ({ page }) => {
     await page.goto("/", { waitUntil: "networkidle" });
     const h = await page.evaluate(() => innerHeight);
-    for (const sel of [".hero h1", ".hero .btn.primary", ".avail", ".brief li:nth-child(2)"]) {
+    for (const sel of [".hero h1", ".hero .btn.primary", ".avail"]) {
       const b = await page.locator(sel).boundingBox();
       expect(b.y + b.height, sel).toBeLessThan(h);
     }

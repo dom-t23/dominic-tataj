@@ -9,6 +9,8 @@ const jump = (page, sel) => page.locator(sel).first().evaluate((e) => e.scrollIn
 test("first screen is never hidden; figures draw when reached; project metadata is there from the start", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
   expect(await page.evaluate(() => [...document.querySelectorAll(".hero *")].filter((e) => e.style.opacity === "0").length)).toBe(0);
+  // a shorter window, so the drawings start below the first screen and its reveal margin
+  await page.setViewportSize({ width: 1440, height: 640 });
   await page.goto("/pipe-climber.html", { waitUntil: "networkidle" });
   expect(await prepared(page)).toBeGreaterThan(5);   // the drawings below the first screen, waiting to draw
   await jump(page, "#e-02 .fig-stack");
